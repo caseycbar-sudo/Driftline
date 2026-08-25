@@ -43,6 +43,7 @@ export default function Portal() {
       <div className="role-switch" aria-label="Preview portal role">
         {(["customer","chef","admin"] as Role[]).map(item=><button key={item} className={role===item?"active":""} onClick={()=>changeRole(item)}>{item==="customer"?"Customer / Family":item==="chef"?"Chef":"Admin"}</button>)}
       </div>
+      <a href="/cookbook" style={{fontSize:10,fontWeight:700,color:"#bd6643",textDecoration:"none"}}>100-recipe cookbook →</a>
       <div className="portal-user"><button aria-label="Notifications">●</button><span>{role==="customer"?"AB":role==="chef"?"MC":"DP"}</span><div><strong>{role==="customer"?"Ashley Barella":role==="chef"?"Maya Chen":"Driftline Ops"}</strong><small>{role==="customer"?"Household account":role==="chef"?"Approved chef":"Administrator"}</small></div></div>
     </header>
     <aside className="portal-side">
