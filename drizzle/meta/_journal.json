@@ -15,6 +15,13 @@
       "when": 1787683532397,
       "tag": "0001_useful_red_wolf",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1787685213639,
+      "tag": "0002_even_killraven",
+      "breakpoints": true
     }
   ]
 }

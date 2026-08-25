@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import "./portal.css";
+import AdminCalendar from "./AdminCalendar";
 
 type Role = "customer" | "chef" | "admin";
 type Notice = { title: string; detail: string } | null;
@@ -14,7 +15,7 @@ const recipes = [
 
 const customerTabs = ["Overview","Meals","Schedule","Household","Billing"];
 const chefTabs = ["Today","Recipes","Time & Mileage","Earnings","Profile"];
-const adminTabs = ["Dispatch","People","Recipe Library","Timecards","Finance","Safety","Reports"];
+const adminTabs = ["Dispatch","Calendar","People","Recipe Library","Timecards","Finance","Safety","Reports"];
 
 function Icon({ children }:{children:React.ReactNode}) { return <span className="p-icon" aria-hidden="true">{children}</span>; }
 function Status({children,tone="green"}:{children:React.ReactNode;tone?:string}) { return <span className={`status ${tone}`}><i />{children}</span>; }
@@ -83,6 +84,7 @@ function Chef({tab,clocked,setClocked,onBreak,setOnBreak,portions,setPortions,me
 }
 
 function Admin({tab,approved,setApproved,toast}:{tab:string;approved:boolean;setApproved:(v:boolean)=>void;toast:(a:string,b:string)=>void}) {
+  if(tab==="Calendar") return <AdminCalendar/>;
   if(tab==="Dispatch") return <Page title="Dispatch board" sub="Tuesday, August 25 · North Coast operations"><div className="metric-row"><Metric label="TODAY’S VISITS" value="18" note="12 complete · 4 active · 2 next" tone="navy"/><Metric label="ON-TIME ARRIVAL" value="94%" note="Across all chefs" tone="sea"/><Metric label="UNASSIGNED" value="2" note="Needs coverage" tone="rust"/><Metric label="INCIDENTS" value="1 open" note="Low severity" tone="sand"/></div><div className="dispatch-board">{["Unassigned · 2","Shopping · 2","In progress · 4","Completed · 12"].map((col,i)=><section key={col}><h3>{col}</h3>{Array.from({length:i===3?3:2},(_,j)=><article key={j}><Status tone={i===0?"rust":i===3?"green":"sea"}>{i===0?"Coverage needed":i===3?"Complete":i===1?"Shopping":"In home"}</Status><strong>{["Morrison","Barella","Nguyen","Franklin","Delgado"][i+j]} household</strong><small>{["Classic · 8","Weekly · 12","Household · 20"][j%3]}</small><p>{["Seaside · 1:00 PM","Astoria · 9:00 AM","Gearhart · 10:30 AM"][j%3]}</p><button onClick={()=>toast("Assignment opened","Chef matching, route, household notes, and job status are available.")}>Manage</button></article>)}</section>)}</div></Page>;
   if(tab==="People") return <Page title="People & credentials" sub="Customers, family payers, chefs, access, and qualification status."><div className="segmented"><button className="active">Chefs · 14</button><button>Households · 86</button><button>Family payers · 34</button><button>Applicants · 6</button></div><Card title="Chef roster"><Table heads={["Chef","Status","Credentials","Households","Rating","Action"]} rows={[["Maya Chen","Active","All current","8","4.9","View"],["Jordan Lee","Active","All current","7","4.8","View"],["Alex Morgan","Review","Food handler: 18 days","5","4.7","Renew"],["Sam Rivera","Applicant","Background pending","—","—","Review"]]}/></Card><div className="portal-grid two"><Card title="Chef approval checklist"><ul className="approval-list"><li className="done">Identity verified</li><li className="done">Background check cleared</li><li className="done">Three references verified</li><li>Food-handler credential</li><li>In-home safety training</li><li>Service-area confirmation</li></ul><button className="primary-action" onClick={()=>toast("Application updated","Chef approval status and audit history were saved.")}>Review applicant</button></Card><Card title="Credential alerts"><Alert title="Alex Morgan" text="Food-handler card expires in 18 days" tone="warn"/><Alert title="Jamie Patel" text="Background recheck due September 12" tone="gray"/></Card></div></Page>;
   if(tab==="Recipe Library") return <Page title="Recipe library" sub="64 standardized recipes · seasonal cycles · approved scaling."><div className="library-tools"><input placeholder="Search recipes…" /><select><option>All seasons</option><option>Fall cycle</option><option>Winter cycle</option></select><select><option>All dietary tags</option><option>Gluten-free</option><option>Dairy-free</option></select><button className="primary-action" onClick={()=>toast("Recipe editor opened","Create ingredients, scales, timings, safety, storage, and photos.")}>+ New recipe</button></div><Card title="Published recipes"><Table heads={["Recipe","Cycle","Approved scales","Active / total","Allergens","Status"]} rows={recipes.map(r=>[r.name,"Fall 01","6, 8, 12, 16, 20, 24",`${r.active}m / ${r.total}m`,r.allergens,"Published"])}/></Card><div className="portal-grid three"><Metric label="LIBRARY TARGET" value="64 / 75" note="First-year recipes" tone="navy"/><Metric label="NEEDS PHOTOS" value="7" note="Drafts blocked" tone="rust"/><Metric label="PAIRING REVIEW" value="4" note="Efficiency check" tone="sea"/></div></Page>;

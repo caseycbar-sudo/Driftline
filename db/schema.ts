@@ -32,3 +32,19 @@ export const customRecipes = sqliteTable("custom_recipes", {
   sourceUrl: text("source_url").notNull().default(""),
   createdAt: text("created_at").notNull(),
 });
+
+export const scheduleEvents = sqliteTable("schedule_events", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  serviceDate: text("service_date").notNull(),
+  startTime: text("start_time").notNull(),
+  endTime: text("end_time").notNull().default(""),
+  household: text("household").notNull(),
+  chef: text("chef").notNull().default("Unassigned"),
+  packageName: text("package_name").notNull().default("Weekly"),
+  location: text("location").notNull().default(""),
+  status: text("status").notNull().default("scheduled"),
+  notes: text("notes").notNull().default(""),
+  createdBy: text("created_by").notNull(),
+  createdAt: text("created_at").notNull(),
+  updatedAt: text("updated_at").notNull(),
+});
