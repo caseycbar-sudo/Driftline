@@ -39,19 +39,20 @@ export default function Home() {
           <a href="#menu" onClick={() => setMenuOpen(false)}>The menu</a>
           <a href="#pricing" onClick={() => setMenuOpen(false)}>Pricing</a>
           <a href="#care" onClick={() => setMenuOpen(false)}>For families</a>
-          <a href="/portal" onClick={() => setMenuOpen(false)}>Portal</a>
+          <a href="/cookbook" onClick={() => setMenuOpen(false)}>Cookbook</a>
+          <a href="/account" onClick={() => setMenuOpen(false)}>Sign in</a>
         </nav>
-        <a className="header-cta" href="/portal">Open portal <span>→</span></a>
+        <a className="header-cta" href="/account">Create account <span>→</span></a>
         <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label="Toggle menu"><span /><span /></button>
       </header>
 
       <section className="hero" id="top">
         <div className="hero-copy">
-          <p className="eyebrow"><span /> In-home meal prep, thoughtfully done</p>
+          <p className="eyebrow"><span /> Welcome home to an easier week</p>
           <h1>A week of good meals,<br /><em>made in your kitchen.</em></h1>
           <p className="hero-lede">A trusted local chef shops, cooks, portions, labels, and cleans up—so your refrigerator feels taken care of and your week feels lighter.</p>
           <div className="hero-actions">
-            <a className="primary-btn" href="#booking">See availability <span>→</span></a>
+            <a className="primary-btn" href="/account">Create your account <span>→</span></a>
             <a className="text-btn" href="#how"><span className="play">▶</span> See how a visit works</a>
           </div>
           <div className="trust-row">
@@ -66,6 +67,11 @@ export default function Home() {
 
       <section className="promise-band" aria-label="Service highlights">
         <span><CheckIcon /> Groceries at actual cost</span><span><CheckIcon /> Meals tailored to your household</span><span><CheckIcon /> No long-term contract</span><span><CheckIcon /> Family updates included</span>
+      </section>
+
+      <section className="account-invite section" aria-label="Customer account benefits">
+        <div><p className="eyebrow"><span /> Made personal from the start</p><h2>Your meals, preferences, and visits—all in one welcoming place.</h2><p>Create a free Driftline account to tell us about your household, keep dietary needs organized, save dishes from the cookbook, and pick up where you left off.</p><a className="primary-btn" href="/account">Set up my household <span>→</span></a><small>Already joined? <a href="/account">Sign in here</a></small></div>
+        <div className="account-preview"><span className="preview-label">YOUR DRIFTLINE HOME</span><h3>Good morning, Casey.</h3><p>Everything we need to make this week feel lighter.</p><div className="preview-item"><i>✓</i><span><strong>Household preferences</strong><small>Saved and ready for your chef</small></span></div><div className="preview-item"><i>12</i><span><strong>Weekly portions</strong><small>Your preferred package</small></span></div><div className="preview-item"><i>♡</i><span><strong>Favorite recipes</strong><small>Keep meal ideas close</small></span></div></div>
       </section>
 
       <section className="how section" id="how">
@@ -119,7 +125,7 @@ export default function Home() {
         </form>
       </section>
 
-      <footer><div className="footer-brand"><span className="brand-mark">D</span><span><strong>DRIFTLINE</strong><small>AT HOME</small></span></div><p>Good meals. Familiar kitchens. More ease at home.</p><div><a href="#how">How it works</a><a href="#pricing">Pricing</a><a href="#care">For families</a></div><small>© 2026 Driftline Provisions · Astoria, Oregon</small></footer>
+      <footer><div className="footer-brand"><span className="brand-mark">D</span><span><strong>DRIFTLINE</strong><small>AT HOME</small></span></div><p>Good meals. Familiar kitchens. More ease at home.</p><div><a href="#how">How it works</a><a href="#pricing">Pricing</a><a href="/cookbook">Cookbook</a><a href="/account">Customer account</a></div><small>© 2026 Driftline Provisions · Astoria, Oregon</small></footer>
     </main>
   );
 }
