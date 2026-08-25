@@ -39,8 +39,9 @@ export default function Home() {
           <a href="#menu" onClick={() => setMenuOpen(false)}>The menu</a>
           <a href="#pricing" onClick={() => setMenuOpen(false)}>Pricing</a>
           <a href="#care" onClick={() => setMenuOpen(false)}>For families</a>
+          <a href="/portal" onClick={() => setMenuOpen(false)}>Portal</a>
         </nav>
-        <a className="header-cta" href="#booking">Find your chef <span>→</span></a>
+        <a className="header-cta" href="/portal">Open portal <span>→</span></a>
         <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label="Toggle menu"><span /><span /></button>
       </header>
 
