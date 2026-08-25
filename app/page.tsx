@@ -27,25 +27,20 @@ export default function Home() {
   const [submitted, setSubmitted] = useState(false);
   const current = packages.find((item) => item.name === selected)!;
 
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    setMenuOpen(false);
-  };
-
   return (
     <main>
       <header className="site-header">
-        <button className="brand" onClick={() => scrollTo("top")} aria-label="Driftline At Home, return to top">
+        <a className="brand" href="#top" aria-label="Driftline At Home, return to top">
           <span className="brand-mark">D</span>
           <span><strong>DRIFTLINE</strong><small>AT HOME</small></span>
-        </button>
+        </a>
         <nav className={menuOpen ? "nav open" : "nav"} aria-label="Main navigation">
-          <button onClick={() => scrollTo("how")}>How it works</button>
-          <button onClick={() => scrollTo("menu")}>The menu</button>
-          <button onClick={() => scrollTo("pricing")}>Pricing</button>
-          <button onClick={() => scrollTo("care")}>For families</button>
+          <a href="#how" onClick={() => setMenuOpen(false)}>How it works</a>
+          <a href="#menu" onClick={() => setMenuOpen(false)}>The menu</a>
+          <a href="#pricing" onClick={() => setMenuOpen(false)}>Pricing</a>
+          <a href="#care" onClick={() => setMenuOpen(false)}>For families</a>
         </nav>
-        <button className="header-cta" onClick={() => scrollTo("booking")}>Find your chef <span>→</span></button>
+        <a className="header-cta" href="#booking">Find your chef <span>→</span></a>
         <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label="Toggle menu"><span /><span /></button>
       </header>
 
@@ -55,8 +50,8 @@ export default function Home() {
           <h1>A week of good meals,<br /><em>made in your kitchen.</em></h1>
           <p className="hero-lede">A trusted local chef shops, cooks, portions, labels, and cleans up—so your refrigerator feels taken care of and your week feels lighter.</p>
           <div className="hero-actions">
-            <button className="primary-btn" onClick={() => scrollTo("booking")}>See availability <span>→</span></button>
-            <button className="text-btn" onClick={() => scrollTo("how")}><span className="play">▶</span> See how a visit works</button>
+            <a className="primary-btn" href="#booking">See availability <span>→</span></a>
+            <a className="text-btn" href="#how"><span className="play">▶</span> See how a visit works</a>
           </div>
           <div className="trust-row">
             <div className="avatars"><span>CB</span><span>JL</span><span>AM</span></div>
@@ -99,7 +94,7 @@ export default function Home() {
             </button>
           ))}
         </div>
-        <div className="selection-bar"><span><small>Your selection</small><strong>{current.name} · {current.portions} portions</strong></span><span className="selection-price"><strong>${current.price}</strong><small>+ groceries</small></span><button onClick={() => scrollTo("booking")}>Start with {current.name} <span>→</span></button></div>
+        <div className="selection-bar"><span><small>Your selection</small><strong>{current.name} · {current.portions} portions</strong></span><span className="selection-price"><strong>${current.price}</strong><small>+ groceries</small></span><a href="#booking">Start with {current.name} <span>→</span></a></div>
       </section>
 
       <section className="care section" id="care">
