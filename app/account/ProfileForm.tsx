@@ -34,6 +34,6 @@ export default function ProfileForm({ initialProfile }: { initialProfile: Custom
       <label>Foods you love<textarea value={profile.favoriteFoods} onChange={(e) => update("favoriteFoods", e.target.value)} placeholder="Favorite dishes, flavors, and comfort foods." /></label>
       <label>Foods to avoid<textarea value={profile.foodsToAvoid} onChange={(e) => update("foodsToAvoid", e.target.value)} placeholder="Dislikes, textures, or ingredients to skip." /></label>
     </div>
-    <div className="save-row"><button disabled={status === "saving"}>{status === "saving" ? "Saving…" : "Save household details"}<span>→</span></button><p role="status">{status === "saved" ? "✓ Your details are saved." : status === "error" ? "We couldn't save that. Please try again." : "You can update these details anytime."}</p></div>
+    <div className="save-row"><button disabled={status === "saving"}>{status === "saving" ? "Saving…" : "Save household details"}<span>→</span></button>{status === "saved" ? <a className="continue-meals" href="/cookbook">Continue to choose dishes →</a> : null}<p role="status">{status === "saved" ? "✓ Saved. Now let's choose some meals." : status === "error" ? "We couldn't save that. Please try again." : "You can update these details anytime."}</p></div>
   </form>;
 }
