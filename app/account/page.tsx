@@ -15,7 +15,7 @@ export default async function AccountPage() {
   const chosenRecipes = recipes.filter(recipe => mealPlan.selectedRecipeIds.includes(recipe.id));
   const firstName = profile.fullName.split(" ")[0] || "there";
   return <main className="account-page">
-    <header className="account-nav"><Link className="account-brand" href="/"><span>D</span><strong>DRIFTLINE<small>AT HOME</small></strong></Link><nav><Link href="/cookbook">Cookbook</Link><Link href="/#pricing">Pricing</Link><a href={chatGPTSignOutPath("/")}>Sign out</a></nav></header>
+    <header className="account-nav"><Link className="account-brand" href="/"><span>D</span><strong>DRIFTLINE<small>AT HOME</small></strong></Link><nav><Link href="/cookbook">Cookbook</Link><Link href="/#pricing">Pricing</Link><Link className="staff-access" href="/portal">Staff portal</Link><a href={chatGPTSignOutPath("/")}>Sign out</a></nav></header>
     <section className="welcome-panel"><div><p>YOUR DRIFTLINE ACCOUNT</p><h1>Welcome, {firstName}.</h1><span>Let&apos;s make home meals feel easier this week.</span></div><div className="account-status"><i>✓</i><span><small>Account ready</small><strong>Your preferences travel with every visit</strong></span></div></section>
     <section className="account-content">
       <div className="onboarding-path"><span className="path-complete"><i>✓</i><b>Build your profile</b></span><span className={chosenRecipes.length+mealPlan.customRecipes.length>0?"path-complete":"path-current"}><i>{chosenRecipes.length+mealPlan.customRecipes.length>0?"✓":"2"}</i><b>Choose starter dishes</b></span><span><i>3</i><b>Request your first visit</b></span></div>

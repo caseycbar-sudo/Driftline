@@ -40,6 +40,7 @@ export default function Portal() {
   return <main className="portal">
     <header className="portal-top">
       <a className="portal-brand" href="/"><span>D</span><div><strong>DRIFTLINE</strong><small>AT HOME</small></div></a>
+      <a className="staff-home-link" href="/account">← Customer site</a>
       <div className="role-switch" aria-label="Preview portal role">
         {(["customer","chef","admin"] as Role[]).map(item=><button key={item} className={role===item?"active":""} onClick={()=>changeRole(item)}>{item==="customer"?"Customer / Family":item==="chef"?"Chef":"Admin"}</button>)}
       </div>

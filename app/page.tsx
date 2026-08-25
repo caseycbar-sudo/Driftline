@@ -125,7 +125,7 @@ export default function Home() {
         </form>
       </section>
 
-      <footer><div className="footer-brand"><span className="brand-mark">D</span><span><strong>DRIFTLINE</strong><small>AT HOME</small></span></div><p>Good meals. Familiar kitchens. More ease at home.</p><div><a href="#how">How it works</a><a href="#pricing">Pricing</a><a href="/cookbook">Cookbook</a><a href="/account">Customer account</a></div><small>© 2026 Driftline Provisions · Astoria, Oregon</small></footer>
+      <footer><div className="footer-brand"><span className="brand-mark">D</span><span><strong>DRIFTLINE</strong><small>AT HOME</small></span></div><p>Good meals. Familiar kitchens. More ease at home.</p><div><a href="#how">How it works</a><a href="#pricing">Pricing</a><a href="/cookbook">Cookbook</a><a href="/account">Customer account</a><a className="staff-link" href="/portal">Chef & admin portal</a></div><small>© 2026 Driftline Provisions · Astoria, Oregon</small></footer>
     </main>
   );
 }
