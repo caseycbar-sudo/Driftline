@@ -88,13 +88,57 @@ or enforce explicit server-side membership or allowlist checks.
 Use SIWC for account pages, user-specific dashboards, saved records, and write
 actions tied to the current ChatGPT user. Leave public content anonymous.
 
+## Local Development Sign-In
+
+On Sites, the platform authenticates the request and injects the
+`oai-authenticated-user-*` headers. Locally those headers do not exist, so every
+protected route redirects to `/signin-with-chatgpt`, which Dispatch owns and
+which therefore 404s outside Sites.
+
+To work on the customer, chef, and admin routes locally, configure a
+development identity:
+
+```bash
+cp .env.example .env.local
+# edit .env.local — a placeholder address such as dev@example.com is fine
+npm run dev
+```
+
+`VITE_DEV_AUTH_EMAIL` signs you in as that address. Leave it unset or blank to
+browse signed out and exercise the redirect path. `VITE_DEV_AUTH_FULL_NAME` is
+optional and falls back to the email address.
+
+Staff and admin routes additionally require a matching row in the `staff` table
+(see `db/staff.ts`); a development identity alone grants no role.
+
+### Safety boundary
+
+The shim lives in `app/dev-auth.ts` and never ships:
+
+- `app/chatgpt-auth.ts` imports it only inside `if (import.meta.env.DEV)`. Vite
+  replaces that expression with `false` when building, so the branch and the
+  dynamic import are eliminated and the module is not in the production bundle.
+- `app/dev-auth.ts` also throws at module evaluation if it is ever reached in a
+  non-development build, so a mistake fails loudly instead of silently
+  accepting a fabricated identity.
+- In development the shim *replaces* header parsing rather than falling back to
+  it. Outside Sites the `oai-authenticated-user-*` headers are client-supplied
+  and are never trusted.
+
+`npm test` asserts all three: the shim's sentinel is absent from
+`dist/server/index.js`, and a built worker still redirects `/account` to
+sign-in.
+
+Never put a real customer or staff email address in `.env.local`. `.env*` is
+gitignored apart from the placeholder `.env.example`.
+
 ## Diagnostic Commands
 
 - `npm run install:ci`: perform the one bounded lockfile install
 - `npm run dev`: start the Vite/Vinext development server
 - `npm run build`: build the deployable Sites artifact
 - `npm run start`: start the built Vinext application
-- `npm test`: build and verify the rendered development-preview metadata
+- `npm test`: build, then run the suite in `tests/` against the built worker
 - `npm run db:generate`: generate Drizzle migrations after schema changes
 
 Use build commands for targeted diagnosis after a remote failure, not as part of the normal checkpoint path.
