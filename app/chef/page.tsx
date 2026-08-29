@@ -4,7 +4,8 @@ import {
   chatGPTSignInPath,
   chatGPTSignOutPath,
 } from "../chatgpt-auth";
-import { getStaff } from "../../db/staff";
+import { getActiveStaff } from "../../db/staff";
+import { homeForRole } from "../staff-access";
 import { redirect } from "next/navigation";
 import "./chef-login.css";
 import BrandLogo from "../BrandLogo";
@@ -12,13 +13,16 @@ export const dynamic = "force-dynamic";
 export default async function ChefLogin() {
   const user = await getChatGPTUser();
   if (user) {
-    const staff = await getStaff(user.email);
-    if (
-      staff?.status === "active" &&
-      (staff.role === "chef" || staff.role === "admin")
-    )
-      if (staff.role === "chef") redirect("/chef/workspace");
-      redirect("/portal");
+    // Active staff go straight to the workspace their role owns. Everyone else
+    // -- no staff record, or an invited/suspended one -- falls through to the
+    // notice below.
+    //
+    // This previously read as an unbraced `if` followed by a second statement,
+    // so `redirect("/portal")` ran for every signed-in visitor and the notice
+    // was unreachable.
+    const staff = await getActiveStaff(user.email);
+    if (staff) redirect(homeForRole(staff.role));
+
     return (
       <Shell>
         <div className="chef-login-status">

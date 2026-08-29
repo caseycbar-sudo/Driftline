@@ -1,14 +1,21 @@
-import { requireChatGPTUser } from "../chatgpt-auth";
 import PortalClient from "./PortalClient";
-import {resolveStaff} from "../../db/staff";
-import {redirect} from "next/navigation";
+import StaffAccessPending from "../StaffAccessPending";
+import { requireStaffPage } from "../staff-auth";
 
 export const dynamic = "force-dynamic";
 
 export default async function PortalPage() {
-  const user=await requireChatGPTUser("/portal");
-  const staff=await resolveStaff(user.email,user.displayName);
-  if(!staff)return <main className="access-denied"><section><small>DRIFTLINE AT HOME</small><h1>Staff access pending</h1><p>This signed-in account has not been approved for the Driftline staff portal, or its access is currently suspended.</p><a href="/account">Return to customer account</a></section></main>;
-  if(staff.role==="chef")redirect("/chef/workspace");
-  return <PortalClient staff={{email:staff.email,fullName:staff.fullName,role:staff.role}} />;
+  // Admin only. A chef with an active record is redirected to /chef/workspace
+  // by the guard; a customer identity gets the access notice below.
+  const access = await requireStaffPage("/portal", "admin");
+
+  if (!access.authorized)
+    return <StaffAccessPending email={access.user.email} workspace="admin" />;
+
+  const { staff } = access;
+  return (
+    <PortalClient
+      staff={{ email: staff.email, fullName: staff.fullName, role: staff.role }}
+    />
+  );
 }
