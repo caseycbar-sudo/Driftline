@@ -17,6 +17,19 @@ const SIGN_OUT_PATH = "/signout-with-chatgpt";
 const CALLBACK_PATH = "/callback";
 
 export async function getChatGPTUser(): Promise<ChatGPTUser | null> {
+  // Development only. `import.meta.env.DEV` is statically replaced at build
+  // time, so in a production build this condition folds to `false`, the block
+  // is eliminated, and `app/dev-auth.ts` never enters the bundle. Production
+  // behaviour below is unchanged.
+  //
+  // The shim deliberately *replaces* header parsing in development rather than
+  // falling back to it: outside ChatGPT Sites the `oai-authenticated-user-*`
+  // headers are client-supplied and must not be trusted.
+  if (import.meta.env.DEV) {
+    const { getDevUser } = await import("./dev-auth");
+    return getDevUser();
+  }
+
   const requestHeaders = await headers();
   const email = requestHeaders.get(USER_EMAIL_HEADER);
   if (!email) return null;
