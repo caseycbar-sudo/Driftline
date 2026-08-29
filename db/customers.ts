@@ -65,6 +65,12 @@ export async function updateCustomer(email: string, profile: Omit<CustomerProfil
   return getOrCreateCustomer(email, profile.fullName);
 }
 
+export async function listCustomers(): Promise<CustomerProfile[]> {
+  await ensureCustomerTable();
+  const result = await database().prepare("SELECT * FROM customer_profiles ORDER BY full_name COLLATE NOCASE").all<Record<string, unknown>>();
+  return result.results.map(mapCustomer);
+}
+
 function mapCustomer(row: Record<string, unknown>): CustomerProfile {
   return {
     email: String(row.email), fullName: String(row.full_name), phone: String(row.phone), city: String(row.city),

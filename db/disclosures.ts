@@ -1,0 +1,3 @@
+import {env} from "cloudflare:workers";
+export async function hasAccepted(email:string,scope:string,version:string){if(!env.DB)throw new Error("Disclosure database unavailable");const row=await env.DB.prepare("SELECT accepted_at FROM legal_acceptances WHERE lower(email)=? AND scope=? AND version=?").bind(email.toLowerCase(),scope,version).first();return Boolean(row)}
+export async function acceptDisclosure(email:string,scope:string,version:string){if(!env.DB)throw new Error("Disclosure database unavailable");const now=new Date().toISOString();await env.DB.prepare("INSERT OR IGNORE INTO legal_acceptances (email,scope,version,accepted_at) VALUES (?,?,?,?)").bind(email.toLowerCase(),scope,version,now).run();return{accepted:true,acceptedAt:now,scope,version}}

@@ -1,0 +1,8 @@
+import {NextResponse} from "next/server";
+import {requireStaffRole} from "../../staff-auth";
+import {createPrivateChefInquiry,listPrivateChefInquiries,updatePrivateChefInquiry} from "../../../db/private-chef";
+export const dynamic="force-dynamic";
+const clean=(value:unknown,limit=500)=>String(value??"").trim().slice(0,limit);
+export async function POST(request:Request){const body=await request.json() as Record<string,unknown>;const inquiry={fullName:clean(body.fullName,120),email:clean(body.email,200).toLowerCase(),phone:clean(body.phone,40),preferredDate:clean(body.preferredDate,10),guestCount:Math.max(2,Math.min(40,Number(body.guestCount)||2)),location:clean(body.location,180),occasion:clean(body.occasion,120),details:clean(body.details,2000)};if(!inquiry.fullName||!inquiry.email.includes("@")||!inquiry.preferredDate||!inquiry.location)return NextResponse.json({error:"Name, email, date, and location are required."},{status:400});return NextResponse.json(await createPrivateChefInquiry(inquiry),{status:201})}
+export async function GET(){if(!await requireStaffRole("admin"))return NextResponse.json({error:"Admin access required"},{status:403});return NextResponse.json(await listPrivateChefInquiries())}
+export async function PUT(request:Request){if(!await requireStaffRole("admin"))return NextResponse.json({error:"Admin access required"},{status:403});const body=await request.json() as Record<string,unknown>,id=Number(body.id),status=clean(body.status,30),adminNotes=clean(body.adminNotes,2000);if(!id)return NextResponse.json({error:"Invalid inquiry"},{status:400});return NextResponse.json(await updatePrivateChefInquiry(id,status,adminNotes))}

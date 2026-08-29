@@ -1,0 +1,212 @@
+.start-page {
+  min-height: 100vh;
+  background: #f5eee3;
+  color: #16313e;
+  display: flex;
+  flex-direction: column;
+}
+.start-page header {
+  height: 76px;
+  padding: 0 5vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fffdf8;
+}
+.start-page header > a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #123349;
+}
+.start-page header > a > span {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #123349;
+  color: white;
+  display: grid;
+  place-items: center;
+  font:
+    italic 24px Georgia,
+    serif;
+}
+.start-page header i {
+  font-style: normal;
+}
+.start-page header strong,
+.start-page header small {
+  display: block;
+  line-height: 1;
+}
+.start-page header strong {
+  letter-spacing: 0.18em;
+  font-size: 14px;
+}
+.start-page header small {
+  letter-spacing: 0.28em;
+  font-size: 8px;
+  margin-top: 5px;
+}
+.start-page header > p {
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  color: #607f78;
+}
+.start-intro {
+  text-align: center;
+  padding: 52px 24px 38px;
+}
+.start-intro > p {
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  color: #607f78;
+  font-weight: 800;
+}
+.start-intro h1 {
+  font:
+    400 clamp(42px, 5vw, 66px)/1.04 Georgia,
+    serif;
+  letter-spacing: -0.04em;
+  color: #092638;
+  margin: 16px 0;
+}
+.start-intro > span {
+  font:
+    15px Georgia,
+    serif;
+  color: #65767b;
+}
+.start-choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  padding: 0 5vw 45px;
+  flex: 1;
+}
+.start-choices > a {
+  min-height: 500px;
+  display: flex;
+  align-items: end;
+  text-decoration: none;
+  color: white;
+  overflow: hidden;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+}
+.start-private {
+  background-image:
+    linear-gradient(0deg, #092638f2 0%, #09263852 68%),
+    url("/private-chef-food-v2.webp");
+}
+.start-prep {
+  background-image:
+    linear-gradient(0deg, #183b3bf0 0%, #183b3b3d 68%),
+    url("/hero-food-v2.webp");
+}
+.start-choices > a:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid #ffffff00;
+  transition: 0.2s;
+}
+.start-choices > a:hover:after {
+  inset: 9px;
+  border-color: #ffffff7d;
+}
+.start-choices > a > div {
+  padding: 44px;
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+}
+.start-choices small {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: #bdd1cb;
+  font-weight: 800;
+}
+.start-choices h2 {
+  font:
+    400 clamp(38px, 4vw, 57px) Georgia,
+    serif;
+  margin: 11px 0;
+}
+.start-choices p {
+  font:
+    14px/1.65 Georgia,
+    serif;
+  color: #dce6e4;
+}
+.start-choices ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 22px 0;
+}
+.start-choices li {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.start-choices li:before {
+  content: "✓";
+  margin-right: 6px;
+  color: #dca183;
+}
+.start-choices b {
+  display: inline-flex;
+  gap: 25px;
+  background: #bd6643;
+  padding: 15px 18px;
+  font-size: 11px;
+}
+.start-page footer {
+  background: #092638;
+  color: #b6c5c8;
+  padding: 18px 5vw;
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+.start-page footer a {
+  color: #d7e0e2;
+}
+@media (max-width: 720px) {
+  .start-page header {
+    height: 66px;
+    padding: 0 18px;
+  }
+  .start-page header > p {
+    display: none;
+  }
+  .start-intro {
+    padding: 38px 20px 28px;
+  }
+  .start-choices {
+    grid-template-columns: 1fr;
+    padding: 0 14px 30px;
+  }
+  .start-choices > a {
+    min-height: 430px;
+  }
+  .start-choices > a > div {
+    padding: 30px 24px;
+  }
+  .start-choices ul {
+    display: grid;
+    gap: 8px;
+  }
+  .start-page footer {
+    padding: 18px;
+    display: grid;
+    gap: 10px;
+    text-align: center;
+  }
+}

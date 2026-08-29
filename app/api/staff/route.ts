@@ -1,0 +1,6 @@
+import {NextResponse} from "next/server";
+import {requireStaffRole} from "../../staff-auth";
+import {listStaff,saveStaff,type StaffRole} from "../../../db/staff";
+export const dynamic="force-dynamic";
+export async function GET(){if(!await requireStaffRole("admin"))return NextResponse.json({error:"Admin access required"},{status:403});return NextResponse.json(await listStaff())}
+export async function POST(request:Request){if(!await requireStaffRole("admin"))return NextResponse.json({error:"Admin access required"},{status:403});const body=await request.json() as Record<string,unknown>,email=String(body.email??"").trim().toLowerCase(),fullName=String(body.fullName??"").trim().slice(0,100),role=(body.role==="admin"?"admin":"chef") as StaffRole,status=body.status==="suspended"?"suspended":body.status==="invited"?"invited":"active",text=(key:string,limit=500)=>String(body[key]??"").trim().slice(0,limit);if(!email||!fullName)return NextResponse.json({error:"Name and email are required"},{status:400});return NextResponse.json(await saveStaff({email,fullName,role,status,phone:text("phone",40),jobTitle:text("jobTitle",80)||"Chef",hireDate:text("hireDate",10),emergencyContact:text("emergencyContact",200),foodHandlerExpires:text("foodHandlerExpires",10),foodManagerExpires:text("foodManagerExpires",10),adminNotes:text("adminNotes",2000)}),{status:201})}

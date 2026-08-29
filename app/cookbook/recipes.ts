@@ -170,7 +170,7 @@ export const recipes:Recipe[]=seeds.map((s,i)=>{
   return {
     id:i+1,title,category:categoryFor(i),main,starch,vegetables,profile,
     allergens,tags,active:30+(i%4)*5,total:55+(i%6)*10,
-    image:`/cookbook/r-${String(i+1).padStart(3,"0")}.jpg`,
+    image:`/cookbook/r-${String(i+1).padStart(3,"0")}-v2.webp`,
     ingredients:[mainAmount+" "+main,"2 cups dry "+starch,"4 cups "+vegetables,"2 tbsp olive or avocado oil","1 tsp kosher salt","½ tsp black pepper",...p,"2 tbsp chopped fresh parsley or cilantro for finishing"],
     directions,equipment:["Chef’s knife","Cutting board","Large skillet or roasting pan","Medium saucepan","Food thermometer","Shallow meal-prep containers"],
     storage:"Cool in shallow containers and refrigerate at 40°F or below. Use within 3–4 days; freeze portions not needed in that window.",

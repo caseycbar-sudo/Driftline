@@ -1,0 +1,165 @@
+.chef-login {
+  min-height: 100vh;
+  background:
+    linear-gradient(120deg, #092638e8, #092638b5),
+    url("/customer-kitchen-background-v2.webp") center/cover;
+  color: #18313d;
+}
+.chef-login > header {
+  height: 78px;
+  background: #fffdf8f2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6vw;
+}
+.chef-login > header > a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #123349;
+  font-size: 10px;
+}
+.chef-login header i {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #123349;
+  color: white;
+  display: grid;
+  place-items: center;
+  font: italic 23px Georgia;
+}
+.chef-login header strong,
+.chef-login header small {
+  display: block;
+}
+.chef-login header strong {
+  font-size: 13px;
+  letter-spacing: 0.15em;
+}
+.chef-login header small {
+  font-size: 7px;
+  letter-spacing: 0.25em;
+  margin-top: 4px;
+}
+.chef-login > section {
+  min-height: calc(100vh - 78px);
+  display: grid;
+  place-items: center;
+  padding: 35px;
+}
+.chef-login-card,
+.chef-login-status {
+  width: min(620px, 100%);
+  background: #fffdf8;
+  padding: 46px;
+  box-shadow: 0 30px 80px #0006;
+}
+.chef-login-card > span,
+.chef-login-status > span {
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  color: #567c75;
+  font-weight: 800;
+}
+.chef-login h1 {
+  font: 42px/1.05 Georgia;
+  color: #123349;
+  margin: 12px 0 18px;
+}
+.chef-login-card > p,
+.chef-login-status > p {
+  font: 14px/1.65 Georgia;
+  color: #66767c;
+}
+.chef-login-primary {
+  display: inline-block;
+  background: #bd6643;
+  color: white;
+  padding: 14px 18px;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 800;
+  margin: 12px 0 22px;
+}
+.chef-login-steps {
+  display: grid;
+  gap: 8px;
+  border-top: 1px solid #e1e2dd;
+  padding-top: 18px;
+}
+.chef-login-steps article {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f2f4ef;
+  padding: 11px;
+}
+.chef-login-steps article > b {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #dce9e3;
+  color: #567c75;
+  font: 13px Georgia;
+}
+.chef-login-steps strong,
+.chef-login-steps small {
+  display: block;
+}
+.chef-login-steps strong {
+  font: 13px Georgia;
+}
+.chef-login-steps small {
+  font-size: 8px;
+  color: #748388;
+  margin-top: 3px;
+}
+.chef-login-card > small {
+  display: block;
+  font-size: 8px;
+  color: #748388;
+  margin-top: 18px;
+}
+.chef-login-card > small a,
+.chef-login-status a {
+  color: #bd6643;
+  font-weight: 700;
+}
+.chef-login-status ol {
+  font-size: 10px;
+  line-height: 1.7;
+  background: #f2f4ef;
+  padding: 18px 18px 18px 35px;
+}
+.chef-login-status > div {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.chef-login-status > div .chef-login-primary {
+  color: white;
+}
+@media (max-width: 650px) {
+  .chef-login > section {
+    padding: 15px;
+  }
+  .chef-login-card,
+  .chef-login-status {
+    padding: 30px 22px;
+  }
+  .chef-login h1 {
+    font-size: 34px;
+  }
+  .chef-login-status > div {
+    display: block;
+  }
+  .chef-login-status > div > a:last-child {
+    display: block;
+    margin-bottom: 10px;
+  }
+}

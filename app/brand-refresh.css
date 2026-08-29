@@ -1,0 +1,406 @@
+:root {
+  --brand-charcoal: #232f38;
+  --brand-slate: #43505b;
+  --brand-mist: #8ea0ad;
+  --brand-pale: #c6d1da;
+  --brand-sand: #ece2cf;
+  --brand-ivory: #f6f1e7;
+  --brand-gold: #9c7b40;
+  --brand-deep: #16232f;
+}
+.driftline-master-logo {
+  display: block;
+  width: 154px;
+  line-height: 0;
+}
+.driftline-master-logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 60px;
+  object-fit: contain;
+}
+.site-header,
+.account-nav,
+.pc-header,
+.portal-top,
+.start-page header {
+  background: var(--brand-charcoal) !important;
+  border-color: #ffffff1c !important;
+}
+.site-header .brand,
+.account-brand,
+.pc-brand,
+.portal-brand,
+.start-page header > a {
+  color: white !important;
+}
+.site-header .nav a,
+.site-header .staff-header-link,
+.account-nav nav a,
+.pc-header nav a,
+.portal-top .staff-home-link,
+.start-page header > p {
+  color: var(--brand-pale) !important;
+}
+.site-header .nav a:hover,
+.pc-header nav .current,
+.account-nav nav .staff-access {
+  color: #d0ad6a !important;
+}
+.header-cta,
+.primary-btn,
+.pc-inquire,
+.pc-primary,
+.start-choices b,
+.save-row button,
+.meal-plan-heading > a,
+.menu-actions > a,
+.selection-bar > a {
+  background: var(--brand-gold) !important;
+  box-shadow: none !important;
+}
+.menu-toggle span {
+  background: var(--brand-ivory) !important;
+}
+body,
+.account-page,
+.pc-page,
+.start-page {
+  background-color: var(--brand-ivory) !important;
+  background-image:
+    linear-gradient(115deg, #ece2cf40 1px, transparent 1px),
+    linear-gradient(25deg, #c6d1da1a 1px, transparent 1px) !important;
+  background-size:
+    34px 34px,
+    51px 51px !important;
+  color: var(--brand-charcoal) !important;
+}
+.hero,
+.pricing,
+.pc-hero,
+.pc-occasions,
+.pc-process article,
+.pc-inquiry form,
+.booking-form {
+  background-color: var(--brand-sand) !important;
+}
+.account-invite,
+.booking,
+.pc-intro,
+.pc-price,
+.pc-inquiry {
+  background-color: #f6f1e7e8 !important;
+}
+.promise-band,
+.menu-section,
+footer,
+.pc-included,
+.pc-menus,
+.pc-footer,
+.start-page footer,
+.selection-bar,
+.welcome-panel {
+  background-color: var(--brand-charcoal) !important;
+}
+.hero h1,
+.section h2,
+.account-preview h3,
+.steps h3,
+.meal-card h3,
+.pc-page h1,
+.pc-page h2,
+.pc-page h3,
+.account-page h1,
+.account-page h2,
+.account-page h3 {
+  color: var(--brand-charcoal);
+}
+.hero h1 em,
+.pc-hero h1 em,
+.eyebrow,
+.pc-kicker,
+.step-no,
+.quick-cards span,
+.quick-cards b,
+.empty-meals a {
+  color: var(--brand-gold) !important;
+}
+.eyebrow.light,
+.pc-menus .pc-kicker {
+  color: var(--brand-pale) !important;
+}
+.account-preview,
+.package-card,
+.meal-card,
+.update-card,
+.profile-form,
+.meal-plan,
+.quick-cards > *,
+.pc-menu-grid article,
+.pc-details article {
+  background: var(--brand-ivory) !important;
+  border-color: #9c7b4050 !important;
+  border-radius: 0 !important;
+}
+.account-preview {
+  box-shadow: 18px 18px 0 var(--brand-pale) !important;
+}
+.care-card,
+.account-help {
+  background: var(--brand-slate) !important;
+}
+.popular,
+.radio i,
+.note-check,
+.account-status i {
+  background: var(--brand-gold) !important;
+}
+.package-card.selected {
+  border-color: var(--brand-gold) !important;
+}
+.service-paths a.active {
+  background: var(--brand-charcoal) !important;
+  border-color: var(--brand-charcoal) !important;
+}
+.hero-note {
+  border-radius: 0 !important;
+}
+.staff-header-link {
+  border-color: #c6d1da66 !important;
+}
+.pc-price-card {
+  background: var(--brand-charcoal) !important;
+}
+.pc-price-card strong em {
+  color: #d5b574 !important;
+}
+.pc-details {
+  background: #dfe3e2 !important;
+}
+.start-page {
+  background-color: var(--brand-sand) !important;
+}
+.start-intro > p {
+  color: var(--brand-gold) !important;
+}
+.start-intro h1 {
+  color: var(--brand-charcoal) !important;
+}
+.start-private {
+  background-image:
+    linear-gradient(0deg, #232f38f5 0%, #232f3845 70%),
+    url("/private-chef-food-v2.webp") !important;
+}
+.start-prep {
+  background-image:
+    linear-gradient(0deg, #43505bf5 0%, #43505b3d 70%),
+    url("/hero-food-v2.webp") !important;
+}
+.start-choices small {
+  color: var(--brand-pale) !important;
+}
+.start-choices li:before {
+  color: #d6b678 !important;
+}
+.account-nav {
+  height: 92px !important;
+}
+.account-brand .driftline-master-logo {
+  width: 145px;
+}
+.welcome-panel {
+  background-image:
+    linear-gradient(
+      90deg,
+      #232f38f2 0%,
+      #232f38dc 44%,
+      #232f3870 76%,
+      #232f384d 100%
+    ),
+    url("/customer-kitchen-background-v2.webp") !important;
+}
+.welcome-panel p {
+  color: #d6b678 !important;
+}
+.account-status {
+  background: #f6f1e7ef !important;
+  color: var(--brand-charcoal) !important;
+}
+.profile-form:before {
+  background: linear-gradient(var(--brand-gold), var(--brand-mist)) !important;
+}
+.continue-meals {
+  background: var(--brand-charcoal) !important;
+}
+.portal {
+  background: #e9e5dc !important;
+  color: var(--brand-charcoal) !important;
+}
+.portal-top {
+  height: 82px !important;
+}
+.portal {
+  padding-top: 82px !important;
+}
+.portal-brand {
+  width: 185px !important;
+}
+.portal-brand .driftline-master-logo {
+  width: 140px;
+}
+.portal-side {
+  background: var(--brand-deep) !important;
+}
+.portal-side nav button.active {
+  border-left-color: var(--brand-gold) !important;
+  color: #d5b574 !important;
+}
+.portal-user > span {
+  background: var(--brand-slate) !important;
+}
+.p-card,
+.metric,
+.calendar-card,
+.real-panel,
+.real-job-list article,
+.chef-job-list > article {
+  border-radius: 0 !important;
+}
+.primary-action,
+.clock-btn,
+.mileage-form button {
+  background: var(--brand-gold) !important;
+  border-color: var(--brand-gold) !important;
+}
+.live-dot,
+.status {
+  color: var(--brand-gold) !important;
+}
+.pc-page {
+  --pc-navy: #232f38;
+  --pc-cream: #ece2cf;
+  --pc-paper: #f6f1e7;
+  --pc-rust: #9c7b40;
+  --pc-sea: #8ea0ad;
+  --pc-ink: #232f38;
+}
+.pc-brand .driftline-master-logo {
+  width: 145px;
+}
+.pc-hero-photo {
+  background-image:
+    linear-gradient(90deg, transparent 76%, #ece2cf), url("/private-chef-food-v2.webp") !important;
+}
+.pc-process b,
+.pc-occasions li span {
+  color: var(--brand-gold) !important;
+}
+.pc-form-success {
+  background: var(--brand-sand) !important;
+}
+@media (max-width: 680px) {
+  .driftline-master-logo,
+  .account-brand .driftline-master-logo,
+  .pc-brand .driftline-master-logo,
+  .portal-brand .driftline-master-logo {
+    width: 118px;
+  }
+  .site-header,
+  .account-nav,
+  .pc-header,
+  .portal-top {
+    height: 72px !important;
+  }
+  .portal {
+    padding-top: 72px !important;
+  }
+  .start-page header {
+    height: 72px !important;
+  }
+}
+.book-top,
+.chef-login header,
+.legal-page header {
+  background: var(--brand-charcoal) !important;
+  color: white !important;
+  border-color: #ffffff1c !important;
+}
+.book-top a,
+.chef-login header a,
+.legal-page header a,
+.legal-page header span {
+  color: var(--brand-pale) !important;
+}
+.book-top > div {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+}
+.book-top .driftline-master-logo {
+  width: 130px;
+}
+.book-top > div > small {
+  color: var(--brand-pale) !important;
+}
+.book-hero,
+.chef-login,
+.legal-page {
+  background-color: var(--brand-sand) !important;
+  background-image:
+    linear-gradient(115deg, #ece2cf40 1px, transparent 1px),
+    linear-gradient(25deg, #c6d1da1a 1px, transparent 1px) !important;
+  background-size:
+    34px 34px,
+    51px 51px !important;
+}
+.book-hero,
+.book-tools,
+.chef-login-card,
+.chef-login-status,
+.legal-page article,
+.legal-note {
+  border-radius: 0 !important;
+}
+.book-hero {
+  background-color: var(--brand-charcoal) !important;
+}
+.book-hero p,
+.book-hero aside strong,
+.book-section h3,
+.detail-title small,
+.chef-login-card > span,
+.legal-page > section > p {
+  color: var(--brand-gold) !important;
+}
+.book-tools button.active,
+.recipe-actions button:first-child,
+.submit-recipe,
+.chef-login-primary {
+  background: var(--brand-gold) !important;
+  border-color: var(--brand-gold) !important;
+}
+.recipe-gallery article.active {
+  border-color: var(--brand-gold) !important;
+}
+.detail-photo > span {
+  background: var(--brand-charcoal) !important;
+}
+.portion-tool {
+  background: var(--brand-sand) !important;
+}
+.chef-login header .driftline-master-logo {
+  width: 135px;
+}
+.chef-login-card,
+.chef-login-status {
+  background: var(--brand-ivory) !important;
+  border-color: #9c7b4055 !important;
+}
+.legal-page header {
+  padding-top: 14px !important;
+  padding-bottom: 14px !important;
+}
+.legal-page article > div > i {
+  background: var(--brand-gold) !important;
+}

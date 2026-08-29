@@ -1,0 +1,149 @@
+.pc-leads {
+  background: #f2f3ef;
+}
+.pc-lead-layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 15px;
+}
+.pc-lead-list {
+  padding: 0;
+  overflow: hidden;
+}
+.pc-lead-list > header {
+  padding: 18px;
+}
+.pc-lead-list > button {
+  width: 100%;
+  border: 0;
+  border-top: 1px solid #e5e7e2;
+  background: white;
+  padding: 15px;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: #18313d;
+}
+.pc-lead-list > button:hover,
+.pc-lead-list > button.active {
+  background: #edf3ee;
+  box-shadow: inset 3px 0 #567c75;
+}
+.pc-lead-list button span {
+  display: grid;
+  gap: 4px;
+}
+.pc-lead-list button span:last-child {
+  text-align: right;
+}
+.pc-lead-list strong {
+  font: 14px Georgia;
+}
+.pc-lead-list small {
+  font-size: 7px;
+  color: #748388;
+}
+.pc-lead-list b {
+  font-size: 7px;
+  text-transform: uppercase;
+  color: #bd6643;
+}
+.pc-lead-detail > header {
+  align-items: start;
+}
+.pc-lead-detail > header h2 {
+  font: 26px Georgia;
+  color: #123349;
+  margin: 6px 0;
+}
+.pc-lead-detail > header small {
+  font-size: 7px;
+  letter-spacing: 0.13em;
+  color: #567c75;
+}
+.pc-lead-detail > header a {
+  font-size: 8px;
+  color: #bd6643;
+}
+.lead-facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 18px 0;
+}
+.lead-facts label {
+  background: #f2f4f0;
+  padding: 13px;
+}
+.lead-facts span,
+.lead-facts strong {
+  display: block;
+}
+.lead-facts span,
+.lead-message > span {
+  font-size: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #748388;
+}
+.lead-facts strong {
+  font: 12px Georgia;
+  margin-top: 5px;
+}
+.lead-message {
+  border-left: 3px solid #bd6643;
+  background: #fff8ef;
+  padding: 14px;
+  margin-bottom: 16px;
+}
+.lead-message p {
+  font: 11px/1.6 Georgia;
+  margin: 7px 0 0;
+}
+.lead-edit {
+  display: grid;
+  gap: 6px;
+  font-size: 7px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #63767c;
+  margin: 12px 0;
+}
+.lead-edit select,
+.lead-edit textarea {
+  border: 1px solid #d4dad5;
+  background: white;
+  padding: 10px;
+  color: #18313d;
+  font: 10px Arial;
+}
+.lead-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+.lead-actions button {
+  min-height: 40px;
+}
+.pc-empty {
+  text-align: center;
+  padding: 55px;
+}
+.pc-empty h2 {
+  font: 24px Georgia;
+  color: #123349;
+}
+.pc-empty p {
+  font-size: 9px;
+  color: #748388;
+}
+@media (max-width: 900px) {
+  .pc-lead-layout {
+    grid-template-columns: 1fr;
+  }
+  .lead-facts {
+    grid-template-columns: 1fr 1fr;
+  }
+}
