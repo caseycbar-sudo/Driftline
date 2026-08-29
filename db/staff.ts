@@ -5,6 +5,35 @@ export type StaffProfile={email:string;fullName:string;role:StaffRole;status:"ac
 function database(){if(!env.DB)throw new Error("Staff database unavailable");return env.DB}
 function map(row:Record<string,unknown>):StaffProfile{return{email:String(row.email),fullName:String(row.full_name),role:String(row.role) as StaffRole,status:String(row.status) as StaffProfile["status"],phone:String(row.phone||""),jobTitle:String(row.job_title||"Chef"),hireDate:String(row.hire_date||""),emergencyContact:String(row.emergency_contact||""),foodHandlerExpires:String(row.food_handler_expires||""),foodManagerExpires:String(row.food_manager_expires||""),adminNotes:String(row.admin_notes||""),createdAt:String(row.created_at),updatedAt:String(row.updated_at)}}
 export async function getStaff(email:string){const row=await database().prepare("SELECT * FROM staff_profiles WHERE email=?").bind(email.toLowerCase()).first<Record<string,unknown>>();return row?map(row):null}
-export async function resolveStaff(email:string,displayName:string){const existing=await getStaff(email);if(existing)return existing.status==="active"?existing:null;const count=await database().prepare("SELECT COUNT(*) AS count FROM staff_profiles").first<{count:number}>();if(Number(count?.count)!==0)return null;const now=new Date().toISOString();await database().prepare("INSERT INTO staff_profiles (email,full_name,role,status,created_at,updated_at) VALUES (?,?,?,?,?,?)").bind(email.toLowerCase(),displayName,"admin","active",now,now).run();return getStaff(email)}
+/** Only an active row counts as staff. Invited or suspended is not access. */
+export async function getActiveStaff(email:string){const staff=await getStaff(email);return staff&&staff.status==="active"?staff:null}
+
+/**
+ * The configured email permitted to claim the first admin seat, from the
+ * BOOTSTRAP_ADMIN_EMAIL worker variable. Empty when unset, which disables
+ * bootstrapping entirely.
+ */
+function bootstrapAdminEmail(){const value=(env as unknown as {BOOTSTRAP_ADMIN_EMAIL?:string}).BOOTSTRAP_ADMIN_EMAIL;return typeof value==="string"?value.trim().toLowerCase():""}
+
+/**
+ * Claim the first admin seat on an empty staff table.
+ *
+ * Requires BOTH an empty staff_profiles table AND an exact match against
+ * BOOTSTRAP_ADMIN_EMAIL. Without that variable set, no identity can bootstrap
+ * itself into an admin seat, which is the point: signing in is not a claim to
+ * administer the site.
+ */
+export async function bootstrapFirstAdmin(email:string,displayName:string){
+  const permitted=bootstrapAdminEmail();
+  if(!permitted||permitted!==email.trim().toLowerCase())return null;
+  const count=await database().prepare("SELECT COUNT(*) AS count FROM staff_profiles").first<{count:number}>();
+  if(Number(count?.count)!==0)return null;
+  const now=new Date().toISOString();
+  await database().prepare("INSERT INTO staff_profiles (email,full_name,role,status,created_at,updated_at) VALUES (?,?,?,?,?,?)").bind(email.toLowerCase(),displayName,"admin","active",now,now).run();
+  return getStaff(email);
+}
+
+/** Active staff for this identity, or the configured first-admin bootstrap. */
+export async function resolveStaff(email:string,displayName:string){const active=await getActiveStaff(email);if(active)return active;return bootstrapFirstAdmin(email,displayName)}
 export async function listStaff(){const result=await database().prepare("SELECT * FROM staff_profiles ORDER BY CASE role WHEN 'admin' THEN 0 ELSE 1 END, full_name COLLATE NOCASE").all<Record<string,unknown>>();return result.results.map(map)}
 export async function saveStaff(input:{email:string;fullName:string;role:StaffRole;status:StaffProfile["status"];phone?:string;jobTitle?:string;hireDate?:string;emergencyContact?:string;foodHandlerExpires?:string;foodManagerExpires?:string;adminNotes?:string}){const now=new Date().toISOString();await database().prepare("INSERT INTO staff_profiles (email,full_name,role,status,phone,job_title,hire_date,emergency_contact,food_handler_expires,food_manager_expires,admin_notes,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(email) DO UPDATE SET full_name=excluded.full_name,role=excluded.role,status=excluded.status,phone=excluded.phone,job_title=excluded.job_title,hire_date=excluded.hire_date,emergency_contact=excluded.emergency_contact,food_handler_expires=excluded.food_handler_expires,food_manager_expires=excluded.food_manager_expires,admin_notes=excluded.admin_notes,updated_at=excluded.updated_at").bind(input.email.toLowerCase(),input.fullName,input.role,input.status,input.phone||"",input.jobTitle||"Chef",input.hireDate||"",input.emergencyContact||"",input.foodHandlerExpires||"",input.foodManagerExpires||"",input.adminNotes||"",now,now).run();return getStaff(input.email)}
