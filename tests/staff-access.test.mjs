@@ -4,6 +4,7 @@ import test from "node:test";
 import {
   ADMIN_HOME,
   CHEF_HOME,
+  canViewVisitPhoto,
   decideStaffAccess,
   homeForRole,
 } from "../app/staff-access.ts";
@@ -87,6 +88,19 @@ test("no input produces an allow without an active matching role", () => {
 test("homeForRole maps each role to its own workspace", () => {
   assert.equal(homeForRole("admin"), ADMIN_HOME);
   assert.equal(homeForRole("chef"), CHEF_HOME);
+});
+
+test("visit photos stay inside the customer, assigned-chef, and admin boundary", () => {
+  const photo = { customerEmail: "customer@example.com", chefEmail: "assigned@example.com" };
+  const assignedChef = staffRow({ email: "assigned@example.com", role: "chef" });
+  const otherChef = staffRow({ email: "other@example.com", role: "chef" });
+  const admin = staffRow({ email: "admin@example.com", role: "admin" });
+
+  assert.equal(canViewVisitPhoto("CUSTOMER@example.com", null, photo), true);
+  assert.equal(canViewVisitPhoto("Assigned@Example.com", assignedChef, photo), true);
+  assert.equal(canViewVisitPhoto("other@example.com", otherChef, photo), false);
+  assert.equal(canViewVisitPhoto("assigned@example.com", { ...assignedChef, status: "suspended" }, photo), false);
+  assert.equal(canViewVisitPhoto("admin@example.com", admin, photo), true);
 });
 
 test("built worker: staff pages redirect a signed-out visitor to sign-in", async () => {

@@ -48,3 +48,24 @@ export function decideStaffAccess(
   // than showing a denial that would read as a bug to a legitimate user.
   return { outcome: "redirect", to: homeForRole(staff.role) };
 }
+
+/**
+ * Visit photos contain private customer-home information. Customers may see
+ * their own photos, admins may support every visit, and chefs may see only
+ * photos from visits assigned to their exact staff identity.
+ */
+export function canViewVisitPhoto(
+  viewerEmail: string,
+  staff: Pick<StaffProfile, "email" | "role" | "status"> | null | undefined,
+  photo: { customerEmail: string; chefEmail: string },
+): boolean {
+  const email = viewerEmail.trim().toLowerCase();
+  if (email === photo.customerEmail.trim().toLowerCase()) return true;
+  if (!staff || staff.status !== "active") return false;
+  if (staff.role === "admin") return true;
+  return (
+    staff.role === "chef" &&
+    email === staff.email.trim().toLowerCase() &&
+    email === photo.chefEmail.trim().toLowerCase()
+  );
+}

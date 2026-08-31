@@ -1,4 +1,4 @@
-import PortalClient from "../../portal/PortalClient";
+import ChefFieldApp from "../../portal/ChefFieldApp";
 import StaffAccessPending from "../../StaffAccessPending";
 import { requireStaffPage } from "../../staff-auth";
 
@@ -14,7 +14,7 @@ export default async function ChefWorkspace() {
 
   const { staff } = access;
   return (
-    <PortalClient
+    <ChefFieldApp
       staff={{ email: staff.email, fullName: staff.fullName, role: "chef" }}
     />
   );
