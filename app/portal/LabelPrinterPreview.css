@@ -1,0 +1,14 @@
+.meal-label{height:2in;min-height:0;padding:.1in;display:flex;flex-direction:column}
+.meal-label header{flex:0 0 auto}
+.meal-label header span{max-width:45%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.meal-label h3{font-size:11pt;line-height:1.05;margin:4px 0;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;flex:0 0 auto}
+.label-meta{margin-bottom:2px;flex:0 0 auto}
+.label-meta span{font-size:6.5pt}
+.label-meta b{font-size:5.3pt}
+.meal-label p{font-size:6.2pt;line-height:1.12;margin:2px 0;overflow:hidden}
+.meal-label p b,.meal-label footer b{font-size:5.7pt}
+.label-storage,.label-allergens{flex:0 0 auto;white-space:nowrap;text-overflow:ellipsis}
+.label-reheat{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;flex:0 1 auto}
+.meal-label footer{margin-top:2px;padding-top:2px;font-size:5.3pt;line-height:1.08;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;flex:0 1 auto}
+@media(max-width:560px){.label-preview{overflow-x:auto}.label-preview>.meal-label{max-width:none}}
+@media print{.print-label-sheet .meal-label{min-height:0}}
