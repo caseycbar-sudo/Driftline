@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import {buildGroceryList} from "../app/portal/grocery-list.ts";
+import {buildGroceryList,scaleIngredients} from "../app/portal/grocery-list.ts";
 test("combines matching quantities across dishes",()=>{const list=buildGroceryList([{title:"One",ingredients:["1½ lb chicken breast","2 cloves garlic, minced"]},{title:"Two",ingredients:["1¾ lb chicken breast","3 cloves garlic, minced"]},{title:"Three",ingredients:["¾ lb chicken breast","1 clove garlic, minced"]}]);assert.equal(list.find(i=>i.name==="chicken breast")?.display,"4 lb chicken breast");assert.equal(list.find(i=>i.name==="garlic")?.display,"6 cloves garlic")});
 test("keeps incompatible units and different cuts separate",()=>{const list=buildGroceryList([{title:"Dinner",ingredients:["1 lb chicken breast","2 lb chicken thighs","1 cup chicken stock","8 oz chicken stock"]}]);assert.equal(list.filter(i=>i.name.includes("chicken")).length,4)});
+test("scales each dish before consolidating the shopping list",()=>{const list=buildGroceryList([{title:"Chicken one",servings:12,portions:14,ingredients:["1½ lb chicken breast"]},{title:"Chicken two",servings:12,portions:10,ingredients:["1½ lb chicken breast"]}]);assert.equal(list[0].display,"3 lb chicken breast")});
+test("scales the recipe quantities shown to the chef",()=>{assert.deepEqual(scaleIngredients(["1½ lb chicken breast","3 cloves garlic, minced"],12,16),["2 lb chicken breast","4 cloves garlic"])});
