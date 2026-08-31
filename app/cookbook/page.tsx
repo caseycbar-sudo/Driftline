@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { recipes, type Recipe } from "./recipes";
+import { scaleIngredients } from "../portal/grocery-list";
 import "./cookbook.css";
 import BrandLogo from "../BrandLogo";
 
@@ -22,11 +23,7 @@ export default function Cookbook(){
   useEffect(()=>{if(!detailOpen)return;const close=(event:KeyboardEvent)=>{if(event.key==="Escape")setDetailOpen(false)};document.body.style.overflow="hidden";window.addEventListener("keydown",close);return()=>{document.body.style.overflow="";window.removeEventListener("keydown",close)}},[detailOpen]);
   const filtered=useMemo(()=>recipes.filter(r=>(category==="All"||r.category===category)&&(`${r.title} ${r.main} ${r.tags.join(" ")}`.toLowerCase().includes(query.toLowerCase()))),[query,category]);
   const factor=portions/12;
-  const scale=(line:string)=>line.replace(/^(\d+(?:\.\d+)?|½|¼|¾|1½|1¾)/,m=>{
-    const map:Record<string,number>={"½":.5,"¼":.25,"¾":.75,"1½":1.5,"1¾":1.75};
-    const n=(map[m]??Number(m))*factor;
-    return Number.isInteger(n)?String(n):n.toFixed(1);
-  });
+  const scaledIngredients=useMemo(()=>scaleIngredients(selected.ingredients,12,portions),[selected,portions]);
   async function toggleMeal(recipeId:number){
     if(!signedIn){window.location.href="/signin-with-chatgpt?return_to=%2Fcookbook";return}
     const removing=saved.includes(recipeId); setSaved(current=>removing?current.filter(id=>id!==recipeId):[...current,recipeId]);
@@ -51,7 +48,7 @@ export default function Cookbook(){
         <div className="detail-title"><small>{selected.category} · RECIPE #{String(selected.id).padStart(3,"0")}</small><h2>{selected.title}</h2><p>{selected.main} · {selected.starch} · {selected.vegetables}</p></div>
         <div className="detail-meta"><span><small>ACTIVE</small><b>{selected.active} min</b></span><span><small>TOTAL</small><b>{selected.total} min</b></span><span><small>ALLERGENS</small><b>{selected.allergens.length?selected.allergens.join(", "):"None listed"}</b></span></div>
         <div className="portion-tool"><div><small>PORTION CALCULATOR</small><strong>Scale the full recipe</strong></div><button onClick={()=>setPortions(Math.max(6,portions-2))}>−</button><b>{portions}</b><button onClick={()=>setPortions(Math.min(24,portions+2))}>+</button><span>{factor.toFixed(2)}× batch</span></div>
-        <section className="book-section ingredients"><h3>Ingredients</h3>{selected.ingredients.map((x,i)=><p key={i}><span>□</span>{scale(x)}</p>)}</section>
+        <section className="book-section ingredients"><h3>Ingredients</h3>{scaledIngredients.map((x,i)=><p key={i}><span>□</span>{x}</p>)}</section>
         <section className="book-section"><h3>Method</h3><ol>{selected.directions.map((x,i)=><li key={i}><b>{i+1}</b><span>{x}</span></li>)}</ol></section>
         <div className="production-grid"><section><h3>Equipment</h3><ul>{selected.equipment.map(x=><li key={x}>{x}</li>)}</ul></section><section><h3>Pairs efficiently with</h3><ul>{selected.pairings.map(x=><li key={x}>{x}</li>)}</ul></section></div>
         <section className="safety-notes"><div><b>FOOD SAFETY</b><p>{selected.safety}</p></div><div><b>STORAGE</b><p>{selected.storage}</p></div><div><b>REHEATING</b><p>{selected.reheating}</p></div></section>

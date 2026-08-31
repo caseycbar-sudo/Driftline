@@ -150,13 +150,31 @@ const vegetarian:Seed[]=[
 
 const seeds=[...poultry,...meat,...seafood,...vegetarian];
 const categoryFor=(i:number)=>i<25?"Poultry":i<50?"Beef, Pork & Lamb":i<75?"Seafood":"Vegetarian";
+const mainQuantity=(main:string)=>{
+  if(/tofu|tempeh/i.test(main))return"3 packages "+main;
+  if(/tuna/i.test(main))return"6 cans (5 oz) "+main;
+  if(/black beans|cannellini beans|chickpeas/i.test(main))return"3 cans (15 oz) "+main;
+  if(/lentils/i.test(main))return"3 cups dry "+main;
+  if(/edamame/i.test(main))return"6 cups shelled "+main;
+  if(/cheddar|mozzarella/i.test(main))return"3 cups shredded "+main;
+  if(/ricotta/i.test(main))return"3 cups "+main;
+  return"3 lb "+main;
+};
+const starchQuantity=(starch:string)=>{
+  if(/corn tortillas/i.test(starch))return"12 corn tortillas";
+  if(/lasagna noodles/i.test(starch))return"12 whole-wheat lasagna noodles";
+  if(/potatoes|butternut squash/i.test(starch))return"4½ lb "+starch;
+  if(/cannellini beans|chickpeas/i.test(starch))return"3 cans (15 oz) "+starch;
+  if(/hominy/i.test(starch))return"3 cans (15 oz) hominy";
+  if(/pasta|penne|rotini|noodles|orzo|shells/i.test(starch))return"1½ lb dry "+starch;
+  return"3 cups dry "+starch;
+};
 
 export const recipes:Recipe[]=seeds.map((s,i)=>{
   const [title,main,starch,vegetables,profile,allergens,tags]=s;
   const p=profiles[profile]||profiles.herb;
   const isSeafood=i>=50&&i<75;
   const isVeg=i>=75;
-  const mainAmount=isVeg?"3 cups cooked or 2 cans, drained":isSeafood?"1½ lb":"1¾ lb";
   const directions=[
     `Wash hands and sanitize the work surface. Gather and measure all ingredients; preheat oven to 400°F if roasting is used.`,
     `Prepare ${starch} according to package directions using unsalted water or low-sodium stock. Hold covered when tender.`,
@@ -171,7 +189,7 @@ export const recipes:Recipe[]=seeds.map((s,i)=>{
     id:i+1,title,category:categoryFor(i),main,starch,vegetables,profile,
     allergens,tags,active:30+(i%4)*5,total:55+(i%6)*10,
     image:`/cookbook/r-${String(i+1).padStart(3,"0")}-v2.webp`,
-    ingredients:[mainAmount+" "+main,"2 cups dry "+starch,"4 cups "+vegetables,"2 tbsp olive or avocado oil","1 tsp kosher salt","½ tsp black pepper",...p,"2 tbsp chopped fresh parsley or cilantro for finishing"],
+    ingredients:[mainQuantity(main),starchQuantity(starch),"6 cups "+vegetables,"3 tbsp olive or avocado oil","2 tsp kosher salt","1 tsp black pepper",...p,"3 tbsp chopped fresh parsley or cilantro for finishing"],
     directions,equipment:["Chef’s knife","Cutting board","Large skillet or roasting pan","Medium saucepan","Food thermometer","Shallow meal-prep containers"],
     storage:"Cool in shallow containers and refrigerate at 40°F or below. Use within 3–4 days; freeze portions not needed in that window.",
     reheating:"Cover and reheat evenly until the center reaches 165°F. Stir or rotate halfway through microwave reheating and rest one minute before serving.",
