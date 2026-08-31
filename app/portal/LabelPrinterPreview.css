@@ -12,3 +12,9 @@
 .meal-label footer{margin-top:2px;padding-top:2px;font-size:5.3pt;line-height:1.08;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;flex:0 1 auto}
 @media(max-width:560px){.label-preview{overflow-x:auto}.label-preview>.meal-label{max-width:none}}
 @media print{.print-label-sheet .meal-label{min-height:0}}
+.label-dishes details.previewing{box-shadow:inset 4px 0 #a95739;background:#fffaf5}
+.label-dishes summary{grid-template-columns:1fr auto auto auto}
+.label-actions{display:flex;gap:6px}
+.label-actions button{border:1px solid #9eb2aa;background:#fff;color:#17323e;padding:8px 10px;font-size:8px;font-weight:800;cursor:pointer}
+.label-actions button:last-child{background:#567c75;color:#fff;border-color:#567c75}
+@media(max-width:700px){.label-dishes summary{grid-template-columns:1fr auto}.label-actions{grid-column:1/-1}.label-actions button{flex:1}.label-dishes summary>i{grid-column:1/-1}}
