@@ -4,7 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 import { recipes, type Recipe } from "./recipes";
 import { scaleIngredients } from "../portal/grocery-list";
 import "./cookbook.css";
-import BrandLogo from "../BrandLogo";
+import SiteHeader from "../SiteHeader";
+import SiteFooter from "../SiteFooter";
+import "../home.css";
 
 const categories=["All","Poultry","Beef, Pork & Lamb","Seafood","Vegetarian"];
 
@@ -37,7 +39,7 @@ export default function Cookbook(){
     if(response.ok){setCustomCount(count=>count+1);setShowOwnRecipe(false);setNotice("Your recipe was added to your Driftline meal plan ✓");window.setTimeout(()=>setNotice(""),3000)}else setNotice("Please complete the recipe title, ingredients, and directions.");
   }
   return <main className="cookbook">
-    <header className="book-top"><a href="/account">← My account</a><div><BrandLogo/><small>COOKBOOK · CHOOSE DISHES FOR YOUR HOUSEHOLD</small></div><a className="book-account" href="/account">My meal plan</a></header>
+    <SiteHeader current="/meal-prep"/><nav className="dp-subnav" aria-label="Cookbook"><a href="/meal-prep">← Meal prep</a><a href="/meal-prep#pricing">Packages &amp; pricing</a><a href="/account">My account</a><a className="dp-subnav-cta" href="/account">My meal plan →</a></nav>
     <section className="book-hero"><div><p>BUILD YOUR STARTER MENU</p><h1>What sounds good<br/>for your table?</h1><span>Choose a few Driftline dishes to help your chef learn what your household enjoys—or add a treasured recipe of your own.</span><div className="hero-choice"><strong>{saved.length+customCount}</strong><span>meals chosen</span><button onClick={()=>setShowOwnRecipe(true)}>+ Add my own recipe</button></div></div><aside><strong>100</strong><span>complete recipes</span><strong>4</strong><span>easy categories</span><strong>6–24</strong><span>portion range</span></aside></section>
     <section className="book-tools"><label><span>⌕</span><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search by dish, ingredient, or tag…"/></label><div>{categories.map(c=><button key={c} className={category===c?"active":""} onClick={()=>setCategory(c)}>{c}</button>)}</div><b>{filtered.length} recipes</b></section>
     <div className="book-layout">
@@ -58,5 +60,6 @@ export default function Cookbook(){
     </div>
     {notice?<div className="book-notice" role="status">{notice}</div>:null}
     {showOwnRecipe?<div className="recipe-modal" role="dialog" aria-modal="true" aria-labelledby="own-recipe-title"><form onSubmit={submitOwnRecipe}><button className="modal-close" type="button" onClick={()=>setShowOwnRecipe(false)} aria-label="Close">×</button><p>YOUR FAMILY RECIPE</p><h2 id="own-recipe-title">What would you like us to make?</h2><span>Enter the full recipe below. Your chef will review it with your household notes before scheduling.</span><label>Recipe name<input name="title" required placeholder="Grandma's chicken and dumplings"/></label><div className="own-row"><label>Servings<input name="servings" type="number" min="1" max="50" defaultValue="4"/></label><label>Recipe link, if available<input name="sourceUrl" type="url" placeholder="https://…"/></label></div><label>Ingredients<textarea name="ingredients" required placeholder={'List each ingredient and amount on its own line\n2 cups flour\n1 tsp salt…'}/></label><label>Directions<textarea name="directions" required placeholder={'Write each step in order\n1. Preheat the oven…'}/></label><label>Notes for your chef<textarea name="notes" placeholder="Family traditions, preferred brands, substitutions, or anything that makes it taste right."/></label><button className="submit-recipe">Add recipe to my meal plan <span>→</span></button><small>{signedIn?"This recipe will be saved privately to your account.":"You'll be asked to sign in before this recipe is saved."}</small></form></div>:null}
+    <SiteFooter/>
   </main>
 }

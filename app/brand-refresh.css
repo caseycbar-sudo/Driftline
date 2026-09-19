@@ -321,15 +321,15 @@ footer,
 }
 .book-top,
 .chef-login header,
-.legal-page header {
+.legal-page header:not(.dp-header) {
   background: var(--brand-charcoal) !important;
   color: white !important;
   border-color: #ffffff1c !important;
 }
 .book-top a,
 .chef-login header a,
-.legal-page header a,
-.legal-page header span {
+.legal-page header:not(.dp-header) a,
+.legal-page header:not(.dp-header) span {
   color: var(--brand-pale) !important;
 }
 .book-top > div {
@@ -397,7 +397,7 @@ footer,
   background: var(--brand-ivory) !important;
   border-color: #9c7b4055 !important;
 }
-.legal-page header {
+.legal-page header:not(.dp-header) {
   padding-top: 14px !important;
   padding-bottom: 14px !important;
 }
