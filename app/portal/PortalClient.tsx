@@ -127,7 +127,7 @@ export default function Portal({
             textDecoration: "none",
           }}
         >
-          100-recipe cookbook →
+          Cookbook →
         </a>
         <div className="portal-user">
           <button aria-label="Notifications" onClick={() => toast("Notifications", "You have no new staff notifications.")}>●</button>

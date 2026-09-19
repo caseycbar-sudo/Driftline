@@ -140,7 +140,7 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
       .filter(
         (recipe) =>
           !query ||
-          `${recipe.title} ${recipe.category} ${recipe.main} ${recipe.tags.join(" ")}`
+          `${recipe.title} ${recipe.category} ${recipe.description} ${recipe.tags.join(" ")}`
             .toLowerCase()
             .includes(query),
       )
@@ -660,7 +660,7 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
                     type="search"
                     value={recipeSearch}
                     onChange={(e) => setRecipeSearch(e.target.value)}
-                    placeholder="Search 100 recipes…"
+                    placeholder="Search recipes…"
                     aria-label="Search cookbook recipes"
                   />
                 </header>

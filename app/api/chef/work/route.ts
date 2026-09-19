@@ -51,7 +51,7 @@ export async function GET(request: Request) {
         if (cookbook)
           return {
             title,
-            servings: 12,
+            servings: cookbook.servings,
             source: "Driftline cookbook",
             image: cookbook.image,
             ingredients: cookbook.ingredients,

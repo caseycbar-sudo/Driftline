@@ -625,3 +625,7 @@
     background-image: url("/gallery/salmon.webp") !important;
   }
 }
+
+.pc-menu-more { text-align: center; margin: 34px 0 0; }
+.pc-menu-more a { color: #d2ae6a; font-weight: 700; text-decoration: none; font-size: 16px; }
+.pc-menu-more a:hover { text-decoration: underline; }

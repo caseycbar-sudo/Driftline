@@ -7,9 +7,9 @@ import "../home.css";
 const occasions = ["Anniversaries", "Birthday dinners", "Vacation-home dining", "Elopements", "Family gatherings", "Just because"];
 
 const sampleMenus = [
-  { name: "The North Coast", detail: "Dungeness crab · roasted local fish · seasonal greens · marionberry finish", image: "/cookbook/r-059-v2.webp" },
-  { name: "The Hearth Table", detail: "Braised beef · coastal mushrooms · root vegetables · warm chocolate dessert", image: "/cookbook/r-026-v2.webp" },
-  { name: "Garden & Tide", detail: "Seasonal vegetables · Pacific seafood · grains · bright citrus and herbs", image: "/cookbook/r-053-v2.webp" },
+  { name: "The North Coast", detail: "Oysters on the half shell · pan-roasted halibut with chanterelles · marionberry cobbler", image: "/cookbook/pc/pan-roasted-halibut-with-chanterelles-and-brown-butter.webp" },
+  { name: "The Hearth Table", detail: "Butternut squash soup with brown butter · braised short ribs with polenta · chocolate hazelnut torte", image: "/gallery/shortrib.webp" },
+  { name: "Garden & Tide", detail: "Summer corn and tomato bruschetta · seared scallops with beurre blanc · Meyer lemon panna cotta", image: "/gallery/scallops.webp" },
 ];
 
 export default function PrivateChefPage() {
@@ -45,6 +45,7 @@ export default function PrivateChefPage() {
     <section className="pc-menus">
       <div className="pc-section-head"><p className="pc-kicker">MENU INSPIRATION</p><h2>Rooted in the coast.<br/>Made for your table.</h2><p>Every menu is customized. These are starting points—not fixed packages.</p></div>
       <div className="pc-menu-grid">{sampleMenus.map(menu => <article key={menu.name}><div style={{backgroundImage:`url('${menu.image}')`}}/><span>SAMPLE EXPERIENCE</span><h3>{menu.name}</h3><p>{menu.detail}</p><a href="#inquire">Plan this experience →</a></article>)}</div>
+      <p className="pc-menu-more"><a href="/cookbook?side=private-chef">Browse all 20 private chef dishes by course →</a></p>
     </section>
 
     <section className="pc-occasions"><div><p className="pc-kicker">WORTH GATHERING FOR</p><h2>Big occasion or quiet celebration.</h2><p>Private dining works beautifully for an intimate table of two, a coastal getaway, or a gathering with the people you most want time with.</p></div><ul>{occasions.map(item => <li key={item}>{item}<span>↗</span></li>)}</ul></section>

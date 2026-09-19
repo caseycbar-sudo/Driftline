@@ -42,62 +42,14 @@ const packages = [
 ];
 
 const meals = [
-  {
-    id: 2,
-    title: "Cider-Braised Chicken",
-    detail: "Yukon potatoes · green beans",
-    category: "Poultry",
-    image: "/cookbook/r-002-v2.webp",
-  },
-  {
-    id: 4,
-    title: "Greek Chicken Bowls",
-    detail: "Quinoa · cucumber · roasted tomatoes",
-    category: "Poultry",
-    image: "/cookbook/r-004-v2.webp",
-  },
-  {
-    id: 26,
-    title: "Slow-Cooked Beef Ragù",
-    detail: "Creamy polenta · roasted carrots",
-    category: "Beef, Pork & Lamb",
-    image: "/cookbook/r-026-v2.webp",
-  },
-  {
-    id: 39,
-    title: "Maple Dijon Pork",
-    detail: "Wild rice · Brussels sprouts",
-    category: "Beef, Pork & Lamb",
-    image: "/cookbook/r-039-v2.webp",
-  },
-  {
-    id: 51,
-    title: "Coastal Salmon Cakes",
-    detail: "Brown rice · green beans",
-    category: "Seafood",
-    image: "/cookbook/r-051-v2.webp",
-  },
-  {
-    id: 53,
-    title: "Mediterranean Baked Cod",
-    detail: "Quinoa · tomatoes · zucchini",
-    category: "Seafood",
-    image: "/cookbook/r-053-v2.webp",
-  },
-  {
-    id: 76,
-    title: "Red Lentil Coconut Curry",
-    detail: "Brown rice · spinach · carrots",
-    category: "Vegetarian",
-    image: "/cookbook/r-076-v2.webp",
-  },
-  {
-    id: 89,
-    title: "Mushroom Cottage Pie",
-    detail: "Mashed potatoes · mushrooms · carrots",
-    category: "Vegetarian",
-    image: "/cookbook/r-089-v2.webp",
-  },
+  { id: 1, title: "Lemon-Herb Chicken Thighs", detail: "Orzo · green beans", category: "Poultry", image: "/cookbook/mp/lemon-herb-chicken-thighs-with-orzo-and-green-beans.webp" },
+  { id: 2, title: "Chicken Tikka Masala", detail: "Basmati rice", category: "Poultry", image: "/cookbook/mp/chicken-tikka-masala-with-basmati-rice.webp" },
+  { id: 9, title: "Braised Beef Ragù", detail: "Creamy polenta", category: "Beef, Pork & Lamb", image: "/cookbook/mp/braised-beef-rag-over-creamy-polenta.webp" },
+  { id: 10, title: "Beef and Bean Chili", detail: "Slow-simmered, freezer-friendly", category: "Beef, Pork & Lamb", image: "/cookbook/mp/beef-and-bean-chili.webp" },
+  { id: 15, title: "Coastal Salmon Cakes", detail: "Lemon-dill sauce · brown rice", category: "Seafood", image: "/cookbook/mp/coastal-salmon-cakes-with-lemon-dill-sauce-and-brown-rice.webp" },
+  { id: 16, title: "Miso-Glazed Salmon", detail: "Sesame greens · rice", category: "Seafood", image: "/cookbook/mp/miso-glazed-salmon-with-sesame-greens-and-rice.webp" },
+  { id: 23, title: "Red Lentil Coconut Dal", detail: "Spinach · basmati rice", category: "Vegetarian", image: "/cookbook/mp/red-lentil-coconut-dal-with-spinach-and-basmati-rice.webp" },
+  { id: 24, title: "Mushroom and Lentil Shepherd's Pie", detail: "Red wine gravy · mashed potatoes", category: "Vegetarian", image: "/cookbook/mp/mushroom-and-lentil-shepherd-s-pie.webp" },
 ];
 
 function CheckIcon() {
@@ -302,7 +254,7 @@ export default function Home() {
         <div className="menu-heading">
           <div>
             <p className="eyebrow light">
-              <span /> 100 recipes to explore
+              <span /> 30 recipes to explore
             </p>
             <h2>
               More choice for every
@@ -335,7 +287,7 @@ export default function Home() {
         </div>
         <div className="menu-actions">
           <a href="/cookbook">
-            Browse all 100 recipes <span>→</span>
+            Browse all 30 recipes <span>→</span>
           </a>
           <p>
             Allergy-aware planning <span>·</span> Portion calculator{" "}
