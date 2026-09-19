@@ -2,6 +2,7 @@ import vinext from "vinext";
 import { defineConfig } from "vite";
 import hostingConfig from "./.openai/hosting.json";
 import { sites } from "./build/sites-vite-plugin";
+import productionConfig from "./deploy/cloudflare.json";
 
 const SITE_CREATOR_PLACEHOLDER_DATABASE_ID =
   "00000000-0000-4000-8000-000000000000";
@@ -33,6 +34,31 @@ const localBindingConfig = {
     : [],
 };
 
+/**
+ * `DRIFTLINE_DEPLOY=production npm run build` builds for Driftline's own
+ * Cloudflare account using deploy/cloudflare.json; anything else builds the
+ * local/test configuration above.
+ */
+function productionBindingConfig() {
+  const p = productionConfig;
+  if (!p.d1.databaseId) {
+    throw new Error("deploy/cloudflare.json is missing d1.databaseId. Run `npm run cf:setup` first.");
+  }
+  return {
+    name: p.workerName,
+    main: "./worker/index.ts",
+    compatibility_flags: ["nodejs_compat"],
+    workers_dev: true,
+    vars: p.vars,
+    d1_databases: [
+      { binding: d1 || "DB", database_name: p.d1.databaseName, database_id: p.d1.databaseId, migrations_dir: "../../drizzle" },
+    ],
+    r2_buckets: [{ binding: r2 || "BUCKET", bucket_name: p.r2.bucketName }],
+    routes: p.customDomains.map((pattern: string) => ({ pattern, custom_domain: true })),
+    observability: { enabled: true },
+  };
+}
+
 export default defineConfig(async () => {
   // Keep Wrangler and Miniflare state project-local. These are non-secret tool
   // settings; application environment belongs in ignored `.env*` files.
@@ -57,7 +83,7 @@ export default defineConfig(async () => {
       cloudflare({
         viteEnvironment: { name: "rsc", childEnvironments: ["ssr"] },
         inspectorPort: false,
-        config: localBindingConfig,
+        config: process.env.DRIFTLINE_DEPLOY === "production" ? productionBindingConfig() : localBindingConfig,
       }),
     ],
   };

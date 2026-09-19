@@ -112,6 +112,25 @@ If email isn't configured, requests are still saved; the admin screen flags
 any request that didn't trigger an alert. Spam protection is a hidden
 honeypot field plus hourly limits per address and per email.
 
+## Deploying to Cloudflare
+
+Production settings live in `deploy/cloudflare.json` (nothing secret). One-time setup:
+
+```bash
+npx wrangler login                 # or set CLOUDFLARE_API_TOKEN
+npm run cf:setup                   # creates the database + photo storage, records the database id
+npx wrangler secret put RESEND_API_KEY --name driftline-provisions
+npm run deploy                     # builds, applies database migrations, deploys
+```
+
+After that, `npm run deploy` is the whole release. The site first runs on its
+`*.workers.dev` address. To go live on the real domain, add
+`"driftlineprovisions.com"` and `"www.driftlineprovisions.com"` to
+`customDomains` once the domain's DNS is on Cloudflare, and deploy again.
+
+The first sign-in by `BOOTSTRAP_ADMIN_EMAIL` creates the owner account (only
+while no staff exist). Remove that variable afterwards.
+
 ## Diagnostic Commands
 
 - `npm run install:ci`: perform the one bounded lockfile install

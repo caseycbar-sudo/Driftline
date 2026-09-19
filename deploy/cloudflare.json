@@ -1,0 +1,13 @@
+{
+  "_comment": "Production settings for Cloudflare. Nothing here is secret. Fill in d1.databaseId after `npm run cf:setup` creates the database. The Resend key is a secret: set it with `npx wrangler secret put RESEND_API_KEY`, never here.",
+  "workerName": "driftline-provisions",
+  "d1": { "databaseName": "driftline-provisions", "databaseId": "" },
+  "r2": { "bucketName": "driftline-provisions-photos" },
+  "vars": {
+    "SITE_URL": "https://www.driftlineprovisions.com",
+    "NOTIFY_EMAIL": "driftlineprovisions@gmail.com",
+    "FROM_EMAIL": "Driftline Provisions <hello@driftlineprovisions.com>",
+    "BOOTSTRAP_ADMIN_EMAIL": "driftlineprovisions@gmail.com"
+  },
+  "customDomains": []
+}
