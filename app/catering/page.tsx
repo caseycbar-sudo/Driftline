@@ -4,6 +4,7 @@ import SiteFooter from "../SiteFooter";
 import InquiryForm from "../private-chef/InquiryForm";
 import "../home.css";
 import { pageMetadata } from "../site-config";
+import PhotoStrip from "../PhotoStrip";
 
 export const metadata: Metadata = pageMetadata(
   "/catering",
@@ -87,6 +88,16 @@ export default function CateringPage() {
           ))}
         </div>
       </section>
+
+      <PhotoStrip
+        label="Food from Driftline events"
+        photos={[
+          { src: "/gallery/shortrib.webp", alt: "Braised short rib over creamy polenta", caption: "Braised short rib" },
+          { src: "/gallery/salmon.webp", alt: "Roasted salmon with asparagus and saffron orzo", caption: "Northwest salmon" },
+          { src: "/gallery/scallops.webp", alt: "Seared scallops with beurre blanc", caption: "Seared scallops" },
+          { src: "/gallery/dessert.webp", alt: "Plated dessert with chocolate drizzle", caption: "Something sweet" },
+        ]}
+      />
 
       <section className="dp-athome" id="how">
         <div className="dp-athome-inner">

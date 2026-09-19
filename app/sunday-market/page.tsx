@@ -3,6 +3,7 @@ import SiteHeader from "../SiteHeader";
 import SiteFooter from "../SiteFooter";
 import "../home.css";
 import { pageMetadata } from "../site-config";
+import { MarketTodayNotice } from "../MarketStatus";
 
 export const metadata: Metadata = pageMetadata(
   "/sunday-market",
@@ -24,6 +25,7 @@ export default function SundayMarketPage() {
             Chowder on
             <em>12th Street.</em>
           </h1>
+          <MarketTodayNotice />
           <p className="dp-lede">
             Our award-winning clam chowder, made fresh and served hot every
             Sunday at the Astoria Sunday Market. Come say hi, grab a bowl, and

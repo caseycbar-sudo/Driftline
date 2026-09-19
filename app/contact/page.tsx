@@ -4,6 +4,7 @@ import SiteFooter from "../SiteFooter";
 import ContactForm from "./ContactForm";
 import { CONTACT_EMAIL, pageMetadata } from "../site-config";
 import "../home.css";
+import PhotoStrip from "../PhotoStrip";
 
 export const metadata: Metadata = pageMetadata(
   "/contact",
@@ -37,6 +38,7 @@ export default function ContactPage() {
     <main className="dp">
       <SiteHeader current="/contact" />
 
+      <div className="dp-page-head-wrap">
       <section className="dp-page-head">
         <p className="dp-eyebrow">
           <span aria-hidden="true" /> Get in touch
@@ -64,6 +66,17 @@ export default function ContactPage() {
           ))}
         </div>
       </section>
+      </div>
+
+      <PhotoStrip
+        label="Casey's cooking"
+        photos={[
+          { src: "/gallery/chef-casey.webp", alt: "Chef Casey Barella cooking in a home kitchen" },
+          { src: "/gallery/scallops.webp", alt: "Seared scallops with beurre blanc" },
+          { src: "/gallery/salad-prep.webp", alt: "Crostini, cherry tomatoes and sweet corn prepped on a cutting board" },
+          { src: "/gallery/salmon.webp", alt: "Roasted salmon with asparagus and saffron orzo" },
+        ]}
+      />
 
       <section className="dp-request">
         <div className="dp-request-copy">

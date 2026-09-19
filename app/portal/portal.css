@@ -1326,14 +1326,12 @@ td {
     overflow: auto;
   }
   .portal-side nav button {
-    min-width: 70px;
+    flex: 1 0 58px;
+    min-width: 58px;
     display: grid;
     place-items: center;
     gap: 2px;
-    font-size: 7px !important;
-  }
-  .portal-side nav button:nth-child(n + 6) {
-    display: none;
+    font-size: 10px !important;
   }
   .p-icon {
     font-size: 14px;

@@ -3,6 +3,8 @@ import SiteHeader from "./SiteHeader";
 import SiteFooter from "./SiteFooter";
 import "./home.css";
 import { CONTACT_EMAIL, SITE_ORIGIN, pageMetadata, smallImage } from "./site-config";
+import { MarketHeroLink } from "./MarketStatus";
+import ReviewsShowcase from "./ReviewsShowcase";
 
 export const metadata: Metadata = pageMetadata(
   "/",
@@ -100,13 +102,7 @@ export default function Home() {
               Explore weekly meal prep
             </a>
           </div>
-          <a className="dp-hero-market" href="/sunday-market">
-            <span className="dp-dot" aria-hidden="true" />
-            <span>
-              <strong>Award-winning clam chowder</strong>
-              Sundays at the Astoria Sunday Market →
-            </span>
-          </a>
+          <MarketHeroLink />
         </div>
         <figure className="dp-hero-photo">
           <img src="/gallery/chef-casey.webp" alt="Chef Casey Barella cooking in a home kitchen" />
@@ -215,6 +211,8 @@ export default function Home() {
           </div>
         </aside>
       </section>
+
+      <ReviewsShowcase />
 
       {/* PLAN YOUR TABLE */}
       <section className="dp-plan">

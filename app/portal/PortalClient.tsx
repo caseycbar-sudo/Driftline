@@ -8,6 +8,8 @@ import ChefWork from "./ChefWork";
 import StaffManager from "./StaffManager";
 import PrivateChefLeads from "./PrivateChefLeads";
 import AdminDispatch from "./AdminDispatch";
+import MarketControl from "./MarketControl";
+import ReviewsManager from "./ReviewsManager";
 import DisclosureGate from "../disclosures/DisclosureGate";
 import BrandLogo from "../BrandLogo";
 import ChefFieldApp from "./ChefFieldApp";
@@ -58,7 +60,7 @@ const recipes = [
 ];
 
 const chefTabs = ["Today", "Upcoming", "Recipes", "Time & Mileage", "Earnings"];
-const adminTabs = ["Dispatch", "Calendar", "Requests", "People"];
+const adminTabs = ["Dispatch", "Calendar", "Requests", "Market", "Reviews", "People"];
 
 function Icon({ children }: { children: React.ReactNode }) {
   return (
@@ -157,7 +159,7 @@ export default function Portal({
               className={tab === item ? "active" : ""}
               onClick={() => setTab(item)}
             >
-              <Icon>{["⌂", "♨", "□", "◎", "$", "◷", "↗"][i] || "·"}</Icon>
+              <Icon>{({ Market: "◎", Reviews: "★", Requests: "✉" } as Record<string, string>)[item] ?? (["⌂", "♨", "□", "◎", "$", "◷", "↗"][i] || "·")}</Icon>
               {item}
               {item === "Safety" ? <b>2</b> : null}
             </button>
@@ -1107,6 +1109,8 @@ function Admin({
   if (tab === "Requests")
     return <PrivateChefLeads onOpenCalendar={() => setTab("Calendar")} />;
   if (tab === "People") return <StaffManager />;
+  if (tab === "Market") return <MarketControl />;
+  if (tab === "Reviews") return <ReviewsManager />;
   if (tab === "Dispatch")
     return (
       <AdminDispatch

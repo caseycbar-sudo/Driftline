@@ -5,6 +5,7 @@ import SiteFooter from "../SiteFooter";
 import "../home.css";
 import type { Metadata } from "next";
 import { pageMetadata, smallImage } from "../site-config";
+import ReviewsShowcase from "../ReviewsShowcase";
 
 export const metadata: Metadata = pageMetadata(
   "/private-chef",
@@ -63,6 +64,7 @@ export default function PrivateChefPage() {
       <div className="pc-price-card"><small>THREE-COURSE DINNER</small><strong>From <em>$175</em> per guest</strong><p>Six-guest minimum · groceries included in the proposal</p><hr/><small>INTIMATE TABLES OF 2–5</small><strong>From <em>$1,050</em></strong><p>A minimum keeps a small-table experience fully staffed and beautifully executed.</p><a href="#inquire">Request a custom proposal →</a></div>
     </section>
 
+    <div className="dp"><ReviewsShowcase service="Private chef dinner" /></div>
     <section className="pc-details"><h2>What your evening includes</h2><div><article><h3>Before</h3><p>Personal consultation, custom menu, dietary review, ingredient sourcing, and a clear proposal.</p></article><article><h3>During</h3><p>On-site preparation, restaurant-quality cooking, thoughtful pacing, plating, and table service.</p></article><article><h3>After</h3><p>Leftovers packed when appropriate, dishes handled, cooking surfaces cleaned, and kitchen left ready for you.</p></article></div><small>Specialty rentals, additional servers, extensive travel, alcohol, and extraordinary ingredients may be quoted separately.</small></section>
 
     <section className="pc-inquiry" id="inquire">

@@ -158,3 +158,28 @@ export const authSessions = sqliteTable("auth_sessions", {
   expiresAt: text("expires_at").notNull(),
   lastSeenAt: text("last_seen_at").notNull(),
 });
+
+/** Small owner-controlled settings (e.g. today's Sunday Market status). */
+export const siteSettings = sqliteTable("site_settings", {
+  key: text("key").primaryKey(),
+  value: text("value").notNull(),
+  updatedAt: text("updated_at").notNull(),
+  updatedBy: text("updated_by").notNull().default(""),
+});
+
+/** Customer reviews. Nothing is shown publicly until the owner approves it. */
+export const reviews = sqliteTable("reviews", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  customerEmail: text("customer_email").notNull(),
+  displayName: text("display_name").notNull(),
+  town: text("town").notNull().default(""),
+  service: text("service").notNull().default(""),
+  rating: integer("rating").notNull(),
+  body: text("body").notNull(),
+  /** pending | approved | hidden */
+  status: text("status").notNull().default("pending"),
+  /** True when the reviewer has a completed Driftline visit on record. */
+  verified: integer("verified", { mode: "boolean" }).notNull().default(false),
+  createdAt: text("created_at").notNull(),
+  reviewedAt: text("reviewed_at").notNull().default(""),
+});

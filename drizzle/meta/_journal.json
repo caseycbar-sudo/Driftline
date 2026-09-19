@@ -85,6 +85,13 @@
       "when": 1789848845372,
       "tag": "0011_email_sign_in",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "6",
+      "when": 1789857460683,
+      "tag": "0012_market_and_reviews",
+      "breakpoints": true
     }
   ]
 }

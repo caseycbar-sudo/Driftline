@@ -203,3 +203,29 @@ export function siteOrigin(requestUrl: string): string {
   if (url.hostname === "localhost" || url.hostname === "127.0.0.1") return url.origin;
   return "https://www.driftlineprovisions.com";
 }
+
+/** Tell the owner a new review is waiting for approval. Never throws. */
+export async function notifyNewReview(r: { displayName: string; town: string; service: string; rating: number; body: string; email: string; verified: boolean }): Promise<boolean> {
+  const config = mailConfig();
+  if (!config) return false;
+  try {
+    const stars = "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
+    await send(config.endpoint, config.apiKey, {
+      from: config.from,
+      to: config.to,
+      reply_to: r.email,
+      subject: `New ${r.rating}-star review waiting for approval`,
+      text: `${stars}\n${r.displayName}${r.town ? `, ${r.town}` : ""} · ${r.service}${r.verified ? " · verified client" : ""}\n\n${r.body}\n\nApprove or hide it: ${config.siteUrl}/portal (Reviews tab). Nothing is public until you approve it.`,
+      html: `<div style="font-family:Arial,sans-serif;font-size:15px;max-width:560px;color:#16232f">
+<p style="font-size:20px;color:#7a6032;margin:0 0 6px">${stars}</p>
+<p style="margin:0 0 14px"><b>${escapeHtml(r.displayName)}</b>${r.town ? `, ${escapeHtml(r.town)}` : ""} · ${escapeHtml(r.service)}${r.verified ? " · verified client" : ""}</p>
+<blockquote style="margin:0 0 18px;padding:12px 16px;border-left:3px solid #7a6032;background:#f6f1e7;white-space:pre-wrap">${escapeHtml(r.body)}</blockquote>
+<p><a href="${config.siteUrl}/portal" style="background:#7a6032;color:#fff;padding:10px 16px;text-decoration:none;font-weight:bold">Review it in your dashboard</a></p>
+<p style="color:#6b7680;font-size:13px">Nothing is public until you approve it.</p></div>`,
+    });
+    return true;
+  } catch (error) {
+    console.error("[reviews] owner alert failed", error);
+    return false;
+  }
+}
