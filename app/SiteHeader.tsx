@@ -1,0 +1,60 @@
+"use client";
+
+import { useState } from "react";
+import BrandLogo from "./BrandLogo";
+
+const links = [
+  { href: "/private-chef", label: "Private Chef" },
+  { href: "/#catering", label: "Catering" },
+  { href: "/meal-prep", label: "Meal Prep" },
+  { href: "/cookbook", label: "Cookbook" },
+  { href: "/#story", label: "Our Story" },
+];
+
+export default function SiteHeader({ current }: { current?: string }) {
+  const [open, setOpen] = useState(false);
+  const close = () => setOpen(false);
+
+  return (
+    <header className="dp-header">
+      <a className="dp-header-logo" href="/" aria-label="Driftline Provisions home">
+        <BrandLogo />
+      </a>
+      <nav className={open ? "dp-nav open" : "dp-nav"} aria-label="Main navigation">
+        {links.map((link) => (
+          <a
+            key={link.href}
+            href={link.href}
+            onClick={close}
+            aria-current={current === link.href ? "page" : undefined}
+          >
+            {link.label}
+          </a>
+        ))}
+        <a className="dp-nav-signin" href="/account" onClick={close}>
+          Sign in
+        </a>
+        <a className="dp-nav-cta-mobile" href="/#plan" onClick={close}>
+          Plan your table →
+        </a>
+      </nav>
+      <div className="dp-header-actions">
+        <a className="dp-signin" href="/account">
+          Sign in
+        </a>
+        <a className="dp-btn dp-btn-gold" href="/#plan">
+          Plan your table <span aria-hidden="true">→</span>
+        </a>
+      </div>
+      <button
+        className="dp-menu-toggle"
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+        aria-label={open ? "Close menu" : "Open menu"}
+      >
+        <span />
+        <span />
+      </button>
+    </header>
+  );
+}

@@ -14,7 +14,7 @@ export default function PrivateChefPage() {
   return <main className="pc-page">
     <header className="pc-header">
       <a className="pc-brand" href="/"><BrandLogo/></a>
-      <nav><a href="/#pricing">Meal Prep</a><a className="current" href="/private-chef">Private Chef</a><a href="/cookbook">Cookbook</a><a href="/account">Sign in</a></nav>
+      <nav><a href="/meal-prep#pricing">Meal Prep</a><a className="current" href="/private-chef">Private Chef</a><a href="/cookbook">Cookbook</a><a href="/account">Sign in</a></nav>
       <a className="pc-inquire" href="#inquire">Plan your dinner →</a>
     </header>
 
@@ -63,6 +63,6 @@ export default function PrivateChefPage() {
       <InquiryForm/>
     </section>
 
-    <footer className="pc-footer"><a className="pc-brand" href="/"><BrandLogo/></a><p>Private dining and in-home meal prep on Oregon’s North Coast.</p><div><a href="/#pricing">Meal Prep</a><a href="/private-chef">Private Chef</a><a href="/account">Customer Account</a><a href="/chef">Chef Login</a><a href="/disclosures">Disclosures</a></div><small>© 2026 Driftline Provisions · Astoria, Oregon</small></footer>
+    <footer className="pc-footer"><a className="pc-brand" href="/"><BrandLogo/></a><p>Private dining and in-home meal prep on Oregon’s North Coast.</p><div><a href="/meal-prep#pricing">Meal Prep</a><a href="/private-chef">Private Chef</a><a href="/account">Customer Account</a><a href="/chef">Chef Login</a><a href="/disclosures">Disclosures</a></div><small>© 2026 Driftline Provisions · Astoria, Oregon</small></footer>
   </main>;
 }
