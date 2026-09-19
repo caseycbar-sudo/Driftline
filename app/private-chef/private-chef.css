@@ -608,3 +608,8 @@
   font-size: 11px;
   text-align: center;
 }
+
+.pc-inquiry form [aria-invalid="true"] {
+  border-color: #a23b3b;
+  box-shadow: 0 0 0 2px rgba(162, 59, 59, 0.15);
+}

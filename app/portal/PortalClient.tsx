@@ -58,7 +58,7 @@ const recipes = [
 ];
 
 const chefTabs = ["Today", "Upcoming", "Recipes", "Time & Mileage", "Earnings"];
-const adminTabs = ["Dispatch", "Calendar", "Private Chef Leads", "People"];
+const adminTabs = ["Dispatch", "Calendar", "Requests", "People"];
 
 function Icon({ children }: { children: React.ReactNode }) {
   return (
@@ -1117,7 +1117,7 @@ function Admin({
 }) {
   if (tab === "Calendar")
     return <AdminCalendar onOpenPeople={() => setTab("People")} />;
-  if (tab === "Private Chef Leads")
+  if (tab === "Requests")
     return <PrivateChefLeads onOpenCalendar={() => setTab("Calendar")} />;
   if (tab === "People") return <StaffManager />;
   if (tab === "Dispatch")

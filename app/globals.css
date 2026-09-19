@@ -1306,3 +1306,17 @@ footer > small {
     padding: 13px 15px;
   }
 }
+
+/* Inline error for the meal-prep availability form */
+.booking-form .form-error {
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  background: #fbeaea;
+  border-left: 3px solid #a23b3b;
+  color: #7a2424;
+  font-size: 14px;
+}
+.booking-form label small {
+  font-weight: 400;
+  opacity: 0.75;
+}

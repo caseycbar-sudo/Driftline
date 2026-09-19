@@ -71,6 +71,13 @@
       "when": 1787875709709,
       "tag": "0009_stale_strong_guy",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "6",
+      "when": 1789842074432,
+      "tag": "0010_inquiry_types",
+      "breakpoints": true
     }
   ]
 }

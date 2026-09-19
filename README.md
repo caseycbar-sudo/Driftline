@@ -132,6 +132,28 @@ sign-in.
 Never put a real customer or staff email address in `.env.local`. `.env*` is
 gitignored apart from the placeholder `.env.example`.
 
+## Website requests and email alerts
+
+Every form on the public site (Private Chef, Catering, and the meal-prep
+availability form) posts to `/api/inquiries`. Each request is saved to D1
+(`private_chef_inquiries`, with an `inquiry_type` column) and shows up in the
+admin portal under **Requests**.
+
+When a request comes in, the owner gets an email alert and the customer gets a
+short confirmation, sent through [Resend](https://resend.com). Set these on the
+Worker (use secrets for the key):
+
+| Variable | Example | Purpose |
+| --- | --- | --- |
+| `RESEND_API_KEY` | `re_...` | Resend API key (secret) |
+| `NOTIFY_EMAIL` | `you@yourdomain.com` | Where alerts go; comma-separate for several |
+| `FROM_EMAIL` | `Driftline Provisions <hello@driftlineprovisions.com>` | Sender; the domain must be verified in Resend |
+| `SITE_URL` | `https://www.driftlineprovisions.com` | Used for the "Open in admin" link |
+
+If email isn't configured, requests are still saved; the admin screen flags
+any request that didn't trigger an alert. Spam protection is a hidden
+honeypot field plus hourly limits per address and per email.
+
 ## Diagnostic Commands
 
 - `npm run install:ci`: perform the one bounded lockfile install

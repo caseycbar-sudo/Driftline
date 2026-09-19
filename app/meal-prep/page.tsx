@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import BrandLogo from "../BrandLogo";
+import { submitInquiry } from "../submit-inquiry";
 
 const packages = [
   {
@@ -109,6 +110,27 @@ export default function Home() {
   const [selected, setSelected] = useState("Weekly");
   const [menuOpen, setMenuOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [formError, setFormError] = useState("");
+
+  async function requestAvailability(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    setSending(true);
+    setFormError("");
+    const result = await submitInquiry({
+      ...Object.fromEntries(new FormData(form)),
+      inquiryType: "meal_prep",
+    });
+    setSending(false);
+    if (result.ok) {
+      form.reset();
+      setSubmitted(true);
+    } else {
+      setFormError(result.error);
+      if (result.field) (form.elements.namedItem(result.field) as HTMLElement | null)?.focus();
+    }
+  }
   const current = packages.find((item) => item.name === selected)!;
 
   return (
@@ -528,10 +550,7 @@ export default function Home() {
         </div>
         <form
           className="booking-form"
-          onSubmit={(event) => {
-            event.preventDefault();
-            setSubmitted(true);
-          }}
+          onSubmit={requestAvailability}
         >
           {submitted ? (
             <div className="success">
@@ -540,8 +559,9 @@ export default function Home() {
               </span>
               <h3>You&apos;re on the list.</h3>
               <p>
-                Thanks—we&apos;ll be in touch to learn about your household and
-                confirm availability.
+                Thanks! Casey will be in touch, usually within a day, to learn
+                about your household and confirm availability. A confirmation
+                is on its way to your inbox.
               </p>
               <button type="button" onClick={() => setSubmitted(false)}>
                 Add another household
@@ -552,34 +572,58 @@ export default function Home() {
               <h3>Check availability</h3>
               <label>
                 Who is the service for?
-                <select defaultValue="myself">
-                  <option value="myself">My household</option>
-                  <option value="parent">A parent or loved one</option>
-                  <option value="client">A client I care for</option>
+                <select name="serviceFor" defaultValue="My household">
+                  <option>My household</option>
+                  <option>A parent or loved one</option>
+                  <option>A client I care for</option>
                 </select>
               </label>
               <div className="form-row">
                 <label>
-                  First name
-                  <input required placeholder="First name" />
+                  Name
+                  <input
+                    required
+                    name="fullName"
+                    autoComplete="name"
+                    placeholder="First and last name"
+                  />
                 </label>
                 <label>
                   Email
-                  <input required type="email" placeholder="you@example.com" />
+                  <input
+                    required
+                    type="email"
+                    name="email"
+                    autoComplete="email"
+                    placeholder="you@example.com"
+                  />
                 </label>
               </div>
               <label>
                 Service ZIP code
                 <input
                   required
+                  name="zip"
                   inputMode="numeric"
+                  autoComplete="postal-code"
                   pattern="[0-9]{5}"
+                  maxLength={5}
                   placeholder="97103"
+                />
+              </label>
+              <label>
+                Phone <small>(optional)</small>
+                <input
+                  type="tel"
+                  name="phone"
+                  autoComplete="tel"
+                  placeholder="(503) 555-0123"
                 />
               </label>
               <label>
                 Preferred package
                 <select
+                  name="packageName"
                   value={selected}
                   onChange={(e) => setSelected(e.target.value)}
                 >
@@ -588,9 +632,20 @@ export default function Home() {
                   ))}
                 </select>
               </label>
-              <button className="primary-btn form-submit">
-                Request availability <span>→</span>
+              <div
+                aria-hidden="true"
+                style={{ position: "absolute", left: "-10000px", width: 1, height: 1, overflow: "hidden" }}
+              >
+                <input name="website" tabIndex={-1} autoComplete="off" />
+              </div>
+              <button className="primary-btn form-submit" disabled={sending}>
+                {sending ? "Sending…" : "Request availability"} <span>→</span>
               </button>
+              {formError ? (
+                <p className="form-error" role="alert">
+                  {formError}
+                </p>
+              ) : null}
               <small className="privacy-note">
                 No payment today. We&apos;ll contact you before anything is
                 scheduled.
@@ -613,9 +668,6 @@ export default function Home() {
           <a href="/disclosures">Disclosures</a>
           <a className="staff-link" href="/chef">
             Chef login
-          </a>
-          <a className="staff-link" href="/portal">
-            Admin login
           </a>
         </div>
         <small>© 2026 Driftline Provisions · Astoria, Oregon</small>

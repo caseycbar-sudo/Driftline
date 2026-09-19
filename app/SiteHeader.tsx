@@ -5,7 +5,7 @@ import BrandLogo from "./BrandLogo";
 
 const links = [
   { href: "/private-chef", label: "Private Chef" },
-  { href: "/#catering", label: "Catering" },
+  { href: "/catering", label: "Catering" },
   { href: "/meal-prep", label: "Meal Prep" },
   { href: "/cookbook", label: "Cookbook" },
   { href: "/#story", label: "Our Story" },

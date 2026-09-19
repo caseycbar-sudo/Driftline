@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import BrandLogo from "./BrandLogo";
 import SiteHeader from "./SiteHeader";
+import SiteFooter from "./SiteFooter";
 import "./home.css";
 
 export const metadata: Metadata = {
@@ -29,8 +29,8 @@ const services = [
     detail: "Menus designed together",
     image: "/gallery/salad-prep.webp",
     alt: "Toasted crostini, blistered cherry tomatoes and sweet corn on a cutting board",
-    href: "/#plan",
-    cta: "Ask about your event",
+    href: "/catering",
+    cta: "Plan your event",
   },
   {
     id: "meal-prep",
@@ -115,7 +115,7 @@ export default function Home() {
         </div>
         <div className="dp-service-grid">
           {services.map((service, i) => (
-            <article className="dp-service" id={service.id === "catering" ? "catering" : undefined} key={service.id}>
+            <article className="dp-service" key={service.id}>
               <a href={service.href} className="dp-service-img" tabIndex={-1} aria-hidden="true">
                 <img src={service.image} alt="" loading="lazy" />
                 <span>0{i + 1}</span>
@@ -271,7 +271,7 @@ export default function Home() {
             <a className="dp-btn dp-btn-gold" href="/private-chef#inquire">
               Request a private dinner <span aria-hidden="true">→</span>
             </a>
-            <a className="dp-btn dp-btn-ghost" href="/private-chef#inquire">
+            <a className="dp-btn dp-btn-ghost" href="/catering#request">
               Ask about catering
             </a>
             <a className="dp-btn dp-btn-ghost" href="/meal-prep#booking">
@@ -284,33 +284,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <div className="dp-footer" role="contentinfo">
-        <div className="dp-footer-brand">
-          <BrandLogo />
-          <p>Coastal cooking for your table. Private chef, catering, and in-home meal prep on Oregon&apos;s North Coast.</p>
-        </div>
-        <div className="dp-footer-col">
-          <h4>Services</h4>
-          <a href="/private-chef">Private Chef</a>
-          <a href="/#catering">Catering</a>
-          <a href="/meal-prep">Weekly Meal Prep</a>
-          <a href="/cookbook">Cookbook</a>
-        </div>
-        <div className="dp-footer-col">
-          <h4>Sunday Market</h4>
-          <span>12th Street, downtown Astoria</span>
-          <span>Sundays 10am to 3pm</span>
-          <span>Mother&apos;s Day to mid-October</span>
-        </div>
-        <div className="dp-footer-col">
-          <h4>Accounts</h4>
-          <a href="/account">Customer sign in</a>
-          <a href="/chef">Chef login</a>
-          <a href="/disclosures">Disclosures</a>
-        </div>
-        <small>© 2026 Driftline Provisions · Astoria, Oregon</small>
-      </div>
+      <SiteFooter />
     </main>
   );
 }

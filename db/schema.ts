@@ -127,4 +127,13 @@ export const privateChefInquiries = sqliteTable("private_chef_inquiries", {
   adminNotes: text("admin_notes").notNull().default(""),
   createdAt: text("created_at").notNull(),
   updatedAt: text("updated_at").notNull(),
+  /** private_chef | catering | meal_prep. The table name predates catering and meal prep. */
+  inquiryType: text("inquiry_type").notNull().default("private_chef"),
+  zip: text("zip").notNull().default(""),
+  packageName: text("package_name").notNull().default(""),
+  serviceFor: text("service_for").notNull().default(""),
+  /** Hashed requester address, used only for rate limiting. */
+  sourceHash: text("source_hash").notNull().default(""),
+  /** When the owner notification email was accepted by the mail provider. */
+  notifiedAt: text("notified_at").notNull().default(""),
 });
