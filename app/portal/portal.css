@@ -2774,3 +2774,32 @@ td {
 .live-dispatch{display:grid;gap:15px}.dispatch-error{background:#fff0ea;border-left:4px solid #bd6643;padding:12px;color:#8a4e39}.dispatch-state{background:white;border:1px solid #dfe2dd;padding:45px;text-align:center}.dispatch-state h2{font:24px Georgia;color:#123349}.dispatch-state button,.dispatch-no-chefs button{border:0;background:#bd6643;color:white;padding:11px 15px;font-weight:700}.dispatch-group{background:white;border:1px solid #dfe2dd}.dispatch-group>header{display:flex;justify-content:space-between;align-items:center;padding:17px 19px;border-bottom:1px solid #e5e8e3}.dispatch-group>header h2{font:21px Georgia;color:#123349;margin:0}.dispatch-group>header span{font-size:8px;color:#567c75}.dispatch-group>div>article{display:grid;grid-template-columns:100px minmax(220px,1fr) 170px 145px auto;gap:13px;align-items:center;padding:15px 18px;border-bottom:1px solid #e8eae6}.dispatch-group time strong,.dispatch-group time span{display:block}.dispatch-group time strong{font:13px Georgia;color:#123349}.dispatch-group time span{font-size:8px;color:#748388;margin-top:4px}.dispatch-visit h3{font:15px Georgia;color:#123349;margin:6px 0 3px}.dispatch-visit p,.dispatch-visit small{display:block;font-size:8px;color:#748388}.dispatch-visit small{margin-top:5px}.dispatch-group label{display:grid;gap:5px;font-size:7px;text-transform:uppercase;letter-spacing:.08em;color:#63767c}.dispatch-group select{border:1px solid #d4dad5;background:white;padding:9px;color:#18313d}.dispatch-group article>button{border:1px solid #aab8b5;background:white;color:#123349;padding:9px;font-size:8px;font-weight:700}.dispatch-empty{padding:20px;color:#748388}.dispatch-no-chefs{display:flex;justify-content:space-between;align-items:center;background:#fff8ec;border-left:4px solid #d2a75b;padding:15px}.dispatch-no-chefs strong{font:13px Georgia;color:#123349}
 @media(max-width:1000px){.dispatch-group{overflow:auto}.dispatch-group>div>article{min-width:850px}.dispatch-no-chefs{display:block}.dispatch-no-chefs button{display:block;margin-top:10px}}
 @media(max-width:700px){.job-destination{display:block}.job-destination a{display:inline-block;margin-top:10px}.today-menu ul{columns:1}}
+
+/* Dispatch rows stack on phones so the chef and status controls stay reachable */
+@media (max-width: 760px) {
+  .dispatch-group > div > article {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 10px 12px;
+    min-width: 0 !important;
+  }
+  .dispatch-group { overflow-x: visible !important; }
+  .dispatch-group > div > article > time,
+  .dispatch-group > div > article > .dispatch-visit,
+  .dispatch-group > div > article > button {
+    grid-column: 1 / -1;
+  }
+  .dispatch-group select {
+    width: 100%;
+    min-height: 44px;
+    font-size: 16px;
+  }
+  .dispatch-group article > button {
+    min-height: 44px;
+    font-size: 13px;
+  }
+}
+/* Readable text sizes in dispatch (several were 7–8px) */
+.dispatch-visit p, .dispatch-visit small, .dispatch-group time span { font-size: 12px; }
+.dispatch-group label { font-size: 11px; }
+.dispatch-group > header span { font-size: 12px; }
+.dispatch-group article > button { font-size: 12px; }

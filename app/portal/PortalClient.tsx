@@ -163,20 +163,7 @@ export default function Portal({
             </button>
           ))}
         </nav>
-        <div className="side-help">
-          <strong>Need help?</strong>
-          <p>Driftline support is available every day.</p>
-          <button
-            onClick={() =>
-              toast(
-                "Support request started",
-                "An operations coordinator will contact you.",
-              )
-            }
-          >
-            Contact support
-          </button>
-        </div>
+
       </aside>
       <section className="portal-main">
         {role === "chef" ? (
