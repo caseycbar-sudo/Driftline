@@ -43,3 +43,6 @@ next-env.d.ts
 /outputs/
 /work/
 *.tsbuildinfo
+
+# Cloudflare local secrets
+.dev.vars*
