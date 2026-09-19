@@ -158,7 +158,7 @@ export const recipes: Recipe[] = [
       "1 tbsp Kashmiri chili powder",
       "1 tsp ground turmeric",
       "¼ cup tomato paste",
-      "2 can (28 oz) crushed tomatoes",
+      "2 cans (28 oz each) crushed tomatoes",
       "1½ cups heavy cream",
       "1 tbsp sugar",
       "1 tbsp kosher salt (for the sauce)",
@@ -252,7 +252,7 @@ export const recipes: Recipe[] = [
       "While the chicken roasts, combine the honey, ¾ cup tamari, ½ cup water, rice vinegar, garlic, ginger and pepper flakes in a 3-quart saucepan. Simmer over medium heat 3 minutes, until the garlic softens and the raw edge cooks off.",
       "Stir the cornstarch and cold water into a smooth slurry, whisk it into the simmering glaze and boil 1 minute, until glossy and thick enough to coat a spoon. Remove from heat.",
       "Transfer the hot chicken to a large bowl and toss with about two-thirds of the glaze until every piece is lacquered. Reserve the rest of the glaze.",
-      "Wipe out one sheet pan, toss the broccoli with 3 tbsp oil and 1½ tsp salt, and roast in a single layer at 450°F for 8 to 10 minutes, just until the florets are bright green with a few browned tips and still firm. Pull them early; they soften further on reheating.",
+      "Wipe out both sheet pans, toss the broccoli with 3 tbsp oil and 1½ tsp salt, divide it between the pans in a single layer and roast at 450°F, swapping the pans halfway, for 8 to 10 minutes, just until the florets are bright green with a few browned tips and still firm. Pull them early; they soften further on reheating.",
       "When everything has cooled to room temperature (within 2 hours), portion 1 cup rice, about 5 oz chicken and 1 cup broccoli into each of 12 containers. Spoon a little reserved glaze over each portion of chicken and scatter with scallions."
     ],
     "equipment": [
@@ -293,9 +293,9 @@ export const recipes: Recipe[] = [
     "dietary": [],
     "image": "/cookbook/mp/chicken-and-wild-rice-soup.webp",
     "photoCredit": {
-      "author": "Kate Trifo",
+      "author": "Igor Kocka",
       "source": "Pexels",
-      "page": "https://www.pexels.com/photo/appetizing-chicken-soup-in-container-placed-on-table-6414296/"
+      "page": "https://www.pexels.com/photo/vegetable-with-soup-dish-on-white-ceramic-bowl-10810422/"
     },
     "ingredients": [
       "2 cups wild rice, rinsed",
@@ -352,7 +352,7 @@ export const recipes: Recipe[] = [
     "category": "Poultry",
     "description": "Corn tortillas rolled around tender chicken, roasted green chiles and melty Jack cheese, baked under a tangy roasted tomatillo sauce.",
     "servings": 12,
-    "yieldNote": "12 portions (2 enchiladas each)",
+    "yieldNote": "12 portions (3 enchiladas each)",
     "active": 75,
     "total": 135,
     "tags": [
@@ -374,8 +374,8 @@ export const recipes: Recipe[] = [
     },
     "ingredients": [
       "5 lb boneless skinless chicken thighs, trimmed",
-      "6 cups low-sodium chicken stock",
-      "3 lb tomatillos, husked and rinsed",
+      "6 cups low-sodium chicken stock (gluten-free)",
+      "4½ lb tomatillos, husked and rinsed",
       "4 medium poblano peppers",
       "2 medium jalapeños, stemmed",
       "2 medium white onions, quartered",
@@ -384,33 +384,33 @@ export const recipes: Recipe[] = [
       "3 tbsp vegetable oil (for the sauce)",
       "1 tbsp ground cumin",
       "2 tsp dried Mexican oregano",
-      "1 tbsp kosher salt (for the sauce)",
-      "2 can (4 oz) diced green chiles, drained",
+      "1½ tbsp kosher salt (for the sauce)",
+      "2 cans (4 oz each) diced green chiles, drained",
       "1 cup sour cream",
       "1 tbsp kosher salt (for the filling)",
       "1½ lb Monterey Jack cheese, shredded",
-      "24 corn tortillas (6-inch, 100% corn)",
-      "¼ cup vegetable oil (for the tortillas)",
+      "36 corn tortillas (6-inch, 100% corn, labeled gluten-free)",
+      "6 tbsp vegetable oil (for the tortillas)",
       "1 medium red onion, thinly sliced (for garnish)"
     ],
     "directions": [
-      "Put the chicken in a 6-quart pot, add the stock and enough water to cover by an inch, and bring to a bare simmer. Cook gently 18 to 22 minutes, until the thickest piece reads 165°F. Remove the chicken, reserve 2 cups of the poaching liquid, and shred the meat when cool enough to handle.",
+      "Put the chicken in a 6-quart pot, add the stock and enough water to cover by an inch, and bring to a bare simmer. Cook gently 18 to 22 minutes, until the thickest piece reads 165°F. Remove the chicken, reserve 3 cups of the poaching liquid, and shred the meat when cool enough to handle.",
       "Set an oven rack 6 inches from the broiler and heat the broiler to high. Spread the tomatillos, poblanos, jalapeños, onion quarters and garlic on two foil-lined sheet pans and broil one pan at a time 8 to 12 minutes, turning once, until blistered and blackened in spots and the tomatillos are soft and olive green.",
       "Put the poblanos in a covered bowl for 10 minutes, then peel, stem and seed them. Peel the garlic. Chop half the poblanos for the filling.",
-      "Blend the tomatillos and their juices, the remaining poblanos, jalapeños, onion, garlic, cilantro, cumin, oregano, 1 tbsp salt and the 2 cups reserved poaching liquid until smooth, working in batches.",
-      "Heat 3 tbsp oil in a Dutch oven over medium-high heat until shimmering, pour in the sauce (it will spatter) and simmer 10 minutes, stirring, until slightly thickened and deepened in color. You should have about 8 cups.",
+      "Blend the tomatillos and their juices, the remaining poblanos, jalapeños, onion, garlic, cilantro, cumin, oregano, 1½ tbsp salt and the 3 cups reserved poaching liquid until smooth, working in batches.",
+      "Heat 3 tbsp oil in a Dutch oven over medium-high heat until shimmering, pour in the sauce (it will spatter) and simmer 10 minutes, stirring, until slightly thickened and deepened in color. You should have about 12 cups.",
       "Heat the oven to 400°F. In a large bowl, mix the shredded chicken, chopped poblanos, canned green chiles, sour cream, 1 tbsp salt, half the cheese and 1½ cups of the sauce.",
-      "Brush both sides of the tortillas lightly with oil, shingle them on two sheet pans and bake 2 to 3 minutes, until soft and pliable; this keeps them from cracking and turning soggy.",
-      "Spread 1 cup sauce in each of two 9 x 13-inch baking dishes. Fill each tortilla with a scant ⅓ cup filling, roll tightly and lay seam side down, 12 per dish.",
+      "Brush both sides of the tortillas lightly with oil, shingle them on sheet pans in batches and bake 2 to 3 minutes, until soft and pliable; this keeps them from cracking and turning soggy.",
+      "Spread 1 cup sauce in each of three 9 x 13-inch baking dishes. Fill each tortilla with a heaping ½ cup filling, roll tightly and lay seam side down, 12 per dish.",
       "Spoon 1½ cups sauce over each dish, leaving the ends of the tortillas lightly coated, and scatter the remaining cheese on top. Bake uncovered 20 to 25 minutes, until bubbling at the edges, the cheese is spotted brown and the center reads 165°F.",
-      "Cool 30 minutes, then portion 2 enchiladas into each of 12 containers with a spatula. Pack the remaining sauce (about ¼ cup per portion) and red onion in small side cups."
+      "Cool 30 minutes, then portion 3 enchiladas into each of 12 containers with a spatula. Pack the remaining sauce (about ¼ cup per portion) and red onion in small side cups."
     ],
     "equipment": [
       "6-quart pot",
       "7-quart Dutch oven",
       "2 rimmed half-sheet pans (18 x 13-inch)",
       "Blender",
-      "2 baking dishes (9 x 13-inch)",
+      "Three 9 x 13-inch baking dishes",
       "Instant-read thermometer",
       "12 meal-prep containers with small side cups"
     ],
@@ -465,7 +465,7 @@ export const recipes: Recipe[] = [
       "1 medium yellow onion, finely chopped",
       "10 cloves garlic, thinly sliced (for the sauce)",
       "1 tsp red pepper flakes",
-      "3 can (28 oz) crushed tomatoes",
+      "3 cans (28 oz each) crushed tomatoes",
       "1 tsp dried oregano (for the sauce)",
       "1 tbsp kosher salt (for the sauce)",
       "1 tsp sugar",
@@ -484,7 +484,7 @@ export const recipes: Recipe[] = [
       "While the meatballs bake, heat ¼ cup oil in a 7- to 8-quart Dutch oven over medium heat. Cook the onion until soft and translucent, 6 to 8 minutes, then add the sliced garlic and pepper flakes and cook until the garlic is pale golden, about 1 minute.",
       "Add the tomatoes, oregano, 1 tbsp salt and sugar. Simmer, partially covered and stirring occasionally, 20 minutes, until slightly thickened.",
       "Nestle the meatballs and any pan juices into the sauce and simmer gently 10 minutes, until the centers read 165°F. Stir in the basil.",
-      "Toss the zucchini with 3 tbsp oil and 1½ tsp salt, spread on the empty sheet pans and roast at 450°F for 12 to 15 minutes, until browned at the edges but still holding their shape.",
+      "Toss the zucchini with 3 tbsp oil and 1½ tsp salt, spread on the empty sheet pans, raise the oven to 450°F and roast for 12 to 15 minutes, until browned at the edges but still holding their shape.",
       "Bring 6 quarts water and 3 tbsp salt to a boil, add the penne and cook 2 minutes less than the package directions so it is firm in the center. Drain, toss with 2 tbsp oil and spread on a sheet pan to cool.",
       "Once cool, portion 1 cup penne, 4 meatballs with about ¾ cup sauce and ½ cup zucchini into each of 12 containers, spooning the sauce over the meatballs rather than soaking the pasta."
     ],
@@ -543,7 +543,7 @@ export const recipes: Recipe[] = [
       "2 tsp black pepper, freshly ground",
       "4 cups long-grain white rice",
       "3 tbsp olive oil (for the rice)",
-      "6 cups low-sodium chicken stock",
+      "6 cups low-sodium chicken stock (gluten-free)",
       "2 tsp kosher salt (for the rice)",
       "2 tbsp fresh lemon juice (for the rice)",
       "4 cups whole-milk Greek yogurt",
@@ -559,10 +559,10 @@ export const recipes: Recipe[] = [
       "¾ cup pitted Kalamata olives, halved",
       "8 oz feta cheese, crumbled",
       "½ cup flat-leaf parsley, chopped",
-      "¼ cup olive oil (for the vinaigrette)",
-      "3 tbsp red wine vinegar",
-      "1 tsp dried oregano (for the vinaigrette)",
-      "½ tsp kosher salt (for the vinaigrette)"
+      "½ cup olive oil (for the vinaigrette)",
+      "6 tbsp red wine vinegar",
+      "2 tsp dried oregano (for the vinaigrette)",
+      "1 tsp kosher salt (for the vinaigrette)"
     ],
     "directions": [
       "Whisk ½ cup oil, ⅓ cup lemon juice, zest, minced garlic, 2 tbsp oregano, paprika, 2 tbsp salt and pepper in a large bowl. Add the chicken, turn to coat and refrigerate 30 minutes to 4 hours.",
@@ -571,7 +571,7 @@ export const recipes: Recipe[] = [
       "Roast 20 to 25 minutes, swapping pans halfway, until browned and the thickest pieces read 165°F (175°F is ideal for thighs). Broil each pan 2 to 3 minutes for char, rest 5 minutes and slice ½ inch thick.",
       "While the chicken roasts, rinse the rice until the water runs mostly clear. Heat 3 tbsp oil in a 5-quart pot over medium heat, add the rice and stir 3 minutes until the edges turn translucent. Add the stock and 2 tsp salt, bring to a boil, cover and cook on the lowest heat 18 minutes.",
       "Rest the rice off heat, covered, 10 minutes, then fluff with 2 tbsp lemon juice and spread on a sheet pan to cool.",
-      "For the salad, combine the diced cucumbers, tomatoes, red onion, olives, feta and parsley. Shake the ¼ cup oil, vinegar, 1 tsp oregano and ½ tsp salt in a jar; keep the vinaigrette separate so the salad stays crisp.",
+      "For the salad, combine the diced cucumbers, tomatoes, red onion, olives, feta and parsley. Shake the ½ cup oil, vinegar, 2 tsp oregano and 1 tsp salt in a jar; keep the vinaigrette separate so the salad stays crisp.",
       "When the chicken and rice are cool, portion 1 cup rice and about 5½ oz chicken into the main compartment of each of 12 containers. Pack ¾ cup salad in a second compartment and ⅓ cup tzatziki plus 1 tbsp vinaigrette in small lidded cups."
     ],
     "equipment": [
@@ -611,9 +611,9 @@ export const recipes: Recipe[] = [
     "dietary": [],
     "image": "/cookbook/mp/chicken-pot-pie-with-biscuit-topping.webp",
     "photoCredit": {
-      "author": "Nano Erdozain",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/delicious-chicken-pot-pie-with-flaky-crust-29535632/"
+      "author": "Jessica Kantak Bailey",
+      "source": "Unsplash",
+      "page": "https://unsplash.com/photos/white-ceramic-bowl-with-white-cream-eBjjnr5pwE0"
     },
     "ingredients": [
       "5 lb boneless skinless chicken thighs, trimmed",
@@ -626,7 +626,7 @@ export const recipes: Recipe[] = [
       "1¼ cups all-purpose flour (for the filling)",
       "2 cups whole milk",
       "1 tbsp fresh thyme leaves, chopped",
-      "1 tbsp kosher salt (for the filling)",
+      "2 tbsp kosher salt (for the filling)",
       "1½ tsp black pepper, freshly ground",
       "1 lb frozen peas",
       "2 tbsp fresh lemon juice",
@@ -647,7 +647,7 @@ export const recipes: Recipe[] = [
       "Pat the dough ¾ inch thick and cut 24 biscuits with a 2½-inch cutter, pressing straight down without twisting; gently re-pat the scraps once. Set on two parchment-lined sheet pans, brush with melted butter and bake 14 to 18 minutes, swapping pans halfway, until tall and deep golden. Cool on a rack.",
       "For the filling, melt 14 tbsp butter in an 8-quart Dutch oven over medium heat. Cook the onions, carrots and celery until the onions are soft and the carrots are just tender, about 10 minutes, then add the garlic for 1 minute.",
       "Sprinkle in 1¼ cups flour and stir constantly 2 minutes without letting it brown. Slowly whisk in the warm poaching liquid, then the milk, and bring to a simmer, whisking, until thick enough to coat the back of a spoon, about 5 minutes.",
-      "Add the thyme, 1 tbsp salt, pepper and chicken and simmer 5 minutes. Stir in the frozen peas, lemon juice and parsley off the heat; the peas cool the filling and stay bright.",
+      "Add the thyme, 2 tbsp salt, pepper and chicken and simmer 5 minutes. Stir in the frozen peas, lemon juice and parsley off the heat; the peas cool the filling and stay bright. Taste and adjust the salt; it should be well seasoned, since flavors dull when chilled.",
       "Divide the filling between shallow pans to cool, stirring now and then. When no longer steaming, portion about 1½ cups into each of 12 oven-safe containers.",
       "Pack 2 cooled biscuits per portion in a separate bag or compartment so they do not absorb steam from the filling."
     ],
@@ -672,7 +672,7 @@ export const recipes: Recipe[] = [
     "side": "meal-prep",
     "title": "Braised Beef Ragù over Creamy Polenta",
     "category": "Beef, Pork & Lamb",
-    "description": "Beef chuck slow-braised in Oregon Pinot noir and tomatoes until it falls apart, spooned over creamy Parmesan polenta.",
+    "description": "Beef chuck slow-braised in Oregon Pinot Noir and tomatoes until it falls apart, spooned over creamy Parmesan polenta.",
     "servings": 12,
     "yieldNote": "12 portions (about 1 cup ragù and 1 cup polenta each)",
     "active": 60,
@@ -704,9 +704,9 @@ export const recipes: Recipe[] = [
       "2 ribs celery, finely chopped",
       "10 cloves garlic, minced",
       "¼ cup tomato paste",
-      "2 cups Pinot noir",
-      "2 can (28 oz) whole peeled tomatoes, crushed by hand",
-      "2 cups low-sodium beef stock",
+      "2 cups Pinot Noir",
+      "2 cans (28 oz each) whole peeled tomatoes, crushed by hand",
+      "2 cups low-sodium beef stock (gluten-free)",
       "2 fresh rosemary sprigs",
       "3 bay leaves",
       "1 tsp red pepper flakes",
@@ -724,7 +724,7 @@ export const recipes: Recipe[] = [
       "Season the beef all over with 2 tbsp salt and the pepper; if time allows, refrigerate uncovered up to 24 hours. Heat the oven to 300°F with a rack in the lower third.",
       "Heat the oil in a 9-quart Dutch oven over medium-high heat until shimmering. Brown the beef in 3 or 4 batches without crowding, 8 to 10 minutes per batch, until deeply browned on at least two sides. Transfer to a sheet pan.",
       "Lower the heat to medium, add the onions, carrots and celery and cook, scraping up the browned bits, until soft, about 8 minutes. Add the garlic and tomato paste and cook 2 minutes, until the paste darkens.",
-      "Pour in the Pinot noir and simmer until reduced by half, about 5 minutes. Add the tomatoes, stock, rosemary, bay leaves and pepper flakes, then return the beef and its juices; the liquid should come about three-quarters of the way up the meat.",
+      "Pour in the Pinot Noir and simmer until reduced by half, about 5 minutes. Add the tomatoes, stock, rosemary, bay leaves and pepper flakes, then return the beef and its juices; the liquid should come about three-quarters of the way up the meat.",
       "Bring to a simmer, cover and braise in the oven 3 to 3½ hours, turning the beef once, until a fork slides in and the meat shreds with no resistance.",
       "Transfer the beef to a board, discard the herbs, and skim the fat from the surface of the sauce. Simmer the sauce on the stovetop 10 to 15 minutes until thick enough to coat a spoon. Shred the beef into bite-size pieces, return it to the pot, stir in the balsamic and taste for salt.",
       "For the polenta, bring the water, milk and 2 tbsp salt to a boil in an 8-quart heavy pot, stir in the baking soda, then pour in the cornmeal in a slow stream while whisking constantly. Return to a simmer, stirring, about 1 minute.",
@@ -775,7 +775,7 @@ export const recipes: Recipe[] = [
     },
     "ingredients": [
       "4 dried ancho chiles, stemmed and seeded",
-      "2 cups low-sodium beef stock",
+      "2 cups low-sodium beef stock (gluten-free)",
       "5 lb ground beef (85% lean)",
       "2 tbsp vegetable oil",
       "3 medium yellow onions, diced",
@@ -788,10 +788,10 @@ export const recipes: Recipe[] = [
       "1 tbsp smoked paprika",
       "½ tsp ground cinnamon",
       "3 tbsp tomato paste",
-      "2 canned chipotle chiles in adobo, minced",
-      "2 can (28 oz) crushed tomatoes",
-      "2 can (15 oz) kidney beans, drained and rinsed",
-      "2 can (15 oz) pinto beans, drained and rinsed",
+      "2 canned chipotle chiles in adobo (gluten-free brand), minced",
+      "2 cans (28 oz each) crushed tomatoes",
+      "2 cans (15 oz each) kidney beans, drained and rinsed",
+      "2 cans (15 oz each) pinto beans, drained and rinsed",
       "2 tbsp kosher salt",
       "1 tsp black pepper, freshly ground",
       "¼ cup masa harina",
@@ -821,7 +821,7 @@ export const recipes: Recipe[] = [
     "storage": "Cool in shallow pans before refrigerating at 40°F or below. Cool to 70°F within 2 hours and to 41°F or below within the next 4 hours. Keeps 4 days refrigerated and improves by day two. Freezes very well for up to 3 months.",
     "reheating": "Microwave: cover loosely and heat on high 3 to 4 minutes, stirring every minute, until 165°F throughout; add a splash of water if thick. Oven: transfer to an oven-safe dish, cover tightly with foil and heat at 350°F for 25 minutes, stirring once, until 165°F. Add the cilantro and lime after heating.",
     "makeAhead": "",
-    "safety": "Ground beef must reach 160°F; brown it fully before simmering. Cool to 70°F within 2 hours and to 41°F or below within the next 4 hours. Reheat to 165°F.",
+    "safety": "Ground beef must reach 160°F; brown it fully before simmering. Cool to 70°F within 2 hours and to 41°F or below within the next 4 hours. Reheat to 165°F. Check the chipotle and chili powder labels; some contain wheat.",
     "chefNotes": "Salt amounts assume Diamond Crystal kosher salt; canned beans and tomatoes vary, so taste at the end. Masa harina adds a toasty corn flavor and body that flour cannot, and keeps the chili gluten-free."
   },
   {
@@ -867,8 +867,8 @@ export const recipes: Recipe[] = [
       "2 medium yellow onions, halved and thinly sliced",
       "3 tbsp neutral oil, divided",
       "½ cup water (for deglazing)",
-      "6 cups short-grain white rice",
-      "6¾ cups water (for the rice)",
+      "7 cups short-grain white rice",
+      "7¾ cups water (for the rice)",
       "2 English cucumbers, thinly sliced",
       "4 medium carrots, julienned",
       "1 lb daikon radish, peeled and julienned",
@@ -1010,9 +1010,9 @@ export const recipes: Recipe[] = [
     ],
     "image": "/cookbook/mp/maple-dijon-pork-tenderloin-with-sweet-potatoes-and-sprouts.webp",
     "photoCredit": {
-      "author": "A B",
+      "author": "Lukas Blazek",
       "source": "Pexels",
-      "page": "https://www.pexels.com/photo/roasted-pork-with-vegetables-in-a-rustic-kitchen-36673992/"
+      "page": "https://www.pexels.com/photo/marinated-meat-with-sauce-on-plate-1352269/"
     },
     "ingredients": [
       "6¼ lb pork tenderloin (about 5 tenderloins), silver skin removed",
@@ -1101,7 +1101,7 @@ export const recipes: Recipe[] = [
       "2 tbsp fresh rosemary, finely chopped",
       "2 tbsp fresh thyme leaves",
       "2 bay leaves",
-      "1 tbsp kosher salt (for the filling)",
+      "1½ tbsp kosher salt (for the filling)",
       "2 tsp black pepper (for the filling)",
       "3 cups frozen peas",
       "¼ cup flat-leaf parsley, chopped",
@@ -1118,7 +1118,7 @@ export const recipes: Recipe[] = [
       "Return the reserved fat and the olive oil to the pot over medium heat. Add the onions, carrots and celery and cook, stirring often, 8 to 10 minutes, until softened and lightly browned.",
       "Stir in the garlic and tomato paste and cook 2 minutes, until the paste darkens to brick red. Sprinkle in the flour and stir 1 minute to cook out the raw taste.",
       "Pour in the wine, scraping up the browned bits, and boil until reduced by half, 2 to 3 minutes. Add the broth, rosemary, thyme, bay leaves, browned lamb, salt and pepper.",
-      "Simmer uncovered, stirring now and then, 15 to 20 minutes, until the gravy is thick enough to coat a spoon. Discard the bay leaves and stir in the frozen peas and parsley. The filling should be thicker than you want to eat it, because it loosens when reheated.",
+      "Simmer uncovered, stirring now and then, 15 to 20 minutes, until the gravy is thick enough to coat a spoon. Discard the bay leaves and stir in the frozen peas and parsley. The filling should be thicker than you want to eat it, because it loosens when reheated. Taste and adjust the salt.",
       "Drain the potatoes, return them to the hot pot and steam-dry over low heat 2 minutes. Pass through a ricer or mash until smooth, then stir in the warm milk, 8 tbsp of the butter, the salt and the pepper. Aim for a mash that holds its shape.",
       "Heat the oven to 400°F. Divide the filling between two 9-by-13-inch baking dishes. Spoon the mash around the edges first to seal, fill in the center and spread evenly, then drag a fork across the top to make ridges. Melt the remaining 4 tbsp butter and brush it over the top.",
       "Set the dishes on a rimmed sheet pan and bake 25 to 30 minutes, until the filling bubbles at the edges, the ridges are golden and the center reads 165°F. Broil 2 to 3 minutes for extra color if needed.",
@@ -1203,7 +1203,7 @@ export const recipes: Recipe[] = [
       "Line two rimmed sheet pans with parchment. Scoop the mixture into 24 portions of about ½ cup and shape each into a 3-inch cake about ¾ inch thick. Press both sides into the coating panko and return to the pans.",
       "Refrigerate the cakes 30 minutes (and up to 4 hours) so the binder sets and they hold their shape in the pan. Meanwhile heat the oven to 400°F and set wire racks inside two clean rimmed sheet pans.",
       "Heat 3 tbsp oil in a 12-inch nonstick or cast-iron skillet over medium-high heat until shimmering. Sear 5 or 6 cakes at a time, without moving them, 2 to 3 minutes per side, until deep golden. Transfer to the racks, wipe out loose crumbs and add fresh oil for each batch.",
-      "Bake the seared cakes on the racks 6 to 8 minutes, until the center of a cake reaches 145°F.",
+      "Bake the seared cakes on the racks 6 to 8 minutes, until the center of a cake reaches at least 155°F (160°F is a safe target).",
       "Let the cakes cool on the racks so the crust stays crisp, until they drop to 70°F, within 2 hours.",
       "Portion 1¼ cups rice and 2 cakes into each of 12 containers. Pack about 3 tbsp sauce in 2-oz lidded cups."
     ],
@@ -1218,7 +1218,7 @@ export const recipes: Recipe[] = [
     "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Eat within 3 days. The sauce keeps 4 days cold and must stay refrigerated. The cooked cakes freeze up to 2 months on their own; thaw overnight in the refrigerator.",
     "reheating": "Remove the sauce cup first and serve it cold. Reheat gently: fish overcooks quickly, so use reduced power or a low oven with a cover, but still bring it to 165°F. Microwave: sprinkle 1 tbsp water over the rice, cover loosely and heat at 50% power for 2½ to 3½ minutes, until the cakes reach 165°F in the center. Oven (for the crispest cakes): place the cakes on a rack over a sheet pan and the rice in a covered dish with 1 tbsp water, and heat at 350°F for 15 to 18 minutes, until 165°F.",
     "makeAhead": "",
-    "safety": "Cook the salmon cakes to 145°F in the center; the raw egg in the mix is fully cooked at that point. Make the sauce with commercial mayonnaise (pasteurized eggs) and keep it refrigerated. Reheat leftovers to 165°F.",
+    "safety": "Salmon cakes are chopped fish bound with raw egg: cook until the center reaches at least 155°F (160°F is a safe target). Make the sauce with commercial mayonnaise (pasteurized eggs) and keep it refrigerated. Reheat leftovers to 165°F.",
     "chefNotes": "Pulse the salmon rather than grinding it; overprocessed fish turns into a dense, rubbery puck. Chilling before searing is what keeps 24 cakes intact in the pan. Salt amounts assume Diamond Crystal kosher salt; with Morton, use 1½ tsp in the cakes."
   },
   {
@@ -1447,7 +1447,7 @@ export const recipes: Recipe[] = [
       "Heat a 12-inch cast-iron skillet over high heat, add 1 tbsp oil and char the corn in two batches, undisturbed for 2 minutes and then stirring, 5 to 6 minutes per batch, until spotty brown. Toss with the black beans and spread out to cool.",
       "For the slaw, toss both cabbages, the carrots and the jalapeños with the salt and sugar in a large bowl and let stand 10 minutes to soften slightly. Add the lime juice, olive oil and half the cilantro and toss. Pack into 12 separate 8-oz containers.",
       "Whisk the sour cream, lime zest, lime juice, garlic, salt and water until smooth and pourable. Pack into 12 lidded 2-oz cups and refrigerate.",
-      "Mix all the spices and the salt for the rub. Pat the rockfish very dry, fold thin tail ends under, brush all over with 3 tbsp oil and coat every side evenly with the spice mixture, about 1 tsp per portion.",
+      "Mix all the spices and the salt for the rub. Pat the rockfish very dry, fold thin tail ends under, brush all over with 3 tbsp oil and coat every side evenly with the spice mixture, about 2 tsp per portion, using all of it.",
       "Turn the hood fan to high and open a window. Wipe out the skillet and heat it over medium-high heat for 5 minutes, until very hot.",
       "Add 1 tbsp oil and cook 3 or 4 portions at a time, 2 to 3 minutes, until the crust is dark mahogany. Flip and cook 1 to 2 minutes more, until the thickest part reaches 145°F and flakes. Wipe the skillet between batches if the spices start to smoke hard, and add fresh oil.",
       "Transfer the fish to a wire rack and let it cool, along with the rice and corn, until everything drops to 70°F, within 2 hours.",
@@ -1480,8 +1480,7 @@ export const recipes: Recipe[] = [
     "total": 90,
     "tags": [
       "High protein",
-      "Dairy-free",
-      "Quick"
+      "Dairy-free"
     ],
     "allergens": [
       "Shellfish",
@@ -1521,10 +1520,10 @@ export const recipes: Recipe[] = [
       "2 tbsp kosher salt (for the rice water)"
     ],
     "directions": [
-      "Bring 6 quarts of water and the salt to a boil, add the brown rice and boil uncovered 28 to 30 minutes, until tender. Drain, return to the pot, cover off the heat 10 minutes, then fluff and spread on a parchment-lined sheet pan to cool.",
-      "Toss the shrimp with the salt and baking soda and refrigerate 15 minutes to 1 hour; this keeps them plump and snappy. Pat very dry before cooking.",
+      "Bring 6 quarts of water and 2 tbsp kosher salt to a boil, add the brown rice and boil uncovered 28 to 30 minutes, until tender. Drain, return to the pot, cover off the heat 10 minutes, then fluff and spread on a parchment-lined sheet pan to cool.",
+      "Toss the shrimp with 1 tbsp kosher salt and the baking soda and refrigerate 15 minutes to 1 hour; this keeps them plump and snappy. Pat very dry before cooking.",
       "Whisk the broth, soy sauce, oyster sauce, rice vinegar, brown sugar, cornstarch, sesame oil and white pepper in a bowl until the cornstarch dissolves.",
-      "Bring a large pot of water and the salt to a boil and set up a big bowl of ice water. Blanch the broccoli in three batches for 1½ minutes each, until bright green and still crisp, then plunge into the ice water, drain and spread on towels to dry.",
+      "Bring a large pot of water and 2 tbsp kosher salt to a boil and set up a big bowl of ice water. Blanch the broccoli in three batches for 1½ minutes each, until bright green and still crisp, then plunge into the ice water, drain and spread on towels to dry.",
       "Heat a wok or 12-inch skillet over high heat until smoking. Add 1 tbsp oil and about 1¼ lb shrimp in a single layer. Sear undisturbed 1 minute, then stir 1 minute more, until pink outside and barely translucent at the center. Transfer to a sheet pan and repeat with the remaining shrimp and oil.",
       "Heat the remaining 2 tbsp oil in a 7-quart Dutch oven over medium heat. Add the garlic, ginger and pepper flakes and stir 30 to 45 seconds, until fragrant and not browned.",
       "Re-whisk the sauce, pour it in and bring to a boil, stirring, until glossy and thickened, about 1 minute.",
@@ -1663,7 +1662,7 @@ export const recipes: Recipe[] = [
       "2 tsp dried oregano",
       "3 bay leaves",
       "2½ cups dry white wine, divided",
-      "2 can (28 oz) whole peeled tomatoes, crushed by hand",
+      "2 cans (28 oz each) whole peeled tomatoes, crushed by hand",
       "6 cups seafood stock (gluten-free)",
       "1 tbsp kosher salt, plus more as needed",
       "1 tsp black pepper",
@@ -1733,19 +1732,19 @@ export const recipes: Recipe[] = [
       "4 cups jasmine rice",
       "5 cups water (for the rice)",
       "1½ tsp kosher salt (for the rice)",
-      "4 can (13.5 oz) full-fat coconut milk, unshaken",
+      "4 cans (13.5 oz each) full-fat coconut milk, unshaken",
       "⅔ cup Thai red curry paste (shrimp-paste-free)",
       "2 tbsp neutral oil",
       "2 medium yellow onions, halved and sliced",
       "2 tbsp fresh ginger, grated",
       "6 cloves garlic, minced",
-      "2 cups low-sodium vegetable broth",
+      "2 cups low-sodium vegetable broth (gluten-free)",
       "¼ cup fish sauce",
       "3 tbsp light brown sugar",
       "8 makrut lime leaves, torn (optional)",
       "3 medium red bell peppers, sliced ½ inch thick",
       "1 lb green beans, trimmed and cut into 2-inch pieces",
-      "2 can (8 oz) sliced bamboo shoots, drained",
+      "2 cans (8 oz each) sliced bamboo shoots, drained",
       "4½ lb large shrimp (21/25), peeled and deveined",
       "¼ cup lime juice",
       "1 bunch Thai basil, leaves picked",
@@ -1822,7 +1821,7 @@ export const recipes: Recipe[] = [
       "2 tsp garam masala",
       "½ tsp cayenne pepper",
       "1 can (14.5 oz) diced tomatoes",
-      "2 can (13.5 oz) full-fat coconut milk",
+      "2 cans (13.5 oz each) full-fat coconut milk",
       "4 tsp kosher salt (for the dal)",
       "1 lb baby spinach",
       "3 tbsp lemon juice",
@@ -1853,7 +1852,7 @@ export const recipes: Recipe[] = [
     "reheating": "The dal thickens as it chills, so stir in 2 to 3 tbsp water before heating. Microwave: vent the lid and heat 3 to 4 minutes, stirring halfway, until 165°F throughout. Oven: combine in a covered oven-safe dish with a splash of water and heat at 325°F for 20 to 25 minutes to 165°F.",
     "makeAhead": "",
     "safety": "Reheat to 165°F. Cool cooked rice quickly and refrigerate within 2 hours to prevent Bacillus cereus growth. Cool from 135°F to 70°F within 2 hours and to 41°F or below within the next 4 hours; refrigerate at 40°F or below.",
-    "chefNotes": "Salt the dal only after the lentils have broken down; it keeps them cooking evenly. Hold back a little cilantro and a lemon wedge in each container so it tastes fresh on day four."
+    "chefNotes": "Salt the dal only after the lentils have broken down; it keeps them cooking evenly. Pack the cilantro in a small side cup so it tastes fresh on day four."
   },
   {
     "id": 24,
@@ -1991,11 +1990,11 @@ export const recipes: Recipe[] = [
       "1 large yellow onion, diced",
       "2 medium poblano peppers, diced",
       "4 cloves garlic, minced (for the filling)",
-      "3 can (15 oz) black beans, rinsed and drained",
+      "3 cans (15 oz each) black beans, rinsed and drained",
       "2 tbsp lime juice",
       "1 bunch cilantro, chopped",
       "1 lb Monterey Jack cheese, shredded and divided",
-      "24 corn tortillas (6-inch)",
+      "24 corn tortillas (6-inch, 100% corn, labeled gluten-free)",
       "1 tbsp neutral oil (for the tortillas)"
     ],
     "directions": [
@@ -2006,7 +2005,7 @@ export const recipes: Recipe[] = [
       "Stir in the lime juice, half the cilantro, 1 cup of the enchilada sauce and 8 oz of the cheese. Taste and add salt if needed.",
       "Spread 1 cup sauce across the bottom of each of two 9x13-inch baking dishes.",
       "Brush the tortillas lightly with the 1 tbsp oil, stack in two piles, wrap in damp paper towels and microwave 60 to 90 seconds until pliable so they roll without cracking.",
-      "Fill each tortilla with a heaping ⅓ cup filling, roll snugly and place seam-side down, 12 per dish in two rows. Pour the remaining sauce evenly over the top, covering the tortilla edges, and scatter with the remaining 8 oz cheese.",
+      "Fill each tortilla with a scant ½ cup filling, roll snugly and place seam-side down, 12 per dish in two rows. Pour the remaining sauce evenly over the top, covering the tortilla edges, and scatter with the remaining 8 oz cheese.",
       "Cover with foil and bake 20 minutes, then uncover and bake until the sauce bubbles and the cheese is spotty brown, 12 to 15 minutes; the center should read 165°F.",
       "Rest 15 minutes, sprinkle with the remaining cilantro and portion 2 enchiladas per container. Cool uncovered to below 70°F before lidding."
     ],
@@ -2022,7 +2021,7 @@ export const recipes: Recipe[] = [
     "storage": "Refrigerate up to 4 days. Freeze individual portions up to 3 months; thaw overnight in the refrigerator before reheating.",
     "reheating": "Microwave: add 1 tbsp water, cover loosely and heat 2½ to 3 minutes at 70% power, then in 30-second bursts to 165°F in the center. Oven: cover with foil and heat at 350°F for 20 minutes, uncover and heat 5 to 10 minutes more to 165°F.",
     "makeAhead": "",
-    "safety": "Bake and reheat to 165°F in the center. Cool from 135°F to 70°F within 2 hours and to 41°F or below within the next 4 hours; refrigerate at 40°F or below.",
+    "safety": "Bake and reheat to 165°F in the center. Cool from 135°F to 70°F within 2 hours and to 41°F or below within the next 4 hours; refrigerate at 40°F or below. Use 100% corn tortillas to keep this gluten-free; some brands blend in wheat flour.",
     "chefNotes": "Warm corn tortillas are the difference between neat rolls and a cracked mess; keep them wrapped until the moment you fill them. Make sure every tortilla edge is under sauce or it will dry and curl in the oven."
   },
   {
@@ -2072,7 +2071,7 @@ export const recipes: Recipe[] = [
       "6 cups low-sodium vegetable broth",
       "2 lb butternut squash, peeled and cut into 1-inch cubes",
       "1 lb carrots, cut into ¾-inch coins",
-      "4 can (15 oz) chickpeas, rinsed and drained",
+      "4 cans (15 oz each) chickpeas, rinsed and drained",
       "¾ cup dried apricots, quartered",
       "1 tbsp kosher salt (for the tagine)",
       "2 medium zucchini, cut into 1-inch chunks",
@@ -2087,11 +2086,11 @@ export const recipes: Recipe[] = [
     ],
     "directions": [
       "Heat ¼ cup oil in a 7- to 8-quart Dutch oven over medium heat. Cook the onions until soft and lightly golden, 8 to 10 minutes.",
-      "Add the garlic and ginger and cook 1 minute. Add the cumin, coriander, paprika, turmeric, cinnamon and cayenne and stir 30 seconds until fragrant, then stir in the tomato paste and harissa and cook until brick red, 2 minutes.",
+      "Add the garlic and ginger and cook 1 minute. Add the cumin, coriander, paprika, turmeric, cinnamon and cayenne and stir 30 seconds until fragrant, then stir in the tomato paste and 1 tbsp harissa and cook until brick red, 2 minutes.",
       "Add the tomatoes and broth, scraping the bottom of the pot, then add the squash, carrots, chickpeas, apricots and 1 tbsp salt. Bring to a boil.",
       "Reduce to a gentle simmer, cover with the lid slightly ajar and cook until the carrots are just tender and the squash yields to a knife but still holds its shape, 20 to 25 minutes.",
       "Add the zucchini and olives and simmer uncovered until the zucchini is barely tender and the broth has thickened slightly, 8 to 10 minutes. Undercook the zucchini a little; it softens on reheating.",
-      "Stir in the lemon juice, taste and adjust with salt or more harissa. The broth should taste bright, sweet-spiced and savory.",
+      "Stir in the lemon juice, taste and adjust with salt and up to 1 tbsp more harissa. The broth should taste bright, sweet-spiced and savory.",
       "For the couscous, bring the 5 cups water, 2 tbsp oil, 2 tsp salt and the lemon zest to a boil. Put the couscous in a large heatproof bowl or hotel pan, pour the boiling water over, stir once, cover tightly and let stand 10 minutes. Fluff thoroughly with a fork and spread out to cool.",
       "Cool the tagine in shallow pans to below 70°F within 2 hours. Pack ¾ cup couscous and about 1½ cups tagine into each of 12 divided containers and top with cilantro."
     ],
@@ -2145,14 +2144,14 @@ export const recipes: Recipe[] = [
       "10 cloves garlic, minced",
       "1 tsp red pepper flakes",
       "2 tsp dried oregano",
-      "3 can (28 oz) crushed tomatoes",
+      "3 cans (28 oz each) crushed tomatoes",
       "1 cup water",
       "1 tbsp kosher salt (for the sauce)",
       "1 tsp sugar",
       "1 bunch basil, torn",
       "2 lb ziti",
-      "¼ cup kosher salt (for the pasta water)",
-      "2 package (10 oz) frozen chopped spinach, thawed and squeezed dry",
+      "3 tbsp kosher salt (for the pasta water)",
+      "2 packages (10 oz each) frozen chopped spinach, thawed and squeezed dry",
       "2 lb whole-milk ricotta",
       "2 large eggs",
       "1½ cups grated vegetarian Parmesan-style cheese (microbial rennet), divided",
@@ -2164,7 +2163,7 @@ export const recipes: Recipe[] = [
     "directions": [
       "Heat the oil in a large Dutch oven over medium heat. Cook the onion until soft, 6 to 8 minutes. Add the garlic, red pepper flakes and oregano and cook until the garlic is fragrant but not browned, 1 minute.",
       "Add the crushed tomatoes, water, 1 tbsp salt and the sugar. Simmer, stirring occasionally, until slightly thickened, 20 minutes. Stir in the basil. You want a loose sauce; the pasta will drink it up in the oven and in the fridge.",
-      "Meanwhile, bring 8 quarts water and ¼ cup salt to a boil in a large stockpot. Cook the ziti 3 minutes less than the package time so it is firm and chalky at the center. Drain without rinsing.",
+      "Meanwhile, bring 6 quarts water and 3 tbsp salt to a boil in a 12-quart stockpot. Cook the ziti 3 minutes less than the package time so it is firm and chalky at the center. Drain without rinsing.",
       "In a bowl, stir together the spinach, ricotta, eggs, 1 cup of the Parmesan-style cheese, 1½ tsp salt, pepper and nutmeg until evenly green-flecked.",
       "Heat the oven to 375°F. Toss the drained ziti with all but 3 cups of the sauce and half the mozzarella.",
       "Spread ½ cup of the reserved sauce in each of two 9x13-inch baking dishes. Add a quarter of the pasta to each dish, dollop half the ricotta mixture over each in spoonfuls, then cover with the remaining pasta.",
@@ -2174,7 +2173,7 @@ export const recipes: Recipe[] = [
     ],
     "equipment": [
       "Large Dutch oven",
-      "8-quart stockpot",
+      "12-quart stockpot",
       "Colander",
       "Two 9x13-inch baking dishes",
       "Aluminum foil",
@@ -2235,7 +2234,7 @@ export const recipes: Recipe[] = [
       "1 tsp black pepper",
       "8 oz green beans, cut into 1-inch pieces",
       "2 medium zucchini, cut into ½-inch dice",
-      "3 can (15 oz) cannellini beans, rinsed and drained",
+      "3 cans (15 oz each) cannellini beans, rinsed and drained",
       "1 bunch lacinato kale, stemmed and chopped",
       "2 tbsp red wine vinegar",
       "1 bunch basil, torn",
@@ -2301,7 +2300,7 @@ export const recipes: Recipe[] = [
       "page": "https://www.pexels.com/photo/stir-fry-vegetables-and-tofu-on-a-ceramic-plate-5848482/"
     },
     "ingredients": [
-      "5 package (14 oz) extra-firm tofu, drained",
+      "5 packages (14 oz each) extra-firm tofu, drained",
       "3 tbsp soy sauce (for the tofu)",
       "¼ cup cornstarch",
       "¼ cup neutral oil (for the tofu)",
@@ -2334,9 +2333,9 @@ export const recipes: Recipe[] = [
       "Toss the tofu gently with 3 tbsp soy sauce, then with the cornstarch until coated. Divide ¼ cup oil between two rimmed sheet pans, add the tofu in a single layer and roast, flipping once and rotating the pans, until golden and crisp on most sides, 30 to 35 minutes.",
       "Meanwhile, rinse the rice until the water runs mostly clear. Combine with 5 cups water and 1½ tsp salt in a 6-quart pot, bring to a boil, cover and cook on the lowest heat 18 minutes. Rest covered 10 minutes, fluff and spread on a sheet pan to cool.",
       "For the peanut sauce, whisk the peanut butter, ½ cup soy sauce, vinegar, maple syrup, sesame oil, sriracha, ginger, garlic and lime juice in a bowl, then whisk in the hot water a little at a time until smooth and pourable, like heavy cream.",
-      "Heat 1 tbsp of the oil in a wok or 12-inch skillet over high heat until just smoking. Add the carrots and broccoli and stir-fry 2 minutes, then add 2 tbsp water, cover and steam 1 minute until bright green and crisp-tender. Transfer to a sheet pan.",
+      "Heat 1 tbsp of the oil in a wok or 12-inch skillet over high heat until just smoking. Stir-fry the carrots and broccoli in two batches: add half and stir-fry 2 minutes, then add 1 tbsp water, cover and steam 1 minute until bright green and crisp-tender. Transfer to a sheet pan and repeat with the rest.",
       "Add another 1 tbsp oil, then the bell peppers and snap peas and stir-fry until blistered in spots but still crunchy, 2 to 3 minutes. Add to the sheet pan.",
-      "Add the last 1 tbsp oil, the garlic and ginger and stir 20 seconds, then return all the vegetables and the tofu, add 2 tbsp soy sauce and toss 30 seconds just to coat. Keep everything slightly underdone; it will soften on reheating.",
+      "Add the last 1 tbsp oil, the garlic and ginger and stir 20 seconds, then add 2 tbsp soy sauce and pour the mixture over the vegetables and tofu on the sheet pans; toss to coat. Keep everything slightly underdone; it will soften on reheating.",
       "Spread on sheet pans to cool quickly. Pack 1 cup rice and about 1½ cups tofu and vegetables into each of 12 containers, scatter with scallions, and pack 3 tbsp peanut sauce and a spoonful of chopped peanuts in small lidded cups."
     ],
     "equipment": [
@@ -2396,7 +2395,7 @@ export const recipes: Recipe[] = [
       "2 tsp ground cumin",
       "1 tsp smoked paprika",
       "1 tsp dried oregano",
-      "3 can (15 oz) black beans, rinsed and drained",
+      "3 cans (15 oz each) black beans, rinsed and drained",
       "1 lb frozen corn kernels, thawed",
       "1 can (14.5 oz) fire-roasted diced tomatoes",
       "2 tsp kosher salt (for the filling)",
@@ -3097,7 +3096,7 @@ export const recipes: Recipe[] = [
     "side": "private-chef",
     "title": "Seared Sea Scallops with Beurre Blanc and Sweet Pea Purée",
     "category": "Mains",
-    "description": "Golden, caramelized sea scallops on bright mint-pea purée with a silky white-wine butter sauce and glossy Pinot noir dots.",
+    "description": "Golden, caramelized sea scallops on bright mint-pea purée with a silky white-wine butter sauce and glossy Pinot Noir dots.",
     "servings": 6,
     "yieldNote": "Serves 6 (4 scallops each)",
     "active": 60,
@@ -3136,13 +3135,13 @@ export const recipes: Recipe[] = [
       "2 tbsp heavy cream (for the sauce)",
       "12 tbsp cold unsalted butter, cut into ½-inch cubes (for the sauce)",
       "1 tsp fresh lemon juice (for the sauce)",
-      "1 cup Pinot noir (for the reduction)",
+      "1 cup Pinot Noir (for the reduction)",
       "2 tbsp granulated sugar (for the reduction)",
       "1 oz microgreens, for garnish",
       "Flaky sea salt, for finishing"
     ],
     "directions": [
-      "Make the Pinot noir reduction: simmer the wine and sugar in a small saucepan over medium heat until it reduces to about 3 tablespoons and coats a spoon like thin syrup, 12 to 15 minutes. Cool; it thickens as it cools. Transfer to a squeeze bottle.",
+      "Make the Pinot Noir reduction: simmer the wine and sugar in a small saucepan over medium heat until it reduces to about 3 tablespoons and coats a spoon like thin syrup, 12 to 15 minutes. Cool; it thickens as it cools. Transfer to a squeeze bottle.",
       "Make the pea purée: melt the 2 tablespoons butter in a medium saucepan over medium heat and sweat the shallot until soft, about 2 minutes. Add the peas and ¼ cup water, cover, and cook until the peas are just tender and still bright green, 3 to 4 minutes.",
       "Transfer peas and their liquid to a blender with the cream, mint, and ¼ teaspoon kosher salt. Blend on high until completely smooth, about 1 minute, adding a splash of water if needed to reach a thick, spoonable consistency. Pass through a fine-mesh sieve for a restaurant finish and keep warm, covered.",
       "Pat the scallops very dry on paper towels, then lay them on a towel-lined sheet pan and refrigerate uncovered for at least 30 minutes so the surfaces dry further; this is what gives a deep crust.",
@@ -3150,7 +3149,7 @@ export const recipes: Recipe[] = [
       "Lower the heat to low and whisk in the cold butter a few cubes at a time, adding more only as each addition turns creamy rather than melting clear. Keep the sauce between 120°F and 140°F; if it gets hotter it will break. Season with ¼ teaspoon kosher salt and the lemon juice, strain if you want it perfectly smooth, and hold in a warmed thermos or a bowl over warm (not simmering) water.",
       "Season the scallops on both sides with the remaining ½ teaspoon kosher salt and the white pepper. Heat a 12-inch cast-iron or carbon-steel skillet over high heat until the oil shimmers and just begins to smoke, using 1½ tablespoons oil per batch.",
       "Sear the scallops in two batches of 12, flat side down with space between each, without moving them until a deep golden crust forms, 1½ to 2 minutes. Flip and cook 30 to 60 seconds more, until the sides are opaque but the center is still slightly translucent (about 115°F to 120°F for medium-rare). Transfer to a warm plate; wipe the pan and repeat.",
-      "Plate on warm white plates: swoosh 2 heaped tablespoons of pea purée across the center, arrange 4 scallops seared side up along it, and spoon about 2 tablespoons of beurre blanc around (not over) the scallops. Dot 5 or 6 small beads of Pinot noir reduction into the sauce, top each scallop with a small tuft of microgreens and a few flakes of sea salt, and serve immediately."
+      "Plate on warm white plates: swoosh 2 heaped tablespoons of pea purée across the center, arrange 4 scallops seared side up along it, and spoon about 2 tablespoons of beurre blanc around (not over) the scallops. Dot 5 or 6 small beads of Pinot Noir reduction into the sauce, top each scallop with a small tuft of microgreens and a few flakes of sea salt, and serve immediately."
     ],
     "equipment": [
       "12-inch cast-iron or carbon-steel skillet",
@@ -3162,7 +3161,7 @@ export const recipes: Recipe[] = [
     ],
     "storage": "Seared scallops are best eaten immediately; refrigerate leftovers within 2 hours and eat within 1 day (the texture will firm up). Beurre blanc does not reheat well; discard leftovers. Pea purée keeps 2 days refrigerated.",
     "reheating": "",
-    "makeAhead": "Day before: make the Pinot noir reduction and the pea purée (cool quickly, refrigerate in a sealed container, press plastic onto the surface to keep it green). At the client's home: dry the scallops on towels as soon as you arrive, reduce the wine-vinegar base up to 2 hours ahead, then mount the butter 20 minutes before plating and hold it in a warm thermos. Reheat the purée gently and sear the scallops to order.",
+    "makeAhead": "Day before: make the Pinot Noir reduction and the pea purée (cool quickly, refrigerate in a sealed container, press plastic onto the surface to keep it green). At the client's home: dry the scallops on towels as soon as you arrive, reduce the wine-vinegar base up to 2 hours ahead, then mount the butter 20 minutes before plating and hold it in a warm thermos. Reheat the purée gently and sear the scallops to order.",
     "safety": "Scallops are cooked until the exterior is seared and the flesh is mostly opaque; FDA guidance for shellfish is to cook until the flesh is opaque (145°F). Consumer advisory: consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase your risk of foodborne illness. Buy scallops from a reputable source and keep them at or below 38°F until cooking.",
     "chefNotes": "Buy dry-packed scallops; wet (phosphate-treated) scallops weep liquid and will steam instead of sear. Kosher salt quantities assume Diamond Crystal; use about half as much Morton."
   },
@@ -3393,7 +3392,7 @@ export const recipes: Recipe[] = [
     "side": "private-chef",
     "title": "Hazelnut-Crusted Rack of Lamb with Pinot Noir Reduction",
     "category": "Mains",
-    "description": "Rosy roasted rack of lamb in a crisp Oregon hazelnut and herb crust, carved into double chops and served with a glossy Pinot noir sauce.",
+    "description": "Rosy roasted rack of lamb in a crisp Oregon hazelnut and herb crust, carved into double chops and served with a glossy Pinot Noir sauce.",
     "servings": 6,
     "yieldNote": "Serves 6 (4 ribs each)",
     "active": 45,
@@ -3429,7 +3428,7 @@ export const recipes: Recipe[] = [
       "1 clove garlic, grated (for the crust)",
       "2 tbsp extra-virgin olive oil (for the crust)",
       "2 medium shallots, minced (for the sauce)",
-      "2 cups Oregon Pinot noir (for the sauce)",
+      "2 cups Oregon Pinot Noir (for the sauce)",
       "2 cups low-sodium beef stock (gluten-free) (for the sauce)",
       "3 sprigs fresh thyme (for the sauce)",
       "1 tsp honey (for the sauce)",
@@ -3439,12 +3438,12 @@ export const recipes: Recipe[] = [
       "Season the racks all over with 1½ teaspoons kosher salt and the pepper; let them sit at room temperature for 30 minutes. Heat the oven to 425°F.",
       "Make the crust: mix the hazelnuts, parsley, rosemary, thyme leaves, garlic, olive oil, and remaining ½ teaspoon salt in a bowl until it clumps like damp sand when pressed.",
       "Heat the grapeseed oil in a 12-inch skillet over medium-high heat. Sear the racks fat side down until golden, 3 to 4 minutes, then briefly sear the ends and meaty underside, about 1 minute each. Transfer to a rack set in a sheet pan, fat side up, and cool for 5 minutes. Save the skillet for the sauce.",
-      "Start the sauce: pour off all but 1 tablespoon fat from the skillet, add the shallots, and cook over medium heat until soft, 2 minutes. Add the Pinot noir and thyme sprigs, scrape up the browned bits, and boil until reduced by about two-thirds, 10 to 12 minutes.",
+      "Start the sauce: pour off all but 1 tablespoon fat from the skillet, add the shallots, and cook over medium heat until soft, 2 minutes. Add the Pinot Noir and thyme sprigs, scrape up the browned bits, and boil until reduced by about two-thirds, 10 to 12 minutes.",
       "Add the stock and honey and continue boiling until the sauce reduces to about ¾ cup and lightly coats a spoon, 12 to 15 minutes more. Strain into a small saucepan and set aside.",
       "Brush the fat side of each rack with a thin layer of Dijon, then press the hazelnut mixture firmly over the mustard in an even ¼-inch coat. Wrap the exposed bones in foil strips to prevent scorching.",
       "Roast on the rack until an instant-read thermometer in the center of the eye reads 125°F for medium-rare (about 135°F for medium), 15 to 20 minutes. If the crust browns before the meat is ready, tent loosely with foil. Rest 10 minutes; the temperature will climb about 5°F.",
       "Just before carving, rewarm the sauce to a simmer, take it off the heat, and whisk in the cold butter a few cubes at a time until glossy. Taste and season with a pinch of salt.",
-      "Plate on warm plates: carve each rack between the bones into double chops with a sharp slicing knife, keeping the crust intact. Pool 2 tablespoons of Pinot noir sauce slightly off-center, lean two double chops against each other in the sauce with the bones crossing upward, and serve with the pink interior facing the guest."
+      "Plate on warm plates: carve each rack between the bones into double chops with a sharp slicing knife, keeping the crust intact. Pool 2 tablespoons of Pinot Noir sauce slightly off-center, lean two double chops against each other in the sauce with the bones crossing upward, and serve with the pink interior facing the guest."
     ],
     "equipment": [
       "12-inch skillet",
@@ -3456,7 +3455,7 @@ export const recipes: Recipe[] = [
     ],
     "storage": "Refrigerate leftover lamb within 2 hours for up to 3 days. Rewarm slices gently at 275°F just until warm to avoid overcooking, or serve cold; the crust softens once chilled.",
     "reheating": "",
-    "makeAhead": "Day before: toast and skin the hazelnuts, make the crust mixture (refrigerate; bring to room temperature before using), trim and french the racks, and make the Pinot noir reduction through the straining step. At the client's home: season and sear the racks 1 hour before dinner, apply mustard and crust, and roast so they finish resting just as the plates go out; mount the sauce with butter at the last minute.",
+    "makeAhead": "Day before: toast and skin the hazelnuts, make the crust mixture (refrigerate; bring to room temperature before using), trim and french the racks, and make the Pinot Noir reduction through the straining step. At the client's home: season and sear the racks 1 hour before dinner, apply mustard and crust, and roast so they finish resting just as the plates go out; mount the sauce with butter at the last minute.",
     "safety": "USDA recommends whole cuts of lamb reach 145°F with a 3-minute rest; this recipe is cooked to 125°F (medium-rare) or 135°F (medium) at the chef's recommendation. Consumer advisory: consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase your risk of foodborne illness. Roast to 145°F on request.",
     "chefNotes": "Rub the toasted hazelnuts in a kitchen towel while warm to remove most of the papery skins, then chop by hand for a crust with texture (a processor makes it pasty). Salt assumes Diamond Crystal kosher salt."
   },
@@ -3491,17 +3490,17 @@ export const recipes: Recipe[] = [
     },
     "ingredients": [
       "½ oz dried porcini mushrooms",
-      "8 cups low-sodium vegetable stock",
+      "8 cups low-sodium vegetable stock (gluten-free)",
       "1½ lb mixed wild mushrooms (chanterelle, maitake, oyster), cleaned and torn",
       "3 tbsp extra-virgin olive oil, divided",
-      "6 tbsp unsalted butter, divided",
+      "7 tbsp unsalted butter, divided",
       "2 tsp kosher salt, divided",
       "2 medium shallots, finely diced",
       "3 cloves garlic, minced",
       "2 cups Carnaroli rice",
       "¾ cup dry white wine",
       "1 tbsp fresh thyme leaves, plus small sprigs for garnish",
-      "3 oz Parmesan cheese (vegetarian rennet), finely grated, plus shavings for garnish",
+      "3 oz vegetarian Parmesan-style cheese (microbial rennet), finely grated, plus shavings for garnish",
       "1 tsp fresh lemon juice",
       "½ tsp freshly ground black pepper"
     ],
@@ -3626,9 +3625,10 @@ export const recipes: Recipe[] = [
       "page": "https://www.pexels.com/photo/a-plate-topped-with-broccoli-and-other-vegetables-27434921/"
     },
     "ingredients": [
-      "3 bunch broccolini, ends trimmed and thick stems halved lengthwise",
+      "3 bunches broccolini, ends trimmed and thick stems halved lengthwise",
       "4 tbsp extra-virgin olive oil, divided",
       "1¼ tsp kosher salt, divided",
+      "1 tbsp kosher salt (for the blanching water)",
       "3 cloves garlic, thinly sliced",
       "1 Fresno chile, thinly sliced into rings",
       "½ tsp crushed red pepper flakes",
@@ -3636,7 +3636,7 @@ export const recipes: Recipe[] = [
       "Flaky sea salt, for finishing"
     ],
     "directions": [
-      "Bring a large pot of water to a boil with 1 tablespoon salt (in addition to the measured salt) and set up a bowl of ice water. Blanch the broccolini for 60 seconds, just until bright green, then shock it in the ice water, drain, and dry very thoroughly on towels. Dry stalks char; wet ones steam.",
+      "Bring a large pot of water to a boil with the 1 tablespoon blanching salt and set up a bowl of ice water. Blanch the broccolini for 60 seconds, just until bright green, then shock it in the ice water, drain, and dry very thoroughly on towels. Dry stalks char; wet ones steam.",
       "Toss the dried broccolini with 2 tablespoons olive oil and 1 teaspoon kosher salt.",
       "Heat a 12-inch cast-iron skillet over high heat until it is smoking hot, about 4 minutes. Add half the broccolini in a single layer and press it down with a spatula or a smaller pan.",
       "Cook without moving until deeply charred in spots, 2 to 3 minutes, then turn and char the other side, 1 to 2 minutes more; the thick stems should be tender when pierced with a paring knife. Transfer to a platter and repeat with the second batch.",
@@ -3687,9 +3687,9 @@ export const recipes: Recipe[] = [
       "page": "https://unsplash.com/photos/a-casserole-dish-with-blueberries-in-it-ugwOrAT2dbE"
     },
     "ingredients": [
-      "2 lb marionberries, fresh or frozen (do not thaw)",
-      "½ cup granulated sugar (for the filling)",
-      "3 tbsp cornstarch (for the filling)",
+      "1½ lb marionberries, fresh or frozen (do not thaw)",
+      "⅓ cup granulated sugar (for the filling)",
+      "2 tbsp cornstarch (for the filling)",
       "1 tsp lemon zest (for the filling)",
       "1 tbsp fresh lemon juice (for the filling)",
       "¼ tsp kosher salt (for the filling)",
@@ -3706,7 +3706,7 @@ export const recipes: Recipe[] = [
     ],
     "directions": [
       "Heat the oven to 375°F with a rack in the center. Set six 8-ounce ovenproof ramekins on a foil-lined rimmed sheet pan to catch drips.",
-      "Make the filling: in a large bowl, whisk the ½ cup sugar, cornstarch, and ¼ teaspoon salt together to prevent lumps, then gently fold in the berries, lemon zest, and lemon juice. Divide evenly among the ramekins, scraping in any sugar left in the bowl.",
+      "Make the filling: in a large bowl, whisk the ⅓ cup sugar, cornstarch, and ¼ teaspoon salt together to prevent lumps, then gently fold in the berries, lemon zest, and lemon juice. Divide evenly among the ramekins, scraping in any sugar left in the bowl.",
       "Bake the filling alone for 15 minutes (20 if frozen) so it starts bubbling before the topping goes on; this keeps the underside of the biscuits from turning gummy.",
       "Meanwhile make the biscuit dough: whisk the flour, 3 tablespoons sugar, baking powder, and ½ teaspoon salt. Cut in the cold butter with your fingertips or a pastry blender until the largest pieces are pea-size.",
       "Pour in ¾ cup cream and stir with a fork just until a shaggy dough forms with no dry flour. Divide into 6 equal mounds (a heaping ⅓ cup each) and pat each into a rough 3-inch round about ¾ inch thick.",
@@ -3737,7 +3737,7 @@ export const recipes: Recipe[] = [
     "category": "Desserts",
     "description": "A dense, fudgy dark chocolate torte made with Oregon hazelnut meal, dusted with powdered sugar and served with lightly sweetened cream.",
     "servings": 6,
-    "yieldNote": "Serves 6 (one 8-inch torte, 8 to 10 slices)",
+    "yieldNote": "Serves 6 to 8 (one 8-inch torte)",
     "active": 30,
     "total": 180,
     "tags": [
@@ -3830,8 +3830,8 @@ export const recipes: Recipe[] = [
       "page": "https://unsplash.com/photos/dessert-with-strawberry-g-ubP7FnoQM"
     },
     "ingredients": [
-      "3 tbsp cold whole milk (for blooming)",
-      "2½ tsp unflavored powdered gelatin",
+      "¼ cup cold whole milk (for blooming)",
+      "3¼ tsp unflavored powdered gelatin (about 1½ envelopes)",
       "3 cups heavy cream",
       "1 cup whole milk",
       "½ cup granulated sugar",
@@ -3844,7 +3844,7 @@ export const recipes: Recipe[] = [
       "6 small fresh mint leaves, for garnish"
     ],
     "directions": [
-      "Pour the 3 tablespoons cold milk into a small bowl, sprinkle the gelatin evenly over the surface, and let it bloom for 10 minutes until spongy.",
+      "Pour the ¼ cup cold milk into a small bowl, sprinkle the gelatin evenly over the surface, and let it bloom for 10 minutes until spongy.",
       "Combine the cream, 1 cup milk, sugar, Meyer lemon peel strips, and salt in a medium saucepan. Heat over medium, stirring to dissolve the sugar, until steaming with small bubbles at the edge (about 180°F); do not boil.",
       "Take the pan off the heat, cover, and steep for 20 minutes to extract the lemon oils.",
       "Rewarm the cream to steaming, then remove from the heat and whisk in the bloomed gelatin until completely dissolved, about 1 minute. Strain through a fine-mesh sieve into a large measuring cup and discard the peel.",
