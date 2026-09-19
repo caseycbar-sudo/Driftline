@@ -766,3 +766,14 @@
     text-align: center;
   }
 }
+
+/* Readability: the global h1 color (deep navy) was landing on the dark hero */
+.cookbook .book-hero h1 {
+  color: #f7f2e9;
+}
+.cookbook .book-hero h1 em {
+  color: #d2ae6a;
+}
+.cookbook .book-hero p {
+  font-size: 12px;
+}
