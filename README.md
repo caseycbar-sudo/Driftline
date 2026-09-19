@@ -103,10 +103,10 @@ Worker (use secrets for the key):
 | Variable | Example | Purpose |
 | --- | --- | --- |
 | `RESEND_API_KEY` | `re_...` | Resend API key (secret) |
-| `NOTIFY_EMAIL` | `you@yourdomain.com` | Where alerts go; comma-separate for several |
+| `NOTIFY_EMAIL` | `driftlineprovisions@gmail.com` | Where alerts go; comma-separate for several |
 | `FROM_EMAIL` | `Driftline Provisions <hello@driftlineprovisions.com>` | Sender; the domain must be verified in Resend |
 | `SITE_URL` | `https://www.driftlineprovisions.com` | Public address used in sign-in links and the "Open in admin" link |
-| `BOOTSTRAP_ADMIN_EMAIL` | `you@yourdomain.com` | First owner account; remove after first sign-in |
+| `BOOTSTRAP_ADMIN_EMAIL` | `driftlineprovisions@gmail.com` | First owner account; remove after first sign-in |
 
 If email isn't configured, requests are still saved; the admin screen flags
 any request that didn't trigger an alert. Spam protection is a hidden

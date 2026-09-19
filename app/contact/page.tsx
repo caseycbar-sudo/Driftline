@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import SiteHeader from "../SiteHeader";
 import SiteFooter from "../SiteFooter";
 import ContactForm from "./ContactForm";
+import { CONTACT_EMAIL } from "../site-config";
 import "../home.css";
 
 export const metadata: Metadata = {
@@ -74,6 +75,12 @@ export default function ContactPage() {
           </h2>
           <p>Casey reads every message and usually replies within a day.</p>
           <dl className="dp-contact-facts">
+            <div>
+              <dt>Email</dt>
+              <dd>
+                <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+              </dd>
+            </div>
             <div>
               <dt>Based in</dt>
               <dd>Astoria, Oregon</dd>

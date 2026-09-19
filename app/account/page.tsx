@@ -7,6 +7,7 @@ import ProfileForm from "./ProfileForm";
 import DisclosureGate from "../disclosures/DisclosureGate";
 import VisitGallery from "./VisitGallery";
 import BrandLogo from "../BrandLogo";
+import { CONTACT_EMAIL } from "../site-config";
 import "./account.css";
 
 export const dynamic = "force-dynamic";
@@ -29,7 +30,7 @@ export default async function AccountPage() {
       {dinnerWishlist.length ? <section className="meal-plan"><div className="meal-plan-heading"><div><span>PRIVATE DINNER WISHLIST</span><h2>Dishes you&apos;d love at a dinner</h2></div><Link href="/cookbook?side=private-chef">+ Browse private chef dishes</Link></div><div className="chosen-meals">{dinnerWishlist.map(recipe=><article key={recipe.id}><img src={recipe.image} alt=""/><div><small>{recipe.category.toUpperCase()}</small><h3>{recipe.title}</h3><p>Casey will build these into your menu</p></div></article>)}</div></section> : null}
       <VisitGallery />
       <ProfileForm initialProfile={profile} />
-      <aside className="account-help"><div><span>Need a hand?</span><h2>We&apos;re real people, right here on the coast.</h2><p>Questions about packages, allergies, or whether the service is right for your household? Reach out and we&apos;ll talk it through.</p></div><a href="mailto:hello@driftlineprovisions.com">Email Driftline →</a></aside>
+      <aside className="account-help"><div><span>Need a hand?</span><h2>We&apos;re real people, right here on the coast.</h2><p>Questions about packages, allergies, or whether the service is right for your household? Reach out and we&apos;ll talk it through.</p></div><a href={`mailto:${CONTACT_EMAIL}`}>Email Driftline →</a></aside>
     </section>
   </main>;
 }
