@@ -74,7 +74,7 @@ test("production safety: a protected route still redirects to sign-in", async ()
     const location = new URL(response.headers.get("location") ?? "", "http://localhost");
     assert.equal(
       `${location.pathname}${location.search}`,
-      "/signin-with-chatgpt?return_to=%2Faccount",
+      "/signin?return_to=%2Faccount",
     );
   } finally {
     await worker.dispose();

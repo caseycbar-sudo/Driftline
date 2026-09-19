@@ -91,7 +91,7 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
     fetch(`/api/schedule?start=${first}&end=${last}`)
       .then(async (response) => {
         if (response.status === 401) {
-          window.location.href = "/signin-with-chatgpt?return_to=%2Fportal";
+          window.location.href = "/signin?return_to=%2Fportal";
           throw new Error("signin");
         }
         if (!response.ok) throw new Error("load");
@@ -157,7 +157,7 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
       body: JSON.stringify(payload),
     });
     if (response.status === 401) {
-      window.location.href = "/signin-with-chatgpt?return_to=%2Fportal";
+      window.location.href = "/signin?return_to=%2Fportal";
       return;
     }
     if (!response.ok) {
@@ -312,7 +312,7 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
           <div className="schedule-signin">
             <h2>Staff sign-in required</h2>
             <p>Sign in before opening or changing the operations calendar.</p>
-            <a href="/signin-with-chatgpt?return_to=%2Fportal">
+            <a href="/signin?return_to=%2Fportal">
               Sign in to continue →
             </a>
           </div>

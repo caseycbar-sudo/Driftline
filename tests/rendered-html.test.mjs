@@ -81,3 +81,47 @@ test("old Squarespace addresses forward to the new pages", async () => {
     await worker.dispose();
   }
 });
+
+test("sign-in pages render and work without JavaScript", async () => {
+  const worker = await startBuiltWorker();
+  try {
+    const signin = await renderPage(worker, "/signin?return_to=%2Fchef");
+    assert.match(signin, /<form(?=[^>]*method="post")(?=[^>]*action="\/api\/auth\/request")[^>]*>/);
+    assert.match(signin, /name="returnTo" value="\/chef"/);
+    assert.match(signin, /Driftline team/);
+    assert.doesNotMatch(signin, /chatgpt/i);
+
+    // An off-site return path is dropped before it reaches the form.
+    const evil = await renderPage(worker, "/signin?return_to=%2F%2Fevil.com");
+    assert.match(evil, /name="returnTo" value="\/"/);
+
+    // Opening an emailed link must not sign anyone in by itself (mail scanners open links).
+    const token = "A".repeat(43);
+    const verify = await renderPage(worker, `/auth/verify?token=${token}`);
+    assert.match(verify, /<form(?=[^>]*method="post")(?=[^>]*action="\/api\/auth\/verify")[^>]*>/);
+    assert.match(verify, new RegExp(`name="token" value="${token}"`));
+    const broken = await renderPage(worker, "/auth/verify?token=not-a-token");
+    assert.match(broken, /isn(&#x27;|')t valid/);
+    assert.doesNotMatch(broken, /name="token"/);
+
+    // Another website can't complete a sign-in or request links on a visitor's behalf.
+    for (const path of ["/api/auth/verify", "/api/auth/request"]) {
+      const cross = await worker.fetch(path, {
+        method: "POST",
+        redirect: "manual",
+        headers: { "content-type": "application/x-www-form-urlencoded", origin: "https://evil.example", "sec-fetch-site": "cross-site" },
+        body: new URLSearchParams({ token, email: "a@example.com" }),
+      });
+      assert.ok([303, 403].includes(cross.status), `${path} cross-site returned ${cross.status}`);
+      assert.doesNotMatch(cross.headers.get("set-cookie") ?? "", /dl_session=[A-Za-z0-9_-]/);
+      if (cross.status === 303) assert.doesNotMatch(cross.headers.get("location") ?? "", /sent=1/);
+    }
+
+    const out = await worker.fetch("/signout?return_to=https%3A%2F%2Fevil.com", { redirect: "manual" });
+    assert.equal(out.status, 303);
+    assert.equal(new URL(out.headers.get("location"), "http://localhost").pathname, "/");
+    assert.match(out.headers.get("set-cookie") ?? "", /dl_session=;.*Max-Age=0/);
+  } finally {
+    await worker.dispose();
+  }
+});

@@ -137,3 +137,24 @@ export const privateChefInquiries = sqliteTable("private_chef_inquiries", {
   /** When the owner notification email was accepted by the mail provider. */
   notifiedAt: text("notified_at").notNull().default(""),
 });
+
+/** One-time sign-in links. Only a SHA-256 hash of the token is stored. */
+export const authTokens = sqliteTable("auth_tokens", {
+  tokenHash: text("token_hash").primaryKey(),
+  email: text("email").notNull(),
+  returnTo: text("return_to").notNull().default("/"),
+  /** Hashed requester address, for rate limiting only. */
+  sourceHash: text("source_hash").notNull().default(""),
+  createdAt: text("created_at").notNull(),
+  expiresAt: text("expires_at").notNull(),
+  usedAt: text("used_at").notNull().default(""),
+});
+
+/** Signed-in sessions. The cookie holds a random id; only its SHA-256 hash is stored. */
+export const authSessions = sqliteTable("auth_sessions", {
+  idHash: text("id_hash").primaryKey(),
+  email: text("email").notNull(),
+  createdAt: text("created_at").notNull(),
+  expiresAt: text("expires_at").notNull(),
+  lastSeenAt: text("last_seen_at").notNull(),
+});

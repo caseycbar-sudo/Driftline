@@ -77,7 +77,7 @@ export default function ChefWork({ view }: { view: View }) {
         { cache: "no-store" },
       );
       if (response.status === 401 || response.status === 403) {
-        window.location.href = "/signin-with-chatgpt?return_to=%2Fchef%2Fworkspace";
+        window.location.href = "/signin?return_to=%2Fchef%2Fworkspace";
         return;
       }
       if (!response.ok) throw new Error();

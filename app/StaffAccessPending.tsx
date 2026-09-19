@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { chatGPTSignOutPath } from "./chatgpt-auth";
+import { signOutPath } from "./auth";
 
 /**
  * Shown to a signed-in identity that is not active staff.
@@ -33,7 +33,7 @@ export default function StaffAccessPending({
         </p>
         <div>
           <Link href="/account">Return to customer account</Link>
-          <a href={chatGPTSignOutPath("/")}>Use a different account</a>
+          <a href={signOutPath("/")}>Use a different account</a>
         </div>
       </section>
     </main>

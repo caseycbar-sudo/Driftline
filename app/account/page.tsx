@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { requireChatGPTUser, chatGPTSignOutPath } from "../chatgpt-auth";
+import { requireUser, signOutPath } from "../auth";
 import { getOrCreateCustomer } from "../../db/customers";
 import { getMealPlan } from "../../db/meals";
 import { recipes } from "../cookbook/recipes";
@@ -12,7 +12,7 @@ import "./account.css";
 export const dynamic = "force-dynamic";
 
 export default async function AccountPage() {
-  const user = await requireChatGPTUser("/account");
+  const user = await requireUser("/account");
   const profile = await getOrCreateCustomer(user.email, user.displayName);
   const mealPlan = await getMealPlan(user.email);
   const chosenRecipes = recipes.filter(recipe => recipe.side === "meal-prep" && mealPlan.selectedRecipeIds.includes(recipe.id));
@@ -20,7 +20,7 @@ export default async function AccountPage() {
   const firstName = profile.fullName.split(" ")[0] || "there";
   return <main className="account-page">
     <DisclosureGate scope="customer" />
-    <header className="account-nav"><Link className="account-brand" href="/"><BrandLogo/></Link><nav><Link href="/cookbook">Cookbook</Link><Link href="/meal-prep#pricing">Pricing</Link><Link className="staff-access" href="/chef">Chef login</Link><a href={chatGPTSignOutPath("/")}>Sign out</a></nav></header>
+    <header className="account-nav"><Link className="account-brand" href="/"><BrandLogo/></Link><nav><Link href="/cookbook">Cookbook</Link><Link href="/meal-prep#pricing">Pricing</Link><Link className="staff-access" href="/chef">Chef login</Link><a href={signOutPath("/")}>Sign out</a></nav></header>
     <section className="welcome-panel"><div><p>YOUR DRIFTLINE ACCOUNT</p><h1>Welcome, {firstName}.</h1><span>Let&apos;s make home meals feel easier this week.</span></div><div className="account-status"><i>✓</i><span><small>Account ready</small><strong>Your preferences travel with every visit</strong></span></div></section>
     <section className="account-content">
       <div className="onboarding-path"><span className="path-complete"><i>✓</i><b>Build your profile</b></span><span className={chosenRecipes.length+mealPlan.customRecipes.length>0?"path-complete":"path-current"}><i>{chosenRecipes.length+mealPlan.customRecipes.length>0?"✓":"2"}</i><b>Choose starter dishes</b></span><span><i>3</i><b>Request your first visit</b></span></div>

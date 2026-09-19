@@ -1,11 +1,9 @@
 /**
  * Development-only authentication shim.
  *
- * On ChatGPT Sites the platform authenticates the request and injects the
- * `oai-authenticated-user-*` headers that `app/chatgpt-auth.ts` reads. Outside
- * Sites those headers are absent (and, if present, are attacker-supplied and
- * untrusted), so every protected route would redirect to a sign-in path that
- * does not exist locally.
+ * In production people sign in with an emailed one-time link (see app/auth.ts).
+ * For local work on staff screens it's handy to skip that step instead of
+ * requesting and clicking a fresh email link every time.
  *
  * This module substitutes a fixed identity read from the environment so the
  * customer, chef, and admin routes can be worked on locally.
@@ -16,7 +14,7 @@
  * dev, `false` in a production build). Two independent mechanisms keep this
  * module out of production:
  *
- *   1. `app/chatgpt-auth.ts` imports this module only inside an
+ *   1. `app/auth.ts` imports this module only inside an
  *      `if (import.meta.env.DEV)` block. In a production build that condition
  *      folds to `false` and the dynamic import is eliminated, so this file is
  *      never part of the production bundle.

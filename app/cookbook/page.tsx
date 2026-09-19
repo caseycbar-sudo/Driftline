@@ -8,7 +8,7 @@ import SiteHeader from "../SiteHeader";
 import SiteFooter from "../SiteFooter";
 import "../home.css";
 
-const SIGN_IN = "/signin-with-chatgpt?return_to=%2Fcookbook";
+const signInHere = () => `/signin?return_to=${encodeURIComponent(window.location.pathname + window.location.search)}`;
 
 const HERO: Record<CookbookSide, { kicker: string; title: [string, string]; lede: string; choose: string; chosen: string; countLabel: string }> = {
   "meal-prep": {
@@ -123,7 +123,7 @@ export default function Cookbook() {
 
   async function toggleMeal(recipeId: number) {
     if (!signedIn) {
-      window.location.href = SIGN_IN;
+      window.location.href = signInHere();
       return;
     }
     const removing = saved.includes(recipeId);
@@ -145,7 +145,7 @@ export default function Cookbook() {
   async function submitOwnRecipe(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!signedIn) {
-      window.location.href = SIGN_IN;
+      window.location.href = signInHere();
       return;
     }
     const body = Object.fromEntries(new FormData(event.currentTarget).entries());

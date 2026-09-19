@@ -114,7 +114,7 @@ test("built worker: staff pages redirect a signed-out visitor to sign-in", async
 
       assert.equal(response.status, 307, `${path} should redirect`);
       const location = new URL(response.headers.get("location") ?? "", "http://localhost");
-      assert.equal(location.pathname, "/signin-with-chatgpt");
+      assert.equal(location.pathname, "/signin");
       assert.equal(location.searchParams.get("return_to"), path);
     }
   } finally {

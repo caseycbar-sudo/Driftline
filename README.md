@@ -1,8 +1,8 @@
-# vinext-starter
+# Driftline Provisions
 
-A clean full-stack starter running on
-[vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
-Drizzle support.
+The website, customer accounts, chef app and owner dashboard for Driftline
+Provisions. Runs on [vinext](https://github.com/cloudflare/vinext) as a
+Cloudflare Worker with D1 (database) and R2 (photos).
 
 ## Prerequisites
 
@@ -21,82 +21,47 @@ Scripts that need writable project-scoped home, npm, XDG, and temporary paths us
 
 ## Included Shape
 
-- edit site code under `app/`
-- `app/chatgpt-auth.ts` provides optional dispatch-owned ChatGPT sign-in helpers
-- `.openai/hosting.json` declares optional Sites D1 and R2 bindings
-- `vite.config.ts` simulates declared bindings for local development
-- `db/index.ts` reads the D1 binding from the Cloudflare Worker environment
-- `db/schema.ts` starts intentionally empty
-- `examples/d1/` contains an optional D1 example surface
-- `drizzle.config.ts` supports local migration generation when needed
+- public site pages under `app/` (home, private chef, catering, meal prep, Sunday Market, story, contact, cookbook)
+- customer account (`/account`), chef app (`/chef`) and owner dashboard (`/portal`)
+- `app/auth.ts` + `app/auth-core.ts` + `db/auth.ts`: Driftline's own email sign-in
+- `db/schema.ts` and `drizzle/`: D1 tables and migrations
+- `vite.config.ts` simulates the D1 and R2 bindings for local development
 
-## Workspace Auth Headers
+## Sign-in
 
-OpenAI workspace sites can read the current user's email from
-`oai-authenticated-user-email`.
+Customers, chefs and the owner all sign in the same way: enter an email address
+at `/signin`, get a one-time link, tap it.
 
-SIWC-authenticated workspace sites may also receive
-`oai-authenticated-user-full-name` when the user's SIWC profile has a non-empty
-`name` claim. The full-name value is percent-encoded UTF-8 and is accompanied by
-`oai-authenticated-user-full-name-encoding: percent-encoded-utf-8`.
+- `getUser()` returns the signed-in person (or `null`); `requireUser(returnTo)`
+  sends signed-out visitors to `/signin` and back afterwards.
+- `signInPath(returnTo)` / `signOutPath(returnTo)` build links. Only same-site
+  relative paths are accepted as `returnTo`; anything else becomes `/`.
+- Links last 15 minutes and work once. Opening a link shows a **Continue**
+  button that POSTs the token, so email scanners that pre-open links can't use
+  them up. Signing in retires any other open links for that address.
+- Sessions last 30 days in an `HttpOnly`, `SameSite=Lax`, `Secure` cookie
+  (`dl_session`). Only SHA-256 hashes of link tokens and session ids are stored.
+- Limits: 5 links per email and 20 per network (IPv6 grouped by /64) per hour.
+  Requests and sign-ins posted from another website are refused.
+- The form answers the same way whether or not an account exists.
 
-Treat the full name as optional and fall back to email when it is absent:
+Signing in proves someone controls an email address; it grants no role by
+itself. Chef and owner access comes from an active row in `staff_profiles`,
+managed from the owner dashboard. `BOOTSTRAP_ADMIN_EMAIL` makes that one address
+the first owner **only while `staff_profiles` is empty**. Set it for the first
+launch, sign in once, then remove it.
 
-```tsx
-import { headers } from "next/headers";
-
-export default async function Home() {
-  const requestHeaders = await headers();
-  const email = requestHeaders.get("oai-authenticated-user-email");
-  const encodedFullName = requestHeaders.get("oai-authenticated-user-full-name");
-  const fullName =
-    encodedFullName &&
-    requestHeaders.get("oai-authenticated-user-full-name-encoding") ===
-      "percent-encoded-utf-8"
-      ? decodeURIComponent(encodedFullName)
-      : null;
-
-  const displayName = fullName ?? email;
-  // ...
-}
-```
-
-## Optional Dispatch-Owned ChatGPT Sign-In
-
-Import the ready-to-use helpers from `app/chatgpt-auth.ts` when the site needs
-optional or required ChatGPT sign-in:
-
-- Use `getChatGPTUser()` for optional signed-in UI.
-- Use `requireChatGPTUser(returnTo)` for server-rendered pages that should send
-  anonymous visitors through Sign in with ChatGPT.
-- Use `chatGPTSignInPath(returnTo)` and `chatGPTSignOutPath(returnTo)` for
-  browser links or actions.
-- Pass a same-origin relative `returnTo` path for the destination after sign-in
-  or sign-out. The helper validates and safely encodes it.
-- Mark protected pages with `export const dynamic = "force-dynamic"` because
-  they depend on per-request identity headers.
-
-Dispatch owns `/signin-with-chatgpt`, `/signout-with-chatgpt`, `/callback`, the
-OAuth cookies, and identity header injection. Do not implement app routes for
-those reserved paths. Routes that do not import and call the helper remain
-anonymous-compatible.
-
-SIWC establishes identity only; it does not prove workspace membership. Use the
-Sites hosting platform's access policy controls for workspace-wide restrictions,
-or enforce explicit server-side membership or allowlist checks.
-
-Use SIWC for account pages, user-specific dashboards, saved records, and write
-actions tied to the current ChatGPT user. Leave public content anonymous.
+Sign-in email goes through the same Resend settings as request alerts (below).
+Set `SITE_URL` in production so links always point at the real domain; without
+it, links use `https://www.driftlineprovisions.com` (or the local address when
+running on localhost).
 
 ## Local Development Sign-In
 
-On Sites, the platform authenticates the request and injects the
-`oai-authenticated-user-*` headers. Locally those headers do not exist, so every
-protected route redirects to `/signin-with-chatgpt`, which Dispatch owns and
-which therefore 404s outside Sites.
+Locally you can use the real flow: leave `VITE_DEV_AUTH_EMAIL` blank, point
+`RESEND_API_URL` at a mock mail server, and read the link from its log.
 
-To work on the customer, chef, and admin routes locally, configure a
-development identity:
+For quick work on staff screens there is a development shortcut:
 
 ```bash
 cp .env.example .env.local
@@ -104,30 +69,22 @@ cp .env.example .env.local
 npm run dev
 ```
 
-`VITE_DEV_AUTH_EMAIL` signs you in as that address. Leave it unset or blank to
-browse signed out and exercise the redirect path. `VITE_DEV_AUTH_FULL_NAME` is
-optional and falls back to the email address.
-
-Staff and admin routes additionally require a matching row in the `staff` table
-(see `db/staff.ts`); a development identity alone grants no role.
+`VITE_DEV_AUTH_EMAIL` signs you in as that address with no email step.
+`VITE_DEV_AUTH_FULL_NAME` is optional. Staff and owner routes still require a
+matching `staff_profiles` row; a development identity alone grants no role.
 
 ### Safety boundary
 
-The shim lives in `app/dev-auth.ts` and never ships:
+The shortcut lives in `app/dev-auth.ts` and never ships:
 
-- `app/chatgpt-auth.ts` imports it only inside `if (import.meta.env.DEV)`. Vite
-  replaces that expression with `false` when building, so the branch and the
-  dynamic import are eliminated and the module is not in the production bundle.
-- `app/dev-auth.ts` also throws at module evaluation if it is ever reached in a
-  non-development build, so a mistake fails loudly instead of silently
-  accepting a fabricated identity.
-- In development the shim *replaces* header parsing rather than falling back to
-  it. Outside Sites the `oai-authenticated-user-*` headers are client-supplied
-  and are never trusted.
+- `app/auth.ts` imports it only inside `if (import.meta.env.DEV)`. Vite
+  replaces that with `false` when building, so the module is not in the
+  production bundle.
+- `app/dev-auth.ts` also throws if it is ever loaded outside development.
+- It never reads request headers, so nothing a visitor sends affects identity.
 
-`npm test` asserts all three: the shim's sentinel is absent from
-`dist/server/index.js`, and a built worker still redirects `/account` to
-sign-in.
+`npm test` checks that the shortcut is absent from `dist/server/index.js` and
+that a built worker redirects `/account` to `/signin`.
 
 Never put a real customer or staff email address in `.env.local`. `.env*` is
 gitignored apart from the placeholder `.env.example`.
@@ -148,7 +105,8 @@ Worker (use secrets for the key):
 | `RESEND_API_KEY` | `re_...` | Resend API key (secret) |
 | `NOTIFY_EMAIL` | `you@yourdomain.com` | Where alerts go; comma-separate for several |
 | `FROM_EMAIL` | `Driftline Provisions <hello@driftlineprovisions.com>` | Sender; the domain must be verified in Resend |
-| `SITE_URL` | `https://www.driftlineprovisions.com` | Used for the "Open in admin" link |
+| `SITE_URL` | `https://www.driftlineprovisions.com` | Public address used in sign-in links and the "Open in admin" link |
+| `BOOTSTRAP_ADMIN_EMAIL` | `you@yourdomain.com` | First owner account; remove after first sign-in |
 
 If email isn't configured, requests are still saved; the admin screen flags
 any request that didn't trigger an alert. Spam protection is a hidden
