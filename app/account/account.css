@@ -698,3 +698,7 @@
   border-left: 1px solid #d9ddd8;
   padding-left: 24px;
 }
+
+/* Readable "Account ready" card text on its light background */
+.account-status strong { color: #16232f !important; }
+.account-status small { color: #7a5f2c !important; font-size: 11px; }
