@@ -3,14 +3,17 @@
  * Pure functions with no Worker or database imports, so they can be unit tested.
  */
 
-export const INQUIRY_TYPES = ["private_chef", "catering", "meal_prep"] as const;
+export const INQUIRY_TYPES = ["private_chef", "catering", "meal_prep", "general"] as const;
 export type InquiryType = (typeof INQUIRY_TYPES)[number];
 
 export const INQUIRY_LABELS: Record<InquiryType, string> = {
   private_chef: "Private chef dinner",
   catering: "Catering",
   meal_prep: "Weekly meal prep",
+  general: "General message",
 };
+
+export const CONTACT_TOPICS = ["Private chef dinner", "Catering", "Weekly meal prep", "Sunday Market", "Something else"];
 
 export const MEAL_PREP_PACKAGES = ["Essential", "Classic", "Weekly", "Couples", "Household", "Family"];
 export const SERVICE_FOR_OPTIONS = ["My household", "A parent or loved one", "A client I care for"];
@@ -82,6 +85,14 @@ export function validateInquiry(body: Record<string, unknown>, now = new Date())
 
   if (!inquiry.fullName) return { ok: false, error: "Please add your name.", field: "fullName" };
   if (!EMAIL.test(inquiry.email)) return { ok: false, error: "Please enter a valid email address.", field: "email" };
+
+  if (inquiryType === "general") {
+    if (inquiry.details.length < 5) return { ok: false, error: "Please add a short message.", field: "details" };
+    if (!CONTACT_TOPICS.includes(inquiry.occasion)) inquiry.occasion = "Something else";
+    inquiry.preferredDate = "";
+    inquiry.location = "";
+    return { ok: true, inquiry };
+  }
 
   if (inquiryType === "meal_prep") {
     if (!ZIP.test(inquiry.zip)) return { ok: false, error: "Please enter a 5-digit ZIP code.", field: "zip" };

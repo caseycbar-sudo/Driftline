@@ -613,3 +613,15 @@
   border-color: #a23b3b;
   box-shadow: 0 0 0 2px rgba(162, 59, 59, 0.15);
 }
+
+/* Casey's own plated salmon instead of the meal-prep stock image */
+.pc-page .pc-hero-photo {
+  background-image: linear-gradient(90deg, transparent 76%, #ece2cf), url("/gallery/salmon.webp") !important;
+  background-size: cover !important;
+  background-position: center 55% !important;
+}
+@media (max-width: 900px) {
+  .pc-page .pc-hero-photo {
+    background-image: url("/gallery/salmon.webp") !important;
+  }
+}

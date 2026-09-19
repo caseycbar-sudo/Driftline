@@ -7,8 +7,9 @@ const links = [
   { href: "/private-chef", label: "Private Chef" },
   { href: "/catering", label: "Catering" },
   { href: "/meal-prep", label: "Meal Prep" },
-  { href: "/cookbook", label: "Cookbook" },
-  { href: "/#story", label: "Our Story" },
+  { href: "/sunday-market", label: "Sunday Market" },
+  { href: "/our-story", label: "Our Story" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function SiteHeader({ current }: { current?: string }) {
@@ -16,7 +17,7 @@ export default function SiteHeader({ current }: { current?: string }) {
   const close = () => setOpen(false);
 
   return (
-    <header className="dp-header">
+    <header className="dp-header dp-shell">
       <a className="dp-header-logo" href="/" aria-label="Driftline Provisions home">
         <BrandLogo />
       </a>
@@ -34,7 +35,7 @@ export default function SiteHeader({ current }: { current?: string }) {
         <a className="dp-nav-signin" href="/account" onClick={close}>
           Sign in
         </a>
-        <a className="dp-nav-cta-mobile" href="/#plan" onClick={close}>
+        <a className="dp-nav-cta-mobile" href="/contact" onClick={close}>
           Plan your table →
         </a>
       </nav>
@@ -42,7 +43,7 @@ export default function SiteHeader({ current }: { current?: string }) {
         <a className="dp-signin" href="/account">
           Sign in
         </a>
-        <a className="dp-btn dp-btn-gold" href="/#plan">
+        <a className="dp-btn dp-btn-gold" href="/contact">
           Plan your table <span aria-hidden="true">→</span>
         </a>
       </div>

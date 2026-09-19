@@ -54,3 +54,10 @@ test("honeypot field flags bots", () => {
   assert.equal(isLikelySpam({}), false);
   assert.equal(isLikelySpam({ website: "http://spam.example" }), true);
 });
+
+test("general contact message needs a message; unknown topics become 'Something else'", () => {
+  const ok = validateInquiry({ inquiryType: "general", fullName: "Chris", email: "c@example.com", details: "Hello there", occasion: "Weddings??" }, NOW);
+  assert.equal(ok.ok, true);
+  assert.equal(ok.inquiry.occasion, "Something else");
+  assert.equal(validateInquiry({ inquiryType: "general", fullName: "Chris", email: "c@example.com", details: "" }, NOW).field, "details");
+});

@@ -78,7 +78,7 @@ export default function Home() {
               Explore weekly meal prep
             </a>
           </div>
-          <a className="dp-hero-market" href="#market">
+          <a className="dp-hero-market" href="/sunday-market">
             <span className="dp-dot" aria-hidden="true" />
             <span>
               <strong>Award-winning clam chowder</strong>
@@ -137,7 +137,7 @@ export default function Home() {
       </section>
 
       {/* SUNDAY MARKET */}
-      <section className="dp-market" id="market">
+      <section className="dp-market">
         <figure>
           <img src="/gallery/chowder-stand.webp" alt="Chef Casey at the Driftline clam chowder stand" loading="lazy" />
         </figure>
@@ -150,54 +150,35 @@ export default function Home() {
           </h2>
           <p>
             Our award-winning clam chowder, made fresh and served hot every
-            Sunday. Come say hi, grab a bowl, and ask about a dinner.
+            Sunday, Mother&apos;s Day through mid-October on 12th Street in
+            downtown Astoria.
           </p>
-          <dl>
-            <div>
-              <dt>Where</dt>
-              <dd>12th Street, downtown Astoria</dd>
-            </div>
-            <div>
-              <dt>When</dt>
-              <dd>Sundays, 10am to 3pm</dd>
-            </div>
-            <div>
-              <dt>Season</dt>
-              <dd>Mother&apos;s Day to mid-October</dd>
-            </div>
-          </dl>
-          <a className="dp-btn dp-btn-gold" href="https://www.astoriasundaymarket.com/" target="_blank" rel="noreferrer">
-            Market info <span aria-hidden="true">↗</span>
-          </a>
+          <div className="dp-hero-actions">
+            <a className="dp-btn dp-btn-gold" href="/sunday-market">
+              Market days &amp; details <span aria-hidden="true">→</span>
+            </a>
+          </div>
         </div>
       </section>
 
-      {/* STORY */}
-      <section className="dp-section dp-story" id="story">
+      {/* STORY TEASER */}
+      <section className="dp-section dp-story">
         <div className="dp-story-copy">
           <p className="dp-eyebrow">
             <span aria-hidden="true" /> Meet the chef
           </p>
           <h2>Casey Barella</h2>
           <p>
-            Born and raised in the Pacific Northwest, Casey has spent his career
-            celebrating the region&apos;s ingredients and its laid-back
-            hospitality. After years in fine dining kitchens, he set out to prove
-            that exceptional food doesn&apos;t need white tablecloths, just good
-            ingredients, careful preparation, and people to share it with.
+            Born and raised in the Pacific Northwest, Casey built The Chowder
+            Stop into an award-winning Astoria favorite, then sold it to get
+            back to what he loves most: cooking personal, memorable meals for
+            the people in front of him.
           </p>
-          <p>
-            That idea became <strong>The Chowder Stop</strong>, an award-winning
-            restaurant known for handcrafted clam chowder and approachable
-            Northwest food. After building it and selling it, Casey went back to
-            what he loves most: cooking personal, memorable meals for the people
-            in front of him.
-          </p>
-          <p>
-            Driftline Provisions brings that same care straight to your table,
-            whether it&apos;s an intimate chef&apos;s dinner, a catered
-            celebration, or a week of meals waiting in your fridge.
-          </p>
+          <div className="dp-hero-actions">
+            <a className="dp-btn dp-btn-line" href="/our-story">
+              Read Casey&apos;s story <span aria-hidden="true">→</span>
+            </a>
+          </div>
         </div>
         <aside className="dp-story-side">
           <blockquote>
@@ -213,49 +194,8 @@ export default function Home() {
         </aside>
       </section>
 
-      {/* MEAL PREP TEASER */}
-      <section className="dp-athome">
-        <div className="dp-athome-inner">
-          <div>
-            <p className="dp-eyebrow">
-              <span aria-hidden="true" /> Driftline At Home
-            </p>
-            <h2>
-              A week of good meals, <em>made in your kitchen.</em>
-            </h2>
-            <p>
-              Pick a package, tell us what your household loves, and your chef
-              handles the rest. Browse 100 recipes and save your favorites before
-              the first visit.
-            </p>
-            <div className="dp-hero-actions">
-              <a className="dp-btn dp-btn-navy" href="/meal-prep">
-                See packages &amp; pricing <span aria-hidden="true">→</span>
-              </a>
-              <a className="dp-btn dp-btn-line" href="/cookbook">
-                Browse the cookbook
-              </a>
-            </div>
-          </div>
-          <ol className="dp-steps">
-            <li>
-              <strong>Tell us what works</strong>
-              <span>Favorites, dislikes, allergies, and how many portions you need.</span>
-            </li>
-            <li>
-              <strong>Your chef comes to you</strong>
-              <span>Shops, cooks every dish in your kitchen, portions and labels it.</span>
-            </li>
-            <li>
-              <strong>Meals ready. Kitchen clean.</strong>
-              <span>Photos of the finished meals and the clean kitchen, sent to your account.</span>
-            </li>
-          </ol>
-        </div>
-      </section>
-
       {/* PLAN YOUR TABLE */}
-      <section className="dp-plan" id="plan">
+      <section className="dp-plan">
         <div className="dp-plan-card">
           <p className="dp-eyebrow dp-eyebrow-light">
             <span aria-hidden="true" /> Get in touch
@@ -276,6 +216,9 @@ export default function Home() {
             </a>
             <a className="dp-btn dp-btn-ghost" href="/meal-prep#booking">
               Check meal prep availability
+            </a>
+            <a className="dp-btn dp-btn-ghost" href="/contact">
+              Send a message
             </a>
           </div>
           <p className="dp-plan-area">

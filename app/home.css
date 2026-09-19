@@ -1,7 +1,8 @@
 /* Driftline Provisions — public site styles.
    Scoped under .dp so they don't collide with the older page styles. */
 
-.dp {
+.dp,
+.dp-shell {
   --dp-navy: #232f38;
   --dp-deep: #16232f;
   --dp-cream: #ece2cf;
@@ -23,6 +24,12 @@
   font-size: 17px;
   line-height: 1.6;
   overflow-x: clip;
+}
+.dp-shell {
+  font-family: var(--dp-sans);
+  line-height: 1.6;
+  background: none;
+  font-size: 16px;
 }
 .dp img {
   display: block;
@@ -1003,4 +1010,190 @@
   .dp-request-form {
     margin: 0 calc(var(--dp-gutter) * -1);
   }
+}
+
+/* ---------- simple page heading (contact) ---------- */
+.dp-page-head {
+  padding: clamp(56px, 7vw, 100px) var(--dp-gutter) 0;
+  max-width: 900px;
+}
+.dp-page-head h1 {
+  font-size: clamp(44px, 5.4vw, 76px);
+  line-height: 1.04;
+  margin-bottom: 22px;
+}
+.dp-section-tight {
+  padding-top: clamp(36px, 4vw, 56px);
+}
+.dp-path-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2vw, 28px);
+}
+.dp-path {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 28px 26px;
+  background: #fff;
+  border: 1px solid var(--dp-line);
+  border-top: 3px solid var(--dp-gold);
+  color: var(--dp-ink);
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.dp-path:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(22, 35, 47, 0.1);
+}
+.dp .dp-path h2 {
+  font-size: 26px;
+  line-height: 1.15;
+}
+.dp-path p {
+  margin: 0;
+  color: var(--dp-muted);
+  font-size: 16px;
+}
+.dp-path > span {
+  margin-top: auto;
+  padding-top: 10px;
+  color: var(--dp-deep);
+  font-weight: 700;
+}
+.dp-contact-facts {
+  display: grid;
+  margin: 28px 0 0;
+  max-width: 460px;
+}
+.dp-contact-facts div {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 14px;
+  padding: 12px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+.dp-contact-facts dt {
+  color: var(--dp-gold-light);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding-top: 3px;
+}
+.dp-contact-facts dd {
+  margin: 0;
+  color: #fff;
+  font-size: 16px;
+}
+.dp-contact-facts a {
+  color: var(--dp-gold-light);
+}
+.dp-request-form label small {
+  font-weight: 400;
+  color: var(--dp-muted);
+}
+
+/* ---------- our story ---------- */
+.dp-gallery-2 {
+  grid-template-columns: 1fr 1fr;
+}
+.dp-gallery-2 img {
+  aspect-ratio: 4 / 5;
+}
+
+/* ---------- sunday market ---------- */
+.dp-hero-photo-market img {
+  object-position: 55% 35%;
+}
+.dp-market-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(40px, 6vw, 96px);
+  align-items: start;
+}
+.dp-market-grid h2 {
+  margin-bottom: 24px;
+}
+.dp-facts {
+  display: grid;
+  margin: 0;
+}
+.dp-facts div {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 16px;
+  padding: 16px 0;
+  border-top: 1px solid var(--dp-line);
+}
+.dp-facts dt {
+  color: var(--dp-gold-text);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding-top: 3px;
+}
+.dp-facts dd {
+  margin: 0;
+  font-size: 18px;
+  color: var(--dp-deep);
+}
+.dp-market-note {
+  padding: clamp(28px, 4vw, 48px);
+  background: var(--dp-sand);
+  border: 1px solid var(--dp-line);
+}
+.dp-market-note h3 {
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+.dp-market-note p {
+  margin: 0 0 24px;
+  color: var(--dp-muted);
+}
+
+/* ---------- in-page section links (meal prep) ---------- */
+.dp-subnav {
+  position: sticky;
+  top: calc(84px + env(safe-area-inset-top, 0px));
+  z-index: 30;
+  display: flex;
+  gap: 6px 22px;
+  overflow-x: auto;
+  padding: 12px clamp(20px, 5vw, 72px);
+  background: #efe6d6;
+  border-bottom: 1px solid rgba(35, 47, 56, 0.14);
+  font: 700 14px/1.3 "Helvetica Neue", Arial, sans-serif;
+  scrollbar-width: none;
+}
+.dp-subnav a {
+  flex: none;
+  color: #16232f;
+  text-decoration: none;
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
+}
+.dp-subnav a:hover {
+  border-bottom-color: #9c7b40;
+}
+.dp-subnav a.dp-subnav-cta {
+  margin-left: auto;
+  color: #7a5f2c;
+}
+
+@media (max-width: 760px) {
+  .dp-path-grid,
+  .dp-market-grid {
+    grid-template-columns: 1fr;
+  }
+  .dp-subnav {
+    top: calc(72px + env(safe-area-inset-top, 0px));
+  }
+  .dp-subnav a.dp-subnav-cta {
+    margin-left: 0;
+  }
+}
+.dp-subnav ~ section[id] {
+  scroll-margin-top: 56px;
 }

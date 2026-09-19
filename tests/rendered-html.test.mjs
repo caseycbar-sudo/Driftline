@@ -48,6 +48,35 @@ test("the built worker server-renders the public pages", async () => {
 
     const privateChef = await renderPage(worker, "/private-chef");
     assert.match(privateChef, /id="inquire"/);
+
+    const story = await renderPage(worker, "/our-story");
+    assert.match(story, /The Chowder Stop/);
+
+    const market = await renderPage(worker, "/sunday-market");
+    assert.match(market, /12th Street/);
+
+    const contact = await renderPage(worker, "/contact");
+    assert.match(contact, /name="details"/);
+
+    // Every public page shares the same header, with links to each page.
+    for (const html of [home, mealPrep, catering, privateChef, story, market, contact]) {
+      for (const href of ["/private-chef", "/catering", "/meal-prep", "/sunday-market", "/our-story", "/contact"]) {
+        assert.match(html, new RegExp(`class="dp-nav[^"]*"[\\s\\S]*href="${href}"`), `missing ${href} in header`);
+      }
+    }
+  } finally {
+    await worker.dispose();
+  }
+});
+
+test("old Squarespace addresses forward to the new pages", async () => {
+  const worker = await startBuiltWorker();
+  try {
+    for (const [from, to] of [["/privatechef", "/private-chef"], ["/new-page", "/private-chef"], ["/new-page-1", "/catering"], ["/new-page-2", "/contact"]]) {
+      const response = await worker.fetch(from, { redirect: "manual" });
+      assert.ok([301, 307, 308].includes(response.status), `${from} returned ${response.status}`);
+      assert.match(response.headers.get("location") ?? "", new RegExp(`${to}$`));
+    }
   } finally {
     await worker.dispose();
   }

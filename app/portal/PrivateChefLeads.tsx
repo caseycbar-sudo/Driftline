@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import "./PrivateChefLeads.css";
 
-type InquiryType = "private_chef" | "catering" | "meal_prep";
+type InquiryType = "private_chef" | "catering" | "meal_prep" | "general";
 type Lead = {
   id: number;
   inquiryType: InquiryType;
@@ -28,12 +28,14 @@ const typeLabels: Record<InquiryType, string> = {
   private_chef: "Private chef",
   catering: "Catering",
   meal_prep: "Meal prep",
+  general: "Message",
 };
 const filters: { key: "all" | InquiryType; label: string }[] = [
   { key: "all", label: "All" },
   { key: "private_chef", label: "Private chef" },
   { key: "catering", label: "Catering" },
   { key: "meal_prep", label: "Meal prep" },
+  { key: "general", label: "Messages" },
 ];
 
 function formatDate(iso: string) {
@@ -49,6 +51,7 @@ function formatReceived(iso: string) {
   });
 }
 function summary(lead: Lead) {
+  if (lead.inquiryType === "general") return lead.occasion || "Message";
   if (lead.inquiryType === "meal_prep") return `${lead.packageName || "Weekly"} · ZIP ${lead.zip}`;
   return `${formatDate(lead.preferredDate)} · ${lead.guestCount} guests`;
 }
@@ -180,7 +183,7 @@ export default function PrivateChefLeads({ onOpenCalendar }: { onOpenCalendar: (
                   <span>
                     <strong>{lead.fullName}</strong>
                     <small>
-                      {typeLabels[lead.inquiryType]} · {lead.location || lead.zip}
+                      {typeLabels[lead.inquiryType]}{lead.location || lead.zip ? ` · ${lead.location || lead.zip}` : ""}
                     </small>
                   </span>
                   <span>
@@ -201,7 +204,9 @@ export default function PrivateChefLeads({ onOpenCalendar }: { onOpenCalendar: (
                   <a href={`mailto:${selected.email}`}>Email customer →</a>
                 </header>
                 <div className="lead-facts">
-                  {selected.inquiryType === "meal_prep" ? (
+                  {selected.inquiryType === "general" ? (
+                    <label><span>About</span><strong>{selected.occasion}</strong></label>
+                  ) : selected.inquiryType === "meal_prep" ? (
                     <>
                       <label><span>Package</span><strong>{selected.packageName}</strong></label>
                       <label><span>ZIP</span><strong>{selected.zip}</strong></label>
@@ -220,7 +225,7 @@ export default function PrivateChefLeads({ onOpenCalendar }: { onOpenCalendar: (
                 </div>
                 {selected.inquiryType !== "meal_prep" ? (
                   <div className="lead-message">
-                    <span>Customer notes</span>
+                    <span>{selected.inquiryType === "general" ? "Message" : "Customer notes"}</span>
                     <p>{selected.details || "No additional details provided."}</p>
                   </div>
                 ) : null}

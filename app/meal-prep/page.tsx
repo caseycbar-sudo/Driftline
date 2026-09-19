@@ -1,7 +1,9 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import BrandLogo from "../BrandLogo";
+import SiteHeader from "../SiteHeader";
+import SiteFooter from "../SiteFooter";
+import "../home.css";
 import { submitInquiry } from "../submit-inquiry";
 
 const packages = [
@@ -108,7 +110,6 @@ function CheckIcon() {
 
 export default function Home() {
   const [selected, setSelected] = useState("Weekly");
-  const [menuOpen, setMenuOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [formError, setFormError] = useState("");
@@ -135,63 +136,15 @@ export default function Home() {
 
   return (
     <main>
-      <header className="site-header">
-        <a
-          className="brand"
-          href="/"
-          aria-label="Driftline At Home, return to top"
-        >
-          <BrandLogo />
-        </a>
-        <nav
-          className={menuOpen ? "nav open" : "nav"}
-          aria-label="Main navigation"
-        >
-          <a href="#how" onClick={() => setMenuOpen(false)}>
-            How it works
-          </a>
-          <a href="#menu" onClick={() => setMenuOpen(false)}>
-            The menu
-          </a>
-          <a href="#pricing" onClick={() => setMenuOpen(false)}>
-            Pricing
-          </a>
-          <a href="#care" onClick={() => setMenuOpen(false)}>
-            Our cleanup promise
-          </a>
-          <a href="/private-chef" onClick={() => setMenuOpen(false)}>
-            Private Chef
-          </a>
-          <a href="/cookbook" onClick={() => setMenuOpen(false)}>
-            Cookbook
-          </a>
-          <a href="/account" onClick={() => setMenuOpen(false)}>
-            Sign in
-          </a>
-          <a
-            className="nav-staff"
-            href="/chef"
-            onClick={() => setMenuOpen(false)}
-          >
-            Chef Login
-          </a>
-        </nav>
-        <a className="staff-header-link" href="/chef">
-          Chef Login
-        </a>
-        <a className="header-cta" href="/account">
-          Create account <span>→</span>
-        </a>
-        <button
-          className="menu-toggle"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-expanded={menuOpen}
-          aria-label="Toggle menu"
-        >
-          <span />
-          <span />
-        </button>
-      </header>
+      <SiteHeader current="/meal-prep" />
+      <nav className="dp-subnav" aria-label="On this page">
+        <a href="#how">How it works</a>
+        <a href="#menu">The menu</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#care">Cleanup promise</a>
+        <a href="/cookbook">Cookbook</a>
+        <a className="dp-subnav-cta" href="#booking">Check availability →</a>
+      </nav>
 
       <section className="hero" id="top">
         <div className="hero-copy">
@@ -215,32 +168,6 @@ export default function Home() {
             <a className="text-btn" href="#how">
               <span className="play">▶</span> See how a visit works
             </a>
-          </div>
-          <div
-            className="service-paths"
-            aria-label="Choose a Driftline service"
-          >
-            <a className="active" href="#pricing">
-              <small>EVERYDAY SUPPORT</small>
-              <strong>Meal Prep</strong>
-              <span>Weekly meals made at home →</span>
-            </a>
-            <a href="/private-chef">
-              <small>SPECIAL OCCASIONS</small>
-              <strong>Private Chef</strong>
-              <span>A restaurant experience at home →</span>
-            </a>
-          </div>
-          <div className="trust-row">
-            <div className="avatars">
-              <span>CB</span>
-              <span>JL</span>
-              <span>AM</span>
-            </div>
-            <div>
-              <strong>Local, vetted chefs</strong>
-              <small>Background checked · Food-handler certified</small>
-            </div>
           </div>
         </div>
         <div
@@ -301,7 +228,7 @@ export default function Home() {
         </div>
         <div className="account-preview">
           <span className="preview-label">YOUR DRIFTLINE HOME</span>
-          <h3>Good morning, Casey.</h3>
+          <h3>Good morning.</h3>
           <p>Everything we need to make this week feel lighter.</p>
           <div className="preview-item">
             <i>✓</i>
@@ -655,23 +582,7 @@ export default function Home() {
         </form>
       </section>
 
-      <footer>
-        <div className="footer-brand">
-          <BrandLogo />
-        </div>
-        <p>Good meals. Familiar kitchens. More ease at home.</p>
-        <div>
-          <a href="#how">Meal prep</a>
-          <a href="/private-chef">Private chef</a>
-          <a href="/cookbook">Cookbook</a>
-          <a href="/account">Customer account</a>
-          <a href="/disclosures">Disclosures</a>
-          <a className="staff-link" href="/chef">
-            Chef login
-          </a>
-        </div>
-        <small>© 2026 Driftline Provisions · Astoria, Oregon</small>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

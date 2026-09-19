@@ -52,7 +52,9 @@ export function inquiryFacts(q: CleanInquiry): [string, string][] {
     ["Email", q.email],
     ["Phone", q.phone],
   ];
-  if (q.inquiryType === "meal_prep") {
+  if (q.inquiryType === "general") {
+    facts.push(["About", q.occasion]);
+  } else if (q.inquiryType === "meal_prep") {
     facts.push(["ZIP", q.zip], ["Package", q.packageName], ["Service for", q.serviceFor]);
   } else {
     facts.push(
@@ -66,6 +68,7 @@ export function inquiryFacts(q: CleanInquiry): [string, string][] {
 }
 
 function ownerSubject(q: CleanInquiry) {
+  if (q.inquiryType === "general") return `New message from ${q.fullName} (${q.occasion})`;
   if (q.inquiryType === "meal_prep") return `New meal prep request: ${q.fullName} (${q.zip}, ${q.packageName})`;
   const what = q.inquiryType === "catering" ? "catering" : "private dinner";
   return `New ${what} request: ${q.fullName}, ${q.guestCount} guests on ${formatDate(q.preferredDate)}`;
@@ -76,7 +79,7 @@ function ownerHtml(q: CleanInquiry, siteUrl: string) {
     .map(([k, v]) => `<tr><td style="padding:6px 16px 6px 0;color:#6b7680;white-space:nowrap">${k}</td><td style="padding:6px 0;color:#16232f"><b>${escapeHtml(v)}</b></td></tr>`)
     .join("");
   const notes = q.details
-    ? `<p style="margin:20px 0 6px;color:#6b7680">Notes from the customer</p><p style="margin:0;white-space:pre-wrap;color:#16232f">${escapeHtml(q.details)}</p>`
+    ? `<p style="margin:20px 0 6px;color:#6b7680">${q.inquiryType === "general" ? "Message" : "Notes from the customer"}</p><p style="margin:0;white-space:pre-wrap;color:#16232f">${escapeHtml(q.details)}</p>`
     : "";
   return `<div style="font-family:Arial,sans-serif;font-size:15px;max-width:560px">
 <h2 style="font-family:Georgia,serif;font-weight:400;color:#16232f;margin:0 0 16px">${escapeHtml(ownerSubject(q))}</h2>
@@ -88,7 +91,14 @@ function ownerHtml(q: CleanInquiry, siteUrl: string) {
 function customerHtml(q: CleanInquiry) {
   const first = escapeHtml(q.fullName.split(" ")[0]);
   const what =
-    q.inquiryType === "meal_prep"
+    q.inquiryType === "general"
+      ? ({
+          "Private chef dinner": "a private chef dinner",
+          Catering: "catering",
+          "Weekly meal prep": "weekly meal prep",
+          "Sunday Market": "the Sunday Market",
+        } as Record<string, string>)[q.occasion] ?? "Driftline Provisions"
+      : q.inquiryType === "meal_prep"
       ? "weekly meal prep"
       : q.inquiryType === "catering"
         ? `catering on ${formatDate(q.preferredDate)}`

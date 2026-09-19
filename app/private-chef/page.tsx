@@ -1,6 +1,8 @@
 import "./private-chef.css";
 import InquiryForm from "./InquiryForm";
-import BrandLogo from "../BrandLogo";
+import SiteHeader from "../SiteHeader";
+import SiteFooter from "../SiteFooter";
+import "../home.css";
 
 const occasions = ["Anniversaries", "Birthday dinners", "Vacation-home dining", "Elopements", "Family gatherings", "Just because"];
 
@@ -12,11 +14,7 @@ const sampleMenus = [
 
 export default function PrivateChefPage() {
   return <main className="pc-page">
-    <header className="pc-header">
-      <a className="pc-brand" href="/"><BrandLogo/></a>
-      <nav><a href="/meal-prep#pricing">Meal Prep</a><a className="current" href="/private-chef">Private Chef</a><a href="/cookbook">Cookbook</a><a href="/account">Sign in</a></nav>
-      <a className="pc-inquire" href="#inquire">Plan your dinner →</a>
-    </header>
+    <SiteHeader current="/private-chef" />
 
     <section className="pc-hero">
       <div className="pc-hero-photo" role="img" aria-label="Pacific Northwest private chef dinner featuring a beautifully plated seafood course" />
@@ -63,6 +61,6 @@ export default function PrivateChefPage() {
       <InquiryForm/>
     </section>
 
-    <footer className="pc-footer"><a className="pc-brand" href="/"><BrandLogo/></a><p>Private dining and in-home meal prep on Oregon’s North Coast.</p><div><a href="/meal-prep#pricing">Meal Prep</a><a href="/private-chef">Private Chef</a><a href="/account">Customer Account</a><a href="/chef">Chef Login</a><a href="/disclosures">Disclosures</a></div><small>© 2026 Driftline Provisions · Astoria, Oregon</small></footer>
+    <SiteFooter />
   </main>;
 }
