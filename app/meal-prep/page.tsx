@@ -5,6 +5,7 @@ import SiteHeader from "../SiteHeader";
 import SiteFooter from "../SiteFooter";
 import "../home.css";
 import { submitInquiry } from "../submit-inquiry";
+import { smallImage } from "../site-config";
 
 const packages = [
   {
@@ -270,12 +271,8 @@ export default function Home() {
         <div className="meal-grid">
           {meals.map((meal) => (
             <a className="meal-card" href={`/cookbook?recipe=${meal.id}`} key={meal.title}>
-              <div
-                className="meal-photo"
-                style={{
-                  backgroundImage: `url('${meal.image}')`,
-                }}
-              >
+              <div className="meal-photo">
+                <img src={smallImage(meal.image)} alt="" loading="lazy" decoding="async" />
                 <span>{meal.category}</span>
               </div>
               <div>

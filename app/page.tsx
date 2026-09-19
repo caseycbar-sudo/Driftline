@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import SiteHeader from "./SiteHeader";
 import SiteFooter from "./SiteFooter";
 import "./home.css";
+import { CONTACT_EMAIL, SITE_ORIGIN, pageMetadata, smallImage } from "./site-config";
 
-export const metadata: Metadata = {
-  title: "Driftline Provisions · Private Chef & Catering in Astoria, Oregon",
-  description:
-    "Private chef dinners, catering, and weekly in-home meal prep from Chef Casey Barella on Oregon's North Coast. Home of award-winning clam chowder at the Astoria Sunday Market.",
-};
+export const metadata: Metadata = pageMetadata(
+  "/",
+  "Driftline Provisions · Private Chef & Catering in Astoria, Oregon",
+  "Private chef dinners, catering, and weekly in-home meal prep from Chef Casey Barella on Oregon's North Coast. Home of award-winning clam chowder at the Astoria Sunday Market.",
+);
 
 const services = [
   {
@@ -51,9 +52,30 @@ const gallery = [
   { src: "/gallery/dessert.webp", alt: "Dessert plated with chocolate drizzle and whipped cream" },
 ];
 
+/** Business details in the format search engines read (shown in Google's business panels). */
+const businessJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": `${SITE_ORIGIN}/#business`,
+  name: "Driftline Provisions",
+  description:
+    "Private chef dinners, small-scale catering, and weekly in-home meal prep on Oregon's North Coast, plus award-winning clam chowder at the Astoria Sunday Market.",
+  url: SITE_ORIGIN,
+  email: CONTACT_EMAIL,
+  image: `${SITE_ORIGIN}/og.jpg`,
+  logo: `${SITE_ORIGIN}/brand/driftline-logo-reversed.png`,
+  address: { "@type": "PostalAddress", addressLocality: "Astoria", addressRegion: "OR", addressCountry: "US" },
+  areaServed: ["Astoria, OR", "Warrenton, OR", "Gearhart, OR", "Seaside, OR", "Cannon Beach, OR"],
+  founder: { "@type": "Person", name: "Casey Barella", jobTitle: "Chef" },
+};
+
 export default function Home() {
   return (
     <main className="dp">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(businessJsonLd).replace(/</g, "\\u003c") }}
+      />
       <SiteHeader />
 
       {/* HERO */}
@@ -117,7 +139,7 @@ export default function Home() {
           {services.map((service, i) => (
             <article className="dp-service" key={service.id}>
               <a href={service.href} className="dp-service-img" tabIndex={-1} aria-hidden="true">
-                <img src={service.image} alt="" loading="lazy" />
+                <img src={smallImage(service.image)} alt="" loading="lazy" decoding="async" />
                 <span>0{i + 1}</span>
               </a>
               <div className="dp-service-body">
@@ -188,7 +210,7 @@ export default function Home() {
           </blockquote>
           <div className="dp-gallery">
             {gallery.map((photo) => (
-              <img key={photo.src} src={photo.src} alt={photo.alt} loading="lazy" />
+              <img key={photo.src} src={smallImage(photo.src)} alt={photo.alt} loading="lazy" decoding="async" />
             ))}
           </div>
         </aside>

@@ -7,6 +7,7 @@ import "./cookbook.css";
 import SiteHeader from "../SiteHeader";
 import SiteFooter from "../SiteFooter";
 import "../home.css";
+import { smallImage } from "../site-config";
 
 const signInHere = () => `/signin?return_to=${encodeURIComponent(window.location.pathname + window.location.search)}`;
 
@@ -242,15 +243,6 @@ export default function Cookbook() {
             <article
               key={r.id}
               className={selected.id === r.id ? "active" : ""}
-              role="button"
-              tabIndex={0}
-              aria-label={`Open full recipe for ${r.title}`}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  open(r);
-                }
-              }}
               onClick={() => open(r)}
             >
               <button
@@ -263,7 +255,7 @@ export default function Cookbook() {
               >
                 {saved.includes(r.id) ? "✓" : "+"}
               </button>
-              <img src={r.image} alt={r.title} loading={index < 4 ? "eager" : "lazy"} decoding="async" />
+              <img src={smallImage(r.image)} alt={r.title} loading={index < 4 ? "eager" : "lazy"} decoding="async" />
               <div>
                 <small>{r.category}</small>
                 <h2>{r.title}</h2>
@@ -275,7 +267,17 @@ export default function Cookbook() {
                     <i key={t}>{t}</i>
                   ))}
                 </span>
-                <b className="open-recipe">View full recipe →</b>
+                <button
+                  type="button"
+                  className="open-recipe"
+                  aria-label={`View full recipe for ${r.title}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    open(r);
+                  }}
+                >
+                  View full recipe →
+                </button>
               </div>
             </article>
           ))}

@@ -3,6 +3,14 @@ import InquiryForm from "./InquiryForm";
 import SiteHeader from "../SiteHeader";
 import SiteFooter from "../SiteFooter";
 import "../home.css";
+import type { Metadata } from "next";
+import { pageMetadata, smallImage } from "../site-config";
+
+export const metadata: Metadata = pageMetadata(
+  "/private-chef",
+  "Private Chef Dinners · Driftline Provisions · Astoria, Oregon",
+  "A restaurant-caliber dinner in your home or vacation rental on Oregon's North Coast. Chef Casey Barella plans the menu, shops, cooks, serves, and leaves the kitchen spotless.",
+);
 
 const occasions = ["Anniversaries", "Birthday dinners", "Vacation-home dining", "Elopements", "Family gatherings", "Just because"];
 
@@ -44,7 +52,7 @@ export default function PrivateChefPage() {
 
     <section className="pc-menus">
       <div className="pc-section-head"><p className="pc-kicker">MENU INSPIRATION</p><h2>Rooted in the coast.<br/>Made for your table.</h2><p>Every menu is customized. These are starting points—not fixed packages.</p></div>
-      <div className="pc-menu-grid">{sampleMenus.map(menu => <article key={menu.name}><div style={{backgroundImage:`url('${menu.image}')`}}/><span>SAMPLE EXPERIENCE</span><h3>{menu.name}</h3><p>{menu.detail}</p><a href="#inquire">Plan this experience →</a></article>)}</div>
+      <div className="pc-menu-grid">{sampleMenus.map(menu => <article key={menu.name}><div style={{backgroundImage:`url('${smallImage(menu.image)}')`}}/><span>SAMPLE EXPERIENCE</span><h3>{menu.name}</h3><p>{menu.detail}</p><a href="#inquire">Plan this experience →</a></article>)}</div>
       <p className="pc-menu-more"><a href="/cookbook?side=private-chef">Browse all 20 private chef dishes by course →</a></p>
     </section>
 

@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import SiteHeader from "../SiteHeader";
 import SiteFooter from "../SiteFooter";
 import "../home.css";
+import { pageMetadata, smallImage } from "../site-config";
 
-export const metadata: Metadata = {
-  title: "Our Story · Chef Casey Barella · Driftline Provisions",
-  description:
-    "Chef Casey Barella: Pacific Northwest born, fine dining trained, founder of the award-winning Chowder Stop, and now cooking at your table through Driftline Provisions.",
-};
+export const metadata: Metadata = pageMetadata(
+  "/our-story",
+  "Our Story · Chef Casey Barella · Driftline Provisions",
+  "Chef Casey Barella: Pacific Northwest born, fine dining trained, founder of the award-winning Chowder Stop, and now cooking at your table through Driftline Provisions.",
+);
 
 const gallery = [
   { src: "/gallery/salmon.webp", alt: "Roasted salmon with asparagus and saffron orzo" },
@@ -79,7 +80,7 @@ export default function OurStoryPage() {
           </blockquote>
           <div className="dp-gallery dp-gallery-2">
             {gallery.map((photo) => (
-              <img key={photo.src} src={photo.src} alt={photo.alt} loading="lazy" />
+              <img key={photo.src} src={smallImage(photo.src)} alt={photo.alt} loading="lazy" decoding="async" />
             ))}
           </div>
         </aside>

@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import SiteHeader from "../SiteHeader";
 import SiteFooter from "../SiteFooter";
 import ContactForm from "./ContactForm";
-import { CONTACT_EMAIL } from "../site-config";
+import { CONTACT_EMAIL, pageMetadata } from "../site-config";
 import "../home.css";
 
-export const metadata: Metadata = {
-  title: "Contact · Driftline Provisions · Astoria, Oregon",
-  description:
-    "Get in touch with Chef Casey Barella about private chef dinners, catering, or weekly meal prep on Oregon's North Coast.",
-};
+export const metadata: Metadata = pageMetadata(
+  "/contact",
+  "Contact · Driftline Provisions · Astoria, Oregon",
+  "Get in touch with Chef Casey Barella about private chef dinners, catering, or weekly meal prep on Oregon's North Coast.",
+);
 
 const paths = [
   {

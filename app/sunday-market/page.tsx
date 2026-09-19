@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import SiteHeader from "../SiteHeader";
 import SiteFooter from "../SiteFooter";
 import "../home.css";
+import { pageMetadata } from "../site-config";
 
-export const metadata: Metadata = {
-  title: "Astoria Sunday Market · Award-Winning Clam Chowder · Driftline Provisions",
-  description:
-    "Find Driftline Provisions' award-winning clam chowder at the Astoria Sunday Market on 12th Street, Sundays 10am to 3pm, Mother's Day through mid-October.",
-};
+export const metadata: Metadata = pageMetadata(
+  "/sunday-market",
+  "Astoria Sunday Market · Award-Winning Clam Chowder · Driftline Provisions",
+  "Find Driftline Provisions' award-winning clam chowder at the Astoria Sunday Market on 12th Street, Sundays 10am to 3pm, Mother's Day through mid-October.",
+);
 
 export default function SundayMarketPage() {
   return (

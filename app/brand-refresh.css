@@ -1,11 +1,11 @@
 :root {
   --brand-charcoal: #232f38;
   --brand-slate: #43505b;
-  --brand-mist: #8ea0ad;
+  --brand-mist: #536573;
   --brand-pale: #c6d1da;
   --brand-sand: #ece2cf;
   --brand-ivory: #f6f1e7;
-  --brand-gold: #9c7b40;
+  --brand-gold: #7a6032;
   --brand-deep: #16232f;
 }
 .driftline-master-logo {
@@ -115,6 +115,11 @@ footer,
 .account-page h2,
 .account-page h3 {
   color: var(--brand-charcoal);
+}
+/* Headings sitting on the dark slate panels stay light. */
+.care-copy h2,
+.account-help h2 {
+  color: #fff;
 }
 .hero h1 em,
 .pc-hero h1 em,
@@ -281,8 +286,8 @@ footer,
   --pc-navy: #232f38;
   --pc-cream: #ece2cf;
   --pc-paper: #f6f1e7;
-  --pc-rust: #9c7b40;
-  --pc-sea: #8ea0ad;
+  --pc-rust: #7a6032;
+  --pc-sea: #536573;
   --pc-ink: #232f38;
 }
 .pc-brand .driftline-master-logo {

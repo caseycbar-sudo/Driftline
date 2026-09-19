@@ -28,7 +28,7 @@
 .pc-lead-list > button:hover,
 .pc-lead-list > button.active {
   background: #edf3ee;
-  box-shadow: inset 3px 0 #567c75;
+  box-shadow: inset 3px 0 #486863;
 }
 .pc-lead-list button span {
   display: grid;
@@ -47,7 +47,7 @@
 .pc-lead-list b {
   font-size: 7px;
   text-transform: uppercase;
-  color: #bd6643;
+  color: #b05f3e;
 }
 .pc-lead-detail > header {
   align-items: start;
@@ -60,11 +60,11 @@
 .pc-lead-detail > header small {
   font-size: 7px;
   letter-spacing: 0.13em;
-  color: #567c75;
+  color: #486863;
 }
 .pc-lead-detail > header a {
   font-size: 8px;
-  color: #bd6643;
+  color: #b05f3e;
 }
 .lead-facts {
   display: grid;
@@ -92,7 +92,7 @@
   margin-top: 5px;
 }
 .lead-message {
-  border-left: 3px solid #bd6643;
+  border-left: 3px solid #b05f3e;
   background: #fff8ef;
   padding: 14px;
   margin-bottom: 16px;

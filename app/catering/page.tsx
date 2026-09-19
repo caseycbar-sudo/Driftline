@@ -3,12 +3,13 @@ import SiteHeader from "../SiteHeader";
 import SiteFooter from "../SiteFooter";
 import InquiryForm from "../private-chef/InquiryForm";
 import "../home.css";
+import { pageMetadata } from "../site-config";
 
-export const metadata: Metadata = {
-  title: "Catering · Driftline Provisions · Astoria, Oregon",
-  description:
-    "Small-scale catering on Oregon's North Coast from Chef Casey Barella: rehearsal dinners, celebrations, and coastal gatherings with menus designed together.",
-};
+export const metadata: Metadata = pageMetadata(
+  "/catering",
+  "Catering · Driftline Provisions · Astoria, Oregon",
+  "Small-scale catering on Oregon's North Coast from Chef Casey Barella: rehearsal dinners, celebrations, and coastal gatherings with menus designed together.",
+);
 
 const occasions = [
   {

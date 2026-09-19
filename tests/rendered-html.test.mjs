@@ -125,3 +125,39 @@ test("sign-in pages render and work without JavaScript", async () => {
     await worker.dispose();
   }
 });
+
+test("search basics: titles, main address, sitemap, robots, not-found", async () => {
+  const worker = await startBuiltWorker();
+  try {
+    const titles = new Set();
+    for (const path of ["/", "/private-chef", "/catering", "/meal-prep", "/sunday-market", "/our-story", "/contact", "/cookbook", "/disclosures"]) {
+      const html = await renderPage(worker, path);
+      const title = html.match(/<title>([^<]+)<\/title>/)?.[1] ?? "";
+      assert.ok(title && !titles.has(title), `${path} needs its own title (got "${title}")`);
+      titles.add(title);
+      const canonical = `https://www.driftlineprovisions.com${path === "/" ? "/" : path}`;
+      assert.match(html, new RegExp(`<link rel="canonical" href="${canonical.replace(/[/.]/g, "\\$&")}"`), `${path} canonical`);
+      assert.doesNotMatch(html, /name="robots" content="noindex/, `${path} must be indexable`);
+    }
+
+    const robots = await (await worker.fetch("/robots.txt")).text();
+    assert.match(robots, /Disallow: \/account/);
+    assert.match(robots, /Sitemap: https:\/\/www\.driftlineprovisions\.com\/sitemap\.xml/);
+    const sitemap = await (await worker.fetch("/sitemap.xml")).text();
+    assert.match(sitemap, /<loc>https:\/\/www\.driftlineprovisions\.com\/private-chef<\/loc>/);
+    assert.doesNotMatch(sitemap, /account|portal|signin/);
+
+    const missing = await worker.fetch("/an-old-squarespace-page", { headers: { accept: "text/html" } });
+    assert.equal(missing.status, 404);
+    assert.match(await missing.text(), /drifted/);
+
+    const start = await worker.fetch("/start", { redirect: "manual" });
+    assert.ok([301, 307, 308].includes(start.status));
+
+    const apex = await worker.fetch("http://driftlineprovisions.com/privatechef?ref=card", { redirect: "manual" });
+    assert.equal(apex.status, 301);
+    assert.equal(apex.headers.get("location"), "https://www.driftlineprovisions.com/privatechef?ref=card");
+  } finally {
+    await worker.dispose();
+  }
+});
