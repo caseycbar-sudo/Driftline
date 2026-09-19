@@ -7,7 +7,7 @@ import { pageMetadata, smallImage } from "../site-config";
 export const metadata: Metadata = pageMetadata(
   "/our-story",
   "Our Story · Chef Casey Barella · Driftline Provisions",
-  "Chef Casey Barella: Pacific Northwest born, fine dining trained, founder of the award-winning Chowder Stop, and now cooking at your table through Driftline Provisions.",
+  "Chef Casey Barella: Pacific Northwest born, fine dining trained, founder of the award-winning Chowder Stop in Long Beach, Washington, and now cooking at your table through Driftline Provisions.",
 );
 
 const gallery = [
@@ -55,8 +55,8 @@ export default function OurStoryPage() {
             preparation, and a passion for sharing great meals.
           </p>
           <p>
-            That vision became <strong>The Chowder Stop</strong>, where Casey
-            built an award-winning restaurant known for its handcrafted clam
+            That vision became <strong>The Chowder Stop</strong> in Long Beach,
+            Washington, where Casey built an award-winning restaurant known for its handcrafted clam
             chowder and approachable Northwest fare. Year after year his chowder
             earned top honors, and it became a destination for locals and
             visitors alike. After building and successfully selling the

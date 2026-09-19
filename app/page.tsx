@@ -192,7 +192,7 @@ export default function Home() {
           <h2>Casey Barella</h2>
           <p>
             Born and raised in the Pacific Northwest, Casey built The Chowder
-            Stop into an award-winning Astoria favorite, then sold it to get
+            Stop in Long Beach, Washington, into an award-winning favorite, then sold it to get
             back to what he loves most: cooking personal, memorable meals for
             the people in front of him.
           </p>
