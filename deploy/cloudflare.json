@@ -14,5 +14,7 @@
     "FROM_EMAIL": "Driftline Provisions <hello@driftlineprovisions.com>",
     "BOOTSTRAP_ADMIN_EMAIL": "driftlineprovisions@gmail.com"
   },
-  "customDomains": []
+  "customDomains": [
+    "new.driftlineprovisions.com"
+  ]
 }
