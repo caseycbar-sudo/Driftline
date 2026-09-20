@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { oregonToday } from "../oregon-time";
 
 type Visit = {
   id: number;
@@ -36,7 +37,7 @@ export default function AdminDispatch({
     [loading, setLoading] = useState(true),
     [error, setError] = useState(""),
     [busy, setBusy] = useState(0);
-  const today = key(new Date()),
+  const today = oregonToday(),
     endDate = useMemo(() => {
       const date = new Date();
       date.setDate(date.getDate() + 30);

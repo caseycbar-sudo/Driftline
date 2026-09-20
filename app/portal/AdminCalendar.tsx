@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import { recipes } from "../cookbook/recipes";
+import { oregonToday } from "../oregon-time";
 
 type EventItem = {
   id: number;
@@ -66,10 +67,10 @@ const iso = (date: Date) =>
 
 export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => void }) {
   const [month, setMonth] = useState(
-    () => new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+    () => { const [y, m] = oregonToday().split("-").map(Number); return new Date(y, m - 1, 1); },
   );
   const [events, setEvents] = useState<EventItem[]>([]),
-    [selectedDate, setSelectedDate] = useState(() => iso(new Date())),
+    [selectedDate, setSelectedDate] = useState(() => oregonToday()),
     [editing, setEditing] = useState<
       (EventItem | ReturnType<typeof empty>) | null
     >(null),
@@ -362,7 +363,7 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
                   ) : (
                     <button
                       key={day}
-                      className={`${selectedDate === iso(new Date(month.getFullYear(), month.getMonth(), day)) ? "selected" : ""} ${iso(new Date()) === iso(new Date(month.getFullYear(), month.getMonth(), day)) ? "today" : ""}`}
+                      className={`${selectedDate === iso(new Date(month.getFullYear(), month.getMonth(), day)) ? "selected" : ""} ${oregonToday() === iso(new Date(month.getFullYear(), month.getMonth(), day)) ? "today" : ""}`}
                       onClick={() =>
                         setSelectedDate(
                           iso(
