@@ -27,6 +27,7 @@ export default function SiteFooter() {
         <p className="dp-footer-heading">Driftline</p>
         <a href="/our-story">Our Story</a>
         <a href="/contact">Contact</a>
+        <a href="/faq">Questions</a>
         <a href="/account">Customer sign in</a>
         <a href="/chef">Chef login</a>
         <a href="/disclosures">Disclosures</a>

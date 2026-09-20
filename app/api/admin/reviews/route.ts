@@ -12,9 +12,9 @@ export async function GET() {
 
 /** Approve, hide, or delete a review. */
 export async function PATCH(request: Request) {
+  const body = (await request.json().catch(() => ({}))) as { id?: unknown; action?: unknown };
   if (isCrossSiteRequest(request)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   if (!(await requireStaffRole("admin"))) return NextResponse.json({ error: "Owner access required" }, { status: 403 });
-  const body = (await request.json().catch(() => ({}))) as { id?: unknown; action?: unknown };
   const id = Number(body.id);
   if (!Number.isInteger(id) || id < 1) return NextResponse.json({ error: "Unknown review" }, { status: 400 });
   let ok = false;

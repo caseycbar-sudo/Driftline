@@ -95,6 +95,12 @@ export default function ContactPage() {
               </dd>
             </div>
             <div>
+              <dt>Questions</dt>
+              <dd>
+                <a href="/faq">Read common questions</a>
+              </dd>
+            </div>
+            <div>
               <dt>Based in</dt>
               <dd>Astoria, Oregon</dd>
             </div>

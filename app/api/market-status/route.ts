@@ -14,10 +14,11 @@ export async function GET() {
 
 /** Owner only: set today's market status from the dashboard. */
 export async function POST(request: Request) {
+  const input = await request.json().catch(() => null);
   if (isCrossSiteRequest(request)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   const owner = await requireStaffRole("admin");
   if (!owner) return NextResponse.json({ error: "Owner access required" }, { status: 403 });
-  const parsed = parseMarketUpdate(await request.json().catch(() => null));
+  const parsed = parseMarketUpdate(input);
   if (!parsed.ok) return NextResponse.json({ error: parsed.error }, { status: 400 });
   await saveMarketStatus(parsed.status, parsed.note, owner.email);
   return NextResponse.json(effectiveMarketStatus(await getSavedMarketStatus()));

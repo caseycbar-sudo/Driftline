@@ -112,6 +112,7 @@ test("sign-in pages render and work without JavaScript", async () => {
         headers: { "content-type": "application/x-www-form-urlencoded", origin: "https://evil.example", "sec-fetch-site": "cross-site" },
         body: new URLSearchParams({ token, email: "a@example.com" }),
       });
+      await cross.arrayBuffer();
       assert.ok([303, 403].includes(cross.status), `${path} cross-site returned ${cross.status}`);
       assert.doesNotMatch(cross.headers.get("set-cookie") ?? "", /dl_session=[A-Za-z0-9_-]/);
       if (cross.status === 303) assert.doesNotMatch(cross.headers.get("location") ?? "", /sent=1/);
@@ -130,7 +131,7 @@ test("search basics: titles, main address, sitemap, robots, not-found", async ()
   const worker = await startBuiltWorker();
   try {
     const titles = new Set();
-    for (const path of ["/", "/private-chef", "/catering", "/meal-prep", "/sunday-market", "/our-story", "/contact", "/cookbook", "/disclosures"]) {
+    for (const path of ["/", "/private-chef", "/catering", "/meal-prep", "/sunday-market", "/our-story", "/contact", "/cookbook", "/disclosures", "/faq"]) {
       const html = await renderPage(worker, path);
       const title = html.match(/<title>([^<]+)<\/title>/)?.[1] ?? "";
       assert.ok(title && !titles.has(title), `${path} needs its own title (got "${title}")`);
@@ -157,6 +158,19 @@ test("search basics: titles, main address, sitemap, robots, not-found", async ()
     const apex = await worker.fetch("http://driftlineprovisions.com/privatechef?ref=card", { redirect: "manual" });
     assert.equal(apex.status, 301);
     assert.equal(apex.headers.get("location"), "https://www.driftlineprovisions.com/privatechef?ref=card");
+  } finally {
+    await worker.dispose();
+  }
+});
+
+test("questions page answers without JavaScript and is marked up for search", async () => {
+  const worker = await startBuiltWorker();
+  try {
+    const html = await renderPage(worker, "/faq");
+    assert.match(html, /<details>/);
+    assert.match(html, /How far ahead should I book\?/);
+    assert.match(html, /"@type":"FAQPage"/);
+    assert.doesNotMatch(html, /deposit of|% deposit|refund within/i, "no invented payment policy");
   } finally {
     await worker.dispose();
   }

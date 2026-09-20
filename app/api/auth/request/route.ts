@@ -15,9 +15,6 @@ async function sourceHash(request: Request) {
  * email belongs to anyone, so the form can't be used to discover who has an account.
  */
 export async function POST(request: Request) {
-  if (isCrossSiteRequest(request, [siteOrigin(request.url)])) {
-    return NextResponse.json({ error: "Please sign in from the Driftline website." }, { status: 403 });
-  }
   // The sign-in form posts JSON once its script has loaded. If someone taps the
   // button before that (slow phone connection), the browser posts a plain form
   // instead; answer that with a redirect back to the sign-in page.
@@ -28,6 +25,10 @@ export async function POST(request: Request) {
       ? Object.fromEntries(Array.from((await request.formData()).entries()).map(([k, v]) => [k, String(v)]))
       : ((await request.json()) as Record<string, unknown>);
   } catch {}
+  // Checked after reading the body so the request is always fully consumed.
+  if (isCrossSiteRequest(request, [siteOrigin(request.url)])) {
+    return NextResponse.json({ error: "Please sign in from the Driftline website." }, { status: 403 });
+  }
   const returnTo = safeRelativeReturnPath(body.returnTo);
   const reply = (status: number, error?: string) => {
     if (!isForm) return NextResponse.json(error ? { error } : { ok: true }, { status });

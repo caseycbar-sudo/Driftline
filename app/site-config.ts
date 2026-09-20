@@ -15,6 +15,7 @@ export const PUBLIC_PATHS = [
   "/sunday-market",
   "/our-story",
   "/contact",
+  "/faq",
   "/cookbook",
   "/disclosures",
 ] as const;
