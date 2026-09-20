@@ -32,5 +32,9 @@ So when Resend is set up, either send from a subdomain Resend gives DNS for
 (send.driftlineprovisions.com) and add its SPF/DKIM records, or keep the
 from-address on a Resend-verified domain. Otherwise site email lands in spam.
 
+Cloudflare nameservers for this zone:
+  andronicus.ns.cloudflare.com
+  liberty.ns.cloudflare.com
+
 Cutover: A/CNAME records still point at Squarespace, so the old site keeps
 serving until the Worker route is switched over.
