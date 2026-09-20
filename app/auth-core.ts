@@ -81,10 +81,17 @@ export function safeRelativeReturnPath(value: unknown): string {
  * neither (curl, scripts) can't carry a visitor's cookies, so they're let through.
  */
 export function isCrossSiteRequest(request: Request, allowedOrigins: string[] = []): boolean {
+  // Sec-Fetch-Site is set by the browser and can't be forged by page scripts, so when it
+  // says the request came from this very site, that settles it. Safari sends
+  // "Origin: null" on forms from pages with a no-referrer policy, and without this the
+  // Origin check below would reject the site's own sign-in form.
   const fetchSite = request.headers.get("sec-fetch-site");
-  if (fetchSite && fetchSite !== "same-origin" && fetchSite !== "none") return true;
+  if (fetchSite === "same-origin" || fetchSite === "none") return false;
+  if (fetchSite) return true;
   const origin = request.headers.get("origin");
   if (!origin) return false;
+  // "null" means an opaque origin (sandboxed frame, no-referrer form). Never trusted.
+  if (origin === "null") return true;
   const own = new URL(request.url).origin;
   return origin !== own && !allowedOrigins.includes(origin);
 }

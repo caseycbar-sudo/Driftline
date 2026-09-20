@@ -9,7 +9,9 @@ export const metadata: Metadata = {
   title: "Finish signing in · Driftline Provisions",
   description: "Finish signing in to Driftline Provisions.",
   robots: { index: false },
-  referrer: "no-referrer",
+  // same-origin: the token in this URL is never sent to other sites, but the site's own
+  // form POST still carries a normal Origin header (no-referrer makes Safari send "null").
+  referrer: "same-origin",
 };
 
 type Search = Promise<Record<string, string | string[] | undefined>>;

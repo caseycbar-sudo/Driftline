@@ -111,6 +111,11 @@ test("cross-site POSTs are recognised", () => {
   assert.equal(isCrossSiteRequest(req({ "sec-fetch-site": "cross-site" })), true);
   assert.equal(isCrossSiteRequest(req({ "sec-fetch-site": "same-site" })), true);
   assert.equal(isCrossSiteRequest(req({ origin: "https://driftlineprovisions.com" }), ["https://driftlineprovisions.com"]), false);
+  // Safari sends Origin: null for forms on a no-referrer page. The browser-set
+  // Sec-Fetch-Site header still says same-origin, and that is what we trust.
+  assert.equal(isCrossSiteRequest(req({ origin: "null", "sec-fetch-site": "same-origin" })), false, "site's own form with an opaque origin still signs in");
+  assert.equal(isCrossSiteRequest(req({ origin: "null" })), true, "opaque origin with no Sec-Fetch-Site is refused");
+  assert.equal(isCrossSiteRequest(req({ origin: "https://evil.com", "sec-fetch-site": "cross-site" })), true);
 });
 
 test("IPv6 addresses are rate-limited per /64", () => {
