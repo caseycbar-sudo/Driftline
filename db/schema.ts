@@ -227,7 +227,7 @@ export const payments = sqliteTable("payments", {
   serviceCents: integer("service_cents").notNull().default(0),
   groceryCents: integer("grocery_cents").notNull().default(0),
   amountCents: integer("amount_cents").notNull(),
-  /** pending | processing | paid | failed | link_sent | canceled */
+  /** pending | processing | paid | failed | unknown (Square didn't confirm) | link_sent | canceled */
   status: text("status").notNull().default("pending"),
   idempotencyKey: text("idempotency_key").notNull(),
   squarePaymentId: text("square_payment_id").notNull().default(""),

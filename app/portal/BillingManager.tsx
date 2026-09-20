@@ -26,7 +26,7 @@ type Action = "retry" | "check" | "cancel" | "mark_paid" | "mark_failed";
 type Pkg = { name: string; portions: number; price: string; note: string; featured: boolean };
 type PricesForm = { mealPrep: Pkg[]; privateChef: { perGuest: string; minGuests: string; smallTableMin: string } };
 
-const money = (cents: number) => `$${(cents / 100).toFixed(2)}`;
+const money = (cents: number) => `$${(cents / 100).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const day = (iso: string) => (iso ? new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric" }) : "");
 const LABEL: Record<string, string> = {
   paid: "Paid",

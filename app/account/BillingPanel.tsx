@@ -25,7 +25,7 @@ type Billing = {
 type SquareCardField = { attach: (selector: string) => Promise<void>; tokenize: () => Promise<{ status: string; token?: string; errors?: { message: string }[] }>; destroy: () => Promise<void> };
 type SquareWindow = Window & { Square?: { payments: (appId: string, locationId: string) => { card: () => Promise<SquareCardField> } } };
 
-const money = (cents: number) => `$${(cents / 100).toFixed(2)}`;
+const money = (cents: number) => `$${(cents / 100).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const day = (iso: string) => (iso ? new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "");
 const STATUS: Record<string, string> = {
   paid: "Paid",
