@@ -368,9 +368,9 @@ export const recipes: Recipe[] = [
     ],
     "image": "/cookbook/mp/green-chile-chicken-enchiladas.webp",
     "photoCredit": {
-      "author": "Unkdevil",
+      "author": "Willians Huerta",
       "source": "Pexels",
-      "page": "https://www.pexels.com/photo/bowl-with-soup-18688535/"
+      "page": "https://www.pexels.com/photo/delicious-green-enchiladas-with-creamy-garnish-36429905/"
     },
     "ingredients": [
       "5 lb boneless skinless chicken thighs, trimmed",
@@ -690,9 +690,9 @@ export const recipes: Recipe[] = [
     ],
     "image": "/cookbook/mp/braised-beef-rag-over-creamy-polenta.webp",
     "photoCredit": {
-      "author": "Costin Cerednicenco",
+      "author": "Shameel mukkath",
       "source": "Pexels",
-      "page": "https://www.pexels.com/photo/delicious-romanian-cuisine-with-polenta-and-beef-29716501/"
+      "page": "https://www.pexels.com/photo/close-up-of-meat-dish-on-plate-5638533/"
     },
     "ingredients": [
       "7 lb boneless beef chuck roast, trimmed and cut into 3-inch chunks",
@@ -1010,9 +1010,9 @@ export const recipes: Recipe[] = [
     ],
     "image": "/cookbook/mp/maple-dijon-pork-tenderloin-with-sweet-potatoes-and-sprouts.webp",
     "photoCredit": {
-      "author": "Lukas Blazek",
+      "author": "Nano Erdozain",
       "source": "Pexels",
-      "page": "https://www.pexels.com/photo/marinated-meat-with-sauce-on-plate-1352269/"
+      "page": "https://www.pexels.com/photo/delicious-roasted-meat-slices-on-ceramic-plate-29390889/"
     },
     "ingredients": [
       "6¼ lb pork tenderloin (about 5 tenderloins), silver skin removed",
@@ -1040,8 +1040,8 @@ export const recipes: Recipe[] = [
       "Roast the sweet potatoes 30 to 35 minutes, flipping and rotating the pans halfway, until browned at the edges and tender to a paring knife. Move to a cooling rack.",
       "Toss the sprouts with the remaining olive oil and salt, set them cut side down on the two sheet pans and roast 20 to 25 minutes, until the cut faces are deep brown and the centers are just tender. Toss with the cider vinegar while hot.",
       "Heat 1 tbsp neutral oil in a 12-inch skillet over medium-high heat until shimmering. Sear two or three tenderloins at a time, turning every 2 minutes, until browned on all sides, 6 to 8 minutes. Transfer to a wire rack set in a foil-lined rimmed sheet pan and repeat, adding oil as needed.",
-      "Brush the pork with half of the raw-pork glaze and roast at 425°F for 10 minutes. Brush with the rest and roast 5 to 10 minutes more, until the thickest part reads 145°F.",
-      "Tent loosely with foil and rest 10 minutes; the center will stay slightly pink. Remove the twine and slice ½ inch thick, then pour the resting juices over the slices.",
+      "Brush the pork with half of the raw-pork glaze and roast at 425°F for 10 minutes. Brush with the rest and roast 5 to 10 minutes more, until the thickest part reads 150°F.",
+      "Tent loosely with foil and rest 10 minutes; it will be cooked through with no pink and still juicy. Remove the twine and slice ½ inch thick, then pour the resting juices over the slices.",
       "Cool the pork and vegetables in shallow layers until they drop to 70°F, within 2 hours.",
       "Portion about 6 oz sliced pork, 1 cup sweet potatoes and ¾ cup sprouts into each of 12 containers. Pack the simmered serving glaze in 1-oz lidded cups."
     ],
@@ -1057,7 +1057,7 @@ export const recipes: Recipe[] = [
     "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Keeps 4 days. The pork and sweet potatoes can be frozen up to 2 months; Brussels sprouts turn soft after freezing, so keep those refrigerated only.",
     "reheating": "Set the glaze cup aside. Microwave: cover loosely and heat at 70% power for 2½ to 3½ minutes, until the pork reaches 165°F, then spoon on the glaze. Oven: transfer to an oven-safe dish, add 1 tbsp water, cover with foil and heat at 325°F for 15 to 20 minutes, until 165°F. Lower power and a cover keep the lean slices from drying out.",
     "makeAhead": "",
-    "safety": "Cook pork tenderloin to 145°F followed by at least a 3-minute rest (this recipe rests 10). Keep the brushing glaze that touches raw pork separate from the serving glaze. Reheat leftovers to 165°F.",
+    "safety": "Pork tenderloin is safe at 145°F after a 3-minute rest; this recipe takes it to 150°F and rests 10 so it is cooked through with no pink, which holds up better for meal prep reheating. Keep the brushing glaze that touches raw pork separate from the serving glaze. Reheat leftovers to 165°F.",
     "chefNotes": "Tenderloin is lean and dries out fast, so cut it thicker than you would for the table and add the glaze after reheating, not before. Salt amounts assume Diamond Crystal kosher salt; with Morton, cut the pork salt to 2½ tsp."
   },
   {
@@ -1164,9 +1164,9 @@ export const recipes: Recipe[] = [
     "dietary": [],
     "image": "/cookbook/mp/coastal-salmon-cakes-with-lemon-dill-sauce-and-brown-rice.webp",
     "photoCredit": {
-      "author": "Ivan Dražić",
+      "author": "Nadin Sh",
       "source": "Pexels",
-      "page": "https://www.pexels.com/photo/meat-with-leaves-and-raspberries-16645587/"
+      "page": "https://www.pexels.com/photo/top-view-of-a-dish-with-mashed-potato-and-meat-25315521/"
     },
     "ingredients": [
       "4½ lb skinless salmon fillets, pin bones removed, cut into 1-inch pieces",
@@ -1325,9 +1325,9 @@ export const recipes: Recipe[] = [
     ],
     "image": "/cookbook/mp/pacific-cod-in-tomato-olive-and-caper-sauce-with-quinoa.webp",
     "photoCredit": {
-      "author": "Valeria Boltneva",
+      "author": "José Antonio Otegui Auzmendi",
       "source": "Pexels",
-      "page": "https://www.pexels.com/photo/a-fish-is-in-a-pan-with-tomatoes-and-herbs-27294732/"
+      "page": "https://www.pexels.com/photo/grilled-white-fish-with-sun-dried-tomatoes-on-rustic-plate-31372391/"
     },
     "ingredients": [
       "5 lb skinless Pacific cod fillets, cut into 12 portions",
