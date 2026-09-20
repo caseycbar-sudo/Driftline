@@ -151,6 +151,29 @@ export async function setChefEventStatus(id: number, chefEmail: string, status: 
   return (result.meta.changes ?? 0) > 0;
 }
 
+/**
+ * The chef finishes a visit: status and grocery total are written together in one
+ * conditional update, so two taps (or two phones) can't both complete it or
+ * overwrite each other's grocery amount. Returns false if someone got there first.
+ */
+export async function completeVisit(id: number, chefEmail: string, from: VisitStatus[], groceries: { cents: number; receiptKey: string } | null) {
+  const now = new Date().toISOString();
+  const sets = groceries ? "status = 'completed', grocery_cents = ?, receipt_key = ?, updated_at = ?" : "status = 'completed', updated_at = ?";
+  const values = groceries ? [groceries.cents, groceries.receiptKey, now] : [now];
+  const result = await database()
+    .prepare(`UPDATE schedule_events SET ${sets} WHERE id = ? AND lower(chef_email) = ? AND status IN (${from.map(() => "?").join(",")})`)
+    .bind(...values, id, chefEmail.toLowerCase(), ...from)
+    .run();
+  if ((result.meta.changes ?? 0) === 0) return false;
+  await database()
+    .prepare(
+      "UPDATE chef_time_entries SET ended_at = ?, updated_at = ? WHERE schedule_event_id = ? AND lower(chef_email) = ? AND activity_type = 'job' AND ended_at = ''",
+    )
+    .bind(now, now, id, chefEmail.toLowerCase())
+    .run();
+  return true;
+}
+
 export async function setGroceries(id: number, groceryCents: number, receiptKey: string) {
   await database()
     .prepare("UPDATE schedule_events SET grocery_cents = ?, receipt_key = ?, updated_at = ? WHERE id = ?")

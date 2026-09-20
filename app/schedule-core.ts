@@ -102,9 +102,15 @@ export function parseVisit(
       ? body.dishes.map((d) => text(d, 160)).filter(Boolean).slice(0, 30)
       : [];
   }
-  if (has("customerEmail")) visit.customerEmail = text(body.customerEmail, 200).toLowerCase();
+  if (has("customerEmail")) {
+    visit.customerEmail = text(body.customerEmail, 200).toLowerCase();
+    if (visit.customerEmail && !EMAIL.test(visit.customerEmail)) return { ok: false, error: "Customer email doesn't look right." };
+  }
   if (has("chef")) visit.chef = text(body.chef, 100) || "Unassigned";
-  if (has("chefEmail")) visit.chefEmail = text(body.chefEmail, 200).toLowerCase();
+  if (has("chefEmail")) {
+    visit.chefEmail = text(body.chefEmail, 200).toLowerCase();
+    if (visit.chefEmail && !EMAIL.test(visit.chefEmail)) return { ok: false, error: "Chef email doesn't look right." };
+  }
   if (has("packageName")) visit.packageName = text(body.packageName, 50);
   if (has("location")) visit.location = text(body.location, 160);
   if (has("notes")) visit.notes = text(body.notes, 2000);
@@ -118,6 +124,8 @@ export function parseVisit(
   if (has("inquiryId")) visit.inquiryId = Math.max(0, Math.round(Number(body.inquiryId) || 0));
   return { ok: true, visit };
 }
+
+const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /** Minutes since midnight for "HH:MM". */
 const minutes = (t: string) => Number(t.slice(0, 2)) * 60 + Number(t.slice(3, 5));

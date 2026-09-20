@@ -88,9 +88,13 @@ export async function GET(request: Request) {
       });
 
       const address = event.address || customer?.streetAddress || event.location;
-      const phone = customer?.phone || event.contactPhone;
+      // Door codes and phone numbers only while the visit is still ahead.
+      const active = event.status !== "completed" && event.serviceDate >= addDays(today, -1);
+      const phone = active ? customer?.phone || event.contactPhone : "";
+      // Chefs see what they need to cook and get in, never the customer's price or account email.
+      const { priceCents: _p, customerEmail: _e, receiptKey: _r, inquiryId: _i, accessNotes: _a, contactPhone: _c, ...shown } = event;
       return {
-        ...event,
+        ...shown,
         dishDetails,
         portionsPerDish,
         packagePortions: pkg?.portions ?? 0,
@@ -100,12 +104,12 @@ export async function GET(request: Request) {
           contactName: event.contactName || customer?.fullName || event.household,
           phone,
           telUrl: telLink(phone),
-          accessNotes: [event.accessNotes, customer?.accessNotes].filter(Boolean).join("\n"),
+          accessNotes: active ? [event.accessNotes, customer?.accessNotes].filter(Boolean).join("\n") : "",
           kitchenNotes: customer?.kitchenNotes ?? "",
         },
         customer: customer
           ? {
-              phone: customer.phone,
+              phone,
               dietaryNeeds: customer.dietaryNeeds,
               foodsToAvoid: customer.foodsToAvoid,
               favoriteFoods: customer.favoriteFoods,

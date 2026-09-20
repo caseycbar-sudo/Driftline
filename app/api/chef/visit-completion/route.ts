@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { env } from "cloudflare:workers";
 import { requireStaffRole } from "../../../staff-auth";
 import { isCrossSiteRequest } from "../../../auth-core";
-import { getEvent, setChefEventStatus, setGroceries } from "../../../../db/schedule";
+import { completeVisit, getEvent } from "../../../../db/schedule";
 import { saveVisitCompletion } from "../../../../db/visits";
 import { chargeCompletedVisit } from "../../../billing";
 
@@ -65,30 +65,40 @@ export async function POST(request: Request) {
     await bucket.put(key, file.stream(), { httpMetadata: { contentType: file.type } });
     return key;
   };
+  const cleanup = () => Promise.all([...stored.map((p) => bucket.delete(p.objectKey)), receiptKey ? bucket.delete(receiptKey) : null]).catch(() => {});
   try {
     for (const file of dishFiles)
       stored.push({ photoType: "dish", dishTitle: String(form.get("dishTitle") || "").slice(0, 160), objectKey: await put(file, "visits"), contentType: file.type });
     for (const file of kitchenFiles) stored.push({ photoType: "kitchen", dishTitle: "", objectKey: await put(file, "visits"), contentType: file.type });
     if (receiptFiles[0]) receiptKey = await put(receiptFiles[0], "receipts");
-
-    await saveVisitCompletion({
-      scheduleEventId: eventId,
-      customerEmail: event.customerEmail,
-      chefEmail: user.email,
-      countersClean: true,
-      sinkClean: true,
-      trashHandled: true,
-      appliancesOff: true,
-      notes: String(form.get("notes") || "").trim().slice(0, 1000),
-      photos: stored,
-    });
-    if (event.serviceType === "meal_prep") await setGroceries(eventId, groceryCents, receiptKey);
-    const done = await setChefEventStatus(eventId, user.email, "completed", ["scheduled", "confirmed", "shopping", "in-progress"]);
-    if (!done) return NextResponse.json({ error: "This visit changed while you were finishing. Refresh and try again." }, { status: 409 });
   } catch (error) {
-    await Promise.all([...stored.map((p) => bucket.delete(p.objectKey)), receiptKey ? bucket.delete(receiptKey) : null]);
+    await cleanup();
     throw error;
   }
+
+  // One conditional update claims the visit: status and grocery total land together,
+  // so a double tap or a second phone can't complete it twice.
+  const claimed = await completeVisit(
+    eventId,
+    user.email,
+    ["scheduled", "confirmed", "shopping", "in-progress"],
+    event.serviceType === "meal_prep" ? { cents: groceryCents, receiptKey } : null,
+  );
+  if (!claimed) {
+    await cleanup();
+    return NextResponse.json({ error: "This visit changed while you were finishing. Refresh and try again." }, { status: 409 });
+  }
+  await saveVisitCompletion({
+    scheduleEventId: eventId,
+    customerEmail: event.customerEmail,
+    chefEmail: user.email,
+    countersClean: true,
+    sinkClean: true,
+    trashHandled: true,
+    appliancesOff: true,
+    notes: String(form.get("notes") || "").trim().slice(0, 1000),
+    photos: stored,
+  });
 
   // Charging never blocks the chef: a failed or skipped charge shows up in Casey's Billing tab.
   const billing = await chargeCompletedVisit(eventId).catch((error) => {

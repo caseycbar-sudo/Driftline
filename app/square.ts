@@ -47,11 +47,18 @@ export function squareConfig() {
   };
 }
 
-export type SquareResult<T> = { ok: true; data: T } | { ok: false; code: string; message: string; status: number };
+/**
+ * `definite` is true only when Square clearly refused the request (a 4xx other
+ * than 429), so we know no money moved. Timeouts, 5xx and 429 are "unknown":
+ * the charge may or may not have happened, and must be resent with the SAME key.
+ */
+export type SquareResult<T> =
+  | { ok: true; data: T }
+  | { ok: false; code: string; category: string; message: string; status: number; definite: boolean };
 
 async function call<T>(method: "GET" | "POST" | "PUT" | "DELETE", path: string, body?: unknown): Promise<SquareResult<T>> {
   const config = squareConfig();
-  if (!config) return { ok: false, code: "NOT_CONFIGURED", message: "Card payments aren't set up yet.", status: 503 };
+  if (!config) return { ok: false, code: "NOT_CONFIGURED", category: "", message: "Card payments aren't set up yet.", status: 503, definite: true };
   let response: Response;
   try {
     response = await fetch(`${config.base}${path}`, {
@@ -65,12 +72,20 @@ async function call<T>(method: "GET" | "POST" | "PUT" | "DELETE", path: string, 
       signal: AbortSignal.timeout(15000),
     });
   } catch {
-    return { ok: false, code: "NETWORK", message: "Couldn't reach Square. Try again in a minute.", status: 502 };
+    return { ok: false, code: "NETWORK", category: "", message: "Couldn't reach Square to confirm. Don't re-run it by hand; use Retry, which is safe.", status: 502, definite: false };
   }
-  const json = (await response.json().catch(() => ({}))) as { errors?: { code?: string; detail?: string }[] } & T;
+  const json = (await response.json().catch(() => ({}))) as { errors?: { code?: string; detail?: string; category?: string }[] } & T;
   if (!response.ok || json.errors?.length) {
     const first = json.errors?.[0];
-    return { ok: false, code: first?.code || `HTTP_${response.status}`, message: friendlyError(first?.code, first?.detail), status: response.status };
+    const definite = response.status >= 400 && response.status < 500 && response.status !== 429;
+    return {
+      ok: false,
+      code: first?.code || `HTTP_${response.status}`,
+      category: first?.category || "",
+      message: definite ? friendlyError(first?.code, first?.detail) : "Square didn't confirm the charge. Use Retry; it can't charge twice.",
+      status: response.status,
+      definite,
+    };
   }
   return { ok: true, data: json as T };
 }

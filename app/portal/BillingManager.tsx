@@ -20,7 +20,9 @@ type Payment = {
   paidAt: string;
 };
 type CustomerCard = { email: string; name: string; card: string; autopay: boolean };
-type Data = { configured: boolean; environment: string; payments: Payment[]; customers: CustomerCard[] };
+type Unbilled = { id: number; serviceDate: string; household: string; customerEmail: string; packageName: string; groceryCents: number };
+type Data = { configured: boolean; environment: string; payments: Payment[]; unbilled: Unbilled[]; customers: CustomerCard[] };
+type Action = "retry" | "check" | "cancel" | "mark_paid" | "mark_failed";
 type Pkg = { name: string; portions: number; price: string; note: string; featured: boolean };
 type PricesForm = { mealPrep: Pkg[]; privateChef: { perGuest: string; minGuests: string; smallTableMin: string } };
 
@@ -31,6 +33,7 @@ const LABEL: Record<string, string> = {
   pending: "Waiting on card",
   processing: "Processing",
   failed: "Declined",
+  unknown: "Not confirmed",
   link_sent: "Invoice sent",
   canceled: "Cancelled",
 };
@@ -40,7 +43,8 @@ export default function BillingManager() {
   const [data, setData] = useState<Data | null>(null);
   const [message, setMessage] = useState("");
   const [busy, setBusy] = useState(0);
-  const [link, setLink] = useState({ customerEmail: "", customerName: "", amount: "", description: "" });
+  const blankLink = { customerEmail: "", customerName: "", amount: "", description: "", scheduleEventId: 0 };
+  const [link, setLink] = useState(blankLink);
   const [sending, setSending] = useState(false);
   const [prices, setPrices] = useState<PricesForm | null>(null);
   const [priceMessage, setPriceMessage] = useState("");
@@ -72,8 +76,10 @@ export default function BillingManager() {
       .catch(() => {});
   }, [load]);
 
-  async function act(p: Payment, action: "retry" | "check" | "cancel") {
+  async function act(p: Payment, action: Action) {
     if (action === "cancel" && !window.confirm(`Cancel "${p.description}"? The customer won't be charged.`)) return;
+    if (action === "mark_paid" && !window.confirm("Only do this if Square shows this payment went through. Mark it paid?")) return;
+    if (action === "mark_failed" && !window.confirm("Only do this if Square shows NO payment for this. Mark it failed so you can retry?")) return;
     setBusy(p.id);
     setMessage("");
     const response = await fetch("/api/admin/billing", {
@@ -86,8 +92,37 @@ export default function BillingManager() {
     if (!response.ok) setMessage(body.error || "That didn't work. Try again.");
     else if (action === "retry") setMessage(body.result?.message || "Retried.");
     else if (action === "check") setMessage(body.payment?.status === "paid" ? "Paid!" : "Not paid yet.");
+    else if (action === "mark_paid") setMessage("Marked paid.");
+    else if (action === "mark_failed") setMessage("Marked failed. You can retry it now.");
     else setMessage("Cancelled.");
     load();
+  }
+
+  async function billVisit(v: Unbilled) {
+    setBusy(-v.id);
+    setMessage("");
+    const response = await fetch("/api/admin/billing", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ action: "bill_visit", eventId: v.id }),
+    });
+    const body = (await response.json().catch(() => ({}))) as { error?: string; result?: { message: string } };
+    setBusy(0);
+    setMessage(response.ok ? body.result?.message || "Billed." : body.error || "That didn't work. Try again.");
+    load();
+  }
+
+  function linkInstead(p: Payment) {
+    const match = data?.customers.find((c) => c.email === p.customerEmail);
+    setLink({
+      customerEmail: p.customerEmail,
+      customerName: match?.name ?? "",
+      amount: (p.amountCents / 100).toFixed(2),
+      description: p.description,
+      scheduleEventId: p.scheduleEventId,
+    });
+    setMessage("Pay link form filled in below. Sending it cancels the card charge.");
+    document.getElementById("billing-link-form")?.scrollIntoView({ behavior: "smooth" });
   }
 
   async function sendLink(event: FormEvent) {
@@ -106,7 +141,7 @@ export default function BillingManager() {
       return;
     }
     setMessage(`Pay link emailed to ${link.customerEmail}.`);
-    setLink({ customerEmail: "", customerName: "", amount: "", description: "" });
+    setLink(blankLink);
     load();
   }
 
@@ -125,7 +160,7 @@ export default function BillingManager() {
   const setPkg = (i: number, patch: Partial<Pkg>) =>
     setPrices((p) => (p ? { ...p, mealPrep: p.mealPrep.map((m, j) => (j === i ? { ...m, ...patch } : patch.featured ? { ...m, featured: false } : m)) } : p));
 
-  const open = (data?.payments ?? []).filter((p) => ["failed", "pending", "processing", "link_sent"].includes(p.status));
+  const open = (data?.payments ?? []).filter((p) => ["failed", "unknown", "pending", "processing", "link_sent"].includes(p.status));
   const paid = (data?.payments ?? []).filter((p) => p.status === "paid");
   const monthKey = new Date().toISOString().slice(0, 7);
   const paidThisMonth = paid.filter((p) => p.paidAt.startsWith(monthKey)).reduce((sum, p) => sum + p.amountCents, 0);
@@ -159,7 +194,7 @@ export default function BillingManager() {
           </div>
           <div>
             <small>NEEDS ATTENTION</small>
-            <strong>{open.filter((p) => p.status === "failed").length}</strong>
+            <strong>{open.filter((p) => p.status === "failed" || p.status === "unknown").length + (data?.unbilled.length ?? 0)}</strong>
           </div>
           <div>
             <small>INVOICES OUT</small>
@@ -192,14 +227,29 @@ export default function BillingManager() {
                       Receipt photo
                     </a>
                   ) : null}
-                  {p.kind === "visit_charge" && ["failed", "pending", "processing"].includes(p.status) ? (
+                  {p.kind === "visit_charge" && ["failed", "unknown", "pending", "processing"].includes(p.status) ? (
                     <button disabled={busy === p.id} onClick={() => act(p, "retry")}>
                       {p.status === "pending" ? "Charge now" : "Retry"}
                     </button>
                   ) : null}
+                  {p.kind === "visit_charge" && ["pending", "failed"].includes(p.status) ? (
+                    <button disabled={busy === p.id} onClick={() => linkInstead(p)}>
+                      Send pay link instead
+                    </button>
+                  ) : null}
+                  {p.status === "unknown" || p.status === "processing" ? (
+                    <>
+                      <button disabled={busy === p.id} onClick={() => act(p, "mark_paid")}>
+                        Square shows paid
+                      </button>
+                      <button disabled={busy === p.id} onClick={() => act(p, "mark_failed")}>
+                        Square shows nothing
+                      </button>
+                    </>
+                  ) : null}
                   {p.kind === "pay_link" && p.status === "link_sent" ? (
                     <>
-                      <a href={p.linkUrl} target="_blank" rel="noreferrer">
+                      <a href={p.linkUrl.startsWith("https://") ? p.linkUrl : undefined} target="_blank" rel="noreferrer">
                         Open link
                       </a>
                       <button disabled={busy === p.id} onClick={() => act(p, "check")}>
@@ -207,7 +257,7 @@ export default function BillingManager() {
                       </button>
                     </>
                   ) : null}
-                  {p.status !== "processing" ? (
+                  {["pending", "failed", "link_sent"].includes(p.status) ? (
                     <button className="danger" disabled={busy === p.id} onClick={() => act(p, "cancel")}>
                       Cancel
                     </button>
@@ -218,7 +268,34 @@ export default function BillingManager() {
           </ul>
         </section>
 
-        <form className="owner-card billing-link-form" onSubmit={sendLink}>
+        {data?.unbilled.length ? (
+          <section className="owner-card">
+            <small>SAFETY NET</small>
+            <h2 className="owner-h2">Finished visits not billed yet</h2>
+            <ul className="billing-list">
+              {data.unbilled.map((v) => (
+                <li key={v.id} className="is-failed">
+                  <div>
+                    <strong>
+                      {v.packageName || "Meal prep"} · {v.household}
+                    </strong>
+                    <span>
+                      {v.customerEmail} · {v.serviceDate}
+                      {v.groceryCents ? ` · ${money(v.groceryCents)} groceries` : ""}
+                    </span>
+                  </div>
+                  <div className="billing-row-actions">
+                    <button disabled={busy === -v.id} onClick={() => billVisit(v)}>
+                      Bill now
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+
+        <form id="billing-link-form" className="owner-card billing-link-form" onSubmit={sendLink}>
           <small>DINNERS, CATERING, ANYTHING ELSE</small>
           <h2 className="owner-h2">Send a pay link</h2>
           <label>
@@ -230,7 +307,7 @@ export default function BillingManager() {
               value={link.customerEmail}
               onChange={(e) => {
                 const match = data?.customers.find((c) => c.email === e.target.value);
-                setLink({ ...link, customerEmail: e.target.value, customerName: match?.name ?? link.customerName });
+                setLink({ ...link, customerEmail: e.target.value, customerName: match?.name ?? link.customerName, scheduleEventId: 0 });
               }}
               placeholder="their@email.com"
             />
@@ -262,6 +339,14 @@ export default function BillingManager() {
               <input required inputMode="decimal" value={link.amount} onChange={(e) => setLink({ ...link, amount: e.target.value })} placeholder="1050" />
             </span>
           </label>
+          {link.scheduleEventId ? (
+            <p className="owner-empty">
+              For a meal prep visit: sending this cancels its card charge.{" "}
+              <button type="button" onClick={() => setLink(blankLink)}>
+                Clear
+              </button>
+            </p>
+          ) : null}
           <button className="owner-primary" disabled={sending || !data?.configured}>
             {sending ? "Sending…" : "Email the pay link"}
           </button>
@@ -282,7 +367,7 @@ export default function BillingManager() {
                   </div>
                   <div className="billing-row-actions">
                     <b>{money(p.amountCents)}</b>
-                    {p.receiptUrl ? (
+                    {p.receiptUrl.startsWith("https://") ? (
                       <a href={p.receiptUrl} target="_blank" rel="noreferrer">
                         Square receipt
                       </a>

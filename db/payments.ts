@@ -142,3 +142,33 @@ export async function listPendingVisitCharges(email: string) {
     .from(payments)
     .where(and(eq(payments.customerEmail, email.toLowerCase()), eq(payments.kind, "visit_charge"), inArray(payments.status, ["pending"])));
 }
+
+export async function listPaymentsForEvent(scheduleEventId: number) {
+  return getDb().select().from(payments).where(eq(payments.scheduleEventId, scheduleEventId));
+}
+
+/**
+ * Completed meal prep visits with a customer account but no visit charge yet:
+ * the safety net for anything that slipped through (e.g. the request was cut
+ * off right after the chef finished, or the owner marked it completed by hand).
+ */
+export async function listUnbilledVisits(sinceDate: string) {
+  const result = await getDb().$client
+    .prepare(
+      `SELECT s.id, s.service_date, s.household, s.customer_email, s.package_name, s.grocery_cents
+       FROM schedule_events s
+       WHERE s.status = 'completed' AND s.service_type = 'meal_prep' AND s.customer_email != '' AND s.service_date >= ?
+         AND NOT EXISTS (SELECT 1 FROM payments p WHERE p.schedule_event_id = s.id)
+       ORDER BY s.service_date DESC LIMIT 50`,
+    )
+    .bind(sinceDate)
+    .all<Record<string, unknown>>();
+  return result.results.map((r) => ({
+    id: Number(r.id),
+    serviceDate: String(r.service_date),
+    household: String(r.household),
+    customerEmail: String(r.customer_email),
+    packageName: String(r.package_name),
+    groceryCents: Number(r.grocery_cents ?? 0),
+  }));
+}

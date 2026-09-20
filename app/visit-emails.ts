@@ -36,7 +36,7 @@ function layout(title: string, lines: [string, string][], note: string, button?:
 <h2 style="font-family:Georgia,serif;font-weight:400;margin:0 0 14px">${escapeHtml(title)}</h2>
 <table style="border-collapse:collapse;margin:0 0 16px">${rows}</table>
 <p style="margin:0 0 18px;color:#34454c">${escapeHtml(note)}</p>
-${button ? `<p><a href="${button.href}" style="background:#7a6032;color:#fff;padding:11px 18px;text-decoration:none;font-weight:bold;display:inline-block">${escapeHtml(button.label)}</a></p>` : ""}
+${button ? `<p><a href="${escapeHtml(button.href)}" style="background:#7a6032;color:#fff;padding:11px 18px;text-decoration:none;font-weight:bold;display:inline-block">${escapeHtml(button.label)}</a></p>` : ""}
 <p style="color:#596568;font-size:13px">Driftline Provisions · Astoria, Oregon</p></div>`;
 }
 const asText = (title: string, lines: [string, string][], note: string, link?: string) =>
@@ -121,9 +121,8 @@ export async function sendDayBeforeReminders(visits: ScheduleEvent[]) {
   return sent;
 }
 
-/** Oregon date for tomorrow, YYYY-MM-DD. */
+/** Oregon date for tomorrow, YYYY-MM-DD (calendar day after today in Oregon, safe across DST changes). */
 export function oregonTomorrow(now = new Date()) {
-  return new Intl.DateTimeFormat("en-CA", { timeZone: ZONE, year: "numeric", month: "2-digit", day: "2-digit" }).format(
-    new Date(now.getTime() + 24 * 60 * 60 * 1000),
-  );
+  const today = new Intl.DateTimeFormat("en-CA", { timeZone: ZONE, year: "numeric", month: "2-digit", day: "2-digit" }).format(now);
+  return new Date(Date.parse(`${today}T12:00:00Z`) + 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
 }

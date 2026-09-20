@@ -31,6 +31,7 @@ const STATUS: Record<string, string> = {
   paid: "Paid",
   pending: "Waiting for a card",
   processing: "Processing",
+  unknown: "Processing",
   failed: "Card declined",
   link_sent: "Ready to pay",
   canceled: "Cancelled",
@@ -135,7 +136,7 @@ export default function BillingPanel() {
   }
 
   if (!billing) return null;
-  const open = billing.payments.filter((p) => p.status === "link_sent" || p.status === "failed" || p.status === "pending");
+  const open = billing.payments.filter((p) => ["link_sent", "failed", "pending", "processing", "unknown"].includes(p.status));
 
   return (
     <section className="billing-panel" id="billing">
@@ -158,7 +159,7 @@ export default function BillingPanel() {
                   {money(p.amountCents)} · {STATUS[p.status] ?? p.status}
                 </span>
               </div>
-              {p.linkUrl ? (
+              {p.status === "link_sent" && p.linkUrl.startsWith("https://") ? (
                 <a className="billing-pay" href={p.linkUrl} target="_blank" rel="noreferrer">
                   Pay {money(p.amountCents)}
                 </a>
@@ -246,7 +247,7 @@ export default function BillingPanel() {
                     ) : null}
                   </span>
                   <b>{money(p.amountCents)}</b>
-                  {p.receiptUrl ? (
+                  {p.receiptUrl.startsWith("https://") ? (
                     <a href={p.receiptUrl} target="_blank" rel="noreferrer">
                       Receipt
                     </a>

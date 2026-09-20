@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 import { requireStaffRole } from "../../../staff-auth";
 import { isCrossSiteRequest, normalizeEmail } from "../../../auth-core";
-import { getBillingProfile, getPayment, listPayments, updatePayment } from "../../../../db/payments";
+import { claimPayment, getBillingProfile, getPayment, listPayments, listUnbilledVisits } from "../../../../db/payments";
 import { getCustomer, listCustomers } from "../../../../db/customers";
-import { refreshPayLink, runVisitCharge, sendPayLink } from "../../../billing";
+import { chargeCompletedVisit, refreshPayLink, resolveByHand, runVisitCharge, sendPayLink } from "../../../billing";
 import { deletePaymentLink, squareConfig } from "../../../square";
 
 export const dynamic = "force-dynamic";
@@ -12,7 +12,8 @@ const forbidden = () => NextResponse.json({ error: "Owner access required" }, { 
 /** Everything billed, newest first, plus which customers have a card saved. */
 export async function GET() {
   if (!(await requireStaffRole("admin"))) return forbidden();
-  const [payments, customers] = await Promise.all([listPayments(), listCustomers()]);
+  const since = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+  const [payments, customers, unbilled] = await Promise.all([listPayments(), listCustomers(), listUnbilledVisits(since)]);
   const cards = await Promise.all(
     customers.map(async (c) => {
       const p = await getBillingProfile(c.email);
@@ -21,12 +22,15 @@ export async function GET() {
   );
   const config = squareConfig();
   return NextResponse.json(
-    { configured: Boolean(config), environment: config?.environment ?? "", payments, customers: cards },
+    { configured: Boolean(config), environment: config?.environment ?? "", payments, unbilled, customers: cards },
     { headers: { "cache-control": "private, no-store" } },
   );
 }
 
-/** Actions: send a pay link, retry a visit charge, check a pay link, or cancel a payment. */
+/**
+ * Actions: send a pay link, bill a completed visit, retry a visit charge, check a
+ * pay link, cancel, or mark an unconfirmed charge paid/failed after checking Square.
+ */
 export async function POST(request: Request) {
   const body = (await request.json().catch(() => ({}))) as Record<string, unknown>;
   if (isCrossSiteRequest(request)) return forbidden();
@@ -53,6 +57,12 @@ export async function POST(request: Request) {
     return result.ok ? NextResponse.json(result) : NextResponse.json({ error: result.error }, { status: 502 });
   }
 
+  if (action === "bill_visit") {
+    const eventId = Number(body.eventId);
+    if (!Number.isInteger(eventId) || eventId <= 0) return NextResponse.json({ error: "Visit not found" }, { status: 404 });
+    return NextResponse.json({ result: await chargeCompletedVisit(eventId) });
+  }
+
   const id = Number(body.id);
   const payment = Number.isInteger(id) && id > 0 ? await getPayment(id) : null;
   if (!payment) return NextResponse.json({ error: "Payment not found" }, { status: 404 });
@@ -62,15 +72,21 @@ export async function POST(request: Request) {
     return NextResponse.json({ result: await runVisitCharge(payment), payment: await getPayment(id) });
   }
   if (action === "check") return NextResponse.json({ payment: await refreshPayLink(id) });
+  if (action === "mark_paid" || action === "mark_failed") {
+    const result = await resolveByHand(id, action === "mark_paid" ? "paid" : "failed");
+    return result.ok ? NextResponse.json(result) : NextResponse.json({ error: result.error }, { status: 409 });
+  }
   if (action === "cancel") {
-    if (payment.status === "paid" || payment.status === "processing") return NextResponse.json({ error: "Paid or in-progress charges can't be cancelled here. Refund in Square." }, { status: 409 });
-    if (payment.kind === "pay_link" && payment.squareLinkId) {
-      // Make sure it hasn't just been paid, then switch the link off.
+    if (payment.kind === "pay_link" && payment.status === "link_sent") {
+      // Make sure it hasn't just been paid before switching the link off.
       const fresh = await refreshPayLink(id);
       if (fresh?.status === "paid") return NextResponse.json({ error: "This invoice was just paid, so it can't be cancelled." }, { status: 409 });
-      await deletePaymentLink(payment.squareLinkId).catch(() => null);
     }
-    return NextResponse.json({ payment: await updatePayment(id, { status: "canceled" }) });
+    // Only moves from a state where no money has moved, so it can never overwrite a payment.
+    const canceled = await claimPayment(id, ["pending", "failed", "link_sent"], "canceled");
+    if (!canceled) return NextResponse.json({ error: "Paid, in-progress or unconfirmed charges can't be cancelled here. Check Square." }, { status: 409 });
+    if (payment.kind === "pay_link" && payment.squareLinkId) await deletePaymentLink(payment.squareLinkId).catch(() => null);
+    return NextResponse.json({ payment: await getPayment(id) });
   }
   return NextResponse.json({ error: "Unknown action" }, { status: 400 });
 }

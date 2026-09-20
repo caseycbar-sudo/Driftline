@@ -212,6 +212,11 @@ export const reviews = sqliteTable("reviews", {
  * Money owed for a visit or a proposal. A row is created before anything is
  * sent to Square, so every charge attempt is recorded and never repeated by accident.
  */
+/**
+ * Indexes that matter for money live in drizzle/0013 (hand-written, keep them if
+ * this migration is ever regenerated): payments_idempotency_key (unique) and
+ * payments_one_visit_charge (unique partial: one visit_charge per visit).
+ */
 export const payments = sqliteTable("payments", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   scheduleEventId: integer("schedule_event_id").notNull().default(0),
