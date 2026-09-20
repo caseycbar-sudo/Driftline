@@ -6,7 +6,7 @@ Square account: Driftline Provisions. Developer app: "Driftline Website"
 ## Sandbox (test mode, no real money)
 - SQUARE_ENVIRONMENT = sandbox
 - SQUARE_APPLICATION_ID = sandbox-sq0idb-SND6IUgPknrN4zIW83j0iQ
-- SQUARE_LOCATION_ID = (pending — Developer Console → Locations)
+- SQUARE_LOCATION_ID = LM6T79RAPCZX7   (Default Test Account, Main)
 - SQUARE_ACCESS_TOKEN = secret, paste straight into Cloudflare (never in chat or git)
 - SQUARE_WEBHOOK_SIGNATURE_KEY = secret, created with the webhook subscription
 
