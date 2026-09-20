@@ -11,6 +11,12 @@ export const customerProfiles = sqliteTable("customer_profiles", {
   favoriteFoods: text("favorite_foods").notNull().default(""),
   foodsToAvoid: text("foods_to_avoid").notNull().default(""),
   preferredPackage: text("preferred_package").notNull().default("Weekly"),
+  /** Street address where visits happen. */
+  streetAddress: text("street_address").notNull().default(""),
+  /** Gate codes, parking, pets, alarm, which door: anything a chef needs to get in. */
+  accessNotes: text("access_notes").notNull().default(""),
+  /** Kitchen quirks: oven runs hot, induction cooktop, where the pans are. */
+  kitchenNotes: text("kitchen_notes").notNull().default(""),
   createdAt: text("created_at").notNull(),
   updatedAt: text("updated_at").notNull(),
 });
@@ -48,6 +54,24 @@ export const scheduleEvents = sqliteTable("schedule_events", {
   status: text("status").notNull().default("scheduled"),
   chefPayCents: integer("chef_pay_cents").notNull().default(0),
   notes: text("notes").notNull().default(""),
+  /** meal_prep | private_dinner | catering */
+  serviceType: text("service_type").notNull().default("meal_prep"),
+  guestCount: integer("guest_count").notNull().default(0),
+  /** Who the chef calls on the day (copied from the request when there's no account). */
+  contactName: text("contact_name").notNull().default(""),
+  contactPhone: text("contact_phone").notNull().default(""),
+  /** Full street address for this visit. */
+  address: text("address").notNull().default(""),
+  accessNotes: text("access_notes").notNull().default(""),
+  /** The website request this visit came from, if any. */
+  inquiryId: integer("inquiry_id").notNull().default(0),
+  /** Visits created together as a weekly repeat share this id. */
+  seriesId: text("series_id").notNull().default(""),
+  /** What the customer pays for the service (meal prep package price, or dinner total). */
+  priceCents: integer("price_cents").notNull().default(0),
+  /** Grocery receipt total entered by the chef at the end of a meal prep visit. */
+  groceryCents: integer("grocery_cents").notNull().default(0),
+  receiptKey: text("receipt_key").notNull().default(""),
   createdBy: text("created_by").notNull(),
   createdAt: text("created_at").notNull(),
   updatedAt: text("updated_at").notNull(),
@@ -182,4 +206,47 @@ export const reviews = sqliteTable("reviews", {
   verified: integer("verified", { mode: "boolean" }).notNull().default(false),
   createdAt: text("created_at").notNull(),
   reviewedAt: text("reviewed_at").notNull().default(""),
+});
+
+/**
+ * Money owed for a visit or a proposal. A row is created before anything is
+ * sent to Square, so every charge attempt is recorded and never repeated by accident.
+ */
+export const payments = sqliteTable("payments", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  scheduleEventId: integer("schedule_event_id").notNull().default(0),
+  customerEmail: text("customer_email").notNull(),
+  /** visit_charge (card on file) | pay_link (Square checkout link) */
+  kind: text("kind").notNull(),
+  description: text("description").notNull(),
+  serviceCents: integer("service_cents").notNull().default(0),
+  groceryCents: integer("grocery_cents").notNull().default(0),
+  amountCents: integer("amount_cents").notNull(),
+  /** pending | processing | paid | failed | link_sent | canceled */
+  status: text("status").notNull().default("pending"),
+  idempotencyKey: text("idempotency_key").notNull(),
+  squarePaymentId: text("square_payment_id").notNull().default(""),
+  squareOrderId: text("square_order_id").notNull().default(""),
+  squareLinkId: text("square_link_id").notNull().default(""),
+  linkUrl: text("link_url").notNull().default(""),
+  receiptUrl: text("receipt_url").notNull().default(""),
+  error: text("error").notNull().default(""),
+  createdBy: text("created_by").notNull().default(""),
+  createdAt: text("created_at").notNull(),
+  updatedAt: text("updated_at").notNull(),
+  paidAt: text("paid_at").notNull().default(""),
+});
+
+/** A customer's Square profile and saved card. Card numbers never touch Driftline; only Square's ids. */
+export const billingProfiles = sqliteTable("billing_profiles", {
+  email: text("email").primaryKey(),
+  squareCustomerId: text("square_customer_id").notNull(),
+  cardId: text("card_id").notNull().default(""),
+  cardBrand: text("card_brand").notNull().default(""),
+  cardLast4: text("card_last4").notNull().default(""),
+  cardExpMonth: integer("card_exp_month").notNull().default(0),
+  cardExpYear: integer("card_exp_year").notNull().default(0),
+  /** Customer agreed to be charged after each completed visit. */
+  autopayConsentAt: text("autopay_consent_at").notNull().default(""),
+  updatedAt: text("updated_at").notNull(),
 });

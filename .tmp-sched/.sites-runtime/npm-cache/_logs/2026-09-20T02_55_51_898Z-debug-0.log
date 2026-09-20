@@ -1,0 +1,12 @@
+0 verbose cli /opt/node22/bin/node /opt/node22/lib/node_modules/npm/bin/npm-cli.js
+1 info using npm@10.9.7
+2 info using node@v22.22.2
+3 silly config load:file:/opt/node22/lib/node_modules/npm/npmrc
+4 silly config load:file:/home/claude/driftline/.npmrc
+5 silly config load:file:/root/.npmrc
+6 silly config load:file:/opt/node22/etc/npmrc
+7 verbose title npm exec wrangler dev --config wrangler.json --port 8790 --test-scheduled
+8 verbose argv "exec" "--" "wrangler" "dev" "--config" "wrangler.json" "--port" "8790" "--test-scheduled"
+9 verbose logfile logs-max:10 dir:/home/claude/driftline/.tmp-sched/.sites-runtime/npm-cache/_logs/2026-09-20T02_55_51_898Z-
+10 verbose logfile /home/claude/driftline/.tmp-sched/.sites-runtime/npm-cache/_logs/2026-09-20T02_55_51_898Z-debug-0.log
+11 silly logfile done cleaning log files

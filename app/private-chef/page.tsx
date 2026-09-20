@@ -6,6 +6,8 @@ import "../home.css";
 import type { Metadata } from "next";
 import { pageMetadata, smallImage } from "../site-config";
 import ReviewsShowcase from "../ReviewsShowcase";
+import { getPricing } from "../../db/pricing";
+import { dollars } from "../pricing-core";
 
 export const metadata: Metadata = pageMetadata(
   "/private-chef",
@@ -21,7 +23,14 @@ const sampleMenus = [
   { name: "Garden & Tide", detail: "Summer corn and tomato bruschetta · seared scallops with beurre blanc · Meyer lemon panna cotta", image: "/gallery/scallops.webp" },
 ];
 
-export default function PrivateChefPage() {
+// Prices come from the owner dashboard, so render per request.
+export const dynamic = "force-dynamic";
+
+const NUMBER_WORDS = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve"];
+
+export default async function PrivateChefPage() {
+  const { privateChef } = await getPricing();
+  const minWord = NUMBER_WORDS[privateChef.minGuests] ?? String(privateChef.minGuests);
   return <main className="pc-page">
     <SiteHeader current="/private-chef" />
 
@@ -61,7 +70,7 @@ export default function PrivateChefPage() {
 
     <section className="pc-price">
       <div><p className="pc-kicker">CLEAR STARTING PRICES</p><h2>A complete private-dining experience.</h2><p>Menu planning, shopping coordination, in-home cooking, plated service, and kitchen cleanup are included. Final proposals reflect menu ingredients, staffing, travel, rentals, and the needs of your home.</p></div>
-      <div className="pc-price-card"><small>THREE-COURSE DINNER</small><strong>From <em>$175</em> per guest</strong><p>Six-guest minimum · groceries included in the proposal</p><hr/><small>INTIMATE TABLES OF 2–5</small><strong>From <em>$1,050</em></strong><p>A minimum keeps a small-table experience fully staffed and beautifully executed.</p><a href="#inquire">Request a custom proposal →</a></div>
+      <div className="pc-price-card"><small>THREE-COURSE DINNER</small><strong>From <em>{dollars(privateChef.perGuestCents)}</em> per guest</strong><p>{minWord}-guest minimum · groceries included in the proposal</p>{privateChef.minGuests > 2 && privateChef.smallTableMinCents > 0 ? <><hr/><small>INTIMATE TABLES OF 2–{privateChef.minGuests - 1}</small><strong>From <em>{dollars(privateChef.smallTableMinCents)}</em></strong></> : null}<p>A minimum keeps a small-table experience fully staffed and beautifully executed.</p><a href="#inquire">Request a custom proposal →</a></div>
     </section>
 
     <div className="dp"><ReviewsShowcase service="Private chef dinner" /></div>

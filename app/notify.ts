@@ -229,3 +229,40 @@ export async function notifyNewReview(r: { displayName: string; town: string; se
     return false;
   }
 }
+
+/**
+ * Send one email through Resend. Returns false (never throws) when email isn't
+ * configured or the provider refuses it.
+ */
+export async function sendEmail(message: { to: string | string[]; subject: string; text: string; html: string; replyTo?: string }): Promise<boolean> {
+  const config = mailConfig();
+  if (!config) return false;
+  const to = (Array.isArray(message.to) ? message.to : [message.to]).filter(Boolean);
+  if (!to.length) return false;
+  try {
+    await send(config.endpoint, config.apiKey, {
+      from: config.from,
+      to,
+      subject: message.subject,
+      text: message.text,
+      html: message.html,
+      ...(message.replyTo || config.to[0] ? { reply_to: message.replyTo || config.to[0] } : {}),
+    });
+    return true;
+  } catch (error) {
+    console.error("[email] send failed", error);
+    return false;
+  }
+}
+
+/** The owner's alert address(es) and the public site address, for other modules. */
+export function ownerEmails(): string[] {
+  return mailConfig()?.to ?? [];
+}
+export { escapeHtml };
+
+/** The public site address used in emails (SITE_URL, or the real domain). */
+export function publicSiteUrl(): string {
+  const e = env as unknown as MailEnv;
+  return (e.SITE_URL || "https://www.driftlineprovisions.com").trim().replace(/\/$/, "");
+}

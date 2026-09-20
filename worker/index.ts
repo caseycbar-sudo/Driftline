@@ -1,6 +1,7 @@
 /** Cloudflare Worker entry point for the vinext-starter template. */
 import { handleImageOptimization, DEFAULT_DEVICE_SIZES, DEFAULT_IMAGE_SIZES } from "vinext/server/image-optimization";
 import handler from "vinext/server/app-router-entry";
+import { runDailyJobs } from "../app/jobs/daily";
 
 interface Env {
   ASSETS: Fetcher;
@@ -49,6 +50,15 @@ const worker = {
     }
 
     return handler.fetch(request, env, ctx);
+  },
+
+  /** Daily trigger (see triggers.crons in deploy config): day-before visit reminders. */
+  async scheduled(_controller: unknown, _env: Env, _ctx: ExecutionContext) {
+    try {
+      console.log("[daily]", JSON.stringify(await runDailyJobs()));
+    } catch (error) {
+      console.error("[daily] failed", error instanceof Error ? error.stack : error);
+    }
   },
 };
 

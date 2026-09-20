@@ -92,6 +92,13 @@
       "when": 1789857460683,
       "tag": "0012_market_and_reviews",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "6",
+      "when": 1789871936892,
+      "tag": "0013_schedule_details_and_payments",
+      "breakpoints": true
     }
   ]
 }

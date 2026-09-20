@@ -94,21 +94,26 @@ export default function PrivateChefLeads({ onOpenCalendar }: { onOpenCalendar: (
     window.localStorage.setItem(
       "driftlinePrivateChefDraft",
       JSON.stringify({
-        serviceDate: lead.preferredDate,
+        ...(lead.preferredDate ? { serviceDate: lead.preferredDate } : {}),
         startTime: isMealPrep ? "10:00" : "17:00",
         endTime: isMealPrep ? "14:00" : "21:00",
         household: lead.fullName,
         customerEmail: lead.email,
+        contactName: lead.fullName,
+        contactPhone: lead.phone,
+        serviceType: lead.inquiryType === "catering" ? "catering" : isMealPrep ? "meal_prep" : "private_dinner",
+        guestCount: isMealPrep ? 0 : lead.guestCount,
+        inquiryId: lead.id,
         dishes: [],
         chef: "Unassigned",
         chefEmail: "",
-        packageName: isMealPrep ? lead.packageName || "Weekly" : typeLabels[lead.inquiryType],
+        packageName: isMealPrep ? lead.packageName || "" : "",
         location: lead.location,
         status: "scheduled",
         chefPayCents: 0,
         notes: isMealPrep
           ? `Meal prep request · ${lead.serviceFor} · ZIP ${lead.zip}`
-          : `${typeLabels[lead.inquiryType]} request · ${lead.occasion || "Event"} · ${lead.guestCount} guests\n${lead.details || ""}`,
+          : `${typeLabels[lead.inquiryType]} request · ${lead.occasion || "Event"}\n${lead.details || ""}`,
       }),
     );
     onOpenCalendar();

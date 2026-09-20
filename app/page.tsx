@@ -5,6 +5,8 @@ import "./home.css";
 import { CONTACT_EMAIL, SITE_ORIGIN, pageMetadata, smallImage } from "./site-config";
 import { MarketHeroLink } from "./MarketStatus";
 import ReviewsShowcase from "./ReviewsShowcase";
+import { getPricing } from "../db/pricing";
+import { dollars, lowestMealPrepCents } from "./pricing-core";
 
 export const metadata: Metadata = pageMetadata(
   "/",
@@ -18,7 +20,7 @@ const services = [
     kicker: "Special occasions",
     title: "Private Chef Dinners",
     body: "Multi-course dinners cooked in your kitchen or vacation rental, from a table for two to a full house. Menus built around what the coast is giving us that week.",
-    detail: "From $175 per guest",
+    detail: "PRIVATE_CHEF_FROM",
     image: "/gallery/scallops.webp",
     alt: "Seared scallops with beurre blanc on a white plate",
     href: "/private-chef",
@@ -40,7 +42,7 @@ const services = [
     kicker: "Everyday support",
     title: "Weekly Meal Prep",
     body: "A chef comes to your home, cooks a week of meals in your kitchen, portions and labels everything, and leaves the kitchen clean. Groceries at actual cost.",
-    detail: "From $175 per visit",
+    detail: "MEAL_PREP_FROM",
     image: "/hero-food-v2.webp",
     alt: "Containers of prepared meals with roasted vegetables and grains",
     href: "/meal-prep",
@@ -71,7 +73,17 @@ const businessJsonLd = {
   founder: { "@type": "Person", name: "Casey Barella", jobTitle: "Chef" },
 };
 
-export default function Home() {
+// Prices come from the owner dashboard, so render per request.
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const pricing = await getPricing();
+  const priceLine = (detail: string) =>
+    detail === "PRIVATE_CHEF_FROM"
+      ? `From ${dollars(pricing.privateChef.perGuestCents)} per guest`
+      : detail === "MEAL_PREP_FROM"
+        ? `From ${dollars(lowestMealPrepCents(pricing))} per visit`
+        : detail;
   return (
     <main className="dp">
       <script
@@ -143,7 +155,7 @@ export default function Home() {
                 <h3>{service.title}</h3>
                 <p>{service.body}</p>
                 <div className="dp-service-foot">
-                  <span>{service.detail}</span>
+                  <span>{priceLine(service.detail)}</span>
                   <a href={service.href}>
                     {service.cta} <span aria-hidden="true">→</span>
                   </a>

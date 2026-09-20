@@ -75,22 +75,31 @@ export default function AdminDispatch({
   async function updateVisit(visit: Visit, changes: Partial<Visit>) {
     setBusy(visit.id);
     setError("");
-    const payload = { ...visit, ...changes };
+    // Only the fields being changed are sent, so this can't overwrite a chef's progress.
+    const payload = { id: visit.id, ...changes };
     try {
       const response = await fetch("/api/schedule", {
-        method: "PUT",
+        method: "PATCH",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(payload),
       });
-      if (!response.ok) throw new Error();
-      const saved = (await response.json()) as Visit;
+      const data = (await response.json().catch(() => ({}))) as {
+        error?: string;
+        visit?: Visit;
+        conflicts?: { household: string; startTime: string }[];
+      };
+      if (!response.ok || !data.visit) throw new Error(data.error || "");
       setVisits((current) =>
         current.map((item) =>
-          item.id === visit.id ? { ...item, ...saved } : item,
+          item.id === visit.id ? { ...item, ...data.visit } : item,
         ),
       );
-    } catch {
-      setError("That dispatch change was not saved. Please try again.");
+      if (data.conflicts?.length)
+        setError(
+          `Heads up: ${data.visit.chef} is double-booked with ${data.conflicts.map((c) => `${c.household} at ${c.startTime}`).join(", ")}.`,
+        );
+    } catch (reason) {
+      setError(reason instanceof Error && reason.message ? reason.message : "That dispatch change was not saved. Please try again.");
     } finally {
       setBusy(0);
     }

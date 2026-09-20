@@ -55,6 +55,8 @@ function productionBindingConfig() {
     ],
     r2_buckets: [{ binding: r2 || "BUCKET", bucket_name: p.r2.bucketName }],
     routes: p.customDomains.map((pattern: string) => ({ pattern, custom_domain: true })),
+    // 01:00 UTC = 6pm Oregon in summer, 5pm in winter: day-before reminders.
+    triggers: { crons: ["0 1 * * *"] },
     observability: { enabled: true },
   };
 }

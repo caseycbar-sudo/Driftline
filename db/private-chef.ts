@@ -62,3 +62,16 @@ export function toAdminInquiry(row: Inquiry) {
   void _omit;
   return rest;
 }
+
+/** Mark a website request as booked once it's on the schedule. */
+export async function markInquiryBooked(id: number) {
+  await getDb()
+    .update(privateChefInquiries)
+    .set({ status: "booked", updatedAt: new Date().toISOString() })
+    .where(eq(privateChefInquiries.id, id));
+}
+
+export async function getInquiry(id: number) {
+  const rows = await getDb().select().from(privateChefInquiries).where(eq(privateChefInquiries.id, id)).limit(1);
+  return rows[0] ?? null;
+}

@@ -3,3 +3,16 @@
 
 /* Readability: the global h1 color (deep navy) was landing on the dark job banner */
 .job-hero h1 { color: #f7f2e9; }
+
+/* ---------- visit details ---------- */
+.job-contact-name { margin: 4px 0 6px; font-weight: 700; }
+.job-contact-missing { margin: 6px 0 0; color: #9b3b22; font-weight: 700; }
+.job-access { border-left: 4px solid #2f7d5b; }
+.job-access p, .job-note p { white-space: pre-line; }
+.allergen-unknown { color: #9b3b22; }
+.grocery-receipt { display: grid; gap: 14px; margin: 4px 0 16px; padding: 14px; background: #fbf3df; border: 1px solid #e3d3a8; }
+.grocery-receipt label { display: grid; gap: 6px; font-weight: 700; }
+.grocery-receipt small { font-weight: 400; color: #4a5763; }
+.money-input { display: flex; align-items: center; border: 1px solid #c9c3b6; background: #fff; }
+.money-input b { padding: 0 10px; color: #4a5763; }
+.money-input input { flex: 1; border: 0; min-height: 48px; font-size: 18px; outline: none; }

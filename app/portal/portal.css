@@ -2801,3 +2801,12 @@ td {
 .dispatch-group label { font-size: 11px; }
 .dispatch-group > header span { font-size: 12px; }
 .dispatch-group article > button { font-size: 12px; }
+
+/* ---------- calendar additions ---------- */
+.schedule-form-grid .schedule-wide { grid-column: 1 / -1; }
+.schedule-form-grid textarea { min-height: 70px; }
+.field-help { display: block; margin-top: 4px; font-size: 12px; color: #596568; font-weight: 400; letter-spacing: 0; text-transform: none; }
+.schedule-form-error { margin: 12px 0 0; padding: 10px 12px; background: #fbe9e4; color: #8a2f18; }
+.calendar-warning { margin: 0 0 14px; padding: 12px 14px; background: #fbf3df; border-left: 3px solid #b58a2e; color: #3f3413; }
+.calendar-warning.error { background: #fbe9e4; border-left-color: #b05f3e; color: #8a2f18; }
+.calendar-warning button { margin-left: 10px; background: none; border: 0; text-decoration: underline; cursor: pointer; color: inherit; }
