@@ -135,9 +135,9 @@ export const recipes: Recipe[] = [
     ],
     "image": "/cookbook/mp/chicken-tikka-masala-with-basmati-rice.webp",
     "photoCredit": {
-      "author": "Jessie Maxwell",
-      "source": "Unsplash",
-      "page": "https://unsplash.com/photos/chicken-tikka-masala-served-with-naan-bread-PXMh2o3tO1s"
+      "author": "Jack Baghel",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/traditional-indian-dish-on-a-grey-table-with-spices-20446401/"
     },
     "ingredients": [
       "6 lb boneless skinless chicken thighs, trimmed and cut into 1½-inch pieces",
@@ -293,9 +293,9 @@ export const recipes: Recipe[] = [
     "dietary": [],
     "image": "/cookbook/mp/chicken-and-wild-rice-soup.webp",
     "photoCredit": {
-      "author": "Igor Kocka",
+      "author": "Anya Dunes",
       "source": "Pexels",
-      "page": "https://www.pexels.com/photo/vegetable-with-soup-dish-on-white-ceramic-bowl-10810422/"
+      "page": "https://www.pexels.com/photo/delicious-chicken-rice-porridge-with-eggs-33171278/"
     },
     "ingredients": [
       "2 cups wild rice, rinsed",
@@ -444,9 +444,9 @@ export const recipes: Recipe[] = [
     "dietary": [],
     "image": "/cookbook/mp/turkey-meatballs-in-marinara-with-penne-and-zucchini.webp",
     "photoCredit": {
-      "author": "Anh Nguyen",
+      "author": "Ali Nafezarefi",
       "source": "Pexels",
-      "page": "https://www.pexels.com/photo/cozy-italian-dinner-with-pasta-and-meatballs-30323136/"
+      "page": "https://www.pexels.com/photo/fettuccine-with-meatballs-and-parmesan-cheese-4161714/"
     },
     "ingredients": [
       "1½ cups panko bread crumbs",
@@ -1010,9 +1010,9 @@ export const recipes: Recipe[] = [
     ],
     "image": "/cookbook/mp/maple-dijon-pork-tenderloin-with-sweet-potatoes-and-sprouts.webp",
     "photoCredit": {
-      "author": "Nano Erdozain",
+      "author": "Luca Volpe Productions",
       "source": "Pexels",
-      "page": "https://www.pexels.com/photo/delicious-roasted-meat-slices-on-ceramic-plate-29390889/"
+      "page": "https://www.pexels.com/photo/delicious-roast-dinner-with-vegetables-34991330/"
     },
     "ingredients": [
       "6¼ lb pork tenderloin (about 5 tenderloins), silver skin removed",
@@ -2455,9 +2455,9 @@ export const recipes: Recipe[] = [
     "dietary": [],
     "image": "/cookbook/pc/dungeness-crab-cakes-with-meyer-lemon-aioli.webp",
     "photoCredit": {
-      "author": "Valeria Boltneva",
+      "author": "Shameel mukkath",
       "source": "Pexels",
-      "page": "https://www.pexels.com/photo/crab-cookies-in-close-up-20184730/"
+      "page": "https://www.pexels.com/photo/a-tray-of-crab-cakes-with-lemon-and-herbs-17321095/"
     },
     "ingredients": [
       "1½ lb Dungeness crab meat, picked over for shell and gently squeezed dry",
