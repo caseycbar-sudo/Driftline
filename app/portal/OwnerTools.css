@@ -223,3 +223,4 @@
 .cookbook-photo small { color: #4a5763; font-size: 13px; }
 .cookbook-photo-pick { display: inline-block; margin: 0; padding: 10px 16px; border: 1px solid rgba(35, 47, 56, 0.3); background: #fff; font-size: 14px; letter-spacing: normal; text-transform: none; cursor: pointer; }
 .cookbook-photo-pick input { display: none; }
+.cookbook-shot-guide{margin:10px 0 6px;border:1px solid #e3c9a0;background:#fffaf1;padding:8px 12px}.cookbook-shot-guide summary{cursor:pointer;font-weight:700;color:#123349}.cookbook-shot-guide ul{margin:8px 0 2px;padding-left:18px;line-height:1.5;color:#344b53}.cookbook-shot-guide li{margin:3px 0}

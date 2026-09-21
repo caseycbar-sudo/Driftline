@@ -62,7 +62,7 @@ export const QUESTION_GROUPS: QuestionGroup[] = [
       },
       {
         q: "How long do the meals keep?",
-        a: "Every container is labeled with storage and reheating instructions. Keep meals refrigerated at 40°F or below and reheat to 165°F. Freezer-friendly dishes are marked in the cookbook.",
+        a: "Three to four days in the fridge, following USDA guidance for cooked food. Every container is labeled with the dish, the day it was cooked and an eat-by date. Eat seafood dishes first, in the first day or two. If you won't get to something by day four, freeze it on day one or two instead; freezer-friendly dishes are marked in the cookbook. Keep meals at 40°F or below and reheat to 165°F.",
         link: { href: "/cookbook", label: "Browse the cookbook" },
       },
       {

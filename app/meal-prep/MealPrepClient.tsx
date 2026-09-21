@@ -10,11 +10,11 @@ import { smallImage } from "../site-config";
 type Package = { name: string; portions: number; price: number; note: string; featured?: boolean };
 
 const meals = [
-  // Featured here only when the photo honestly matches the recipe.
-  { id: 2, title: "Chicken Tikka Masala", detail: "Basmati rice", category: "Poultry", image: "/cookbook/mp/chicken-tikka-masala-with-basmati-rice.webp" },
-  { id: 3, title: "Honey-Garlic Chicken", detail: "Broccoli · jasmine rice", category: "Poultry", image: "/cookbook/mp/honey-garlic-chicken-with-broccoli-and-jasmine-rice.webp" },
-  { id: 8, title: "Chicken Pot Pie", detail: "Buttermilk biscuit topping", category: "Poultry", image: "/cookbook/mp/chicken-pot-pie-with-biscuit-topping.webp" },
-  { id: 10, title: "Beef and Bean Chili", detail: "Slow-simmered, freezer-friendly", category: "Beef, Pork & Lamb", image: "/cookbook/mp/beef-and-bean-chili.webp" },
+  // Featured here only when the photo honestly matches the recipe, and shows it packed the way customers get it.
+  { id: 31, title: "Herb-Roasted Chicken Thighs", detail: "Broccoli · roasted red peppers", category: "Poultry", image: "/cookbook/mp/herb-roasted-chicken-thighs-with-broccoli-and-red-peppers.webp" },
+  { id: 33, title: "Paprika Chicken Thighs", detail: "Black beans · sweet potatoes", category: "Poultry", image: "/cookbook/mp/paprika-chicken-thighs-with-black-beans-and-sweet-potatoes.webp" },
+  { id: 32, title: "Chicken and Potato Curry", detail: "Tomato-chili gravy · cilantro", category: "Poultry", image: "/cookbook/mp/chicken-and-potato-curry.webp" },
+  { id: 34, title: "Wild Rice and White Bean Bowls", detail: "Sweet potato · kale · basil dressing", category: "Vegetarian", image: "/cookbook/mp/wild-rice-sweet-potato-and-white-bean-bowls-with-basil-dressing.webp" },
 ];
 
 function CheckIcon() {
@@ -219,7 +219,7 @@ export default function Home({ packages }: { packages: Package[] }) {
         <div className="menu-heading">
           <div>
             <p className="eyebrow light">
-              <span /> 30 recipes to explore
+              <span /> 35 recipes to explore
             </p>
             <h2>
               More choice for every
@@ -248,7 +248,7 @@ export default function Home({ packages }: { packages: Package[] }) {
         </div>
         <div className="menu-actions">
           <a href="/cookbook">
-            Browse all 30 recipes <span>→</span>
+            Browse all 35 recipes <span>→</span>
           </a>
           <p>
             Allergy-aware planning <span>·</span> Portion calculator{" "}

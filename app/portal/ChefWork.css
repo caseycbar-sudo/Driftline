@@ -4,3 +4,4 @@
 /* Tables scroll sideways on phones instead of cutting off columns */
 .real-table { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .real-table > * { min-width: 480px; }
+.label-reminder{border:1px solid #e3c9a0;border-left:4px solid #c89b4f;background:#fffaf1;margin:13px 0;padding:12px}.label-reminder strong{display:block;font:13px Georgia;color:#123349}.label-reminder p{font-size:9px;line-height:1.5;color:#344b53;margin:6px 0}.label-reminder label{display:flex!important;align-items:center;gap:8px;margin:7px 0 0!important;text-transform:none!important;letter-spacing:0!important;font-size:9px!important;color:#344b53!important}

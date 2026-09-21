@@ -224,7 +224,18 @@ export default function CookbookManager() {
                   }}
                 />
               </label>
-              <small>Take it in daylight, from above or at a slight angle. Your photo replaces the stock one everywhere on the site.</small>
+              <details className="cookbook-shot-guide">
+                <summary>How to shoot it so it looks like real meal prep</summary>
+                <ul>
+                  <li>Shoot one packed container right after portioning, before the lid goes on.</li>
+                  <li>Straight overhead, phone held flat, the whole container in frame with a little table around it.</li>
+                  <li>Near a window in daylight. No flash, no overhead kitchen lights.</li>
+                  <li>Same containers and same surface every time, so the menu looks like one set.</li>
+                  <li>Wipe the rim and put the protein on top so it reads at a glance.</li>
+                  <li>Only what the recipe says: if the recipe is skinless, the photo is skinless.</li>
+                </ul>
+              </details>
+              <small>Your photo replaces the stock one everywhere on the site.</small>
             </div>
             <fieldset className="cookbook-allergens">
               <legend>Allergens</legend>
