@@ -80,6 +80,8 @@ test("what gets saved is checked and tidied", () => {
   assert.equal(parseRecipePatch({ servings: 0 }).ok, false);
   assert.equal(parseRecipePatch({ image: "https://evil.example/pic.webp" }).ok, false, "photos must already be on the site");
   assert.equal(parseRecipePatch({ image: "/cookbook/mp/a.webp" }).ok, true);
+  assert.equal(parseRecipePatch({ image: "/api/dish-photo/7f0c2f3e-1.jpg" }).ok, true, "Casey's own photo of the dish");
+  assert.equal(parseRecipePatch({ image: "/api/dish-photo/../../etc/passwd" }).ok, false);
   assert.equal(parseRecipePatch({ title: "New" }, { full: true }).ok, false, "a new dish needs ingredients and steps");
 });
 

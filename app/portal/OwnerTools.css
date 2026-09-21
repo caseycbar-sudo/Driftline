@@ -217,3 +217,9 @@
   .cookbook-row-actions { grid-column: 1 / -1; justify-content: flex-start; }
   .cookbook-row { grid-template-columns: 1fr; }
 }
+.cookbook-photo { margin: 0 0 16px; padding: 14px; border: 1px solid rgba(35, 47, 56, 0.18); display: grid; gap: 10px; justify-items: start; }
+.cookbook-photo > span { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #4a5763; }
+.cookbook-photo img { width: 100%; max-width: 320px; height: auto; border: 1px solid rgba(35, 47, 56, 0.12); }
+.cookbook-photo small { color: #4a5763; font-size: 13px; }
+.cookbook-photo-pick { display: inline-block; margin: 0; padding: 10px 16px; border: 1px solid rgba(35, 47, 56, 0.3); background: #fff; font-size: 14px; letter-spacing: normal; text-transform: none; cursor: pointer; }
+.cookbook-photo-pick input { display: none; }

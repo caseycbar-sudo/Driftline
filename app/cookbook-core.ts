@@ -59,7 +59,9 @@ export function parseRecipePatch(body: Record<string, unknown>, { full = false }
   if (has("image")) {
     const image = text(body.image, 200);
     // Only pictures already on the site: no linking to somewhere else.
-    if (image && !/^\/(cookbook|gallery)\/[\w/-]+\.webp$/.test(image)) return { ok: false, error: "Pick one of the site's photos." };
+    const onSite = /^\/(cookbook|gallery)\/[\w/-]+\.webp$/.test(image);
+    const uploaded = /^\/api\/dish-photo\/[\w-]+\.(webp|jpg|jpeg|png)$/i.test(image);
+    if (image && !onSite && !uploaded) return { ok: false, error: "Use a photo from the site or one you uploaded." };
     patch.image = image;
   }
   if (full) {

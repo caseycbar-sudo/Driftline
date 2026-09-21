@@ -62,6 +62,7 @@ export default function CookbookManager() {
   const [editing, setEditing] = useState<Partial<Dish> | null>(null);
   const [message, setMessage] = useState("");
   const [busy, setBusy] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   const load = useCallback(() => {
     fetch("/api/admin/recipes", { cache: "no-store" })
@@ -93,6 +94,30 @@ export default function CookbookManager() {
     setMessage(done);
     load();
     return true;
+  }
+
+  /**
+   * Casey photographs the dish on his phone. Those files are huge, so the picture is
+   * shrunk in the browser before it goes up; the site never needs more than 1400px.
+   */
+  async function uploadPhoto(file: File) {
+    setUploading(true);
+    setMessage("");
+    try {
+      const shrunk = await shrink(file);
+      const form = new FormData();
+      form.set("photo", shrunk, shrunk.name);
+      const response = await fetch("/api/admin/recipe-photo", { method: "POST", body: form });
+      const data = (await response.json().catch(() => ({}))) as { image?: string; error?: string };
+      if (!response.ok || !data.image) {
+        setMessage(data.error || "That photo didn't upload. Try again.");
+        return;
+      }
+      field("image", data.image);
+      setMessage("Photo ready. Save the dish to use it.");
+    } finally {
+      setUploading(false);
+    }
   }
 
   async function save(event: FormEvent) {
@@ -182,6 +207,24 @@ export default function CookbookManager() {
               Steps — one per line
               <textarea rows={8} value={listValue(editing.directions)} onChange={(e) => field("directions", e.target.value.split("\n"))} />
             </label>
+            <div className="cookbook-photo">
+              <span>Photo</span>
+              {editing.image ? <img src={editing.image} alt="" /> : <p className="owner-empty">No photo yet.</p>}
+              <label className="cookbook-photo-pick">
+                {uploading ? "Uploading…" : editing.image ? "Replace photo" : "Add a photo"}
+                <input
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  disabled={uploading}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    e.target.value = "";
+                    if (file) void uploadPhoto(file);
+                  }}
+                />
+              </label>
+              <small>Take it in daylight, from above or at a slight angle. Your photo replaces the stock one everywhere on the site.</small>
+            </div>
             <fieldset className="cookbook-allergens">
               <legend>Allergens</legend>
               {ALLERGENS.map((a) => (
@@ -273,4 +316,26 @@ export default function CookbookManager() {
       </div>
     </>
   );
+}
+
+/** Scale a phone photo down to something a web page should serve. */
+async function shrink(file: File): Promise<File> {
+  const MAX = 1400;
+  try {
+    const bitmap = await createImageBitmap(file);
+    const scale = Math.min(1, MAX / Math.max(bitmap.width, bitmap.height));
+    if (scale === 1 && file.size < 1_500_000) return file;
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.round(bitmap.width * scale);
+    canvas.height = Math.round(bitmap.height * scale);
+    const context = canvas.getContext("2d");
+    if (!context) return file;
+    context.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+    const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.85));
+    if (!blob) return file;
+    return new File([blob], "dish.jpg", { type: "image/jpeg" });
+  } catch {
+    // Older browser, or a format the canvas can't read: send the original.
+    return file;
+  }
 }

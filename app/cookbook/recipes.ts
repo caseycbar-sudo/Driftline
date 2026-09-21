@@ -293,9 +293,9 @@ export const recipes: Recipe[] = [
     "dietary": [],
     "image": "/cookbook/mp/chicken-and-wild-rice-soup.webp",
     "photoCredit": {
-      "author": "Anya Dunes",
+      "author": "ahmed kh. jami",
       "source": "Pexels",
-      "page": "https://www.pexels.com/photo/delicious-chicken-rice-porridge-with-eggs-33171278/"
+      "page": "https://www.pexels.com/photo/delicious-creamy-chicken-and-mushroom-soup-28896610/"
     },
     "ingredients": [
       "2 cups wild rice, rinsed",
@@ -690,9 +690,9 @@ export const recipes: Recipe[] = [
     ],
     "image": "/cookbook/mp/braised-beef-rag-over-creamy-polenta.webp",
     "photoCredit": {
-      "author": "Shameel mukkath",
+      "author": "Costin Cerednicenco",
       "source": "Pexels",
-      "page": "https://www.pexels.com/photo/close-up-of-meat-dish-on-plate-5638533/"
+      "page": "https://www.pexels.com/photo/delicious-romanian-dish-with-polenta-and-beef-29716503/"
     },
     "ingredients": [
       "7 lb boneless beef chuck roast, trimmed and cut into 3-inch chunks",
@@ -1248,9 +1248,9 @@ export const recipes: Recipe[] = [
     ],
     "image": "/cookbook/mp/miso-glazed-salmon-with-sesame-greens-and-rice.webp",
     "photoCredit": {
-      "author": "Julias Torten und Törtchen",
+      "author": "Kantharos Sangsuwan",
       "source": "Pexels",
-      "page": "https://www.pexels.com/photo/japanese-food-with-salmon-on-a-green-ceramic-plate-15881378/"
+      "page": "https://www.pexels.com/photo/close-up-of-food-in-a-pan-7531245/"
     },
     "ingredients": [
       "12 skinless salmon fillets (5 oz each)",
