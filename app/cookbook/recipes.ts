@@ -444,9 +444,9 @@ export const recipes: Recipe[] = [
     "dietary": [],
     "image": "/cookbook/mp/turkey-meatballs-in-marinara-with-penne-and-zucchini.webp",
     "photoCredit": {
-      "author": "Ali Nafezarefi",
+      "author": "Anh Nguyen",
       "source": "Pexels",
-      "page": "https://www.pexels.com/photo/fettuccine-with-meatballs-and-parmesan-cheese-4161714/"
+      "page": "https://www.pexels.com/photo/cozy-italian-dinner-with-pasta-and-meatballs-30323136/"
     },
     "ingredients": [
       "1½ cups panko bread crumbs",
@@ -611,9 +611,9 @@ export const recipes: Recipe[] = [
     "dietary": [],
     "image": "/cookbook/mp/chicken-pot-pie-with-biscuit-topping.webp",
     "photoCredit": {
-      "author": "Jessica Kantak Bailey",
+      "author": "Elijah Crouch",
       "source": "Unsplash",
-      "page": "https://unsplash.com/photos/white-ceramic-bowl-with-white-cream-eBjjnr5pwE0"
+      "page": "https://unsplash.com/photos/NcsdLcklhMQ"
     },
     "ingredients": [
       "5 lb boneless skinless chicken thighs, trimmed",
@@ -1083,9 +1083,9 @@ export const recipes: Recipe[] = [
     "dietary": [],
     "image": "/cookbook/mp/lamb-shepherd-s-pie.webp",
     "photoCredit": {
-      "author": "Edita Brus",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/close-up-of-grilled-mashed-potato-topping-36040894/"
+      "author": "The Fry Family Food Co.",
+      "source": "Unsplash",
+      "page": "https://unsplash.com/photos/a-casserole-dish-on-a-plate-with-a-fork-next-to-it-LHr6EN-B8NQ"
     },
     "ingredients": [
       "5 lb ground lamb",
@@ -1164,9 +1164,9 @@ export const recipes: Recipe[] = [
     "dietary": [],
     "image": "/cookbook/mp/coastal-salmon-cakes-with-lemon-dill-sauce-and-brown-rice.webp",
     "photoCredit": {
-      "author": "Nadin Sh",
+      "author": "Valeria Boltneva",
       "source": "Pexels",
-      "page": "https://www.pexels.com/photo/top-view-of-a-dish-with-mashed-potato-and-meat-25315521/"
+      "page": "https://www.pexels.com/photo/crab-cakes-with-salad-20184712/"
     },
     "ingredients": [
       "4½ lb skinless salmon fillets, pin bones removed, cut into 1-inch pieces",
@@ -1325,9 +1325,9 @@ export const recipes: Recipe[] = [
     ],
     "image": "/cookbook/mp/pacific-cod-in-tomato-olive-and-caper-sauce-with-quinoa.webp",
     "photoCredit": {
-      "author": "José Antonio Otegui Auzmendi",
+      "author": "Nadin Sh",
       "source": "Pexels",
-      "page": "https://www.pexels.com/photo/grilled-white-fish-with-sun-dried-tomatoes-on-rustic-plate-31372391/"
+      "page": "https://www.pexels.com/photo/meal-in-bowl-20081526/"
     },
     "ingredients": [
       "5 lb skinless Pacific cod fillets, cut into 12 portions",
@@ -1800,9 +1800,9 @@ export const recipes: Recipe[] = [
     ],
     "image": "/cookbook/mp/red-lentil-coconut-dal-with-spinach-and-basmati-rice.webp",
     "photoCredit": {
-      "author": "Kunal Lakhotia",
+      "author": "Nic Wood",
       "source": "Pexels",
-      "page": "https://www.pexels.com/photo/delicious-indian-dal-and-rice-with-herbs-28674708/"
+      "page": "https://www.pexels.com/photo/vegan-lentil-dhal-28286241/"
     },
     "ingredients": [
       "4 cups basmati rice",
@@ -2295,9 +2295,9 @@ export const recipes: Recipe[] = [
     ],
     "image": "/cookbook/mp/tofu-and-vegetable-stir-fry-with-peanut-sauce.webp",
     "photoCredit": {
-      "author": "Polina Tankilevitch",
+      "author": "Alesia Kozik",
       "source": "Pexels",
-      "page": "https://www.pexels.com/photo/stir-fry-vegetables-and-tofu-on-a-ceramic-plate-5848482/"
+      "page": "https://www.pexels.com/photo/cooked-food-on-the-table-6120248/"
     },
     "ingredients": [
       "5 packages (14 oz each) extra-firm tofu, drained",
@@ -2604,7 +2604,7 @@ export const recipes: Recipe[] = [
     "photoCredit": {
       "author": "Valeria Boltneva",
       "source": "Pexels",
-      "page": "https://www.pexels.com/photo/delicious-smoked-salmon-dip-with-toasted-bread-29692605/"
+      "page": "https://www.pexels.com/photo/delicious-salmon-spread-with-pickles-and-bread-29692601/"
     },
     "ingredients": [
       "2 cups water",
@@ -2679,9 +2679,9 @@ export const recipes: Recipe[] = [
     ],
     "image": "/cookbook/pc/wild-mushroom-toast-with-thyme-and-aged-gouda.webp",
     "photoCredit": {
-      "author": "Sadia Alam",
-      "source": "Unsplash",
-      "page": "https://unsplash.com/photos/sauteed-mushrooms-with-garlic-and-toast-bEgpca34KYk"
+      "author": "Nadin Sh",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/a-plate-with-a-sandwich-on-it-with-some-greens-27298482/"
     },
     "ingredients": [
       "1½ lb mixed wild mushrooms, such as chanterelles, maitake and oyster, cleaned and torn into bite-size pieces",
@@ -2894,9 +2894,9 @@ export const recipes: Recipe[] = [
     ],
     "image": "/cookbook/pc/roasted-beet-and-citrus-salad-with-goat-cheese-and-hazelnuts.webp",
     "photoCredit": {
-      "author": "Valeria Boltneva",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/a-salad-with-beets-nuts-and-goat-cheese-27969815/"
+      "author": "Nathan Dumlao",
+      "source": "Unsplash",
+      "page": "https://unsplash.com/photos/cooked-food-on-round-plate-xW3Etxypl5M"
     },
     "ingredients": [
       "1 lb small red beets, scrubbed and trimmed",
