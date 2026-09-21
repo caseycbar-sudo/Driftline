@@ -58,11 +58,11 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Dairy-free"
     ],
-    "image": "/cookbook/mp/lemon-herb-chicken-thighs-with-orzo-and-green-beans.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Gozde Z",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/delicious-homemade-chicken-orzo-dish-38163945/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "6 lb boneless skinless chicken thighs, trimmed",
@@ -135,9 +135,9 @@ export const recipes: Recipe[] = [
     ],
     "image": "/cookbook/mp/chicken-tikka-masala-with-basmati-rice.webp",
     "photoCredit": {
-      "author": "Jack Baghel",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/traditional-indian-dish-on-a-grey-table-with-spices-20446401/"
+      "author": "gabbiistudios",
+      "source": "Unsplash",
+      "page": "https://unsplash.com/photos/chicken-tikka-masala-dinner-plate-7ZGOtqVZtAk"
     },
     "ingredients": [
       "6 lb boneless skinless chicken thighs, trimmed and cut into 1½-inch pieces",
@@ -218,9 +218,9 @@ export const recipes: Recipe[] = [
     ],
     "image": "/cookbook/mp/honey-garlic-chicken-with-broccoli-and-jasmine-rice.webp",
     "photoCredit": {
-      "author": "Keegan Evans",
+      "author": "ROMAN ODINTSOV",
       "source": "Pexels",
-      "page": "https://www.pexels.com/photo/white-rice-chicken-and-broccoli-on-black-non-stick-pan-105588/"
+      "page": "https://www.pexels.com/photo/meal-in-a-restaurant-5836782/"
     },
     "ingredients": [
       "6 lb boneless skinless chicken thighs, trimmed and cut into 1½-inch pieces",
@@ -291,11 +291,11 @@ export const recipes: Recipe[] = [
       "Wheat"
     ],
     "dietary": [],
-    "image": "/cookbook/mp/chicken-and-wild-rice-soup.webp",
+    "image": "",
     "photoCredit": {
-      "author": "ahmed kh. jami",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/delicious-creamy-chicken-and-mushroom-soup-28896610/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "2 cups wild rice, rinsed",
@@ -366,11 +366,11 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Gluten-free"
     ],
-    "image": "/cookbook/mp/green-chile-chicken-enchiladas.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Willians Huerta",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/delicious-green-enchiladas-with-creamy-garnish-36429905/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "5 lb boneless skinless chicken thighs, trimmed",
@@ -442,11 +442,11 @@ export const recipes: Recipe[] = [
       "Wheat"
     ],
     "dietary": [],
-    "image": "/cookbook/mp/turkey-meatballs-in-marinara-with-penne-and-zucchini.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Anh Nguyen",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/cozy-italian-dinner-with-pasta-and-meatballs-30323136/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "1½ cups panko bread crumbs",
@@ -525,11 +525,11 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Gluten-free"
     ],
-    "image": "/cookbook/mp/greek-chicken-bowls-with-tzatziki-and-cucumber-tomato-salad.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Anthony Rahayel",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/delicious-greek-souvlaki-bowl-with-feta-38399749/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "6 lb boneless skinless chicken thighs, trimmed",
@@ -688,11 +688,11 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Gluten-free"
     ],
-    "image": "/cookbook/mp/braised-beef-rag-over-creamy-polenta.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Costin Cerednicenco",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/delicious-romanian-dish-with-polenta-and-beef-29716503/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "7 lb boneless beef chuck roast, trimmed and cut into 3-inch chunks",
@@ -769,9 +769,9 @@ export const recipes: Recipe[] = [
     ],
     "image": "/cookbook/mp/beef-and-bean-chili.webp",
     "photoCredit": {
-      "author": "Julias Torten und Törtchen",
+      "author": "Zak Chapman",
       "source": "Pexels",
-      "page": "https://www.pexels.com/photo/chili-con-carne-stew-15881322/"
+      "page": "https://www.pexels.com/photo/meat-dish-1618906/"
     },
     "ingredients": [
       "4 dried ancho chiles, stemmed and seeded",
@@ -848,11 +848,11 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Dairy-free"
     ],
-    "image": "/cookbook/mp/beef-bulgogi-bowls-with-rice-and-quick-pickles.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Luis Becerra Fotógrafo",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/top-view-of-a-bulgogi-beef-bowl-5774000/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "5 lb boneless top sirloin or chuck eye, trimmed of excess fat",
@@ -926,11 +926,11 @@ export const recipes: Recipe[] = [
       "Gluten-free",
       "Dairy-free"
     ],
-    "image": "/cookbook/mp/carnitas-burrito-bowls-with-cilantro-lime-rice-and-beans.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Nourishment DECODED",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/meal-in-bowl-10696501/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "8 lb boneless pork shoulder (Boston butt), cut into 2-inch chunks",
@@ -1008,11 +1008,11 @@ export const recipes: Recipe[] = [
       "Gluten-free",
       "Dairy-free"
     ],
-    "image": "/cookbook/mp/maple-dijon-pork-tenderloin-with-sweet-potatoes-and-sprouts.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Luca Volpe Productions",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/delicious-roast-dinner-with-vegetables-34991330/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "6¼ lb pork tenderloin (about 5 tenderloins), silver skin removed",
@@ -1081,11 +1081,11 @@ export const recipes: Recipe[] = [
       "Wheat"
     ],
     "dietary": [],
-    "image": "/cookbook/mp/lamb-shepherd-s-pie.webp",
+    "image": "",
     "photoCredit": {
-      "author": "The Fry Family Food Co.",
-      "source": "Unsplash",
-      "page": "https://unsplash.com/photos/a-casserole-dish-on-a-plate-with-a-fork-next-to-it-LHr6EN-B8NQ"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "5 lb ground lamb",
@@ -1162,11 +1162,11 @@ export const recipes: Recipe[] = [
       "Milk"
     ],
     "dietary": [],
-    "image": "/cookbook/mp/coastal-salmon-cakes-with-lemon-dill-sauce-and-brown-rice.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Valeria Boltneva",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/crab-cakes-with-salad-20184712/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "4½ lb skinless salmon fillets, pin bones removed, cut into 1-inch pieces",
@@ -1246,11 +1246,11 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Dairy-free"
     ],
-    "image": "/cookbook/mp/miso-glazed-salmon-with-sesame-greens-and-rice.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Kantharos Sangsuwan",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/close-up-of-food-in-a-pan-7531245/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "12 skinless salmon fillets (5 oz each)",
@@ -1323,11 +1323,11 @@ export const recipes: Recipe[] = [
       "Gluten-free",
       "Dairy-free"
     ],
-    "image": "/cookbook/mp/pacific-cod-in-tomato-olive-and-caper-sauce-with-quinoa.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Nadin Sh",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/meal-in-bowl-20081526/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "5 lb skinless Pacific cod fillets, cut into 12 portions",
@@ -1402,11 +1402,11 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Gluten-free"
     ],
-    "image": "/cookbook/mp/blackened-rockfish-taco-bowls-with-slaw-and-lime-crema.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Los Muertos Crew",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/close-up-photo-of-mouth-watering-tacos-8448322/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "5 lb skinless rockfish fillets, cut into 12 portions",
@@ -1491,11 +1491,11 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Dairy-free"
     ],
-    "image": "/cookbook/mp/garlic-shrimp-and-broccoli-stir-fry-with-brown-rice.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Jianqiang Liao",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/cooked-food-on-white-ceramic-plate-4402046/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "5 lb large shrimp (21/25 count), peeled and deveined",
@@ -1568,11 +1568,11 @@ export const recipes: Recipe[] = [
       "Gluten-free",
       "Dairy-free"
     ],
-    "image": "/cookbook/mp/lemon-pepper-rockfish-with-herbed-potatoes-and-green-beans.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Rachel Claire",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/photo-of-dish-with-fish-and-green-beans-8112951/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "5 lb skinless rockfish fillets, cut into 12 portions",
@@ -1645,11 +1645,11 @@ export const recipes: Recipe[] = [
       "Gluten-free",
       "Dairy-free"
     ],
-    "image": "/cookbook/mp/northwest-seafood-stew-with-cod-shrimp-and-clams.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Rudi Kessler",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/soup-with-seafood-on-plate-23627792/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "⅓ cup extra-virgin olive oil",
@@ -1722,11 +1722,11 @@ export const recipes: Recipe[] = [
       "Gluten-free",
       "Dairy-free"
     ],
-    "image": "/cookbook/mp/thai-red-curry-with-shrimp-and-vegetables-over-jasmine-rice.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Stepan Vrany",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/soup-with-shrimps-17669664/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "4 cups jasmine rice",
@@ -1798,11 +1798,11 @@ export const recipes: Recipe[] = [
       "Vegetarian",
       "Vegan"
     ],
-    "image": "/cookbook/mp/red-lentil-coconut-dal-with-spinach-and-basmati-rice.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Nic Wood",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/vegan-lentil-dhal-28286241/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "4 cups basmati rice",
@@ -1878,11 +1878,11 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Vegetarian"
     ],
-    "image": "/cookbook/mp/mushroom-and-lentil-shepherd-s-pie.webp",
+    "image": "",
     "photoCredit": {
-      "author": "The Fry Family Food Co.",
-      "source": "Unsplash",
-      "page": "https://unsplash.com/photos/a-casserole-dish-on-a-plate-with-a-fork-next-to-it-LHr6EN-B8NQ"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "1 lb brown lentils, picked over and rinsed",
@@ -1962,11 +1962,11 @@ export const recipes: Recipe[] = [
       "Gluten-free",
       "Vegetarian"
     ],
-    "image": "/cookbook/mp/black-bean-and-sweet-potato-enchiladas.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Zehra Yılmaz",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/delicious-baked-enchiladas-with-cheese-topping-35081817/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "3 lb sweet potatoes, peeled and cut into ½-inch dice",
@@ -2048,11 +2048,11 @@ export const recipes: Recipe[] = [
       "Vegetarian",
       "Vegan"
     ],
-    "image": "/cookbook/mp/chickpea-and-vegetable-tagine-with-couscous.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Abdellatif Jellab",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/traditional-moroccan-vegetable-tagine-36984667/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "¼ cup olive oil",
@@ -2132,11 +2132,11 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Vegetarian"
     ],
-    "image": "/cookbook/mp/baked-ziti-with-ricotta-and-spinach.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Hilal Diken",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/baked-cheesy-pasta-with-fresh-parsley-38103947/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "¼ cup extra-virgin olive oil",
@@ -2210,11 +2210,11 @@ export const recipes: Recipe[] = [
       "Vegetarian",
       "Vegan"
     ],
-    "image": "/cookbook/mp/vegetable-minestrone-with-white-beans.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Nathan Dumlao",
-      "source": "Unsplash",
-      "page": "https://unsplash.com/photos/soup-in-white-ceramic-bowl-5eROVOJW2bA"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "¼ cup extra-virgin olive oil, plus more for finishing",
@@ -2293,11 +2293,11 @@ export const recipes: Recipe[] = [
       "Vegetarian",
       "Vegan"
     ],
-    "image": "/cookbook/mp/tofu-and-vegetable-stir-fry-with-peanut-sauce.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Alesia Kozik",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/cooked-food-on-the-table-6120248/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "5 packages (14 oz each) extra-firm tofu, drained",
@@ -2375,11 +2375,11 @@ export const recipes: Recipe[] = [
       "Gluten-free",
       "Vegetarian"
     ],
-    "image": "/cookbook/mp/stuffed-peppers-with-quinoa-black-beans-and-corn.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Lena Ti",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/delicious-stuffed-bell-peppers-in-white-bowl-39206896/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "12 large bell peppers, mixed colors",
@@ -2453,11 +2453,11 @@ export const recipes: Recipe[] = [
       "Milk"
     ],
     "dietary": [],
-    "image": "/cookbook/pc/dungeness-crab-cakes-with-meyer-lemon-aioli.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Shameel mukkath",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/a-tray-of-crab-cakes-with-lemon-and-herbs-17321095/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "1½ lb Dungeness crab meat, picked over for shell and gently squeezed dry",
@@ -2600,11 +2600,11 @@ export const recipes: Recipe[] = [
       "Wheat"
     ],
     "dietary": [],
-    "image": "/cookbook/pc/smoked-salmon-rillettes-with-grilled-bread.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Valeria Boltneva",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/delicious-salmon-spread-with-pickles-and-bread-29692601/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "2 cups water",
@@ -2679,9 +2679,9 @@ export const recipes: Recipe[] = [
     ],
     "image": "/cookbook/pc/wild-mushroom-toast-with-thyme-and-aged-gouda.webp",
     "photoCredit": {
-      "author": "Nadin Sh",
+      "author": "Valeria Boltneva",
       "source": "Pexels",
-      "page": "https://www.pexels.com/photo/a-plate-with-a-sandwich-on-it-with-some-greens-27298482/"
+      "page": "https://www.pexels.com/photo/a-plate-with-a-piece-of-meat-and-mushrooms-on-it-28292004/"
     },
     "ingredients": [
       "1½ lb mixed wild mushrooms, such as chanterelles, maitake and oyster, cleaned and torn into bite-size pieces",
@@ -2818,11 +2818,11 @@ export const recipes: Recipe[] = [
       "Vegetarian",
       "Gluten-free"
     ],
-    "image": "/cookbook/pc/roasted-butternut-squash-soup-with-brown-butter.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Monika Borys",
-      "source": "Unsplash",
-      "page": "https://unsplash.com/photos/a-bowl-of-soup-with-pumpkins-and-other-autumn-foods-81B2H64Ff54"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "1 large butternut squash (about 3½ lb), peeled, seeded and cut into 1-inch chunks",
@@ -2892,11 +2892,11 @@ export const recipes: Recipe[] = [
       "Vegetarian",
       "Gluten-free"
     ],
-    "image": "/cookbook/pc/roasted-beet-and-citrus-salad-with-goat-cheese-and-hazelnuts.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Nathan Dumlao",
-      "source": "Unsplash",
-      "page": "https://unsplash.com/photos/cooked-food-on-round-plate-xW3Etxypl5M"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "1 lb small red beets, scrubbed and trimmed",
@@ -2969,9 +2969,9 @@ export const recipes: Recipe[] = [
     "dietary": [],
     "image": "/cookbook/pc/little-gem-caesar-with-anchovy-dressing-and-garlic-croutons.webp",
     "photoCredit": {
-      "author": "Zain Alabdeen Hammoudi",
+      "author": "damla selen demir",
       "source": "Pexels",
-      "page": "https://www.pexels.com/photo/delicious-caesar-salad-with-croutons-and-parmesan-36405551/"
+      "page": "https://www.pexels.com/photo/fresh-caesar-salad-with-parmesan-cheese-33158331/"
     },
     "ingredients": [
       "6 oz day-old ciabatta, torn into ¾-inch pieces",
@@ -3041,11 +3041,11 @@ export const recipes: Recipe[] = [
       "Vegetarian",
       "Gluten-free"
     ],
-    "image": "/cookbook/pc/pear-arugula-and-blue-cheese-salad-with-candied-walnuts.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Aleksandar Ljubicic",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/close-up-of-a-salad-4809145/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "1 cup walnut halves",
@@ -3340,11 +3340,11 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Gluten-free"
     ],
-    "image": "/cookbook/pc/pan-roasted-halibut-with-chanterelles-and-brown-butter.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Nadin Sh",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/photo-of-foie-gras-16064369/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "6 fillets skinless Pacific halibut (6 oz each, about 1 inch thick)",
@@ -3409,11 +3409,11 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Gluten-free"
     ],
-    "image": "/cookbook/pc/hazelnut-crusted-rack-of-lamb-with-pinot-noir-reduction.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Hans Westbeek",
-      "source": "Unsplash",
-      "page": "https://unsplash.com/photos/rack-of-lamb-with-roasted-vegetables-and-sauce-449qWYYxEdo"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "3 frenched racks of lamb (8 bones each, about 1½ lb each), fat trimmed to ⅛ inch",
@@ -3482,11 +3482,11 @@ export const recipes: Recipe[] = [
       "Gluten-free",
       "Vegetarian"
     ],
-    "image": "/cookbook/pc/wild-mushroom-risotto-with-parmesan-and-thyme.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Corryn Burtenshaw",
-      "source": "Unsplash",
-      "page": "https://unsplash.com/photos/a-bowl-of-rice-with-mushrooms-and-parsley-MT_aSIwT-wU"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "½ oz dried porcini mushrooms",
@@ -3551,11 +3551,11 @@ export const recipes: Recipe[] = [
       "Gluten-free",
       "Dairy-free"
     ],
-    "image": "/cookbook/pc/crispy-smashed-potatoes-with-garlic-and-herbs.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Kübra Doğu",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/baked-potatoes-on-top-of-a-brown-paper-8755969/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "2½ lb small Yukon Gold potatoes (about 1½ inches wide), scrubbed",
@@ -3618,11 +3618,11 @@ export const recipes: Recipe[] = [
       "Vegetarian",
       "Vegan"
     ],
-    "image": "/cookbook/pc/charred-broccolini-with-lemon-and-chili.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Kuiyibo Campos",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/a-plate-topped-with-broccoli-and-other-vegetables-27434921/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "3 bunches broccolini, ends trimmed and thick stems halved lengthwise",
@@ -3680,11 +3680,11 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Vegetarian"
     ],
-    "image": "/cookbook/pc/marionberry-cobbler-with-vanilla-bean-whipped-cream.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Enrique Briseno",
-      "source": "Unsplash",
-      "page": "https://unsplash.com/photos/a-casserole-dish-with-blueberries-in-it-ugwOrAT2dbE"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "1½ lb marionberries, fresh or frozen (do not thaw)",
@@ -3825,9 +3825,9 @@ export const recipes: Recipe[] = [
     ],
     "image": "/cookbook/pc/meyer-lemon-panna-cotta-with-berry-compote.webp",
     "photoCredit": {
-      "author": "Jp Valery",
+      "author": "Mateus Campos Felipe",
       "source": "Unsplash",
-      "page": "https://unsplash.com/photos/dessert-with-strawberry-g-ubP7FnoQM"
+      "page": "https://unsplash.com/photos/three-clear-short-stem-wine-glasses-on-black-surface--XazBwHUtJs"
     },
     "ingredients": [
       "¼ cup cold whole milk (for blooming)",

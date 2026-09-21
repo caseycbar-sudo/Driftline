@@ -53,7 +53,7 @@ test("dishes Casey adds show up, with defaults filled in", () => {
   const added = merged.find((r) => r.id === 900);
   assert.equal(added.side, "private-chef");
   assert.equal(added.servings, 6);
-  assert.ok(added.image, "a card still has a picture");
+  assert.equal(added.image, "", "no photo until Casey uploads one (the site shows a placeholder card)");
   assert.equal(merged.length, 3);
 });
 
@@ -88,4 +88,11 @@ test("what gets saved is checked and tidied", () => {
 test("a new dish keeps the storage note customers rely on", () => {
   const dish = customRecipe(900, "meal-prep", { title: "Test" });
   assert.match(dish.storage, /40°F/);
+});
+
+test("Casey's own uploaded photo takes his credit, not the stock photographer's", () => {
+  const rows = [{ recipeId: 1, side: "meal-prep", payload: JSON.stringify({ image: "/api/dish-photo/abc.jpg" }), hidden: 0, custom: 0 }];
+  const dish = applyOverrides(base, rows).find((r) => r.id === 1);
+  assert.equal(dish.image, "/api/dish-photo/abc.jpg");
+  assert.equal(dish.photoCredit.source, "Driftline");
 });

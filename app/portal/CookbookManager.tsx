@@ -3,6 +3,7 @@
 import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 import "./OwnerTools.css";
 import { ALLERGENS } from "../cookbook-core";
+import DishPhoto from "../DishPhoto";
 
 type Dish = {
   id: number;
@@ -282,7 +283,7 @@ export default function CookbookManager() {
           <ul className="cookbook-list">
             {shown.map((dish) => (
               <li key={dish.id} className={dish.hidden ? "is-hidden" : ""}>
-                <img src={dish.image} alt="" loading="lazy" />
+                <DishPhoto src={dish.image} alt={dish.title} loading="lazy" />
                 <div>
                   <strong>{dish.title}</strong>
                   <span>

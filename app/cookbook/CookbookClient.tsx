@@ -8,6 +8,7 @@ import SiteHeader from "../SiteHeader";
 import SiteFooter from "../SiteFooter";
 import "../home.css";
 import { smallImage } from "../site-config";
+import DishPhoto from "../DishPhoto";
 
 const signInHere = () => `/signin?return_to=${encodeURIComponent(window.location.pathname + window.location.search)}`;
 
@@ -255,7 +256,7 @@ export default function CookbookClient({ recipes }: { recipes: Recipe[] }) {
               >
                 {saved.includes(r.id) ? "✓" : "+"}
               </button>
-              <img src={smallImage(r.image)} alt={r.title} loading={index < 4 ? "eager" : "lazy"} decoding="async" />
+              <DishPhoto src={r.image ? smallImage(r.image) : ""} alt={r.title} label={r.category} loading={index < 4 ? "eager" : "lazy"} />
               <div>
                 <small>{r.category}</small>
                 <h2>{r.title}</h2>
@@ -293,8 +294,8 @@ export default function CookbookClient({ recipes }: { recipes: Recipe[] }) {
             ×
           </button>
           <div className="detail-photo">
-            <img src={selected.image} alt={selected.title} decoding="async" />
-            {credit.source === "Driftline" ? (
+            <DishPhoto src={selected.image} alt={selected.title} label={selected.category} />
+            {!selected.image ? null : credit.source === "Driftline" ? (
               <span>PHOTO BY CHEF CASEY</span>
             ) : (
               <span className="photo-credit">

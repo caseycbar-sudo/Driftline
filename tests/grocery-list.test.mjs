@@ -60,7 +60,9 @@ test("cookbook has both sides with the expected shape", () => {
     assert.equal(r.servings, r.side === "meal-prep" ? 12 : 6, r.title);
     assert.ok(r.directions.length >= 7, `${r.title}: needs real steps`);
     assert.ok(/\d{3}°F|advisory|raw/i.test(r.safety) || r.side === "private-chef", `${r.title}: safety temps`);
-    assert.ok(r.image.startsWith("/"), r.title);
+    // Either a local photo or none yet (the site shows a "photo coming soon" card).
+    assert.ok(r.image === "" || r.image.startsWith("/"), r.title);
+    if (r.image) assert.ok(r.photoCredit.author, `${r.title} has a photo credit`);
   }
 });
 

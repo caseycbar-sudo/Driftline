@@ -18,7 +18,7 @@ export const metadata: Metadata = pageMetadata(
 const occasions = ["Anniversaries", "Birthday dinners", "Vacation-home dining", "Elopements", "Family gatherings", "Just because"];
 
 const sampleMenus = [
-  { name: "The North Coast", detail: "Oysters on the half shell · pan-roasted halibut with chanterelles · marionberry cobbler", image: "/cookbook/pc/pan-roasted-halibut-with-chanterelles-and-brown-butter.webp" },
+  { name: "The North Coast", detail: "Oysters on the half shell · pan-roasted halibut with chanterelles · marionberry cobbler", image: "/gallery/salmon.webp" },
   { name: "The Hearth Table", detail: "Butternut squash soup with brown butter · braised short ribs with polenta · chocolate hazelnut torte", image: "/gallery/shortrib.webp" },
   { name: "Garden & Tide", detail: "Summer corn and tomato bruschetta · seared scallops with beurre blanc · Meyer lemon panna cotta", image: "/gallery/scallops.webp" },
 ];

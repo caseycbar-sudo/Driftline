@@ -12,6 +12,8 @@ import type { Allergen, CookbookSide, Recipe } from "./cookbook/recipes";
 /** Dishes Casey adds get ids from here up, well clear of the built-in ones. */
 export const CUSTOM_ID_START = 900;
 
+const CASEY_CREDIT = { author: "Chef Casey Barella", source: "Driftline", page: "" };
+
 /** The fields the owner can change. Photos, ids and slugs are not editable. */
 export const EDITABLE_TEXT = ["title", "category", "description", "yieldNote", "storage", "reheating", "makeAhead", "safety", "chefNotes"] as const;
 export const EDITABLE_LIST = ["tags", "dietary", "ingredients", "directions", "equipment"] as const;
@@ -97,8 +99,9 @@ export function customRecipe(id: number, side: CookbookSide, patch: RecipePatch)
     tags: patch.tags ?? [],
     allergens: patch.allergens ?? [],
     dietary: patch.dietary ?? [],
-    image: patch.image || "/gallery/dessert.webp",
-    photoCredit: { author: "Driftline Provisions", source: "", page: "" },
+    // No photo until Casey uploads one; the site shows a "photo coming soon" card.
+    image: patch.image || "",
+    photoCredit: patch.image ? CASEY_CREDIT : { author: "", source: "", page: "" },
     ingredients: patch.ingredients ?? [],
     directions: patch.directions ?? [],
     equipment: patch.equipment ?? [],
@@ -131,7 +134,14 @@ export function applyOverrides(base: Recipe[], rows: OverrideRow[]): Recipe[] {
     }
     if (row.hidden) continue;
     const patch = readPayload(row);
-    out.push({ ...recipe, ...patch, slug: patch.title ? slugify(patch.title) : recipe.slug });
+    const ownPhoto = patch.image && patch.image !== recipe.image;
+    out.push({
+      ...recipe,
+      ...patch,
+      slug: patch.title ? slugify(patch.title) : recipe.slug,
+      // A photo Casey uploads is his, so the stock photographer's credit goes with the old one.
+      photoCredit: ownPhoto ? CASEY_CREDIT : patch.image === "" ? { author: "", source: "", page: "" } : recipe.photoCredit,
+    });
   }
   for (const row of rows) {
     if (!row.custom || row.hidden) continue;

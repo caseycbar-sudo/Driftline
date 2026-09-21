@@ -10,14 +10,11 @@ import { smallImage } from "../site-config";
 type Package = { name: string; portions: number; price: number; note: string; featured?: boolean };
 
 const meals = [
-  { id: 1, title: "Lemon-Herb Chicken Thighs", detail: "Orzo · green beans", category: "Poultry", image: "/cookbook/mp/lemon-herb-chicken-thighs-with-orzo-and-green-beans.webp" },
+  // Featured here only when the photo honestly matches the recipe.
   { id: 2, title: "Chicken Tikka Masala", detail: "Basmati rice", category: "Poultry", image: "/cookbook/mp/chicken-tikka-masala-with-basmati-rice.webp" },
-  { id: 9, title: "Braised Beef Ragù", detail: "Creamy polenta", category: "Beef, Pork & Lamb", image: "/cookbook/mp/braised-beef-rag-over-creamy-polenta.webp" },
+  { id: 3, title: "Honey-Garlic Chicken", detail: "Broccoli · jasmine rice", category: "Poultry", image: "/cookbook/mp/honey-garlic-chicken-with-broccoli-and-jasmine-rice.webp" },
+  { id: 8, title: "Chicken Pot Pie", detail: "Buttermilk biscuit topping", category: "Poultry", image: "/cookbook/mp/chicken-pot-pie-with-biscuit-topping.webp" },
   { id: 10, title: "Beef and Bean Chili", detail: "Slow-simmered, freezer-friendly", category: "Beef, Pork & Lamb", image: "/cookbook/mp/beef-and-bean-chili.webp" },
-  { id: 15, title: "Coastal Salmon Cakes", detail: "Lemon-dill sauce · brown rice", category: "Seafood", image: "/cookbook/mp/coastal-salmon-cakes-with-lemon-dill-sauce-and-brown-rice.webp" },
-  { id: 16, title: "Miso-Glazed Salmon", detail: "Sesame greens · rice", category: "Seafood", image: "/cookbook/mp/miso-glazed-salmon-with-sesame-greens-and-rice.webp" },
-  { id: 23, title: "Red Lentil Coconut Dal", detail: "Spinach · basmati rice", category: "Vegetarian", image: "/cookbook/mp/red-lentil-coconut-dal-with-spinach-and-basmati-rice.webp" },
-  { id: 24, title: "Mushroom and Lentil Shepherd's Pie", detail: "Red wine gravy · mashed potatoes", category: "Vegetarian", image: "/cookbook/mp/mushroom-and-lentil-shepherd-s-pie.webp" },
 ];
 
 function CheckIcon() {

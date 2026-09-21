@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 import { oregonToday } from "../oregon-time";
+import DishPhoto from "../DishPhoto";
 
 type EventItem = {
   id: number;
@@ -870,7 +871,7 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
                       }
                       onClick={() => toggleDish(recipe.title)}
                     >
-                      <img src={recipe.image} alt="" />
+                      <DishPhoto src={recipe.image} alt={recipe.title} />
                       <span>
                         <strong>{recipe.title}</strong>
                         <small>
