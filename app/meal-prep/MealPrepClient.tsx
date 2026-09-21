@@ -6,6 +6,7 @@ import SiteFooter from "../SiteFooter";
 import "../home.css";
 import { submitInquiry } from "../submit-inquiry";
 import { smallImage } from "../site-config";
+import { packageAllowance } from "../visit-plan";
 
 type Package = { name: string; portions: number; price: number; note: string; featured?: boolean };
 
@@ -263,7 +264,7 @@ export default function Home({ packages }: { packages: Package[] }) {
         <div className="menu-heading">
           <div>
             <p className="eyebrow light">
-              <span /> 41 recipes to explore
+              <span /> 48 recipes to explore
             </p>
             <h2>
               More choice for every
@@ -272,7 +273,7 @@ export default function Home({ packages }: { packages: Package[] }) {
             </h2>
           </div>
           <p>
-            Browse poultry, beef and pork, seafood, and vegetarian dishes. Save
+            Browse poultry, beef and pork, seafood, vegetarian dishes and desserts. Save
             favorites to your account or share a family recipe of your own.
           </p>
         </div>
@@ -292,7 +293,7 @@ export default function Home({ packages }: { packages: Package[] }) {
         </div>
         <div className="menu-actions">
           <a href="/cookbook">
-            Browse all 41 recipes <span>→</span>
+            Browse all 48 recipes <span>→</span>
           </a>
           <p>
             Allergy-aware planning <span>·</span> Portion calculator{" "}
@@ -309,7 +310,9 @@ export default function Home({ packages }: { packages: Package[] }) {
           <h2>Choose the right amount for your week.</h2>
           <p>
             Service includes planning, cooking, portioning, labeling, and
-            cleanup. Groceries are charged separately at actual cost.
+            cleanup. Groceries are charged separately at actual cost. Portions
+            are split across your entrées, and each visit fits one big-project
+            dish so your chef is in and out in about three hours.
           </p>
         </div>
         <div className="package-grid">
@@ -332,6 +335,7 @@ export default function Home({ packages }: { packages: Package[] }) {
               <span className="price">
                 <b>${item.price}</b> / visit
               </span>
+              <p className="package-dishes">{packageAllowance(item.portions)}</p>
               <p>{item.note}</p>
             </button>
           ))}
@@ -342,6 +346,7 @@ export default function Home({ packages }: { packages: Package[] }) {
             <strong>
               {current.name} · {current.portions} portions
             </strong>
+            <small>{packageAllowance(current.portions)}</small>
           </span>
           <span className="selection-price">
             <strong>${current.price}</strong>

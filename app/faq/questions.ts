@@ -66,6 +66,11 @@ export const QUESTION_GROUPS: QuestionGroup[] = [
         link: { href: "/cookbook", label: "Browse the cookbook" },
       },
       {
+        q: "How many different dishes can I pick?",
+        a: "It depends on your package: 2 entrées for 6 or 8 portions, 3 for 12, and 4 for 16 or more, plus one dessert if you'd like. Your portions are split across those entrées. A visit can include one big-project dish (like lasagna or meatballs) so your chef can finish in about three hours and your kitchen isn't taken over all day.",
+        link: { href: "/cookbook", label: "Browse the cookbook" },
+      },
+      {
         q: "Can I request my own family recipes?",
         a: "Yes. Add a family favorite from your account and we'll work it into your rotation.",
       },

@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 export async function GET() {
   const recipes = await getCookbook();
   return NextResponse.json(
-    { recipes: recipes.map((r) => ({ id: r.id, title: r.title, side: r.side, category: r.category, servings: r.servings, total: r.total, image: r.image })) },
+    { recipes: recipes.map((r) => ({ id: r.id, title: r.title, side: r.side, category: r.category, servings: r.servings, active: r.active, total: r.total, image: r.image })) },
     { headers: { "cache-control": "no-store" } },
   );
 }

@@ -1,4 +1,5 @@
 "use client";
+import { effortOf, formatMinutes, planVisit } from "../visit-plan";
 import { useEffect, useMemo, useState } from "react";
 
 import { oregonToday } from "../oregon-time";
@@ -169,15 +170,25 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
       ...Array.from({ length: count }, (_, index) => index + 1),
     ];
   }, [month]);
-  const [recipes, setRecipes] = useState<{ id: number; title: string; side: string; category: string; total: number; image: string }[]>([]);
+  const [recipes, setRecipes] = useState<{ id: number; title: string; side: string; category: string; active?: number; total: number; image: string }[]>([]);
   // Dish names come from the API so edits made in the Cookbook tab show up here.
   useEffect(() => {
     fetch("/api/cookbook", { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : null))
-      .then((d: { recipes?: { id: number; title: string; side: string; category: string; total: number; image: string }[] } | null) => d?.recipes && setRecipes(d.recipes))
+      .then((d: { recipes?: { id: number; title: string; side: string; category: string; active?: number; total: number; image: string }[] } | null) => d?.recipes && setRecipes(d.recipes))
       .catch(() => {});
   }, []);
   const selected = events.filter((event) => event.serviceDate === selectedDate);
+  // How long this visit will take and whether it fits the package (meal prep only).
+  const visitPlan = useMemo(() => {
+    if (!editing || (editing.serviceType ?? "meal_prep") !== "meal_prep" || !editing.dishes.length) return null;
+    const portions = pricePackages.find((p) => p.name === editing.packageName)?.portions ?? 12;
+    const dishes = editing.dishes.map((title) => {
+      const r = recipes.find((x) => x.title.toLowerCase() === title.toLowerCase() && x.side === "meal-prep");
+      return r ? { title, category: r.category, active: r.active, total: r.total } : { title };
+    });
+    return planVisit(dishes, portions);
+  }, [editing, recipes, pricePackages]);
   const recipeMatches = useMemo(() => {
     const query = recipeSearch.trim().toLowerCase();
     return recipes
@@ -875,7 +886,7 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
                       <span>
                         <strong>{recipe.title}</strong>
                         <small>
-                          {recipe.category} · {recipe.total} min
+                          {recipe.category} · {recipe.side === "meal-prep" ? `${effortOf(recipe)} · ` : ""}{recipe.total} min
                         </small>
                       </span>
                       <b>{editing.dishes.includes(recipe.title) ? "✓" : "+"}</b>
@@ -883,6 +894,25 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
                   ))}
                 </div>
               </div>
+              {visitPlan ? (
+                <div className={`visit-plan visit-plan-${visitPlan.level}`} role="status">
+                  <strong>
+                    About {formatMinutes(visitPlan.minutes)} in the kitchen
+                    <span>{visitPlan.level === "good" ? "Fits a 3-hour visit" : visitPlan.level === "tight" ? "3 to 4 hours" : "Over 4 hours"}</span>
+                  </strong>
+                  <small>
+                    {visitPlan.entrees} of {visitPlan.maxEntrees} entrées · {visitPlan.bigProjects} of {visitPlan.maxBig} big project{visitPlan.maxBig === 1 ? "" : "s"} · {visitPlan.desserts} of 1 dessert
+                    {visitPlan.unknown.length ? ` · ${visitPlan.unknown.length} typed-in dish${visitPlan.unknown.length === 1 ? "" : "es"} estimated` : ""}
+                  </small>
+                  {visitPlan.warnings.length ? (
+                    <ul>
+                      {visitPlan.warnings.map((w) => (
+                        <li key={w}>{w}</li>
+                      ))}
+                    </ul>
+                  ) : null}
+                </div>
+              ) : null}
               <label>
                 Dishes for this visit
                 <textarea

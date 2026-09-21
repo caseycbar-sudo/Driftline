@@ -31,7 +31,7 @@ export type Recipe = {
 };
 
 export const SIDES: Record<CookbookSide, { label: string; categories: string[]; unit: string; min: number; max: number; step: number }> = {
-  "meal-prep": { label: "Meal Prep", categories: ["Poultry", "Beef, Pork & Lamb", "Seafood", "Vegetarian"], unit: "portions", min: 6, max: 24, step: 2 },
+  "meal-prep": { label: "Meal Prep", categories: ["Poultry", "Beef, Pork & Lamb", "Seafood", "Vegetarian", "Desserts"], unit: "portions", min: 6, max: 24, step: 2 },
   "private-chef": { label: "Private Chef", categories: ["Starters", "Soups & Salads", "Mains", "Sides", "Desserts"], unit: "guests", min: 2, max: 20, step: 1 },
 };
 
@@ -3271,6 +3271,504 @@ export const recipes: Recipe[] = [
     "makeAhead": "",
     "safety": "Cool the cooked rice and lentils to 70°F within 2 hours and refrigerate at 40°F or below. Wash the vegetables well since they are eaten raw.",
     "chefNotes": "Black rice holds its chew for days and makes the bowl look stunning. Pack it stripe by stripe in glass containers; it sells itself in the fridge. Costco carries black rice and big bags of frozen corn. Salt amounts assume Diamond Crystal kosher salt; with Morton, use a little over half."
+  },
+  {
+    "id": 42,
+    "slug": "classic-glazed-meatloaf-with-mashed-potatoes-and-green-beans",
+    "side": "meal-prep",
+    "title": "Classic Glazed Meatloaf with Mashed Potatoes and Green Beans",
+    "category": "Beef, Pork & Lamb",
+    "description": "Old-school beef meatloaf with a tangy brown-sugar ketchup glaze, thick-sliced over buttery mashed potatoes with tender green beans. The one everybody asks for.",
+    "servings": 12,
+    "yieldNote": "12 portions (2 thick slices of meatloaf, ¾ cup mashed potatoes and ¾ cup green beans each)",
+    "active": 45,
+    "total": 110,
+    "tags": [
+      "High protein",
+      "Kid-friendly",
+      "Comfort food",
+      "Freezer-friendly"
+    ],
+    "allergens": [
+      "Milk",
+      "Egg",
+      "Wheat"
+    ],
+    "dietary": [],
+    "image": "",
+    "photoCredit": {
+      "author": "",
+      "source": "",
+      "page": ""
+    },
+    "ingredients": [
+      "5 lb 85% lean ground beef",
+      "2 cups plain dry breadcrumbs (for the meatloaf)",
+      "1 cup whole milk (for the meatloaf)",
+      "4 large eggs",
+      "2 medium yellow onions, finely grated",
+      "6 cloves garlic, minced",
+      "3 tbsp Worcestershire sauce",
+      "2 tbsp Dijon mustard (for the meatloaf)",
+      "1 tbsp dried parsley",
+      "2 tsp dried thyme",
+      "1 tbsp kosher salt (for the meatloaf)",
+      "2 tsp black pepper (for the meatloaf)",
+      "1½ cups ketchup (for the glaze)",
+      "½ cup packed light brown sugar (for the glaze)",
+      "3 tbsp apple cider vinegar (for the glaze)",
+      "1 tbsp Dijon mustard (for the glaze)",
+      "5 lb Yukon Gold potatoes, peeled and cut into 2-inch chunks",
+      "1 cup whole milk, warmed (for the potatoes)",
+      "6 tbsp unsalted butter",
+      "2 tsp kosher salt (for the potatoes)",
+      "3 lb green beans, trimmed",
+      "1 tbsp kosher salt (for the bean water)"
+    ],
+    "directions": [
+      "Heat the oven to 350°F and line two rimmed sheet pans with foil. Stir the breadcrumbs and milk together and let them soak 5 minutes.",
+      "Add the eggs, grated onion, garlic, Worcestershire, mustard, parsley, thyme, salt and pepper to the soaked crumbs and mix well. Add the beef and mix gently with your hands just until even; overworking makes it tough.",
+      "Shape into two free-form loaves about 4 inches wide on the pans. Baking them free-form instead of in loaf pans lets the glaze caramelize on every side.",
+      "Whisk the ketchup, brown sugar, vinegar and mustard. Brush a third over the loaves and bake 40 minutes.",
+      "Brush on another third and bake 20 to 30 minutes more, until the center reads 160°F. Brush with the last of the glaze and rest 15 minutes before slicing, so the slices hold together.",
+      "While the meatloaf bakes, cover the potatoes with cold salted water, boil 15 to 18 minutes until very tender, drain and mash with the warm milk, butter and salt.",
+      "Boil the green beans in salted water 4 to 5 minutes, until tender but still bright, then drain and spread out to cool.",
+      "Cool everything uncovered in shallow layers until it drops to 70°F, within 2 hours. Slice the meatloaf about ¾ inch thick.",
+      "Pack 2 slices of meatloaf, ¾ cup mashed potatoes and ¾ cup green beans into each of 12 containers."
+    ],
+    "equipment": [
+      "2 rimmed sheet pans",
+      "Large mixing bowl",
+      "Pot for the potatoes",
+      "Potato masher",
+      "Large pot",
+      "Instant-read thermometer",
+      "12 meal-prep containers"
+    ],
+    "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Keeps 4 days. The meatloaf and potatoes freeze up to 3 months.",
+    "reheating": "Vent the lid and microwave 2½ to 3 minutes, stirring the potatoes halfway, until the meatloaf reaches 165°F. A spoon of water on the potatoes keeps them creamy.",
+    "makeAhead": "",
+    "safety": "Ground beef must reach 160°F in the center of the loaf. Reheat to 165°F. Contains milk, egg and wheat.",
+    "chefNotes": "Grating the onion instead of chopping keeps the loaf tender and stops it from crumbling when sliced. Two loaves on sheet pans bake faster and more evenly than one big one. Salt amounts assume Diamond Crystal kosher salt; with Morton, use a little over half."
+  },
+  {
+    "id": 43,
+    "slug": "beef-and-italian-sausage-meatballs-with-spaghetti-marinara",
+    "side": "meal-prep",
+    "title": "Beef and Italian Sausage Meatballs with Spaghetti Marinara",
+    "category": "Beef, Pork & Lamb",
+    "description": "Big, tender meatballs made with ground beef and Italian sausage, baked then simmered in a slow garlic-basil marinara, over spaghetti with Parmesan on the side.",
+    "servings": 12,
+    "yieldNote": "12 portions (3 large meatballs, 1 cup spaghetti and about ¾ cup sauce each)",
+    "active": 75,
+    "total": 120,
+    "tags": [
+      "High protein",
+      "Kid-friendly",
+      "Comfort food",
+      "Freezer-friendly"
+    ],
+    "allergens": [
+      "Milk",
+      "Egg",
+      "Wheat"
+    ],
+    "dietary": [],
+    "image": "",
+    "photoCredit": {
+      "author": "",
+      "source": "",
+      "page": ""
+    },
+    "ingredients": [
+      "3 lb 85% lean ground beef",
+      "2 lb mild Italian sausage, casings removed",
+      "1½ cups plain dry breadcrumbs",
+      "¾ cup whole milk",
+      "3 large eggs",
+      "1 cup finely grated Parmesan (for the meatballs)",
+      "½ cup chopped fresh parsley",
+      "6 cloves garlic, minced (for the meatballs)",
+      "2 tsp kosher salt (for the meatballs)",
+      "1 tsp black pepper",
+      "¼ cup olive oil (for the sauce)",
+      "1 large yellow onion, finely chopped",
+      "8 cloves garlic, thinly sliced (for the sauce)",
+      "½ tsp red pepper flakes",
+      "4 cans (28 oz each) crushed tomatoes",
+      "2 tsp dried oregano",
+      "2 tsp kosher salt (for the sauce), to taste",
+      "1 tsp sugar",
+      "1 cup fresh basil leaves, torn",
+      "2½ lb spaghetti",
+      "2 tbsp olive oil (for the pasta)",
+      "1 cup finely grated Parmesan (for serving), packed on the side"
+    ],
+    "directions": [
+      "Heat the oven to 425°F and oil two rimmed sheet pans. Soak the breadcrumbs in the milk for 5 minutes.",
+      "Add the eggs, Parmesan, parsley, garlic, salt and pepper to the crumbs and mix. Add the beef and sausage and mix gently with your hands just until even.",
+      "Roll into 36 meatballs about 2 inches across (a 3-tablespoon scoop) and set them on the pans. Bake 15 to 18 minutes, until browned; they finish cooking in the sauce.",
+      "Meanwhile, warm the olive oil in a large, wide pot over medium heat. Cook the onion 6 to 8 minutes until soft, add the garlic and pepper flakes for 1 minute, then the tomatoes, oregano, salt and sugar. Simmer 15 minutes.",
+      "Slide the meatballs and any pan juices into the sauce, cover partly and simmer gently 25 to 30 minutes, until the centers read 160°F. Stir in the basil.",
+      "Cook the spaghetti in well-salted boiling water 1 to 2 minutes short of the package time, so it stays firm after reheating. Drain, toss with the olive oil and spread on sheet pans to cool.",
+      "Cool the meatballs and sauce in shallow pans until they drop to 70°F, within 2 hours.",
+      "Twirl 1 cup spaghetti into each of 12 containers, set 3 meatballs beside it and spoon about ¾ cup sauce over the meatballs and pasta. Pack the Parmesan in small lidded cups."
+    ],
+    "equipment": [
+      "2 rimmed sheet pans",
+      "Large wide pot",
+      "Pasta pot",
+      "Colander",
+      "Shallow pans for cooling",
+      "Instant-read thermometer",
+      "12 meal-prep containers with small cups"
+    ],
+    "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Keeps 4 days. The meatballs and sauce freeze up to 3 months; the spaghetti is best fresh.",
+    "reheating": "Sprinkle a tablespoon of water over the pasta, vent the lid and microwave 3 minutes, turning the meatballs halfway, until they reach 165°F. Top with the Parmesan.",
+    "makeAhead": "",
+    "safety": "Meatballs made with ground beef and pork sausage must reach 160°F in the center. Cool sauce in shallow pans, never in the pot. Contains milk, egg and wheat. Reheat to 165°F.",
+    "chefNotes": "The sausage brings the fennel and seasoning, so the meatballs taste like a nonna made them with half the work. Baking before simmering means no standing at the stove frying 36 meatballs. Undercooked pasta is the secret to spaghetti that survives the microwave. Salt amounts assume Diamond Crystal kosher salt; with Morton, use a little over half."
+  },
+  {
+    "id": 44,
+    "slug": "spaghetti-with-beef-and-sausage-meat-sauce",
+    "side": "meal-prep",
+    "title": "Spaghetti with Beef and Sausage Meat Sauce",
+    "category": "Beef, Pork & Lamb",
+    "description": "A hearty, slow-simmered meat sauce of ground beef and Italian sausage with onion, garlic and a splash of red wine, over spaghetti with Parmesan on the side. The easy weeknight classic.",
+    "servings": 12,
+    "yieldNote": "12 portions (about 1 cup spaghetti and 1¼ cups meat sauce each)",
+    "active": 35,
+    "total": 80,
+    "tags": [
+      "High protein",
+      "Kid-friendly",
+      "Comfort food",
+      "Freezer-friendly",
+      "Budget-friendly"
+    ],
+    "allergens": [
+      "Milk",
+      "Wheat"
+    ],
+    "dietary": [],
+    "image": "",
+    "photoCredit": {
+      "author": "",
+      "source": "",
+      "page": ""
+    },
+    "ingredients": [
+      "3 lb 85% lean ground beef",
+      "1½ lb mild Italian sausage, casings removed",
+      "2 tbsp olive oil",
+      "2 medium yellow onions, finely chopped",
+      "2 carrots, finely grated",
+      "8 cloves garlic, minced",
+      "¼ cup tomato paste",
+      "1 cup dry red wine (or low-sodium beef broth)",
+      "3 cans (28 oz each) crushed tomatoes",
+      "1 can (15 oz) tomato sauce",
+      "1 tbsp dried Italian seasoning",
+      "2 bay leaves",
+      "1 tbsp kosher salt, to taste",
+      "1 tsp black pepper",
+      "1 tsp sugar",
+      "2½ lb spaghetti",
+      "2 tbsp olive oil (for the pasta)",
+      "1 cup finely grated Parmesan, packed on the side"
+    ],
+    "directions": [
+      "Heat the olive oil in a large, heavy pot over medium-high heat. Brown the beef and sausage in two batches, breaking it into small pieces, 8 to 10 minutes per batch, until no pink remains. Spoon off all but 2 tbsp of the fat.",
+      "Lower the heat to medium, add the onions and carrots and cook 8 minutes until soft. Add the garlic for 1 minute.",
+      "Stir in the tomato paste and cook 2 minutes until it darkens. Pour in the wine and scrape up the browned bits, simmering until it's mostly gone.",
+      "Add the crushed tomatoes, tomato sauce, Italian seasoning, bay leaves, salt, pepper and sugar. Simmer uncovered 40 to 45 minutes, stirring now and then, until thick. Remove the bay leaves and taste for salt.",
+      "Cook the spaghetti in well-salted boiling water 1 to 2 minutes short of the package time. Drain, toss with the olive oil and spread on sheet pans to cool.",
+      "Divide the sauce among shallow pans and cool uncovered until it drops to 70°F, within 2 hours.",
+      "Twirl 1 cup spaghetti into each of 12 containers and spoon 1¼ cups sauce over the top. Pack the Parmesan in small lidded cups."
+    ],
+    "equipment": [
+      "Large heavy pot",
+      "Pasta pot",
+      "Colander",
+      "Rimmed sheet pans",
+      "Shallow pans for cooling",
+      "12 meal-prep containers with small cups"
+    ],
+    "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Keeps 4 days. The sauce freezes up to 3 months on its own.",
+    "reheating": "Sprinkle a tablespoon of water over the pasta, vent the lid and microwave 2½ to 3 minutes, stirring halfway, until hot throughout (165°F). Top with the Parmesan.",
+    "makeAhead": "",
+    "safety": "Brown the beef and sausage until no pink remains (160°F). Cool the sauce in shallow pans, never in the pot. Contains milk and wheat. Reheat to 165°F.",
+    "chefNotes": "The grated carrot melts into the sauce and takes the edge off the tomatoes without anyone noticing. Double the sauce and freeze half; it's the easiest add-on sale there is. Salt amounts assume Diamond Crystal kosher salt; with Morton, use a little over half."
+  },
+  {
+    "id": 45,
+    "slug": "classic-beef-and-sausage-lasagna",
+    "side": "meal-prep",
+    "title": "Classic Beef and Sausage Lasagna",
+    "category": "Beef, Pork & Lamb",
+    "description": "Layers of meat sauce, creamy ricotta and melted mozzarella baked until bubbling and browned on top, then cut into big, neat squares.",
+    "servings": 12,
+    "yieldNote": "12 portions (one 3-by-4-inch square each, from two 9x13 pans)",
+    "active": 70,
+    "total": 170,
+    "tags": [
+      "High protein",
+      "Kid-friendly",
+      "Comfort food",
+      "Freezer-friendly"
+    ],
+    "allergens": [
+      "Milk",
+      "Egg",
+      "Wheat"
+    ],
+    "dietary": [],
+    "image": "",
+    "photoCredit": {
+      "author": "",
+      "source": "",
+      "page": ""
+    },
+    "ingredients": [
+      "2 lb 85% lean ground beef",
+      "1 lb mild Italian sausage, casings removed",
+      "2 tbsp olive oil",
+      "1 large yellow onion, finely chopped",
+      "6 cloves garlic, minced",
+      "2 cans (28 oz each) crushed tomatoes",
+      "1 can (15 oz) tomato sauce",
+      "2 tsp dried Italian seasoning",
+      "2 tsp kosher salt (for the sauce)",
+      "1 tsp black pepper",
+      "2 containers (15 oz each) whole-milk ricotta",
+      "2 large eggs",
+      "1½ cups grated Parmesan, divided",
+      "½ cup chopped fresh parsley",
+      "1 tsp kosher salt (for the ricotta)",
+      "2 lb lasagna noodles (about 24 regular noodles)",
+      "2 lb low-moisture mozzarella, shredded"
+    ],
+    "directions": [
+      "Brown the beef and sausage in the olive oil in a large pot over medium-high heat, in two batches, until no pink remains. Spoon off most of the fat, add the onion and cook 6 minutes, then the garlic for 1 minute.",
+      "Add the crushed tomatoes, tomato sauce, Italian seasoning, salt and pepper and simmer 25 minutes, until thick.",
+      "Mix the ricotta, eggs, 1 cup Parmesan, parsley and salt in a bowl.",
+      "Boil the noodles in well-salted water 2 minutes short of the package time. Drain and lay them flat on oiled sheet pans so they don't stick.",
+      "Heat the oven to 375°F. In each of two 9x13 pans, spread 1 cup sauce, then layer noodles, a third of the ricotta, a quarter of the remaining sauce and a quarter of the mozzarella. Repeat twice more, ending with sauce and mozzarella, then the rest of the Parmesan.",
+      "Cover with foil (tented so it doesn't touch the cheese) and bake 40 minutes. Uncover and bake 15 to 20 minutes more, until bubbling and browned and the center reads 165°F.",
+      "Rest 30 minutes before cutting; it sets up and cuts into clean squares instead of sliding apart.",
+      "Cut each pan into 6 squares, move them to shallow pans or a rack and cool until they drop to 70°F, within 2 hours.",
+      "Pack one square into each of 12 containers."
+    ],
+    "equipment": [
+      "Large pot",
+      "Pasta pot",
+      "Two 9x13 baking pans",
+      "Rimmed sheet pans",
+      "Foil",
+      "Instant-read thermometer",
+      "12 meal-prep containers"
+    ],
+    "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Keeps 4 days. Freezes beautifully for up to 3 months, cut into squares.",
+    "reheating": "Add a tablespoon of water to the container, vent the lid and microwave at 70% power for 3 to 4 minutes, until the center reaches 165°F. Lower power heats the middle without drying the edges.",
+    "makeAhead": "",
+    "safety": "Brown the meat until no pink remains (160°F) and bake until the center reaches 165°F. Cool the squares in shallow layers, not in the deep pan. Contains milk, egg and wheat. Reheat to 165°F.",
+    "chefNotes": "A big project: nearly 3 hours door to door, so pair it with two easy dishes in the same visit. Make the sauce first and build while it's warm. Two 9x13 pans bake more evenly than one deep hotel pan. Salt amounts assume Diamond Crystal kosher salt; with Morton, use a little over half."
+  },
+  {
+    "id": 46,
+    "slug": "fudgy-chocolate-brownies",
+    "side": "meal-prep",
+    "title": "Fudgy Chocolate Brownies",
+    "category": "Desserts",
+    "description": "Dense, fudgy brownies with a shiny crackly top, made with melted chocolate and cocoa, cut into 12 generous squares and wrapped for the week.",
+    "servings": 12,
+    "yieldNote": "12 large brownies (one 9x13 pan)",
+    "active": 20,
+    "total": 75,
+    "tags": [
+      "Kid-friendly",
+      "Make-ahead",
+      "Freezer-friendly"
+    ],
+    "allergens": [
+      "Milk",
+      "Egg",
+      "Wheat"
+    ],
+    "dietary": [
+      "Vegetarian"
+    ],
+    "image": "",
+    "photoCredit": {
+      "author": "",
+      "source": "",
+      "page": ""
+    },
+    "ingredients": [
+      "1 cup (2 sticks) unsalted butter",
+      "8 oz semisweet chocolate, chopped",
+      "1½ cups granulated sugar",
+      "½ cup packed light brown sugar",
+      "4 large eggs, at room temperature",
+      "2 tsp vanilla extract",
+      "1 cup all-purpose flour",
+      "½ cup unsweetened cocoa powder",
+      "1 tsp kosher salt",
+      "1 cup semisweet chocolate chips"
+    ],
+    "directions": [
+      "Heat the oven to 350°F. Line a 9x13 pan with parchment, leaving an overhang on the long sides to lift the brownies out.",
+      "Melt the butter and chopped chocolate together in a saucepan over low heat, stirring until smooth. Take it off the heat.",
+      "Whisk both sugars into the chocolate, then the eggs one at a time, whisking hard for 30 seconds after each. That beating is what makes the shiny, crackly top. Whisk in the vanilla.",
+      "Fold in the flour, cocoa and salt just until no dry streaks remain, then the chocolate chips.",
+      "Spread the batter evenly in the pan and bake 28 to 32 minutes, until the edges are set and a toothpick in the center comes out with moist crumbs but no wet batter.",
+      "Cool completely in the pan on a rack, at least 1 hour. Warm brownies tear; cool ones cut clean.",
+      "Lift out by the parchment and cut into 12 squares with a hot, dry knife, wiping it between cuts.",
+      "Wrap each brownie or pack in small containers."
+    ],
+    "equipment": [
+      "9x13 baking pan",
+      "Parchment paper",
+      "Medium saucepan",
+      "Large mixing bowl",
+      "Wire rack",
+      "12 small containers or wrap"
+    ],
+    "storage": "Keep covered at room temperature up to 3 days or refrigerated up to 5 days. Freezes up to 3 months, individually wrapped.",
+    "reheating": "Great at room temperature. For a warm, gooey brownie, microwave 10 to 15 seconds.",
+    "makeAhead": "",
+    "safety": "Bake at 350°F until the center is set, so the eggs are fully cooked. Contains milk, egg and wheat.",
+    "chefNotes": "A dessert add-on takes about 20 hands-on minutes and bakes while the entrées cook, so it barely adds to the visit. Customers love finding one in the fridge with the week's meals."
+  },
+  {
+    "id": 47,
+    "slug": "apple-crisp-with-oat-topping",
+    "side": "meal-prep",
+    "title": "Apple Crisp with Oat Topping",
+    "category": "Desserts",
+    "description": "Tender cinnamon apples under a buttery brown-sugar oat crumble, baked until bubbling. Warm it up and add ice cream.",
+    "servings": 12,
+    "yieldNote": "12 portions (about ¾ cup each, from one 9x13 pan)",
+    "active": 30,
+    "total": 80,
+    "tags": [
+      "Kid-friendly",
+      "Seasonal: fall",
+      "Make-ahead"
+    ],
+    "allergens": [
+      "Milk",
+      "Wheat"
+    ],
+    "dietary": [
+      "Vegetarian"
+    ],
+    "image": "",
+    "photoCredit": {
+      "author": "",
+      "source": "",
+      "page": ""
+    },
+    "ingredients": [
+      "5 lb baking apples (about 10, a mix of Honeycrisp and Granny Smith), peeled, cored and sliced ½ inch thick",
+      "½ cup granulated sugar",
+      "2 tbsp all-purpose flour (for the apples)",
+      "2 tbsp fresh lemon juice",
+      "2 tsp ground cinnamon",
+      "½ tsp ground nutmeg",
+      "1½ cups old-fashioned rolled oats",
+      "1 cup all-purpose flour (for the topping)",
+      "1 cup packed light brown sugar",
+      "1 tsp ground cinnamon (for the topping)",
+      "½ tsp kosher salt",
+      "¾ cup (1½ sticks) cold unsalted butter, cubed"
+    ],
+    "directions": [
+      "Heat the oven to 375°F and butter a 9x13 baking dish.",
+      "Toss the apples with the sugar, flour, lemon juice, cinnamon and nutmeg and spread them in the dish.",
+      "Mix the oats, flour, brown sugar, cinnamon and salt. Rub in the cold butter with your fingertips until it forms big, damp clumps.",
+      "Scatter the topping evenly over the apples.",
+      "Bake 45 to 50 minutes, until the fruit bubbles thickly at the edges and the topping is deep golden. Tent with foil if the top browns too fast.",
+      "Cool on a rack at least 30 minutes so the juices thicken, then cool until it drops to 70°F within 2 hours.",
+      "Spoon into 12 small containers, keeping plenty of topping on each."
+    ],
+    "equipment": [
+      "9x13 baking dish",
+      "Large mixing bowl",
+      "Wire rack",
+      "12 small containers"
+    ],
+    "storage": "Refrigerate covered at 40°F or below for up to 4 days. Freezes up to 2 months (the topping softens a little).",
+    "reheating": "Microwave 30 to 45 seconds, or warm in a 350°F oven or air fryer for 5 to 8 minutes to re-crisp the topping.",
+    "makeAhead": "",
+    "safety": "Bake at 375°F until bubbling. Refrigerate within 2 hours of baking. Contains milk and wheat (use certified gluten-free oats and a 1-to-1 gluten-free flour for a gluten-free version).",
+    "chefNotes": "Half sweet, half tart apples give the best texture: the Granny Smiths hold their shape. Easy to sell in fall with apples from the farm stands around Astoria."
+  },
+  {
+    "id": 48,
+    "slug": "brown-butter-banana-bread",
+    "side": "meal-prep",
+    "title": "Brown Butter Banana Bread",
+    "category": "Desserts",
+    "description": "Moist, tender banana bread made with very ripe bananas and nutty browned butter, baked in two loaves and cut into thick slices for breakfast or dessert all week.",
+    "servings": 12,
+    "yieldNote": "12 thick slices (two 9x5 loaves)",
+    "active": 25,
+    "total": 100,
+    "tags": [
+      "Kid-friendly",
+      "Make-ahead",
+      "Freezer-friendly"
+    ],
+    "allergens": [
+      "Milk",
+      "Egg",
+      "Wheat"
+    ],
+    "dietary": [
+      "Vegetarian"
+    ],
+    "image": "",
+    "photoCredit": {
+      "author": "",
+      "source": "",
+      "page": ""
+    },
+    "ingredients": [
+      "1 cup (2 sticks) unsalted butter",
+      "6 very ripe bananas, mashed (about 3 cups)",
+      "1½ cups packed light brown sugar",
+      "4 large eggs",
+      "½ cup plain whole-milk yogurt or sour cream",
+      "2 tsp vanilla extract",
+      "3½ cups all-purpose flour",
+      "2 tsp baking soda",
+      "1 tsp kosher salt",
+      "2 tsp ground cinnamon"
+    ],
+    "directions": [
+      "Heat the oven to 350°F. Grease two 9x5 loaf pans and line them with a strip of parchment.",
+      "Melt the butter in a light-colored saucepan over medium heat and keep cooking, swirling, 4 to 6 minutes, until it smells nutty and brown bits form on the bottom. Pour it into a large bowl, scraping in the brown bits, and cool 10 minutes.",
+      "Whisk in the mashed bananas, brown sugar, eggs, yogurt and vanilla.",
+      "Whisk the flour, baking soda, salt and cinnamon in another bowl, then fold into the wet mixture just until no flour shows.",
+      "Divide the batter between the pans and bake 55 to 65 minutes, until deep golden and a skewer in the center comes out clean.",
+      "Cool 15 minutes in the pans, then turn out onto a rack and cool completely.",
+      "Cut each loaf into 6 thick slices and wrap each slice or pack them in small containers."
+    ],
+    "equipment": [
+      "Two 9x5 loaf pans",
+      "Parchment paper",
+      "Saucepan",
+      "2 mixing bowls",
+      "Wire rack",
+      "12 small containers or wrap"
+    ],
+    "storage": "Keep wrapped at room temperature up to 3 days or refrigerated up to 5 days. Freezes up to 3 months, sliced.",
+    "reheating": "Good as is. Toast a slice or warm it in the microwave 15 seconds and add a pat of butter.",
+    "makeAhead": "",
+    "safety": "Bake at 350°F until a skewer in the center comes out clean, so the eggs are fully cooked. Contains milk, egg and wheat.",
+    "chefNotes": "Ask customers to save their browning bananas for the visit; it's the best use for them. Brown butter is the upgrade that makes people ask what's different."
   },
   {
     "id": 101,
