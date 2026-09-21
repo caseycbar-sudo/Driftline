@@ -9,6 +9,20 @@ import { smallImage } from "../site-config";
 
 type Package = { name: string; portions: number; price: number; note: string; featured?: boolean };
 
+// The look of a finished week: sample photos in the style Casey packs, shown for mood.
+// They are not tied to a recipe, so they don't have to match one ingredient for ingredient.
+const looks = [
+  { src: "/cookbook/look/salmon-shrimp-spread.webp", alt: "Meal prep trays of salmon with green beans and shrimp with roasted sweet potatoes" },
+  { src: "/cookbook/look/stacked-week.webp", alt: "A week of lidded meal prep containers stacked and ready for the fridge" },
+  { src: "/cookbook/look/chicken-potatoes-broccoli.webp", alt: "Sliced chicken with roasted red potatoes and broccoli in a meal prep tray" },
+  { src: "/cookbook/look/lentil-bowls.webp", alt: "Three glass containers of lentils, black rice, chickpeas and vegetables" },
+  { src: "/cookbook/look/steak-bites.webp", alt: "Steak bites with roasted potatoes and green beans" },
+  { src: "/cookbook/look/salmon-glass.webp", alt: "Glazed salmon over quinoa and spinach in a glass container" },
+  { src: "/cookbook/look/wild-rice-trays.webp", alt: "Wild rice bowls with roasted sweet potato, tomato and white beans" },
+  { src: "/cookbook/look/turkey-rice-green-beans.webp", alt: "A meal prep tray of rice, green beans and ground turkey with sides around it" },
+  { src: "/cookbook/look/chicken-plate-box.webp", alt: "Grilled chicken with rice, beans and mashed potatoes in a container" },
+];
+
 const meals = [
   // Featured here only when the photo honestly matches the recipe, and shows it packed the way customers get it.
   { id: 31, title: "Herb-Roasted Chicken Thighs", detail: "Broccoli · roasted red peppers", category: "Poultry", image: "/cookbook/mp/herb-roasted-chicken-thighs-with-broccoli-and-red-peppers.webp" },
@@ -118,6 +132,29 @@ export default function Home({ packages }: { packages: Package[] }) {
         <span>
           <CheckIcon /> Photo updates included
         </span>
+      </section>
+
+      <section className="look section" id="look" aria-labelledby="look-title">
+        <div className="section-intro">
+          <p className="eyebrow">
+            <span /> What lands in your fridge
+          </p>
+          <h2 id="look-title">Open the door to a week that&apos;s already handled.</h2>
+          <p>
+            Every meal portioned, lidded and labeled, ready to heat and eat. Bright
+            vegetables, real proteins, sauces packed on the side so nothing goes soggy.
+          </p>
+        </div>
+        <div className="look-grid">
+          {looks.map((photo, i) => (
+            <figure key={photo.src} className={i === 0 ? "look-feature" : undefined}>
+              <img src={i === 0 ? photo.src : smallImage(photo.src)} alt={photo.alt} loading={i < 3 ? "eager" : "lazy"} decoding="async" />
+            </figure>
+          ))}
+        </div>
+        <p className="look-credit">
+          Sample photos in the style we pack · Justin Doherty, IARA MELO &amp; Ella Olsson on Pexels; Leanna Myers &amp; Ello on Unsplash
+        </p>
       </section>
 
       <section
