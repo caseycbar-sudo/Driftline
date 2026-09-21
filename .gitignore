@@ -38,11 +38,14 @@ yarn-error.log*
 # typescript
 next-env.d.ts
 /dist/
-/.wrangler/
-/.sites-runtime/
+.wrangler/
+.sites-runtime/
 /outputs/
 /work/
 *.tsbuildinfo
 
 # Cloudflare local secrets
 .dev.vars*
+
+# scratch worker projects
+.tmp-sched/
