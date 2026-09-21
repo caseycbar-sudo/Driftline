@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
-import { recipes } from "../cookbook/recipes";
+
 import { oregonToday } from "../oregon-time";
 
 type EventItem = {
@@ -168,6 +168,14 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
       ...Array.from({ length: count }, (_, index) => index + 1),
     ];
   }, [month]);
+  const [recipes, setRecipes] = useState<{ id: number; title: string; side: string; category: string; total: number; image: string }[]>([]);
+  // Dish names come from the API so edits made in the Cookbook tab show up here.
+  useEffect(() => {
+    fetch("/api/cookbook", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d: { recipes?: { id: number; title: string; side: string; category: string; total: number; image: string }[] } | null) => d?.recipes && setRecipes(d.recipes))
+      .catch(() => {});
+  }, []);
   const selected = events.filter((event) => event.serviceDate === selectedDate);
   const recipeMatches = useMemo(() => {
     const query = recipeSearch.trim().toLowerCase();
@@ -175,12 +183,12 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
       .filter(
         (recipe) =>
           !query ||
-          `${recipe.title} ${recipe.category} ${recipe.description} ${recipe.tags.join(" ")}`
+          `${recipe.title} ${recipe.category}`
             .toLowerCase()
             .includes(query),
       )
       .slice(0, 12);
-  }, [recipeSearch]);
+  }, [recipeSearch, recipes]);
   const describeConflicts = (conflicts: Conflict[]) =>
     conflicts.map((c) => `${c.household} ${c.startTime}${c.endTime ? `–${c.endTime}` : ""}`).join(", ");
   async function save(event: React.FormEvent<HTMLFormElement>) {

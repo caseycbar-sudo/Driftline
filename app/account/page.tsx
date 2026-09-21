@@ -2,7 +2,7 @@ import Link from "next/link";
 import { requireUser, signOutPath } from "../auth";
 import { getOrCreateCustomer } from "../../db/customers";
 import { getMealPlan } from "../../db/meals";
-import { recipes } from "../cookbook/recipes";
+import { getCookbook } from "../../db/cookbook";
 import ProfileForm from "./ProfileForm";
 import ReviewForm from "./ReviewForm";
 import BillingPanel from "./BillingPanel";
@@ -21,6 +21,7 @@ export default async function AccountPage() {
   const user = await requireUser("/account");
   const profile = await getOrCreateCustomer(user.email, user.displayName);
   const mealPlan = await getMealPlan(user.email);
+  const recipes = await getCookbook();
   const chosenRecipes = recipes.filter(recipe => recipe.side === "meal-prep" && mealPlan.selectedRecipeIds.includes(recipe.id));
   const dinnerWishlist = recipes.filter(recipe => recipe.side === "private-chef" && mealPlan.selectedRecipeIds.includes(recipe.id));
   const firstName = profile.fullName.split(" ")[0] || "there";

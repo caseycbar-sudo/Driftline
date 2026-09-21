@@ -255,3 +255,18 @@ export const billingProfiles = sqliteTable("billing_profiles", {
   autopayConsentAt: text("autopay_consent_at").notNull().default(""),
   updatedAt: text("updated_at").notNull(),
 });
+
+/**
+ * Casey's edits to the built-in cookbook. One row per changed dish: `payload` holds
+ * only the fields he changed, so untouched wording keeps coming from the code.
+ * Rows with `custom` are dishes he added, and hold a whole recipe.
+ */
+export const recipeOverrides = sqliteTable("recipe_overrides", {
+  recipeId: integer("recipe_id").primaryKey(),
+  side: text("side").notNull().default("meal-prep"),
+  payload: text("payload").notNull().default("{}"),
+  hidden: integer("hidden").notNull().default(0),
+  custom: integer("custom").notNull().default(0),
+  updatedBy: text("updated_by").notNull().default(""),
+  updatedAt: text("updated_at").notNull(),
+});

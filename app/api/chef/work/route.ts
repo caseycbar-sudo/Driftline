@@ -6,7 +6,7 @@ import { addMileage, listTimeEntries, toggleTimeEntry } from "../../../../db/tim
 import { getCustomer } from "../../../../db/customers";
 import { getMealPlan } from "../../../../db/meals";
 import { getPricing } from "../../../../db/pricing";
-import { recipes } from "../../../cookbook/recipes";
+import { getCookbook } from "../../../../db/cookbook";
 import { findPackage } from "../../../pricing-core";
 import { isRealDate, mapsLink, telLink } from "../../../schedule-core";
 import { oregonToday } from "../../../oregon-time";
@@ -30,10 +30,11 @@ export async function GET(request: Request) {
   const end = isRealDate(url.searchParams.get("end") ?? "") ? url.searchParams.get("end")! : addDays(today, 90);
   const email = user.email.toLowerCase();
 
-  const [rawEvents, entries, pricing] = await Promise.all([
+  const [rawEvents, entries, pricing, recipes] = await Promise.all([
     listEvents(start, end).then((rows) => rows.filter((row) => row.chefEmail.toLowerCase() === email && row.status !== "cancelled")),
     listTimeEntries(email, `${start}T00:00:00.000Z`, `${addDays(end, 1)}T12:00:00.000Z`),
     getPricing(),
+    getCookbook(),
   ]);
 
   const events = await Promise.all(

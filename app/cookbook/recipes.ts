@@ -830,7 +830,7 @@ export const recipes: Recipe[] = [
     "side": "meal-prep",
     "title": "Beef Bulgogi Bowls with Rice and Quick Pickles",
     "category": "Beef, Pork & Lamb",
-    "description": "Pear-and-garlic marinated ribeye seared in hot batches over short-grain rice, with crunchy quick-pickled cucumber, carrot and daikon packed on the side.",
+    "description": "Pear-and-garlic marinated sirloin seared in hot batches over short-grain rice, with crunchy quick-pickled cucumber, carrot and daikon packed on the side.",
     "servings": 12,
     "yieldNote": "12 portions (about 5 oz beef and 1½ cups rice each, plus pickles)",
     "active": 75,
@@ -855,7 +855,7 @@ export const recipes: Recipe[] = [
       "page": "https://www.pexels.com/photo/top-view-of-a-bulgogi-beef-bowl-5774000/"
     },
     "ingredients": [
-      "5 lb boneless beef ribeye, trimmed of excess fat",
+      "5 lb boneless top sirloin or chuck eye, trimmed of excess fat",
       "1 cup low-sodium soy sauce",
       "⅓ cup packed light brown sugar",
       "1 large Asian pear, peeled and finely grated",
@@ -879,7 +879,7 @@ export const recipes: Recipe[] = [
       "3 tbsp toasted sesame seeds"
     ],
     "directions": [
-      "Freeze the ribeye on a sheet pan for 45 minutes, until firm at the edges but still sliceable. Slice across the grain as thin as you can, about ⅛ inch, then cut any wide slices into 3-inch lengths.",
+      "Freeze the beef on a sheet pan for 45 minutes, until firm at the edges but still sliceable. Slice across the grain as thin as you can, about ⅛ inch, then cut any wide slices into 3-inch lengths.",
       "Whisk the soy sauce, brown sugar, grated pear with its juice, garlic, ginger, sesame oil, pepper and scallion whites in a large nonreactive bowl until the sugar dissolves. Add the beef and sliced onions, massage to coat every slice, cover and refrigerate at least 1 hour and no more than 6 hours.",
       "For the pickles, bring the rice vinegar, water, sugar and salt to a simmer in a small saucepan, stirring until clear, then let cool for 10 minutes. Pack the cucumbers, carrots and daikon into two quart jars, pour the warm brine over, lid and refrigerate at least 1 hour.",
       "Rinse the rice in a large bowl, changing the water four or five times, until it runs nearly clear, then drain well. Combine rice and water in a heavy 8-quart pot, bring to a boil over high heat, cover, reduce to the lowest flame and cook 15 minutes. Take off the heat and leave covered 10 minutes.",
@@ -1229,7 +1229,7 @@ export const recipes: Recipe[] = [
     "category": "Seafood",
     "description": "Salmon brushed with a sweet-salty miso and mirin glaze and broiled until it blisters, with garlicky sesame bok choy, broccolini and short-grain rice.",
     "servings": 12,
-    "yieldNote": "12 portions (one 7-oz fillet, 1¼ cups rice and about 1 cup greens each)",
+    "yieldNote": "12 portions (one 5-oz fillet, 1¼ cups rice and about 1 cup greens each)",
     "active": 55,
     "total": 105,
     "tags": [
@@ -1253,7 +1253,7 @@ export const recipes: Recipe[] = [
       "page": "https://www.pexels.com/photo/japanese-food-with-salmon-on-a-green-ceramic-plate-15881378/"
     },
     "ingredients": [
-      "12 skinless salmon fillets (7 oz each)",
+      "12 skinless salmon fillets (5 oz each)",
       "⅔ cup white miso",
       "⅓ cup mirin",
       "3 tbsp light brown sugar",
@@ -1278,7 +1278,7 @@ export const recipes: Recipe[] = [
       "Whisk the miso, mirin, brown sugar, soy sauce, rice vinegar and ginger until smooth. Set aside ⅓ of the glaze in a separate cup for finishing; it should never touch raw fish.",
       "Pat the salmon dry and brush the tops and sides with the remaining glaze. Refrigerate 30 minutes, and no more than 2 hours, since the salty miso starts to cure the surface.",
       "Heat the oven to 425°F with a rack in the upper third. Line two rimmed sheet pans with foil and brush with the oil. Set 6 fillets on each pan, 2 inches apart, wiping away any pooled glaze, which burns.",
-      "Bake one pan at a time for 8 to 10 minutes, until the fish reads about 135°F in the thickest part. Switch to broil and cook 2 to 3 minutes, watching closely, until the glaze is blistered and browned in spots and the center reaches 145°F and flakes. Brush at once with a thin coat of the reserved glaze.",
+      "Bake one pan at a time for 6 to 8 minutes, until the fish reads about 135°F in the thickest part. Switch to broil and cook 2 to 3 minutes, watching closely, until the glaze is blistered and browned in spots and the center reaches 145°F and flakes. Brush at once with a thin coat of the reserved glaze.",
       "Bring a large pot of water and the salt to a boil and set up a big bowl of ice water. Blanch the broccolini 1½ minutes and the bok choy 1 minute, in batches, then plunge into the ice water, drain well and pat dry.",
       "Heat the oil in a wok or 12-inch skillet over medium-high heat. Add the garlic and stir 30 seconds until fragrant but not browned. Add half the greens and toss 1 to 2 minutes until hot and glossy; repeat with the rest.",
       "Toss all the greens with the soy sauce and sesame oil and sprinkle with the sesame seeds. Leave them slightly crisp, because they soften further on reheating.",

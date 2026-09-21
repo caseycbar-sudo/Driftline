@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getUser } from "../../auth";
-import { findRecipe } from "../../cookbook/recipes";
+import { findCookbookRecipe } from "../../../db/cookbook";
 import { addCustomRecipe, addSelectedMeal, getMealPlan, removeCustomRecipe, removeSelectedMeal } from "../../../db/meals";
 
 export const dynamic = "force-dynamic";
@@ -9,7 +9,7 @@ export async function GET(){ const user=await getUser(); if(!user)return NextRes
 export async function POST(request:Request){
   const user=await getUser(); if(!user)return NextResponse.json({error:"Sign in required"},{status:401});
   const body=await request.json() as Record<string,unknown>;
-  if(body.type==="selection"){ const recipeId=Number(body.recipeId)||0; if(!findRecipe(recipeId))return NextResponse.json({error:"Invalid recipe"},{status:400}); await addSelectedMeal(user.email,recipeId); return NextResponse.json({ok:true}); }
+  if(body.type==="selection"){ const recipeId=Number(body.recipeId)||0; if(!(await findCookbookRecipe(recipeId)))return NextResponse.json({error:"Invalid recipe"},{status:400}); await addSelectedMeal(user.email,recipeId); return NextResponse.json({ok:true}); }
   const clean=(key:string,limit=6000)=>String(body[key]??"").trim().slice(0,limit);
   const title=clean("title",120), ingredients=clean("ingredients"), directions=clean("directions");
   if(!title||!ingredients||!directions)return NextResponse.json({error:"Title, ingredients, and directions are required"},{status:400});

@@ -2,7 +2,7 @@ import {NextResponse} from "next/server";
 import {requireStaffRole} from "../../../staff-auth";
 import {listEvents} from "../../../../db/schedule";
 import {getMealPlan} from "../../../../db/meals";
-import {recipes} from "../../../cookbook/recipes";
+import { getCookbook } from "../../../../db/cookbook";
 
 export const dynamic="force-dynamic";
 import {oregonToday} from "../../../oregon-time";
@@ -13,6 +13,7 @@ export async function GET(){
   if(!user)return NextResponse.json({error:"Chef access required"},{status:403});
   const start=oregonToday(),end=addDays(start,90);
   const email=user.email.toLowerCase();
+  const recipes=await getCookbook();
   const events=(await listEvents(start,end)).filter(event=>event.chefEmail.toLowerCase()===email&&event.status!=="cancelled");
   const enriched=await Promise.all(events.map(async event=>{
     const plan=event.customerEmail?await getMealPlan(event.customerEmail):{selectedRecipeIds:[],customRecipes:[]};
