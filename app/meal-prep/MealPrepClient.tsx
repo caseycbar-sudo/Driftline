@@ -11,16 +11,16 @@ type Package = { name: string; portions: number; price: number; note: string; fe
 
 // The look of a finished week: sample photos in the style Casey packs, shown for mood.
 // They are not tied to a recipe, so they don't have to match one ingredient for ingredient.
-const looks = [
-  { src: "/cookbook/look/salmon-shrimp-spread.webp", alt: "Meal prep trays of salmon with green beans and shrimp with roasted sweet potatoes" },
+const looks: { recipe?: number; src: string; alt: string }[] = [
+  { recipe: 36, src: "/cookbook/look/salmon-shrimp-spread.webp", alt: "Meal prep trays of salmon with green beans and shrimp with roasted sweet potatoes" },
   { src: "/cookbook/look/stacked-week.webp", alt: "A week of lidded meal prep containers stacked and ready for the fridge" },
   { src: "/cookbook/look/chicken-potatoes-broccoli.webp", alt: "Sliced chicken with roasted red potatoes and broccoli in a meal prep tray" },
-  { src: "/cookbook/look/lentil-bowls.webp", alt: "Three glass containers of lentils, black rice, chickpeas and vegetables" },
-  { src: "/cookbook/look/steak-bites.webp", alt: "Steak bites with roasted potatoes and green beans" },
-  { src: "/cookbook/look/salmon-glass.webp", alt: "Glazed salmon over quinoa and spinach in a glass container" },
-  { src: "/cookbook/look/wild-rice-trays.webp", alt: "Wild rice bowls with roasted sweet potato, tomato and white beans" },
-  { src: "/cookbook/look/turkey-rice-green-beans.webp", alt: "A meal prep tray of rice, green beans and ground turkey with sides around it" },
-  { src: "/cookbook/look/chicken-plate-box.webp", alt: "Grilled chicken with rice, beans and mashed potatoes in a container" },
+  { recipe: 41, src: "/cookbook/look/lentil-bowls.webp", alt: "Three glass containers of lentils, black rice, chickpeas and vegetables" },
+  { recipe: 37, src: "/cookbook/look/steak-bites.webp", alt: "Steak bites with roasted potatoes and green beans" },
+  { recipe: 38, src: "/cookbook/look/salmon-glass.webp", alt: "Glazed salmon over quinoa and spinach in a glass container" },
+  { recipe: 34, src: "/cookbook/look/wild-rice-trays.webp", alt: "Wild rice bowls with roasted sweet potato, tomato and white beans" },
+  { recipe: 39, src: "/cookbook/look/turkey-rice-green-beans.webp", alt: "A meal prep tray of rice, green beans and ground turkey with sides around it" },
+  { recipe: 40, src: "/cookbook/look/chicken-plate-box.webp", alt: "Grilled chicken with rice, beans and mashed potatoes in a container" },
 ];
 
 const meals = [
@@ -148,12 +148,19 @@ export default function Home({ packages }: { packages: Package[] }) {
         <div className="look-grid">
           {looks.map((photo, i) => (
             <figure key={photo.src} className={i === 0 ? "look-feature" : undefined}>
-              <img src={i === 0 ? photo.src : smallImage(photo.src)} alt={photo.alt} loading={i < 3 ? "eager" : "lazy"} decoding="async" />
+              {photo.recipe ? (
+                <a href={`/cookbook?recipe=${photo.recipe}`} aria-label={`${photo.alt}: see the recipe`}>
+                  <img src={i === 0 ? photo.src : smallImage(photo.src)} alt={photo.alt} loading={i < 3 ? "eager" : "lazy"} decoding="async" />
+                  <span className="look-tag">See the recipe →</span>
+                </a>
+              ) : (
+                <img src={i === 0 ? photo.src : smallImage(photo.src)} alt={photo.alt} loading={i < 3 ? "eager" : "lazy"} decoding="async" />
+              )}
             </figure>
           ))}
         </div>
         <p className="look-credit">
-          Sample photos in the style we pack · Justin Doherty, IARA MELO &amp; Ella Olsson on Pexels; Leanna Myers &amp; Ello on Unsplash
+          Tap a photo for its recipe · Justin Doherty, IARA MELO &amp; Ella Olsson on Pexels; Leanna Myers &amp; Ello on Unsplash
         </p>
       </section>
 
@@ -256,7 +263,7 @@ export default function Home({ packages }: { packages: Package[] }) {
         <div className="menu-heading">
           <div>
             <p className="eyebrow light">
-              <span /> 35 recipes to explore
+              <span /> 41 recipes to explore
             </p>
             <h2>
               More choice for every
@@ -285,7 +292,7 @@ export default function Home({ packages }: { packages: Package[] }) {
         </div>
         <div className="menu-actions">
           <a href="/cookbook">
-            Browse all 35 recipes <span>→</span>
+            Browse all 41 recipes <span>→</span>
           </a>
           <p>
             Allergy-aware planning <span>·</span> Portion calculator{" "}

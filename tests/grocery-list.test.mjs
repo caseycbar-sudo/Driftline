@@ -51,7 +51,7 @@ test("ingredients land in the right aisle", () => {
 
 test("cookbook has both sides with the expected shape", () => {
   const mp = recipes.filter((r) => r.side === "meal-prep"), pc = recipes.filter((r) => r.side === "private-chef");
-  assert.equal(mp.length, 35);
+  assert.equal(mp.length, 41);
   assert.equal(pc.length, 20);
   assert.equal(new Set(recipes.map((r) => r.id)).size, recipes.length, "ids are unique");
   assert.equal(new Set(recipes.map((r) => r.title)).size, recipes.length, "titles are unique (chef jobs look dishes up by title)");

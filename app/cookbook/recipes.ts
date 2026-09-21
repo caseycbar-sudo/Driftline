@@ -2830,6 +2830,449 @@ export const recipes: Recipe[] = [
     "chefNotes": "Baked instead of fried so the falafel reheats without going greasy. Canned chickpeas make falafel fall apart; soaked dried chickpeas are the only way. Dried chickpeas and tahini are cheap at Costco. Salt amounts assume Diamond Crystal kosher salt; with Morton, use a little over half."
   },
   {
+    "id": 36,
+    "slug": "chili-lime-salmon-with-brown-rice-and-asparagus",
+    "side": "meal-prep",
+    "title": "Chili-Lime Salmon with Brown Rice and Asparagus",
+    "category": "Seafood",
+    "description": "Skinless salmon fillets under a chili, smoked paprika and lime-zest rub, roasted just until they flake, laid over nutty brown rice with a row of tender asparagus.",
+    "servings": 12,
+    "yieldNote": "12 portions (a 5-oz salmon fillet, ¾ cup brown rice and about 6 asparagus spears each)",
+    "active": 35,
+    "total": 70,
+    "tags": [
+      "High protein",
+      "Gluten-free",
+      "Dairy-free",
+      "Omega-3 rich",
+      "Eat within 3 days"
+    ],
+    "allergens": [
+      "Fish"
+    ],
+    "dietary": [
+      "Gluten-free",
+      "Dairy-free"
+    ],
+    "image": "/cookbook/mp/chili-lime-salmon-with-brown-rice-and-asparagus.webp",
+    "photoCredit": {
+      "author": "Justin Doherty",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/fish-with-asparagus-4929671/"
+    },
+    "ingredients": [
+      "12 skinless salmon fillets, 5 oz each (about 3¾ lb), pin bones removed",
+      "2 tbsp olive oil (for the salmon)",
+      "1 tbsp chili powder",
+      "2 tsp smoked paprika",
+      "1 tsp ground cumin",
+      "1 tsp garlic powder",
+      "1 tbsp light brown sugar",
+      "2 tsp kosher salt (for the salmon)",
+      "½ tsp black pepper",
+      "2 limes, finely zested (for the salmon)",
+      "4 cups long-grain brown rice, rinsed",
+      "8 cups water (for the rice)",
+      "2 tsp kosher salt (for the rice)",
+      "1 tbsp olive oil (for the rice)",
+      "4 lb asparagus (about 4 bunches), woody ends snapped off",
+      "2 tbsp olive oil (for the asparagus)",
+      "1 tsp kosher salt (for the asparagus)"
+    ],
+    "directions": [
+      "Bring the water, salt and oil to a boil in a large pot, stir in the brown rice, cover and simmer on low 40 to 45 minutes, until tender and the water is absorbed. Rest 10 minutes off the heat, fluff and spread on a sheet pan to cool.",
+      "Heat the oven to 425°F with racks in the upper-middle and lower-middle positions. Line three rimmed sheet pans with parchment.",
+      "Toss the asparagus with the olive oil and salt on one pan. Roast 8 to 10 minutes, until bright green and just tender at the thick ends. Spread it out to cool.",
+      "Stir the chili powder, smoked paprika, cumin, garlic powder, brown sugar, salt, pepper and lime zest together.",
+      "Pat the salmon dry, brush it with the olive oil and press the rub over the tops and sides. Set the fillets on the other two pans with space between them. Use a spoon for the rub so hands never go back into the bowl.",
+      "Roast 8 to 11 minutes, switching the pans halfway, until the thickest part reads 145°F and the flesh just flakes. Take it out right away; it keeps cooking when reheated.",
+      "Cool the salmon, rice and asparagus uncovered until they drop to 70°F, within 2 hours.",
+      "Spread ¾ cup rice across each of 12 containers, lay a salmon fillet on top toward the back and line about 6 asparagus spears along the front."
+    ],
+    "equipment": [
+      "Large pot with lid",
+      "3 rimmed sheet pans",
+      "Parchment paper",
+      "Instant-read thermometer",
+      "12 meal-prep containers"
+    ],
+    "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Keeps 3 days; as a seafood dish it goes on the eat-first list for days 1 and 2. Freezes up to 2 months.",
+    "reheating": "Vent the lid and microwave at 50% power for 2 to 3 minutes, until hot (165°F). Lower power keeps the salmon from drying out. It is also good cold, straight from the fridge.",
+    "makeAhead": "",
+    "safety": "Cook the salmon to 145°F, until opaque and flaking. Cool quickly and reheat to 165°F. Contains fish.",
+    "chefNotes": "Costco's skinless Atlantic or sockeye fillets cut into 5-oz pieces keep this affordable. Pull the salmon the moment it flakes: a meal-prep fillet gets heated again, so it should leave the oven barely done. Salt amounts assume Diamond Crystal kosher salt; with Morton, use a little over half."
+  },
+  {
+    "id": 37,
+    "slug": "rosemary-steak-bites-with-roasted-red-potatoes-and-green-beans",
+    "side": "meal-prep",
+    "title": "Rosemary Steak Bites with Roasted Red Potatoes and Green Beans",
+    "category": "Beef, Pork & Lamb",
+    "description": "Thick top sirloin seared hard with rosemary, garlic and thyme, rested and cut into juicy bites, packed with crisp rosemary red potatoes and bright green beans.",
+    "servings": 12,
+    "yieldNote": "12 portions (about 5 oz steak, 1 cup potatoes and ¾ cup green beans each)",
+    "active": 45,
+    "total": 90,
+    "tags": [
+      "High protein",
+      "Gluten-free",
+      "Dairy-free",
+      "Kid-friendly"
+    ],
+    "allergens": [],
+    "dietary": [
+      "Gluten-free",
+      "Dairy-free"
+    ],
+    "image": "/cookbook/mp/rosemary-steak-bites-with-roasted-red-potatoes-and-green-beans.webp",
+    "photoCredit": {
+      "author": "Justin Doherty",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/meat-with-vegetables-4929690/"
+    },
+    "ingredients": [
+      "5½ lb top sirloin steaks, about 1½ inches thick",
+      "1 tbsp kosher salt (for the steak)",
+      "2 tsp black pepper (for the steak)",
+      "1 tbsp dried rosemary, crushed",
+      "2 tsp dried thyme",
+      "2 tsp garlic powder",
+      "3 tbsp neutral oil (for searing)",
+      "5 lb small red potatoes, quartered",
+      "¼ cup olive oil (for the potatoes)",
+      "2 tbsp chopped fresh rosemary",
+      "2 tsp kosher salt (for the potatoes)",
+      "1 tsp black pepper (for the potatoes)",
+      "3 lb green beans, trimmed",
+      "1 tbsp kosher salt (for the bean water)"
+    ],
+    "directions": [
+      "Pat the steaks dry and season all over with the salt, pepper, dried rosemary, thyme and garlic powder. Refrigerate uncovered on a rack for at least 1 hour and up to overnight.",
+      "Heat the oven to 425°F. Toss the potatoes with the olive oil, fresh rosemary, salt and pepper and spread them cut side down on two rimmed sheet pans. Roast 35 to 40 minutes, flipping once, until crisp and golden and tender inside.",
+      "Bring a large pot of water to a boil with the salt. Cook the green beans 3 to 4 minutes, until bright green and just tender, then drain and spread on a sheet pan to cool. Leave them a little firm; they soften when reheated.",
+      "Heat 1 tbsp oil in a large cast-iron skillet over high heat until it just smokes. Sear the steaks whole, two at a time, 4 to 5 minutes per side, until deeply browned. Add oil between batches.",
+      "Check each steak: take it off at 135°F in the thickest part, then rest it on a rack 10 minutes; it will climb to at least 145°F, cooked to medium with a little pink in the center. For no pink at all, cook to 155°F before resting.",
+      "Cut the rested steak into 1½-inch bites and pour the resting juices back over them.",
+      "Cool the steak, potatoes and green beans uncovered until they drop to 70°F, within 2 hours.",
+      "Pack green beans along one side of each of 12 containers, then the steak bites and potatoes side by side."
+    ],
+    "equipment": [
+      "Large cast-iron skillet",
+      "2 rimmed sheet pans",
+      "Wire rack",
+      "Large pot",
+      "Instant-read thermometer",
+      "12 meal-prep containers"
+    ],
+    "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Keeps 4 days. The steak and potatoes freeze up to 3 months; the green beans turn soft after freezing.",
+    "reheating": "Vent the lid and microwave at 70% power for 2 to 3 minutes, until hot throughout (165°F). The steak will cook a little further, to medium-well. For crispier potatoes, finish them in an air fryer at 400°F for 4 minutes.",
+    "makeAhead": "",
+    "safety": "Sear the steaks whole and cut them after resting, so they stay a whole-muscle cut that is safe at 145°F with a pink center. Reheat to 165°F.",
+    "chefNotes": "Top sirloin gives steakhouse flavor at a fraction of ribeye prices at Costco and Fred Meyer. Searing whole and cutting after means juicier bites than searing raw cubes. Customers who don't want any pink can have theirs cooked to 155°F. Salt amounts assume Diamond Crystal kosher salt; with Morton, use a little over half."
+  },
+  {
+    "id": 38,
+    "slug": "honey-garlic-glazed-salmon-with-tricolor-quinoa-and-spinach",
+    "side": "meal-prep",
+    "title": "Honey-Garlic Glazed Salmon with Tricolor Quinoa and Spinach",
+    "category": "Seafood",
+    "description": "Salmon fillets lacquered with a sticky honey, garlic and soy glaze, over fluffy tricolor quinoa with fresh baby spinach and a slice of lemon.",
+    "servings": 12,
+    "yieldNote": "12 portions (a 5-oz salmon fillet, ¾ cup quinoa, about 1 cup baby spinach and a lemon slice each)",
+    "active": 35,
+    "total": 55,
+    "tags": [
+      "High protein",
+      "Dairy-free",
+      "Omega-3 rich",
+      "Eat within 3 days"
+    ],
+    "allergens": [
+      "Fish",
+      "Soy",
+      "Wheat"
+    ],
+    "dietary": [
+      "Dairy-free"
+    ],
+    "image": "/cookbook/mp/honey-garlic-glazed-salmon-with-tricolor-quinoa-and-spinach.webp",
+    "photoCredit": {
+      "author": "Ello",
+      "source": "Unsplash",
+      "page": "https://unsplash.com/photos/sliced-orange-fruit-on-white-ceramic-plate-fP1Chij6dH4"
+    },
+    "ingredients": [
+      "12 skinless salmon fillets, 5 oz each (about 3¾ lb), pin bones removed",
+      "1 tsp kosher salt (for the salmon)",
+      "½ tsp black pepper (for the salmon)",
+      "1 tbsp olive oil (for the salmon)",
+      "½ cup honey (for the glaze)",
+      "⅓ cup low-sodium soy sauce (for the glaze)",
+      "6 cloves garlic, minced (for the glaze)",
+      "2 tbsp fresh lemon juice (for the glaze)",
+      "1 tsp cornstarch (for the glaze)",
+      "3 cups tricolor quinoa, rinsed well",
+      "5½ cups water (for the quinoa)",
+      "1½ tsp kosher salt (for the quinoa)",
+      "12 oz baby spinach",
+      "2 lemons, cut into 12 thin slices"
+    ],
+    "directions": [
+      "Bring the water and salt to a boil, stir in the quinoa, cover and simmer on low 15 minutes. Rest 10 minutes off the heat, fluff and spread on a sheet pan to cool.",
+      "Whisk the honey, soy sauce, garlic, lemon juice and cornstarch in a small saucepan and simmer 3 to 4 minutes, stirring, until glossy and syrupy. Pour a third into a separate cup for finishing; the rest is for brushing the raw fish.",
+      "Heat the oven to 425°F and line two rimmed sheet pans with parchment. Pat the salmon dry, rub with the oil, season with salt and pepper and set the fillets on the pans with space between them.",
+      "Brush the salmon with the brushing glaze and roast 7 to 9 minutes. Throw out any brushing glaze that is left.",
+      "Switch the oven to broil and broil one pan at a time for 1 to 2 minutes, until the glaze bubbles and darkens at the edges and the thickest part reads 145°F. Stand right there; honey scorches fast.",
+      "Brush the fillets with the clean finishing glaze.",
+      "Cool the salmon and quinoa uncovered until they drop to 70°F, within 2 hours.",
+      "Spoon ¾ cup quinoa into one half of each of 12 containers, set a salmon fillet beside it, tuck a handful of spinach alongside and top the salmon with a lemon slice."
+    ],
+    "equipment": [
+      "Medium pot with lid",
+      "Small saucepan",
+      "2 rimmed sheet pans",
+      "Parchment paper",
+      "Instant-read thermometer",
+      "12 meal-prep containers"
+    ],
+    "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Keeps 3 days; as a seafood dish it goes on the eat-first list for days 1 and 2. Don't freeze with the spinach.",
+    "reheating": "For fresh spinach, lift it out first. Vent the lid and microwave at 50% power for 2 to 3 minutes, until hot (165°F). Left in, the spinach wilts into a warm side.",
+    "makeAhead": "",
+    "safety": "Cook the salmon to 145°F. Keep the brushing glaze that touches raw fish apart from the finishing glaze. Contains fish, soy and wheat (use tamari for a gluten-free version). Reheat to 165°F.",
+    "chefNotes": "Rinse the quinoa well or it tastes bitter. Buy spinach in the big Costco clamshell and pack it dry so it doesn't wilt early in the fridge. Salt amounts assume Diamond Crystal kosher salt; with Morton, use a little over half."
+  },
+  {
+    "id": 39,
+    "slug": "garlic-ground-turkey-with-cilantro-lime-rice-and-green-beans",
+    "side": "meal-prep",
+    "title": "Garlic Ground Turkey with Cilantro-Lime Rice and Green Beans",
+    "category": "Poultry",
+    "description": "Lean ground turkey browned with garlic, cumin and oregano, next to fluffy cilantro-lime rice and tender green beans, with a smoky chipotle sauce on the side.",
+    "servings": 12,
+    "yieldNote": "12 portions (about 5 oz turkey, ¾ cup rice, ¾ cup green beans and 2 tbsp sauce each)",
+    "active": 40,
+    "total": 60,
+    "tags": [
+      "High protein",
+      "Gluten-free",
+      "Dairy-free",
+      "Kid-friendly",
+      "Budget-friendly"
+    ],
+    "allergens": [
+      "Egg"
+    ],
+    "dietary": [
+      "Gluten-free",
+      "Dairy-free"
+    ],
+    "image": "/cookbook/mp/garlic-ground-turkey-with-cilantro-lime-rice-and-green-beans.webp",
+    "photoCredit": {
+      "author": "Justin Doherty",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/healthy-premade-meal-in-a-box-4929675/"
+    },
+    "ingredients": [
+      "6 lb 93% lean ground turkey",
+      "2 tbsp olive oil (for the turkey)",
+      "8 cloves garlic, minced",
+      "2 tsp ground cumin",
+      "2 tsp dried oregano",
+      "1 tbsp kosher salt (for the turkey)",
+      "1 tsp black pepper",
+      "4 cups long-grain white rice, rinsed",
+      "5½ cups water (for the rice)",
+      "2 tsp kosher salt (for the rice)",
+      "1 tbsp neutral oil (for the rice)",
+      "½ cup chopped fresh cilantro",
+      "3 tbsp fresh lime juice (for the rice)",
+      "3 lb green beans, trimmed",
+      "1 tbsp kosher salt (for the bean water)",
+      "1½ cups mayonnaise (for the sauce)",
+      "3 chipotle peppers in adobo, plus 2 tbsp of the adobo sauce (for the sauce)",
+      "2 tbsp fresh lime juice (for the sauce)",
+      "1 tsp garlic powder (for the sauce)"
+    ],
+    "directions": [
+      "Bring the water, salt and oil to a boil, stir in the rice, cover and cook on low 18 minutes. Rest 10 minutes off the heat, then fold in the cilantro and lime juice and spread on a sheet pan to cool.",
+      "Bring a large pot of water to a boil with the salt. Cook the green beans 4 to 5 minutes, until tender but still bright, then drain and spread out to cool.",
+      "Heat 1 tbsp oil in a large, wide pan over medium-high heat. Brown the turkey in two batches, breaking it into small crumbles, 8 to 10 minutes per batch.",
+      "Return all the turkey to the pan, add the garlic, cumin, oregano, salt and pepper and cook 2 minutes more, until the garlic smells toasty and the thickest crumbles read 165°F.",
+      "Blend the mayonnaise, chipotles, adobo sauce, lime juice and garlic powder until smooth. Taste and add more adobo for more heat.",
+      "Cool the turkey, rice and beans uncovered until they drop to 70°F, within 2 hours.",
+      "Pack ¾ cup rice down the left side of each of 12 containers, green beans across the back right and turkey in front of them. Spoon the chipotle sauce into 2-oz lidded cups."
+    ],
+    "equipment": [
+      "Large wide pan",
+      "Medium pot with lid",
+      "Large pot",
+      "Blender",
+      "Rimmed sheet pans",
+      "Instant-read thermometer",
+      "12 meal-prep containers with 2-oz sauce cups"
+    ],
+    "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Keeps 4 days. The turkey and rice freeze up to 3 months; keep the sauce refrigerated only.",
+    "reheating": "Set the sauce cup aside. Sprinkle a teaspoon of water over the rice, vent the lid and microwave 2 to 3 minutes, until hot throughout (165°F). Spoon on the chipotle sauce to serve.",
+    "makeAhead": "",
+    "safety": "Ground turkey must reach 165°F. Cool the rice quickly and refrigerate within 2 hours. The sauce contains egg (mayonnaise). Reheat to 165°F.",
+    "chefNotes": "One of the cheapest proteins in the store and a crowd-pleaser with kids; leave the sauce off for anyone who doesn't like heat. Browning in two batches is what gives lean turkey flavor instead of gray steamed crumbles. Salt amounts assume Diamond Crystal kosher salt; with Morton, use a little over half."
+  },
+  {
+    "id": 40,
+    "slug": "brazilian-style-chicken-with-rice-beans-and-mashed-potatoes",
+    "side": "meal-prep",
+    "title": "Brazilian-Style Chicken with Rice, Beans and Mashed Potatoes",
+    "category": "Poultry",
+    "description": "Garlic-lime chicken cutlets seared golden and sliced over white rice, with slow-simmered pinto beans, buttery mashed potatoes and green onions. Brazilian home-cooking comfort in one box.",
+    "servings": 12,
+    "yieldNote": "12 portions (about 5 oz chicken, ¾ cup rice, ½ cup beans and ¾ cup mashed potatoes each)",
+    "active": 60,
+    "total": 90,
+    "tags": [
+      "High protein",
+      "Gluten-free",
+      "Kid-friendly",
+      "Comfort food"
+    ],
+    "allergens": [
+      "Milk"
+    ],
+    "dietary": [
+      "Gluten-free"
+    ],
+    "image": "/cookbook/mp/brazilian-style-chicken-with-rice-beans-and-mashed-potatoes.webp",
+    "photoCredit": {
+      "author": "IARA MELO",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/delicious-home-cooked-meal-in-a-bento-box-30635705/"
+    },
+    "ingredients": [
+      "5 lb boneless, skinless chicken breasts, butterflied into ½-inch cutlets",
+      "¼ cup olive oil (for the marinade)",
+      "6 cloves garlic, grated (for the marinade)",
+      "3 tbsp fresh lime juice (for the marinade)",
+      "1 tbsp kosher salt (for the chicken)",
+      "1 tsp black pepper (for the chicken)",
+      "3 tbsp neutral oil (for searing)",
+      "5 cans (15 oz each) pinto beans, with their liquid",
+      "2 tbsp olive oil (for the beans)",
+      "1 medium yellow onion, finely diced",
+      "4 cloves garlic, minced (for the beans)",
+      "2 bay leaves",
+      "1 tsp kosher salt (for the beans), to taste",
+      "4 cups long-grain white rice, rinsed",
+      "2 tbsp neutral oil (for the rice)",
+      "3 cloves garlic, minced (for the rice)",
+      "5½ cups water (for the rice)",
+      "2 tsp kosher salt (for the rice)",
+      "5 lb Yukon Gold potatoes, peeled and cut into 2-inch chunks",
+      "1 cup whole milk, warmed",
+      "6 tbsp unsalted butter",
+      "2 tsp kosher salt (for the potatoes)",
+      "1 bunch green onions, thinly sliced"
+    ],
+    "directions": [
+      "Toss the chicken cutlets with the olive oil, grated garlic, lime juice, salt and pepper. Marinate in the fridge 30 minutes to 4 hours.",
+      "For the beans, warm the olive oil in a large saucepan over medium heat, cook the onion 5 minutes, add the garlic for 1 minute, then the beans with their liquid and the bay leaves. Simmer 20 to 25 minutes, mashing a few beans against the side, until the liquid turns thick and creamy. Season with salt and remove the bay leaves.",
+      "For the rice, warm the oil in a large pot over medium heat and fry the garlic 30 seconds. Stir in the rice for 2 minutes, add the water and salt, bring to a boil, cover and cook on low 18 minutes. Rest 10 minutes and fluff.",
+      "Cover the potatoes with cold salted water, bring to a boil and simmer 15 to 18 minutes, until very tender. Drain well, mash with the warm milk, butter and salt until smooth.",
+      "Heat 1 tbsp oil in a large skillet over medium-high heat. Sear the cutlets in batches without crowding, 3 to 4 minutes per side, until deep golden and 165°F in the thickest part. Rest 5 minutes, then slice across the grain.",
+      "Cool the chicken, rice, beans and potatoes uncovered in shallow pans until they drop to 70°F, within 2 hours.",
+      "In each of 12 containers, spread rice across the middle, spoon beans along the left side and mashed potatoes in the right corner, then fan the sliced chicken over the rice and scatter green onions on top."
+    ],
+    "equipment": [
+      "Large skillet",
+      "Large saucepan",
+      "Large pot with lid",
+      "Pot for the potatoes",
+      "Potato masher",
+      "Shallow pans for cooling",
+      "Instant-read thermometer",
+      "12 leak-proof meal-prep containers"
+    ],
+    "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Keeps 4 days. Freezes up to 3 months (the mashed potatoes turn a little grainy after thawing, so stir them well when reheating).",
+    "reheating": "Vent the lid and microwave 3 minutes, stirring the beans and potatoes halfway, until hot throughout (165°F). A splash of water over the rice keeps it soft.",
+    "makeAhead": "",
+    "safety": "Cook the chicken to 165°F. Cool the beans, rice and potatoes in shallow pans, never in the pot. Contains milk. Reheat to 165°F.",
+    "chefNotes": "This is the everyday Brazilian 'marmita': rice and beans are the heart of it. Butterflying the breasts into thin cutlets keeps them juicy and quick to sear. For dairy-free, mash the potatoes with olive oil and some of their cooking water. Salt amounts assume Diamond Crystal kosher salt; with Morton, use a little over half."
+  },
+  {
+    "id": 41,
+    "slug": "black-rice-lentil-and-rainbow-veggie-bowls",
+    "side": "meal-prep",
+    "title": "Black Rice, Lentil and Rainbow Veggie Bowls",
+    "category": "Vegetarian",
+    "description": "Striped bowls of nutty black rice, golden corn, crisp cucumber, black olives, red and orange cherry tomatoes and green onion over herby lentils, with a lemon-oregano vinaigrette on the side.",
+    "servings": 12,
+    "yieldNote": "12 portions (about ½ cup black rice, ½ cup lentils, ⅓ cup corn and 1 cup vegetables each, with 2 tbsp dressing)",
+    "active": 40,
+    "total": 60,
+    "tags": [
+      "Vegan",
+      "Vegetarian",
+      "Gluten-free",
+      "Dairy-free",
+      "High fiber"
+    ],
+    "allergens": [],
+    "dietary": [
+      "Vegan",
+      "Vegetarian",
+      "Gluten-free",
+      "Dairy-free"
+    ],
+    "image": "/cookbook/mp/black-rice-lentil-and-rainbow-veggie-bowls.webp",
+    "photoCredit": {
+      "author": "Ella Olsson",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/flat-lay-photography-of-three-tray-of-foods-1640775/"
+    },
+    "ingredients": [
+      "2½ cups black (forbidden) rice, rinsed",
+      "4½ cups water (for the rice)",
+      "1 tsp kosher salt (for the rice)",
+      "2 cups dried brown or green lentils, rinsed and picked over",
+      "6 cups water (for the lentils)",
+      "1 tsp kosher salt (for the lentils)",
+      "2 lb frozen sweet corn, thawed and patted dry",
+      "2 English cucumbers, quartered lengthwise and sliced",
+      "2 pints red and orange cherry tomatoes, halved",
+      "2 cans (6 oz drained each) sliced black olives, drained",
+      "2 bunches green onions, thinly sliced",
+      "¼ cup chopped fresh parsley",
+      "½ cup olive oil (for the dressing)",
+      "¼ cup red wine vinegar (for the dressing)",
+      "2 tbsp fresh lemon juice (for the dressing)",
+      "1 tbsp Dijon mustard (for the dressing)",
+      "1 tsp dried oregano (for the dressing)",
+      "1 clove garlic, grated (for the dressing)",
+      "1 tsp kosher salt (for the dressing)",
+      "½ tsp black pepper (for the dressing)"
+    ],
+    "directions": [
+      "Bring the water and salt to a boil, stir in the black rice, cover and simmer on low 30 to 35 minutes, until tender and chewy. Rest 10 minutes, fluff and spread on a sheet pan to cool.",
+      "Cover the lentils with the water in a pot, bring to a boil, add the salt and simmer 20 to 25 minutes, until tender but still holding their shape. Drain well and spread out to cool.",
+      "Shake the dressing ingredients together in a jar until creamy.",
+      "Toss the cooled lentils with 3 tbsp of the dressing and half the parsley.",
+      "Cool the rice and lentils until they drop to 70°F within 2 hours, then chill them before packing so the fresh vegetables stay crisp.",
+      "In each of 12 containers, lay lentils across the front third and black rice across the back third, then fill the middle stripe by stripe: corn, then cucumber, olives and cherry tomatoes.",
+      "Scatter green onions over the vegetables and the remaining parsley over the rice. Pour the rest of the dressing into 2-oz lidded cups."
+    ],
+    "equipment": [
+      "Medium pot with lid",
+      "Pot for the lentils",
+      "Colander",
+      "Rimmed sheet pans",
+      "Jar with lid",
+      "12 glass meal-prep containers with 2-oz dressing cups"
+    ],
+    "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Keeps 4 days (the cucumbers soften a little by day 4). Don't freeze.",
+    "reheating": "Made to eat cold: shake the dressing, pour it on and stir. To warm the grains, lift out the tomatoes and cucumber and microwave the rest 1 minute.",
+    "makeAhead": "",
+    "safety": "Cool the cooked rice and lentils to 70°F within 2 hours and refrigerate at 40°F or below. Wash the vegetables well since they are eaten raw.",
+    "chefNotes": "Black rice holds its chew for days and makes the bowl look stunning. Pack it stripe by stripe in glass containers; it sells itself in the fridge. Costco carries black rice and big bags of frozen corn. Salt amounts assume Diamond Crystal kosher salt; with Morton, use a little over half."
+  },
+  {
     "id": 101,
     "slug": "dungeness-crab-cakes-with-meyer-lemon-aioli",
     "side": "private-chef",
