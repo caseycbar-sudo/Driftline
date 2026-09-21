@@ -10,6 +10,7 @@ import {buildGroceryList,scaleIngredients,type GroceryCategory} from "./grocery-
 import "./ChefFieldApp.css";
 import "./SmartGrocery.css";
 import { oregonLongDate, oregonPartOfDay, oregonToday } from "../oregon-time";
+import Link from "next/link";
 
 type Dish={title:string;servings:number;recipeServings?:number;allergensKnown?:boolean;source:string;image:string;ingredients:string[];allergens:string[];directions:string[];equipment:string[];storage:string;reheating:string;safety:string};
 type Job={id:number;serviceDate:string;startTime:string;endTime:string;household:string;dishes:string[];dishDetails:Dish[];customer:{phone:string;dietaryNeeds:string;foodsToAvoid:string;favoriteFoods?:string;householdSize?:number;serviceFor?:string}|null;packageName:string;location:string;status:string;chefPayCents:number;notes:string;serviceType?:string;guestCount?:number;portionsPerDish?:number;packagePortions?:number;visit?:{address:string;mapUrl:string;contactName:string;phone:string;telUrl:string;accessNotes:string;kitchenNotes:string}};
@@ -32,7 +33,7 @@ export default function ChefFieldApp({staff}:{staff:{email:string;fullName:strin
   const firstName=staff.fullName.split(" ")[0]||"Chef";
   return <main className="field-app">
     <DisclosureGate scope="chef"/>
-    <header className="field-top"><a href="/" aria-label="Driftline home"><BrandLogo/></a><div><strong>{staff.fullName}</strong><small>Driftline chef</small></div></header>
+    <header className="field-top"><Link href="/" aria-label="Driftline home"><BrandLogo/></Link><div><strong>{staff.fullName}</strong><small>Driftline chef</small></div></header>
     {selected?<JobWorkspace job={selected} entries={entries} checks={checks} setCheck={setCheck} busy={busy} error={error} back={()=>setSelectedId(null)} action={action} reload={load}/>:<>
       <section className="field-content">
         {tab==="day"?<DayView firstName={firstName} jobs={todayJobs} next={upcoming[0]} loading={loading} error={error} dayActive={Boolean(openEntry("day"))} breakActive={Boolean(openEntry("break"))} busy={busy} onAction={action} openJob={setSelectedId}/>:null}

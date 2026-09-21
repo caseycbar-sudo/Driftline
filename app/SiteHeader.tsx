@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import BrandLogo from "./BrandLogo";
+import Link from "next/link";
 
 const links = [
   { href: "/private-chef", label: "Private Chef" },
@@ -18,9 +19,9 @@ export default function SiteHeader({ current }: { current?: string }) {
 
   return (
     <header className="dp-header dp-shell">
-      <a className="dp-header-logo" href="/" aria-label="Driftline Provisions home">
+      <Link className="dp-header-logo" href="/" aria-label="Driftline Provisions home">
         <BrandLogo />
-      </a>
+      </Link>
       <nav className={open ? "dp-nav open" : "dp-nav"} aria-label="Main navigation">
         {links.map((link) => (
           <a

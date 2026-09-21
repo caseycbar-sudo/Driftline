@@ -1,12 +1,13 @@
 import BrandLogo from "./BrandLogo";
+import Link from "next/link";
 
 export default function SiteFooter() {
   return (
     <div className="dp-footer dp-shell" role="contentinfo">
       <div className="dp-footer-brand">
-        <a href="/" aria-label="Driftline Provisions home">
+        <Link href="/" aria-label="Driftline Provisions home">
           <BrandLogo />
-        </a>
+        </Link>
         <p>Coastal cooking for your table. Private chef, catering, and in-home meal prep on Oregon&apos;s North Coast.</p>
       </div>
       <div className="dp-footer-col">

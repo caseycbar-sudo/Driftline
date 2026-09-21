@@ -1,6 +1,7 @@
 import SiteHeader from "./SiteHeader";
 import SiteFooter from "./SiteFooter";
 import "./home.css";
+import Link from "next/link";
 
 export const metadata = { title: "Page not found · Driftline Provisions", robots: { index: false } };
 
@@ -24,9 +25,9 @@ export default function NotFound() {
           <a href="/meal-prep">Weekly meal prep →</a>
           <a href="/sunday-market">Sunday Market chowder →</a>
           <a href="/contact">Contact Casey →</a>
-          <a className="dp-btn dp-btn-gold" href="/">
+          <Link className="dp-btn dp-btn-gold" href="/">
             Back to the home page
-          </a>
+          </Link>
         </nav>
       </section>
       <SiteFooter />

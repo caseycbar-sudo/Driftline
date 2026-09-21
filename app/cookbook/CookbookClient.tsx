@@ -125,7 +125,7 @@ export default function CookbookClient({ recipes }: { recipes: Recipe[] }) {
 
   async function toggleMeal(recipeId: number) {
     if (!signedIn) {
-      window.location.href = signInHere();
+      window.location.assign(signInHere());
       return;
     }
     const removing = saved.includes(recipeId);
@@ -147,7 +147,7 @@ export default function CookbookClient({ recipes }: { recipes: Recipe[] }) {
   async function submitOwnRecipe(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!signedIn) {
-      window.location.href = signInHere();
+      window.location.assign(signInHere());
       return;
     }
     const body = Object.fromEntries(new FormData(event.currentTarget).entries());
