@@ -1,9 +1,9 @@
 import Link from "next/link";
 import {
-  getChatGPTUser,
-  chatGPTSignInPath,
-  chatGPTSignOutPath,
-} from "../chatgpt-auth";
+  getUser,
+  signInPath,
+  signOutPath,
+} from "../auth";
 import { getActiveStaff } from "../../db/staff";
 import { homeForRole } from "../staff-access";
 import { redirect } from "next/navigation";
@@ -11,7 +11,7 @@ import "./chef-login.css";
 import BrandLogo from "../BrandLogo";
 export const dynamic = "force-dynamic";
 export default async function ChefLogin() {
-  const user = await getChatGPTUser();
+  const user = await getUser();
   if (user) {
     // Active staff go straight to the workspace their role owns. Everyone else
     // -- no staff record, or an invited/suspended one -- falls through to the
@@ -46,7 +46,7 @@ export default async function ChefLogin() {
           <div>
             <a
               className="chef-login-primary"
-              href={chatGPTSignOutPath("/chef")}
+              href={signOutPath("/chef")}
             >
               Use a different account
             </a>
@@ -65,7 +65,7 @@ export default async function ChefLogin() {
           Sign in with the same email that Driftline approved for your chef
           profile.
         </p>
-        <a className="chef-login-primary" href={chatGPTSignInPath("/chef")}>
+        <a className="chef-login-primary" href={signInPath("/chef")}>
           Sign in as a chef →
         </a>
         <div className="chef-login-steps">

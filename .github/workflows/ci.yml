@@ -1,0 +1,93 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Build, test and migrations
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      # `npm run install:ci` is the Sites builder's install and expects that
+      # environment. A plain `npm ci` is the equivalent here.
+      - name: Install
+        run: npm ci
+
+      # `npm test` builds first, so this covers the production build too.
+      - name: Build and test
+        run: npm test
+
+      # Guards against a migration being added without its journal entry and
+      # snapshot: drizzle-kit would then re-emit it as a duplicate migration
+      # that fails against any database which already ran the original.
+      - name: Check for schema drift
+        run: |
+          npm run db:generate
+          if ! git diff --quiet --exit-code -- drizzle; then
+            echo "::error::db/schema.ts and drizzle/ are out of sync. Run 'npm run db:generate' and commit the result."
+            git diff --stat -- drizzle
+            exit 1
+          fi
+          if [ -n "$(git ls-files --others --exclude-standard -- drizzle)" ]; then
+            echo "::error::db:generate produced a new migration. Run 'npm run db:generate' and commit the result."
+            git ls-files --others --exclude-standard -- drizzle
+            exit 1
+          fi
+
+      - name: Apply migrations to a clean database
+        run: npm run db:local:migrate
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      # The tree currently has 6 ESLint errors, all react-hooks/set-state-in-effect
+      # in components that fetch their own data on mount (clearing them means
+      # moving that loading into server components). This step fails on any error
+      # beyond those, so the count can only go down. Lower BASELINE as they are
+      # fixed, and drop the whole ratchet once it reaches 0.
+      - name: Lint (no new errors)
+        env:
+          BASELINE: 6
+        run: |
+          set -o pipefail
+          npm run lint 2>&1 | tee lint-output.txt && status=0 || status=$?
+          errors=$(sed -n 's/.*✖ [0-9]* problems (\([0-9]*\) error.*/\1/p' lint-output.txt | tail -1)
+          errors=${errors:-0}
+          if [ "$errors" -gt "$BASELINE" ]; then
+            echo "::error::$errors ESLint errors, up from the baseline of $BASELINE. Fix the new ones."
+            exit 1
+          fi
+          if [ "$errors" -lt "$BASELINE" ]; then
+            echo "::notice::$errors ESLint errors, down from the baseline of $BASELINE. Lower BASELINE in .github/workflows/ci.yml."
+          fi
+          # A non-zero exit with no parsed error count means eslint itself failed.
+          if [ "$status" -ne 0 ] && [ "$errors" -eq 0 ]; then
+            exit "$status"
+          fi

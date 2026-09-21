@@ -13,7 +13,10 @@
     "test": "npm run build && node --test --test-concurrency=1 \"tests/*.test.mjs\"",
     "lint": "bash scripts/sites-env.sh -- eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "bash scripts/sites-env.sh -- drizzle-kit generate",
-    "db:local:migrate": "bash scripts/sites-env.sh -- wrangler d1 migrations apply DB --local --config wrangler.local.jsonc --persist-to .wrangler/state"
+    "db:local:migrate": "bash scripts/sites-env.sh -- wrangler d1 migrations apply DB --local --config wrangler.local.jsonc --persist-to .wrangler/state",
+    "cf:setup": "node scripts/cf-setup.mjs",
+    "build:production": "DRIFTLINE_DEPLOY=production npm run build",
+    "deploy": "npm run build:production && CI=1 wrangler d1 migrations apply DB --remote --config dist/server/wrangler.json && wrangler deploy --config dist/server/wrangler.json"
   },
   "dependencies": {
     "drizzle-orm": "0.45.2",

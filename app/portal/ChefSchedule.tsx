@@ -32,7 +32,7 @@ export default function ChefSchedule() {
     fetch("/api/chef/schedule")
       .then(async (response) => {
         if (response.status === 401 || response.status === 403) {
-          window.location.href = "/signin-with-chatgpt?return_to=%2Fchef%2Fworkspace";
+          window.location.href = "/signin?return_to=%2Fchef%2Fworkspace";
           throw new Error("Sign in required");
         }
         if (!response.ok) throw new Error("Could not load upcoming jobs");

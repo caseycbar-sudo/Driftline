@@ -16,5 +16,5 @@
 .label-dishes summary{grid-template-columns:1fr auto auto auto}
 .label-actions{display:flex;gap:6px}
 .label-actions button{border:1px solid #9eb2aa;background:#fff;color:#17323e;padding:8px 10px;font-size:8px;font-weight:800;cursor:pointer}
-.label-actions button:last-child{background:#567c75;color:#fff;border-color:#567c75}
+.label-actions button:last-child{background:#486863;color:#fff;border-color:#486863}
 @media(max-width:700px){.label-dishes summary{grid-template-columns:1fr auto}.label-actions{grid-column:1/-1}.label-actions button{flex:1}.label-dishes summary>i{grid-column:1/-1}}

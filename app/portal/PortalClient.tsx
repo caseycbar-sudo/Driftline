@@ -8,9 +8,14 @@ import ChefWork from "./ChefWork";
 import StaffManager from "./StaffManager";
 import PrivateChefLeads from "./PrivateChefLeads";
 import AdminDispatch from "./AdminDispatch";
+import MarketControl from "./MarketControl";
+import BillingManager from "./BillingManager";
+import CookbookManager from "./CookbookManager";
+import ReviewsManager from "./ReviewsManager";
 import DisclosureGate from "../disclosures/DisclosureGate";
 import BrandLogo from "../BrandLogo";
 import ChefFieldApp from "./ChefFieldApp";
+import Link from "next/link";
 
 type Role = "chef" | "admin";
 type Notice = { title: string; detail: string } | null;
@@ -58,7 +63,7 @@ const recipes = [
 ];
 
 const chefTabs = ["Today", "Upcoming", "Recipes", "Time & Mileage", "Earnings"];
-const adminTabs = ["Dispatch", "Calendar", "Private Chef Leads", "People"];
+const adminTabs = ["Dispatch", "Calendar", "Requests", "Billing", "Cookbook", "Market", "Reviews", "People"];
 
 function Icon({ children }: { children: React.ReactNode }) {
   return (
@@ -87,8 +92,18 @@ export default function Portal({
 }: {
   staff: { email: string; fullName: string; role: Role };
 }) {
+  // Each workspace is its own component so that neither one's hooks are
+  // skipped when the other renders.
+  if (staff.role === "chef") return <ChefFieldApp staff={staff} />;
+  return <AdminPortal staff={staff} />;
+}
+
+function AdminPortal({
+  staff,
+}: {
+  staff: { email: string; fullName: string; role: Role };
+}) {
   const role = staff.role;
-  if (role === "chef") return <ChefFieldApp staff={staff} />;
   const [tab, setTab] = useState(role === "chef" ? "Today" : "Dispatch");
   const [notice, setNotice] = useState<Notice>(null);
   const [clocked, setClocked] = useState(false);
@@ -109,12 +124,12 @@ export default function Portal({
     <main className="portal">
       {role === "chef" ? <DisclosureGate scope="chef" /> : null}
       <header className="portal-top">
-        <a className="portal-brand" href="/">
+        <Link className="portal-brand" href="/">
           <BrandLogo />
-        </a>
-        <a className="staff-home-link" href="/">
+        </Link>
+        <Link className="staff-home-link" href="/">
           ← Public website
-        </a>
+        </Link>
         <div className="role-switch staff-role-label">
           {role === "chef" ? "CHEF WORKSPACE" : "ADMIN WORKSPACE"}
         </div>
@@ -127,7 +142,7 @@ export default function Portal({
             textDecoration: "none",
           }}
         >
-          100-recipe cookbook →
+          Cookbook →
         </a>
         <div className="portal-user">
           <button aria-label="Notifications" onClick={() => toast("Notifications", "You have no new staff notifications.")}>●</button>
@@ -157,26 +172,13 @@ export default function Portal({
               className={tab === item ? "active" : ""}
               onClick={() => setTab(item)}
             >
-              <Icon>{["⌂", "♨", "□", "◎", "$", "◷", "↗"][i] || "·"}</Icon>
+              <Icon>{({ Market: "◎", Reviews: "★", Requests: "✉", Billing: "$", Cookbook: "❧" } as Record<string, string>)[item] ?? (["⌂", "♨", "□", "◎", "$", "◷", "↗"][i] || "·")}</Icon>
               {item}
               {item === "Safety" ? <b>2</b> : null}
             </button>
           ))}
         </nav>
-        <div className="side-help">
-          <strong>Need help?</strong>
-          <p>Driftline support is available every day.</p>
-          <button
-            onClick={() =>
-              toast(
-                "Support request started",
-                "An operations coordinator will contact you.",
-              )
-            }
-          >
-            Contact support
-          </button>
-        </div>
+
       </aside>
       <section className="portal-main">
         {role === "chef" ? (
@@ -1117,9 +1119,13 @@ function Admin({
 }) {
   if (tab === "Calendar")
     return <AdminCalendar onOpenPeople={() => setTab("People")} />;
-  if (tab === "Private Chef Leads")
+  if (tab === "Requests")
     return <PrivateChefLeads onOpenCalendar={() => setTab("Calendar")} />;
   if (tab === "People") return <StaffManager />;
+  if (tab === "Billing") return <BillingManager />;
+  if (tab === "Cookbook") return <CookbookManager />;
+  if (tab === "Market") return <MarketControl />;
+  if (tab === "Reviews") return <ReviewsManager />;
   if (tab === "Dispatch")
     return (
       <AdminDispatch

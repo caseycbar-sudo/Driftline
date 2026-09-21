@@ -1,6 +1,7 @@
 /** Cloudflare Worker entry point for the vinext-starter template. */
 import { handleImageOptimization, DEFAULT_DEVICE_SIZES, DEFAULT_IMAGE_SIZES } from "vinext/server/image-optimization";
 import handler from "vinext/server/app-router-entry";
+import { runDailyJobs } from "../app/jobs/daily";
 
 interface Env {
   ASSETS: Fetcher;
@@ -29,6 +30,14 @@ const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
 
+    // One public address: send driftlineprovisions.com (e.g. from a QR code) to
+    // www.driftlineprovisions.com, keeping the path so old links still land right.
+    if (url.hostname === "driftlineprovisions.com") {
+      url.hostname = "www.driftlineprovisions.com";
+      url.protocol = "https:";
+      return Response.redirect(url.toString(), 301);
+    }
+
     if (url.pathname === "/_vinext/image") {
       const allowedWidths = [...DEFAULT_DEVICE_SIZES, ...DEFAULT_IMAGE_SIZES];
       return handleImageOptimization(request, {
@@ -41,6 +50,15 @@ const worker = {
     }
 
     return handler.fetch(request, env, ctx);
+  },
+
+  /** Daily trigger (see triggers.crons in deploy config): day-before visit reminders. */
+  async scheduled(_controller: unknown, _env: Env, _ctx: ExecutionContext) {
+    try {
+      console.log("[daily]", JSON.stringify(await runDailyJobs()));
+    } catch (error) {
+      console.error("[daily] failed", error instanceof Error ? error.stack : error);
+    }
   },
 };
 

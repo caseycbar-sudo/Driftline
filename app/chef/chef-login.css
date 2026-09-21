@@ -61,7 +61,7 @@
 .chef-login-status > span {
   font-size: 8px;
   letter-spacing: 0.16em;
-  color: #567c75;
+  color: #486863;
   font-weight: 800;
 }
 .chef-login h1 {
@@ -76,7 +76,7 @@
 }
 .chef-login-primary {
   display: inline-block;
-  background: #bd6643;
+  background: #b05f3e;
   color: white;
   padding: 14px 18px;
   text-decoration: none;
@@ -104,7 +104,7 @@
   display: grid;
   place-items: center;
   background: #dce9e3;
-  color: #567c75;
+  color: #486863;
   font: 13px Georgia;
 }
 .chef-login-steps strong,
@@ -127,7 +127,7 @@
 }
 .chef-login-card > small a,
 .chef-login-status a {
-  color: #bd6643;
+  color: #b05f3e;
   font-weight: 700;
 }
 .chef-login-status ol {

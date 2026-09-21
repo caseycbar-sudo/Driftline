@@ -1,12 +1,12 @@
 import { redirect } from "next/navigation";
 
-import { getChatGPTUser, requireChatGPTUser } from "./chatgpt-auth";
+import { getUser, requireUser } from "./auth";
 import { decideStaffAccess } from "./staff-access";
 import { resolveStaff, type StaffProfile, type StaffRole } from "../db/staff";
 
 /** The signed-in identity together with its active staff row, or null. */
 export async function getStaffUser() {
-  const user = await getChatGPTUser();
+  const user = await getUser();
   if (!user) return null;
   const staff = await resolveStaff(user.email, user.displayName);
   return staff ? { ...user, staff } : null;
@@ -24,8 +24,8 @@ export async function requireStaffRole(role?: StaffRole) {
 }
 
 export type StaffPageAccess =
-  | { authorized: true; user: Awaited<ReturnType<typeof requireChatGPTUser>>; staff: StaffProfile }
-  | { authorized: false; user: Awaited<ReturnType<typeof requireChatGPTUser>> };
+  | { authorized: true; user: Awaited<ReturnType<typeof requireUser>>; staff: StaffProfile }
+  | { authorized: false; user: Awaited<ReturnType<typeof requireUser>> };
 
 /**
  * Guard for staff-only pages.
@@ -42,7 +42,7 @@ export async function requireStaffPage(
   returnTo: string,
   role: StaffRole,
 ): Promise<StaffPageAccess> {
-  const user = await requireChatGPTUser(returnTo);
+  const user = await requireUser(returnTo);
   const staff = await resolveStaff(user.email, user.displayName);
   const decision = decideStaffAccess(staff, role);
 

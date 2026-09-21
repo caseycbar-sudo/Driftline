@@ -29,6 +29,11 @@ export default function ProfileForm({ initialProfile }: { initialProfile: Custom
       <label>Who is service for?<select value={profile.serviceFor} onChange={(e) => update("serviceFor", e.target.value)}><option>My household</option><option>A parent or loved one</option><option>A client I care for</option></select></label>
       <label>Preferred package<select value={profile.preferredPackage} onChange={(e) => update("preferredPackage", e.target.value)}><option>Essential</option><option>Classic</option><option>Weekly</option><option>Couples</option><option>Household</option><option>Family</option></select></label>
     </div>
+    <div className="visit-grid">
+      <label className="wide">Street address for visits<input value={profile.streetAddress} onChange={(e) => update("streetAddress", e.target.value)} autoComplete="street-address" placeholder="123 Marine Dr, Astoria, OR 97103" /></label>
+      <label>Getting in<textarea value={profile.accessNotes} onChange={(e) => update("accessNotes", e.target.value)} placeholder="Gate or door code, where to park, which door, pets, alarm." /></label>
+      <label>Your kitchen<textarea value={profile.kitchenNotes} onChange={(e) => update("kitchenNotes", e.target.value)} placeholder="Anything the chef should know: induction cooktop, oven runs hot, where the pans live." /></label>
+    </div>
     <div className="notes-grid">
       <label>Allergies or dietary needs<textarea value={profile.dietaryNeeds} onChange={(e) => update("dietaryNeeds", e.target.value)} placeholder="Tell us what needs special care." /></label>
       <label>Foods you love<textarea value={profile.favoriteFoods} onChange={(e) => update("favoriteFoods", e.target.value)} placeholder="Favorite dishes, flavors, and comfort foods." /></label>

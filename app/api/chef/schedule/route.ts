@@ -2,17 +2,19 @@ import {NextResponse} from "next/server";
 import {requireStaffRole} from "../../../staff-auth";
 import {listEvents} from "../../../../db/schedule";
 import {getMealPlan} from "../../../../db/meals";
-import {recipes} from "../../../cookbook/recipes";
+import { getCookbook } from "../../../../db/cookbook";
 
 export const dynamic="force-dynamic";
-const date=(value:Date)=>value.toISOString().slice(0,10);
+import {oregonToday} from "../../../oregon-time";
+const addDays=(d:string,n:number)=>new Date(new Date(`${d}T12:00:00Z`).getTime()+n*86400000).toISOString().slice(0,10);
 
 export async function GET(){
   const user=await requireStaffRole("chef");
   if(!user)return NextResponse.json({error:"Chef access required"},{status:403});
-  const start=new Date(),end=new Date();end.setDate(end.getDate()+90);
+  const start=oregonToday(),end=addDays(start,90);
   const email=user.email.toLowerCase();
-  const events=(await listEvents(date(start),date(end))).filter(event=>event.chefEmail.toLowerCase()===email&&event.status!=="cancelled");
+  const recipes=await getCookbook();
+  const events=(await listEvents(start,end)).filter(event=>event.chefEmail.toLowerCase()===email&&event.status!=="cancelled");
   const enriched=await Promise.all(events.map(async event=>{
     const plan=event.customerEmail?await getMealPlan(event.customerEmail):{selectedRecipeIds:[],customRecipes:[]};
     const dishes=event.dishes.map(title=>{

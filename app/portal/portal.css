@@ -78,12 +78,12 @@
 .portal-user > button {
   background: none;
   border: 0;
-  color: #bd6643;
+  color: #b05f3e;
 }
 .portal-user > span {
   width: 34px;
   height: 34px;
-  background: #567c75;
+  background: #486863;
   color: white;
   border-radius: 50%;
   display: grid;
@@ -154,7 +154,7 @@
 }
 .portal-side nav button b {
   margin-left: auto;
-  background: #bd6643;
+  background: #b05f3e;
   border-radius: 9px;
   padding: 2px 6px;
   font-size: 8px;
@@ -209,7 +209,7 @@
 }
 .live-dot {
   font-size: 9px;
-  color: #567c75;
+  color: #486863;
 }
 .page-body {
   padding: 24px 28px 50px;
@@ -232,10 +232,10 @@
   border-color: #123349;
 }
 .metric.sea {
-  border-color: #567c75;
+  border-color: #486863;
 }
 .metric.rust {
-  border-color: #bd6643;
+  border-color: #b05f3e;
 }
 .metric.sand {
   border-color: #d2a75b;
@@ -292,7 +292,7 @@
 .text-action {
   border: 0;
   background: none;
-  color: #bd6643;
+  color: #b05f3e;
   font-size: 9px;
   font-weight: 700;
 }
@@ -312,13 +312,13 @@
   background: currentColor;
 }
 .status.rust {
-  color: #bd6643;
+  color: #b05f3e;
 }
 .status.gray {
   color: #79878b;
 }
 .status.sea {
-  color: #567c75;
+  color: #486863;
 }
 .mini-meals {
   display: grid;
@@ -369,7 +369,7 @@
   width: 48px;
   height: 48px;
   background: #dce9e3;
-  color: #567c75;
+  color: #486863;
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -412,14 +412,14 @@
 .check-list b {
   display: inline-block;
   width: 75px;
-  color: #567c75;
+  color: #486863;
 }
 .message {
   font: 13px/1.65 Georgia;
   color: #4e6269;
   background: #f5f5f0;
   padding: 15px;
-  border-left: 3px solid #567c75;
+  border-left: 3px solid #486863;
 }
 .menu-cycle {
   background: #123349;
@@ -455,7 +455,7 @@
   color: #18313d;
 }
 .meal-choice.selected {
-  border: 2px solid #567c75;
+  border: 2px solid #486863;
 }
 .choice-photo {
   height: 120px;
@@ -479,12 +479,12 @@
 .meal-choice small {
   display: block;
   font-size: 8px;
-  color: #718084;
+  color: #596569;
   margin-top: 4px;
 }
 .meal-choice p {
   font-size: 9px;
-  color: #567c75;
+  color: #486863;
   margin: 11px 0 0;
 }
 .meal-choice b {
@@ -560,7 +560,7 @@
 .calendar i {
   width: 5px;
   height: 5px;
-  background: #bd6643;
+  background: #b05f3e;
   border-radius: 50%;
   position: absolute;
   right: 8px;
@@ -574,7 +574,7 @@
   font-size: 10px;
 }
 .key-row span {
-  color: #718084;
+  color: #596569;
 }
 .key-row strong {
   color: #18313d;
@@ -590,14 +590,14 @@
 }
 .primary-action {
   border: 0;
-  background: #bd6643;
+  background: #b05f3e;
   color: white;
   padding: 11px 15px;
   font-size: 9px;
   font-weight: 700;
 }
 .primary-action.sea {
-  background: #567c75;
+  background: #486863;
 }
 .primary-action:disabled {
   opacity: 0.6;
@@ -632,7 +632,7 @@
 .person i {
   width: 34px;
   height: 34px;
-  background: #567c75;
+  background: #486863;
   color: white;
   border-radius: 50%;
   display: grid;
@@ -665,7 +665,7 @@
   width: 28px;
   height: 28px;
   background: #e3eee8;
-  color: #567c75;
+  color: #486863;
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -740,7 +740,7 @@
   font-weight: 700;
 }
 .clock-btn {
-  background: #bd6643;
+  background: #b05f3e;
   color: white;
 }
 .break-btn {
@@ -758,7 +758,7 @@
 }
 .job-head p {
   font-size: 9px;
-  color: #718084;
+  color: #596569;
 }
 .job-steps {
   display: grid;
@@ -787,9 +787,9 @@
   color: #426c5d;
 }
 .job-steps button.done span {
-  background: #567c75;
+  background: #486863;
   color: white;
-  border-color: #567c75;
+  border-color: #486863;
 }
 .alert-line {
   background: #fbede4;
@@ -803,7 +803,7 @@
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: #bd6643;
+  background: #b05f3e;
   color: white;
   display: grid;
   place-items: center;
@@ -872,7 +872,7 @@
 }
 .recipe-hero p {
   font-size: 9px;
-  color: #718084;
+  color: #596569;
 }
 .scale-control {
   display: flex;
@@ -954,8 +954,8 @@
   left: -5px;
 }
 .timeline i.done {
-  background: #567c75;
-  border-color: #567c75;
+  background: #486863;
+  border-color: #486863;
 }
 .profile-hero {
   background: white;
@@ -967,7 +967,7 @@
 .profile-hero > span {
   width: 65px;
   height: 65px;
-  background: #567c75;
+  background: #486863;
   color: white;
   border-radius: 50%;
   display: grid;
@@ -980,7 +980,7 @@
 }
 .profile-hero p {
   font-size: 9px;
-  color: #718084;
+  color: #596569;
 }
 .rating-box {
   margin-left: auto;
@@ -995,7 +995,7 @@
 }
 .rating-box small {
   font-size: 8px;
-  color: #718084;
+  color: #596569;
 }
 .table-wrap {
   overflow: auto;
@@ -1052,7 +1052,7 @@ td {
 .dispatch-board article button {
   border: 0;
   background: none;
-  color: #bd6643;
+  color: #b05f3e;
   padding: 0;
   font-size: 8px;
 }
@@ -1087,7 +1087,7 @@ td {
 }
 .approval-list li.done:before {
   content: "✓";
-  color: #567c75;
+  color: #486863;
 }
 .alert {
   display: flex;
@@ -1109,7 +1109,7 @@ td {
   background: #fbefe2;
 }
 .alert.warn > span {
-  background: #bd6643;
+  background: #b05f3e;
   color: white;
 }
 .alert strong,
@@ -1139,13 +1139,13 @@ td {
 }
 .audit p {
   font-size: 9px;
-  border-left: 2px solid #567c75;
+  border-left: 2px solid #486863;
   padding: 8px 12px;
   margin: 0;
 }
 .audit b {
   display: block;
-  color: #567c75;
+  color: #486863;
 }
 .incident {
   border-bottom: 1px solid #e8eae7;
@@ -1164,7 +1164,7 @@ td {
   margin-top: -32px;
   border: 0;
   background: none;
-  color: #bd6643;
+  color: #b05f3e;
   font-size: 8px;
 }
 .p-card textarea {
@@ -1189,7 +1189,7 @@ td {
 }
 .bars span {
   width: 100%;
-  background: linear-gradient(#567c75, #294f4a);
+  background: linear-gradient(#486863, #294f4a);
 }
 .bars small {
   font-size: 7px;
@@ -1224,7 +1224,7 @@ td {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: #567c75;
+  background: #486863;
   display: grid;
   place-items: center;
 }
@@ -1326,14 +1326,12 @@ td {
     overflow: auto;
   }
   .portal-side nav button {
-    min-width: 70px;
+    flex: 1 0 58px;
+    min-width: 58px;
     display: grid;
     place-items: center;
     gap: 2px;
-    font-size: 7px !important;
-  }
-  .portal-side nav button:nth-child(n + 6) {
-    display: none;
+    font-size: 10px !important;
   }
   .p-icon {
     font-size: 14px;
@@ -1400,7 +1398,7 @@ td {
 }
 .staff-home-link {
   font-size: 9px;
-  color: #567c75;
+  color: #486863;
   text-decoration: none;
   white-space: nowrap;
 }
@@ -1411,7 +1409,7 @@ td {
 }
 .calendar-add {
   border: 0;
-  background: #bd6643;
+  background: #b05f3e;
   color: white;
   padding: 12px 16px;
   font-size: 10px;
@@ -1426,10 +1424,10 @@ td {
   background: white;
   border: 1px solid #e0e3de;
   padding: 17px;
-  border-top: 3px solid #567c75;
+  border-top: 3px solid #486863;
 }
 .calendar-summary > div:nth-child(2) {
-  border-top-color: #bd6643;
+  border-top-color: #b05f3e;
 }
 .calendar-summary > div:nth-child(3) {
   border-top-color: #d2a75b;
@@ -1530,12 +1528,12 @@ td {
 }
 .month-grid > button.selected {
   background: #edf3ef;
-  box-shadow: inset 0 0 0 2px #567c75;
+  box-shadow: inset 0 0 0 2px #486863;
 }
 .month-grid > button.today > strong {
   width: 23px;
   height: 23px;
-  background: #bd6643;
+  background: #b05f3e;
   color: white;
   border-radius: 50%;
   display: grid;
@@ -1558,7 +1556,7 @@ td {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  border-left: 2px solid #567c75;
+  border-left: 2px solid #486863;
 }
 .event-dot.confirmed {
   background: #e5edf2;
@@ -1579,11 +1577,11 @@ td {
 .event-dot.cancelled {
   background: #f1e6e2;
   color: #925941;
-  border-color: #bd6643;
+  border-color: #b05f3e;
 }
 .month-grid > button > small {
   font-size: 7px;
-  color: #bd6643;
+  color: #b05f3e;
 }
 .day-agenda {
   min-height: 560px;
@@ -1609,7 +1607,7 @@ td {
 }
 .agenda-empty button {
   border: 0;
-  background: #bd6643;
+  background: #b05f3e;
   color: white;
   padding: 10px 13px;
   font-size: 9px;
@@ -1645,7 +1643,7 @@ td {
 .agenda-list article button {
   border: 0;
   background: none;
-  color: #bd6643;
+  color: #b05f3e;
   padding: 0;
   font-size: 8px;
 }
@@ -1677,11 +1675,11 @@ td {
 }
 .schedule-signin p {
   font-size: 11px;
-  color: #718084;
+  color: #596569;
 }
 .schedule-signin a {
   display: inline-block;
-  background: #bd6643;
+  background: #b05f3e;
   color: white;
   padding: 12px 16px;
   text-decoration: none;
@@ -1711,12 +1709,12 @@ td {
   border: 0;
   background: none;
   font-size: 26px;
-  color: #718084;
+  color: #596569;
 }
 .schedule-modal form > small {
   font-size: 7px;
   letter-spacing: 0.14em;
-  color: #567c75;
+  color: #486863;
 }
 .schedule-modal h2 {
   font: 28px Georgia;
@@ -1752,7 +1750,7 @@ td {
 }
 .schedule-save {
   border: 0;
-  background: #bd6643;
+  background: #b05f3e;
   color: white;
   padding: 13px 17px;
   font-size: 9px;
@@ -1835,7 +1833,7 @@ td {
 }
 .customer-dish-picker > div:first-child button {
   border: 0;
-  background: #567c75;
+  background: #486863;
   color: white;
   padding: 12px;
   font-size: 8px;
@@ -1843,7 +1841,7 @@ td {
 }
 .customer-dish-picker > p {
   font-size: 9px;
-  color: #567c75;
+  color: #486863;
   margin: 10px 0;
 }
 .dish-options {
@@ -1915,7 +1913,7 @@ td {
 }
 .calendar-recipe-picker > header small {
   font-size: 8px;
-  color: #78878a;
+  color: #596467;
   margin-top: 3px;
 }
 .calendar-recipe-picker > header input {
@@ -1946,7 +1944,7 @@ td {
 }
 .calendar-recipe-picker > div > button.selected {
   background: #e9f1ec;
-  box-shadow: inset 3px 0 #567c75;
+  box-shadow: inset 3px 0 #486863;
 }
 .calendar-recipe-picker img {
   width: 48px;
@@ -1962,7 +1960,7 @@ td {
 }
 .calendar-recipe-picker button span small {
   font-size: 7px;
-  color: #78878a;
+  color: #596467;
   margin-top: 3px;
 }
 .calendar-recipe-picker button > b {
@@ -1972,10 +1970,10 @@ td {
   display: grid;
   place-items: center;
   background: #eef0ec;
-  color: #567c75;
+  color: #486863;
 }
 .calendar-recipe-picker button.selected > b {
-  background: #567c75;
+  background: #486863;
   color: white;
 }
 @media (max-width: 700px) {
@@ -1990,7 +1988,7 @@ td {
 .next-job-badge {
   margin-left: auto;
   background: #e8f0eb;
-  border-left: 3px solid #567c75;
+  border-left: 3px solid #486863;
   padding: 10px 14px;
 }
 .next-job-badge small,
@@ -2000,7 +1998,7 @@ td {
 .next-job-badge small {
   font-size: 6px;
   letter-spacing: 0.13em;
-  color: #567c75;
+  color: #486863;
 }
 .next-job-badge strong {
   font: 13px Georgia;
@@ -2012,7 +2010,7 @@ td {
   border: 1px solid #dfe2dd;
   padding: 55px;
   text-align: center;
-  color: #78878a;
+  color: #596467;
 }
 .chef-schedule-state strong {
   font: 20px Georgia;
@@ -2033,7 +2031,7 @@ td {
   border: 1px solid #dfe2dd;
 }
 .chef-job-list > article.open {
-  border-color: #567c75;
+  border-color: #486863;
   box-shadow: 0 8px 25px #16374a12;
 }
 .chef-job-head {
@@ -2061,7 +2059,7 @@ td {
 .chef-job-head time b {
   font-size: 7px;
   letter-spacing: 0.1em;
-  color: #bd6643;
+  color: #b05f3e;
 }
 .chef-job-head time strong {
   font: 27px Georgia;
@@ -2080,7 +2078,7 @@ td {
   font-size: 7px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #567c75;
+  color: #486863;
 }
 .chef-job-head > span > strong {
   font: 18px Georgia;
@@ -2093,7 +2091,7 @@ td {
 }
 .chef-job-head > b {
   font-size: 9px;
-  color: #bd6643;
+  color: #b05f3e;
 }
 .chef-job-detail {
   border-top: 1px solid #e4e7e2;
@@ -2106,7 +2104,7 @@ td {
 }
 .chef-job-note {
   background: #fff2e4;
-  border-left: 3px solid #bd6643;
+  border-left: 3px solid #b05f3e;
   padding: 12px;
 }
 .chef-job-note b {
@@ -2158,14 +2156,14 @@ td {
 }
 .chef-dish-list header small {
   font-size: 7px;
-  color: #78878a;
+  color: #596467;
   margin-top: 4px;
 }
 .chef-dish-list h3 {
   font-size: 8px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #567c75;
+  color: #486863;
   margin: 14px 0 8px;
 }
 .chef-dish-list ul {
@@ -2235,7 +2233,7 @@ td {
 .staff-roster > header small {
   font-size: 7px;
   letter-spacing: 0.13em;
-  color: #567c75;
+  color: #486863;
 }
 .staff-add h2,
 .staff-roster h2 {
@@ -2271,7 +2269,7 @@ td {
 }
 .staff-add button {
   border: 0;
-  background: #bd6643;
+  background: #b05f3e;
   color: white;
   padding: 12px;
   font-size: 9px;
@@ -2291,7 +2289,7 @@ td {
 .chef-picker-help button {
   border: 0;
   background: none;
-  color: #bd6643;
+  color: #b05f3e;
   padding: 0;
   text-decoration: underline;
   cursor: pointer;
@@ -2305,7 +2303,7 @@ td {
 }
 .staff-roster > header span {
   font-size: 7px;
-  color: #567c75;
+  color: #486863;
   background: #e8f0eb;
   padding: 7px;
 }
@@ -2344,7 +2342,7 @@ td {
 .staff-person-open:hover,
 .staff-person-open:focus-visible {
   background: #eef3ef;
-  outline: 2px solid #567c75;
+  outline: 2px solid #486863;
   outline-offset: 2px;
 }
 .staff-person-open strong,
@@ -2369,7 +2367,7 @@ td {
   max-height: calc(100vh - 48px);
   overflow: auto;
   background: #f7f6f0;
-  border-top: 5px solid #bd6643;
+  border-top: 5px solid #b05f3e;
   box-shadow: 0 28px 80px rgba(0,0,0,.35);
 }
 .staff-profile-close {
@@ -2386,7 +2384,7 @@ td {
   font-size: 25px;
   cursor: pointer;
 }
-.staff-profile-loading { padding: 70px 30px; text-align: center; color: #567c75; }
+.staff-profile-loading { padding: 70px 30px; text-align: center; color: #486863; }
 .staff-profile-head {
   display: flex;
   align-items: center;
@@ -2414,10 +2412,10 @@ td {
 .staff-profile-fields input,.staff-profile-fields textarea { width: 100%; border: 1px solid #d4dad5; padding: 10px; background: #fff; color: #18313d; font: 10px Arial; box-sizing: border-box; }
 .staff-profile-fields .wide { grid-column: 1/-1; }
 .staff-profile-save { display: flex; align-items: center; gap: 12px; margin-top: 14px; }
-.staff-profile-save button { border: 0; background: #bd6643; color: white; padding: 11px 15px; font-size: 9px; font-weight: 700; cursor: pointer; }
-.staff-profile-save span { font-size: 8px; color: #567c75; }
+.staff-profile-save button { border: 0; background: #b05f3e; color: white; padding: 11px 15px; font-size: 9px; font-weight: 700; cursor: pointer; }
+.staff-profile-save span { font-size: 8px; color: #486863; }
 .staff-job-history > header,.staff-time-history > header { display: flex; justify-content: space-between; align-items: end; margin-bottom: 12px; }
-.staff-job-history header small,.staff-time-history header small { font-size: 7px; letter-spacing: .13em; color: #567c75; }
+.staff-job-history header small,.staff-time-history header small { font-size: 7px; letter-spacing: .13em; color: #486863; }
 .staff-job-history header > span,.staff-time-history header > span { font-size: 8px; color: #748388; }
 .staff-job-list > article { display: grid; grid-template-columns: 105px 1fr 90px 70px; gap: 14px; align-items: center; padding: 14px 0; border-top: 1px solid #e7e9e5; }
 .staff-job-list time { font: 12px Georgia; color: #123349; }
@@ -2428,7 +2426,7 @@ td {
 .job-status { justify-self: start; padding: 6px 8px; border-radius: 14px; background: #e7efe9; color: #456f61; font-size: 7px; text-transform: uppercase; }
 .staff-job-list article > b { text-align: right; font-size: 10px; color: #123349; }
 .staff-time-history > div > article { display: grid; grid-template-columns: 85px 1fr 80px; gap: 12px; align-items: center; padding: 11px 0; border-top: 1px solid #e7e9e5; }
-.staff-time-history article > span { font-size: 7px; text-transform: uppercase; color: #567c75; }
+.staff-time-history article > span { font-size: 7px; text-transform: uppercase; color: #486863; }
 .staff-time-history article div strong,.staff-time-history article div small { display: block; }
 .staff-time-history article div strong { font-size: 9px; color: #123349; }
 .staff-time-history article div small { margin-top: 4px; font-size: 7px; color: #748388; }
@@ -2473,7 +2471,7 @@ td {
 .access-denied small {
   font-size: 8px;
   letter-spacing: 0.16em;
-  color: #567c75;
+  color: #486863;
 }
 .access-denied h1 {
   font: 34px Georgia;
@@ -2486,7 +2484,7 @@ td {
 }
 .access-denied a {
   display: inline-block;
-  background: #bd6643;
+  background: #b05f3e;
   color: white;
   padding: 12px 16px;
   text-decoration: none;
@@ -2526,7 +2524,7 @@ td {
 }
 .chef-work-error {
   background: #fff0ea;
-  border-left: 4px solid #bd6643;
+  border-left: 4px solid #b05f3e;
   padding: 12px;
   color: #8a4e39;
   font-size: 9px;
@@ -2580,8 +2578,8 @@ td {
 .real-clock button.solid,
 .real-job-list button.solid,
 .mileage-form button {
-  background: #bd6643;
-  border-color: #bd6643;
+  background: #b05f3e;
+  border-color: #b05f3e;
 }
 .real-job-list {
   display: grid;
@@ -2610,13 +2608,13 @@ td {
 }
 .real-job-list header > b {
   font: 14px Georgia;
-  color: #567c75;
+  color: #486863;
 }
 .real-status {
   font-size: 7px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #567c75;
+  color: #486863;
   background: #e8f0eb;
   padding: 5px 7px;
 }
@@ -2639,7 +2637,7 @@ td {
 .real-dishes small {
   font-size: 6px;
   letter-spacing: 0.12em;
-  color: #567c75;
+  color: #486863;
 }
 .real-dishes span {
   font: 11px Georgia;
@@ -2658,7 +2656,7 @@ td {
   padding-top: 12px;
 }
 .real-job-list footer button {
-  color: #567c75;
+  color: #486863;
   border-color: #b8c7c0;
 }
 .real-job-list footer button.solid {
@@ -2687,7 +2685,7 @@ td {
 .real-metrics > div {
   background: white;
   border: 1px solid #dfe2dd;
-  border-top: 3px solid #567c75;
+  border-top: 3px solid #486863;
   padding: 17px;
 }
 .real-metrics small,
@@ -2735,7 +2733,7 @@ td {
 }
 .real-table .head {
   background: #f1f3ef;
-  color: #567c75;
+  color: #486863;
   font-size: 7px;
   letter-spacing: 0.08em;
 }
@@ -2770,7 +2768,45 @@ td {
     min-width: 560px;
   }
 }
-.job-destination,.job-customer-notes{display:flex;align-items:center;justify-content:space-between;gap:14px;background:#f4f6f1;border-left:4px solid #567c75;padding:13px 15px;margin:13px 0}.job-destination small,.job-destination strong,.job-customer-notes>small{display:block}.job-destination small,.job-customer-notes>small,.today-menu>small{font-size:7px;letter-spacing:.12em;color:#567c75}.job-destination strong{font:14px Georgia;color:#123349;margin-top:5px}.job-destination a,.job-customer-notes a{color:#bd6643;font-size:9px;font-weight:700}.job-customer-notes{display:block;border-left-color:#d2a75b;background:#fff8ec}.job-customer-notes a{display:inline-block;margin:8px 0}.job-customer-notes p{font-size:9px;line-height:1.5;margin:5px 0;color:#536a72}.today-menu{background:#f4f6f1;padding:14px;margin:13px 0}.today-menu details{background:white;border:1px solid #dfe2dd;margin-top:8px;padding:11px}.today-menu summary{cursor:pointer;font:13px Georgia;color:#123349}.today-menu summary em{display:block;font:7px Arial;color:#9a5c48;margin-top:4px}.today-menu ul{columns:2;margin:10px 0 0;padding-left:18px}.today-menu li{font-size:9px;line-height:1.6;color:#536a72}
-.live-dispatch{display:grid;gap:15px}.dispatch-error{background:#fff0ea;border-left:4px solid #bd6643;padding:12px;color:#8a4e39}.dispatch-state{background:white;border:1px solid #dfe2dd;padding:45px;text-align:center}.dispatch-state h2{font:24px Georgia;color:#123349}.dispatch-state button,.dispatch-no-chefs button{border:0;background:#bd6643;color:white;padding:11px 15px;font-weight:700}.dispatch-group{background:white;border:1px solid #dfe2dd}.dispatch-group>header{display:flex;justify-content:space-between;align-items:center;padding:17px 19px;border-bottom:1px solid #e5e8e3}.dispatch-group>header h2{font:21px Georgia;color:#123349;margin:0}.dispatch-group>header span{font-size:8px;color:#567c75}.dispatch-group>div>article{display:grid;grid-template-columns:100px minmax(220px,1fr) 170px 145px auto;gap:13px;align-items:center;padding:15px 18px;border-bottom:1px solid #e8eae6}.dispatch-group time strong,.dispatch-group time span{display:block}.dispatch-group time strong{font:13px Georgia;color:#123349}.dispatch-group time span{font-size:8px;color:#748388;margin-top:4px}.dispatch-visit h3{font:15px Georgia;color:#123349;margin:6px 0 3px}.dispatch-visit p,.dispatch-visit small{display:block;font-size:8px;color:#748388}.dispatch-visit small{margin-top:5px}.dispatch-group label{display:grid;gap:5px;font-size:7px;text-transform:uppercase;letter-spacing:.08em;color:#63767c}.dispatch-group select{border:1px solid #d4dad5;background:white;padding:9px;color:#18313d}.dispatch-group article>button{border:1px solid #aab8b5;background:white;color:#123349;padding:9px;font-size:8px;font-weight:700}.dispatch-empty{padding:20px;color:#748388}.dispatch-no-chefs{display:flex;justify-content:space-between;align-items:center;background:#fff8ec;border-left:4px solid #d2a75b;padding:15px}.dispatch-no-chefs strong{font:13px Georgia;color:#123349}
+.job-destination,.job-customer-notes{display:flex;align-items:center;justify-content:space-between;gap:14px;background:#f4f6f1;border-left:4px solid #486863;padding:13px 15px;margin:13px 0}.job-destination small,.job-destination strong,.job-customer-notes>small{display:block}.job-destination small,.job-customer-notes>small,.today-menu>small{font-size:7px;letter-spacing:.12em;color:#486863}.job-destination strong{font:14px Georgia;color:#123349;margin-top:5px}.job-destination a,.job-customer-notes a{color:#b05f3e;font-size:9px;font-weight:700}.job-customer-notes{display:block;border-left-color:#d2a75b;background:#fff8ec}.job-customer-notes a{display:inline-block;margin:8px 0}.job-customer-notes p{font-size:9px;line-height:1.5;margin:5px 0;color:#51676f}.today-menu{background:#f4f6f1;padding:14px;margin:13px 0}.today-menu details{background:white;border:1px solid #dfe2dd;margin-top:8px;padding:11px}.today-menu summary{cursor:pointer;font:13px Georgia;color:#123349}.today-menu summary em{display:block;font:7px Arial;color:#9a5c48;margin-top:4px}.today-menu ul{columns:2;margin:10px 0 0;padding-left:18px}.today-menu li{font-size:9px;line-height:1.6;color:#51676f}
+.live-dispatch{display:grid;gap:15px}.dispatch-error{background:#fff0ea;border-left:4px solid #b05f3e;padding:12px;color:#8a4e39}.dispatch-state{background:white;border:1px solid #dfe2dd;padding:45px;text-align:center}.dispatch-state h2{font:24px Georgia;color:#123349}.dispatch-state button,.dispatch-no-chefs button{border:0;background:#b05f3e;color:white;padding:11px 15px;font-weight:700}.dispatch-group{background:white;border:1px solid #dfe2dd}.dispatch-group>header{display:flex;justify-content:space-between;align-items:center;padding:17px 19px;border-bottom:1px solid #e5e8e3}.dispatch-group>header h2{font:21px Georgia;color:#123349;margin:0}.dispatch-group>header span{font-size:8px;color:#486863}.dispatch-group>div>article{display:grid;grid-template-columns:100px minmax(220px,1fr) 170px 145px auto;gap:13px;align-items:center;padding:15px 18px;border-bottom:1px solid #e8eae6}.dispatch-group time strong,.dispatch-group time span{display:block}.dispatch-group time strong{font:13px Georgia;color:#123349}.dispatch-group time span{font-size:8px;color:#748388;margin-top:4px}.dispatch-visit h3{font:15px Georgia;color:#123349;margin:6px 0 3px}.dispatch-visit p,.dispatch-visit small{display:block;font-size:8px;color:#748388}.dispatch-visit small{margin-top:5px}.dispatch-group label{display:grid;gap:5px;font-size:7px;text-transform:uppercase;letter-spacing:.08em;color:#63767c}.dispatch-group select{border:1px solid #d4dad5;background:white;padding:9px;color:#18313d}.dispatch-group article>button{border:1px solid #aab8b5;background:white;color:#123349;padding:9px;font-size:8px;font-weight:700}.dispatch-empty{padding:20px;color:#748388}.dispatch-no-chefs{display:flex;justify-content:space-between;align-items:center;background:#fff8ec;border-left:4px solid #d2a75b;padding:15px}.dispatch-no-chefs strong{font:13px Georgia;color:#123349}
 @media(max-width:1000px){.dispatch-group{overflow:auto}.dispatch-group>div>article{min-width:850px}.dispatch-no-chefs{display:block}.dispatch-no-chefs button{display:block;margin-top:10px}}
 @media(max-width:700px){.job-destination{display:block}.job-destination a{display:inline-block;margin-top:10px}.today-menu ul{columns:1}}
+
+/* Dispatch rows stack on phones so the chef and status controls stay reachable */
+@media (max-width: 760px) {
+  .dispatch-group > div > article {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 10px 12px;
+    min-width: 0 !important;
+  }
+  .dispatch-group { overflow-x: visible !important; }
+  .dispatch-group > div > article > time,
+  .dispatch-group > div > article > .dispatch-visit,
+  .dispatch-group > div > article > button {
+    grid-column: 1 / -1;
+  }
+  .dispatch-group select {
+    width: 100%;
+    min-height: 44px;
+    font-size: 16px;
+  }
+  .dispatch-group article > button {
+    min-height: 44px;
+    font-size: 13px;
+  }
+}
+/* Readable text sizes in dispatch (several were 7–8px) */
+.dispatch-visit p, .dispatch-visit small, .dispatch-group time span { font-size: 12px; }
+.dispatch-group label { font-size: 11px; }
+.dispatch-group > header span { font-size: 12px; }
+.dispatch-group article > button { font-size: 12px; }
+
+/* ---------- calendar additions ---------- */
+.schedule-form-grid .schedule-wide { grid-column: 1 / -1; }
+.schedule-form-grid textarea { min-height: 70px; }
+.field-help { display: block; margin-top: 4px; font-size: 12px; color: #596568; font-weight: 400; letter-spacing: 0; text-transform: none; }
+.schedule-form-error { margin: 12px 0 0; padding: 10px 12px; background: #fbe9e4; color: #8a2f18; }
+.calendar-warning { margin: 0 0 14px; padding: 12px 14px; background: #fbf3df; border-left: 3px solid #b58a2e; color: #3f3413; }
+.calendar-warning.error { background: #fbe9e4; border-left-color: #b05f3e; color: #8a2f18; }
+.calendar-warning button { margin-left: 10px; background: none; border: 0; text-decoration: underline; cursor: pointer; color: inherit; }

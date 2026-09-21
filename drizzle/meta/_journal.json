@@ -71,6 +71,41 @@
       "when": 1787875709709,
       "tag": "0009_stale_strong_guy",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "6",
+      "when": 1789842074432,
+      "tag": "0010_inquiry_types",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "6",
+      "when": 1789848845372,
+      "tag": "0011_email_sign_in",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "6",
+      "when": 1789857460683,
+      "tag": "0012_market_and_reviews",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "6",
+      "when": 1789871936892,
+      "tag": "0013_schedule_details_and_payments",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "6",
+      "when": 1790022721546,
+      "tag": "0014_recipe_overrides",
+      "breakpoints": true
     }
   ]
 }

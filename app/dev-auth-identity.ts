@@ -2,9 +2,8 @@
  * Pure resolver for the local-development identity.
  *
  * This module holds no environment access and no framework imports so it can be
- * unit-tested directly. It never inspects request headers: outside ChatGPT
- * Sites, client-supplied `oai-authenticated-user-*` headers are attacker
- * controlled and must not influence identity.
+ * unit-tested directly. It never inspects request headers, so nothing a visitor
+ * sends can influence the development identity.
  *
  * The dev-only entry point that consumes this is `app/dev-auth.ts`, which
  * refuses to load outside a development build.

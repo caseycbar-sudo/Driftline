@@ -1,8 +1,10 @@
 "use client";
 
 import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
+import "./portal.css";
 import "./ChefWork.css";
 import VisitCompletion from "./VisitCompletion";
+import { oregonLongDate, oregonToday } from "../oregon-time";
 
 type Job = {
   id: number;
@@ -60,7 +62,7 @@ export default function ChefWork({ view }: { view: View }) {
     [busy, setBusy] = useState(""),
     [miles, setMiles] = useState(""),
     [mileNote, setMileNote] = useState("Approved travel");
-  const today = dateKey(new Date()),
+  const today = oregonToday(),
     range = useMemo(() => {
       const start = new Date();
       start.setDate(start.getDate() - 90);
@@ -76,7 +78,7 @@ export default function ChefWork({ view }: { view: View }) {
         { cache: "no-store" },
       );
       if (response.status === 401 || response.status === 403) {
-        window.location.href = "/signin-with-chatgpt?return_to=%2Fchef%2Fworkspace";
+        window.location.href = "/signin?return_to=%2Fchef%2Fworkspace";
         return;
       }
       if (!response.ok) throw new Error();
@@ -188,7 +190,7 @@ export default function ChefWork({ view }: { view: View }) {
     return (
       <WorkPage
         title="Today’s work"
-        sub={`${new Date().toLocaleDateString([], { weekday: "long", month: "long", day: "numeric" })} · ${todayJobs.length} assigned ${todayJobs.length === 1 ? "job" : "jobs"}`}
+        sub={`${oregonLongDate()} · ${todayJobs.length} assigned ${todayJobs.length === 1 ? "job" : "jobs"}`}
       >
         {error ? <p className="chef-work-error">{error}</p> : null}
         <section className={`real-clock ${open("day") ? "active" : ""}`}>

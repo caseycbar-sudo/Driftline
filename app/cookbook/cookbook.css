@@ -19,7 +19,7 @@
 .book-top > a {
   text-decoration: none;
   font-size: 10px;
-  color: #567c75;
+  color: #486863;
 }
 .book-top > div {
   display: flex;
@@ -133,7 +133,7 @@
   font-size: 8px;
 }
 .book-tools button.active {
-  background: #567c75;
+  background: #486863;
   color: white;
 }
 .book-tools > b {
@@ -161,7 +161,7 @@
   position: relative;
 }
 .recipe-gallery article.active {
-  border: 2px solid #bd6643;
+  border: 2px solid #b05f3e;
 }
 .recipe-gallery img {
   width: 100%;
@@ -177,7 +177,7 @@
 .recipe-gallery small {
   font-size: 7px;
   letter-spacing: 0.1em;
-  color: #728287;
+  color: #586569;
 }
 .recipe-gallery h2 {
   font: 15px/1.15 Georgia;
@@ -186,12 +186,12 @@
 }
 .recipe-gallery p {
   font-size: 8px;
-  color: #78878a;
+  color: #596467;
 }
 .recipe-gallery i {
   font-style: normal;
   background: #edf1ed;
-  color: #567c75;
+  color: #486863;
   padding: 4px 6px;
   border-radius: 8px;
   font-size: 7px;
@@ -210,7 +210,7 @@
   color: #8d9999;
 }
 .save.on {
-  color: #bd6643;
+  color: #b05f3e;
 }
 .recipe-detail {
   background: white;
@@ -223,10 +223,19 @@
 .detail-close {
   display: none;
 }
+button.open-recipe {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-family: inherit;
+  font-weight: inherit;
+  cursor: pointer;
+  text-align: left;
+}
 .open-recipe {
   display: block;
   margin-top: 10px;
-  color: #bd6643;
+  color: #b05f3e;
   font-size: 8px;
   letter-spacing: .04em;
 }
@@ -260,7 +269,7 @@
 .detail-title small {
   font-size: 7px;
   letter-spacing: 0.12em;
-  color: #567c75;
+  color: #486863;
 }
 .detail-title h2 {
   font: 31px/1.05 Georgia;
@@ -269,7 +278,7 @@
 }
 .detail-title p {
   font: 10px/1.5 Georgia;
-  color: #718084;
+  color: #596569;
 }
 .detail-meta {
   display: grid;
@@ -364,7 +373,7 @@
   font-size: 8px;
 }
 .ingredients p span {
-  color: #bd6643;
+  color: #b05f3e;
   margin-right: 7px;
 }
 .book-section ol {
@@ -383,7 +392,7 @@
   flex: 0 0 24px;
   border-radius: 50%;
   background: #e5eee9;
-  color: #567c75;
+  color: #486863;
   display: grid;
   place-items: center;
   font: 11px Georgia;
@@ -442,7 +451,7 @@
 }
 .recipe-actions button {
   border: 0;
-  background: #bd6643;
+  background: #b05f3e;
   color: white;
   padding: 11px 14px;
   font-size: 8px;
@@ -618,7 +627,7 @@
 }
 .hero-choice > button {
   border: 0;
-  background: #bd6643;
+  background: #b05f3e;
   color: white;
   padding: 12px 15px;
   font-size: 9px;
@@ -659,13 +668,13 @@
   top: 13px;
   border: 0;
   background: none;
-  color: #536a72;
+  color: #51676f;
   font-size: 28px;
 }
 .recipe-modal form > p {
   font-size: 8px;
   letter-spacing: 0.17em;
-  color: #567c75;
+  color: #486863;
   font-weight: 800;
 }
 .recipe-modal h2 {
@@ -685,7 +694,7 @@
   font-size: 8px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: #536a72;
+  color: #51676f;
   font-weight: 700;
   margin: 14px 0;
 }
@@ -706,7 +715,7 @@
 }
 .recipe-modal input:focus,
 .recipe-modal textarea:focus {
-  border-color: #567c75;
+  border-color: #486863;
   box-shadow: 0 0 0 3px #567c7517;
 }
 .own-row {
@@ -716,7 +725,7 @@
 }
 .submit-recipe {
   border: 0;
-  background: #bd6643;
+  background: #b05f3e;
   color: white;
   padding: 14px 18px;
   font-weight: 700;
@@ -736,7 +745,7 @@
   font-size: 16px;
 }
 .save.on {
-  background: #bd6643;
+  background: #b05f3e;
   color: white;
 }
 @media (max-width: 700px) {
@@ -765,4 +774,108 @@
     transform: none;
     text-align: center;
   }
+}
+
+/* Readability: the global h1 color (deep navy) was landing on the dark hero */
+.cookbook .book-hero h1 {
+  color: #f7f2e9;
+}
+.cookbook .book-hero h1 em {
+  color: #d2ae6a;
+}
+.cookbook .book-hero p {
+  font-size: 12px;
+}
+
+/* ---------- two-sided cookbook ---------- */
+.book-sides {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  margin-bottom: 22px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+}
+.book-sides button {
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 20px;
+  background: none;
+  color: #e8e1d3;
+  font: 700 15px "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+}
+.book-sides button.on {
+  background: #d2ae6a;
+  color: #16232f;
+}
+.book-sides button:focus-visible {
+  outline: 2px solid #d2ae6a;
+  outline-offset: 2px;
+}
+.cookbook .book-hero p {
+  font-size: 12px;
+  color: #d2ae6a;
+}
+.cookbook .book-hero > div > span {
+  font-size: 16px;
+  max-width: 560px;
+}
+.detail-photo .photo-credit {
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+.detail-photo .photo-credit a {
+  color: inherit;
+  text-decoration: underline;
+}
+.detail-title p {
+  font-size: 15px !important;
+  line-height: 1.55;
+}
+.detail-diet {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+.detail-diet i {
+  font-style: normal;
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #e3ece7;
+  color: #2f5b4e;
+}
+.chef-notes {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.book-empty {
+  grid-column: 1 / -1;
+  padding: 30px;
+  text-align: center;
+  color: #5f6b72;
+}
+/* Readable sizes (several were 7–9px) */
+.recipe-gallery article small { font-size: 11px; }
+.recipe-gallery article p { font-size: 12px; }
+.recipe-gallery article span i { font-size: 11px; }
+.recipe-detail .detail-meta small, .portion-tool small { font-size: 11px; }
+.recipe-detail .book-section p, .recipe-detail .book-section li span { font-size: 14px; line-height: 1.55; }
+.safety-notes p { font-size: 13px; line-height: 1.55; }
+.book-tools button { font-size: 13px; }
+.cookbook .portion-tool { background: #16232f !important; color: #fff !important; flex-wrap: wrap; }
+.cookbook .portion-tool small { color: #d2ae6a !important; letter-spacing: 0.12em; }
+.cookbook .portion-tool strong { color: #fff !important; font-size: 15px; }
+.cookbook .portion-tool button { background: transparent !important; color: #fff !important; border: 1px solid rgba(255,255,255,.5) !important; width: 40px; height: 40px; font-size: 20px; }
+.cookbook .portion-tool > b { color: #fff !important; font-size: 22px; min-width: 32px; text-align: center; }
+.cookbook .portion-tool > span { color: #c3ccd2 !important; background: transparent !important; font-size: 12px; }
+@media (max-width: 760px) {
+  .cookbook .book-tools > div { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .cookbook .book-tools button { flex: none; white-space: nowrap; }
 }
