@@ -315,3 +315,16 @@ export const groceryPicks = sqliteTable("grocery_picks", {
   updatedBy: text("updated_by").notNull().default(""),
   updatedAt: text("updated_at").notNull(),
 });
+
+/** What a household already has on the shelf, noted by the chef at the end of a visit. */
+export const customerPantry = sqliteTable(
+  "customer_pantry",
+  {
+    email: text("email").notNull(),
+    itemKey: text("item_key").notNull(),
+    name: text("name").notNull(),
+    note: text("note").notNull().default(""),
+    updatedAt: text("updated_at").notNull(),
+  },
+  (table) => [primaryKey({ columns: [table.email, table.itemKey] })],
+);

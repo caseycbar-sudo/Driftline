@@ -900,3 +900,7 @@
 .billing-history li { display: grid; grid-template-columns: 1fr auto auto; gap: 12px; align-items: center; font-size: 14px; }
 .billing-history li small { display: block; color: #596568; }
 .billing-history a { color: #7a6032; font-weight: 700; }
+.pantry-panel .pantry-note{font-size:14px;color:#68767a;margin:0 0 12px}
+.pantry-items{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
+.pantry-items li{background:#fff;border:1px solid #e1ddd3;padding:10px 12px;font-size:14px;color:#243a41}
+.pantry-items small{color:#7a868a}

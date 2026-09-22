@@ -5,6 +5,7 @@ import { getEvent, listEvents, setChefEventStatus } from "../../../../db/schedul
 import { addMileage, listTimeEntries, toggleTimeEntry } from "../../../../db/timecards";
 import { getCustomer } from "../../../../db/customers";
 import { getMealPlan } from "../../../../db/meals";
+import { listPantry } from "../../../../db/pantry";
 import { getPricing } from "../../../../db/pricing";
 import { getCookbook } from "../../../../db/cookbook";
 import { findPackage } from "../../../pricing-core";
@@ -40,6 +41,7 @@ export async function GET(request: Request) {
   const events = await Promise.all(
     rawEvents.map(async (event) => {
       const customer = event.customerEmail ? await getCustomer(event.customerEmail) : null;
+      const pantry = event.customerEmail ? await listPantry(event.customerEmail).catch(() => []) : [];
       const plan = event.customerEmail ? await getMealPlan(event.customerEmail) : { customRecipes: [] };
       const pkg = event.serviceType === "meal_prep" ? findPackage(pricing, event.packageName) : null;
       // How many portions to make of each dish: the package's portions spread over the dishes,
@@ -97,6 +99,7 @@ export async function GET(request: Request) {
       return {
         ...shown,
         dishDetails,
+        pantry: pantry.map((item) => ({ itemKey: item.itemKey, name: item.name, note: item.note })),
         portionsPerDish,
         packagePortions: pkg?.portions ?? 0,
         visit: {

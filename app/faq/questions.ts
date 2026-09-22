@@ -71,6 +71,14 @@ export const QUESTION_GROUPS: QuestionGroup[] = [
         link: { href: "/cookbook", label: "Browse the cookbook" },
       },
       {
+        q: "What happens to leftover groceries?",
+        a: "They stay in your kitchen. You paid for the groceries, so the extra eggs, the rest of the rice and the half bottle of oil are yours to keep. Your chef puts everything away and notes what's left, and your next shopping list skips those items so you're not buying them twice.",
+      },
+      {
+        q: "Do I have to buy spices for every dish?",
+        a: "No. Your chef brings their own spices, oil, salt and pepper, and there's a small flat pantry-kit charge per visit instead. It costs less than buying jars you'd use once, and nothing goes to waste.",
+      },
+      {
         q: "Can I request my own family recipes?",
         a: "Yes. Add a family favorite from your account and we'll work it into your rotation.",
       },
@@ -110,7 +118,7 @@ export const QUESTION_GROUPS: QuestionGroup[] = [
       },
       {
         q: "How do I sign in? Is there a password?",
-        a: "No password. Enter your email and we send you a one-time sign-in link that works for 15 minutes.",
+        a: "No password. Enter your email and we send you a 6-digit code (and a link) that works for 15 minutes. Once you are in, you can turn on Face ID or a fingerprint and sign in with one tap after that.",
         link: { href: "/signin", label: "Sign in" },
       },
       {

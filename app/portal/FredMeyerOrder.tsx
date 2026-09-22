@@ -9,7 +9,7 @@ type Row = { key: string; need: GroceryItem; product: Product | null; options: P
 
 const money = (c: number) => `$${(c / 100).toFixed(2)}`;
 // Small amounts of spices, salt and oil are usually already in the kitchen.
-const probablyOnHand = (i: GroceryItem) => i.category === "Pantry" && (i.unit === "tsp" || i.unit === "tbsp" || /\b(salt|pepper|oil|vinegar)\b/i.test(i.name));
+const probablyOnHand = (i: GroceryItem) => Boolean(i.onHand) || (i.category === "Pantry" && (i.unit === "tsp" || i.unit === "tbsp" || /\b(salt|pepper|oil|vinegar)\b/i.test(i.name)));
 
 /**
  * Turn a visit's shopping list into a Fred Meyer Warrenton pickup order: match each

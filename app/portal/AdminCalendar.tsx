@@ -191,6 +191,17 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
     });
     return planVisit(dishes, portions);
   }, [editing, recipes, pricePackages]);
+  // What this household already has, so the list doesn't buy it twice.
+  const [pantry, setPantry] = useState<{ itemKey: string; name: string }[]>([]);
+  const pantryEmail = editing?.customerEmail ?? "";
+  useEffect(() => {
+    if (!pantryEmail) return setPantry([]);
+    fetch(`/api/admin/pantry?email=${encodeURIComponent(pantryEmail)}`, { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d: { items?: { itemKey: string; name: string }[] } | null) => setPantry(d?.items ?? []))
+      .catch(() => setPantry([]));
+  }, [pantryEmail]);
+
   // The combined shopping list for this visit, scaled the same way the chef's app does it.
   const visitGroceries = useMemo(() => {
     if (!editing || !editing.dishes.length) return [];
@@ -200,8 +211,10 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
       .map((title) => recipes.find((r) => r.title === title))
       .filter((r): r is NonNullable<typeof r> => Boolean(r?.ingredients?.length))
       .map((r) => ({ title: r.title, ingredients: r.ingredients ?? [], servings: r.servings ?? 12, portions: portionsEach || r.servings || 12 }));
-    return buildGroceryList(dishes);
-  }, [editing, recipes, pricePackages]);
+    return buildGroceryList(dishes, pantry.map((p) => p.itemKey));
+  }, [editing, recipes, pricePackages, pantry]);
+  // Ingredients more than one chosen dish needs: one package covers them.
+  const shared = useMemo(() => visitGroceries.filter((g) => g.dishes.length > 1).map((g) => g.name).slice(0, 8), [visitGroceries]);
   const recipeMatches = useMemo(() => {
     const query = recipeSearch.trim().toLowerCase();
     return recipes
@@ -929,11 +942,14 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
               {visitGroceries.length ? (
                 <details className="visit-shopping">
                   <summary>🛒 Shopping list · {visitGroceries.length} items</summary>
+                  {shared.length ? (
+                    <p className="visit-shared">Shared across dishes: {shared.join(", ")}. One package covers them all.</p>
+                  ) : null}
                   <ul>
                     {visitGroceries.map((g) => (
-                      <li key={g.key}>
+                      <li key={g.key} className={g.onHand ? "on-hand" : undefined}>
                         <b>{g.display}</b>
-                        <small>{g.category}</small>
+                        <small>{g.onHand ? "already at the house" : g.category}</small>
                       </li>
                     ))}
                   </ul>

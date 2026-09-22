@@ -1,5 +1,5 @@
 export type GroceryCategory = "Meat & seafood" | "Produce" | "Dairy & eggs" | "Grains & bakery" | "Pantry";
-export type GroceryItem = { key: string; name: string; quantity: number | null; unit: string; display: string; category: GroceryCategory; dishes: string[] };
+export type GroceryItem = { key: string; name: string; quantity: number | null; unit: string; display: string; category: GroceryCategory; dishes: string[]; onHand?: boolean };
 type GroceryDish = { title: string; ingredients: string[]; servings?: number; portions?: number };
 
 const fractions: Record<string, number> = { "¼": 0.25, "½": 0.5, "¾": 0.75, "⅓": 1 / 3, "⅔": 2 / 3, "⅛": 0.125, "⅜": 0.375, "⅝": 0.625, "⅞": 0.875 };
@@ -122,8 +122,13 @@ export function scaleIngredients(ingredients: string[], baseServings: number, po
   });
 }
 
-/** Combine every dish's ingredients into one shopping list, scaled to each dish's portions. */
-export function buildGroceryList(dishes: GroceryDish[]): GroceryItem[] {
+/**
+ * Combine every dish's ingredients into one shopping list, scaled to each dish's
+ * portions. Anything the household already has (from the last visit) is marked
+ * `onHand` instead of being dropped, so the chef can still see it and tick it back on.
+ */
+export function buildGroceryList(dishes: GroceryDish[], onHand: string[] = []): GroceryItem[] {
+  const shelf = new Set(onHand);
   const map = new Map<string, GroceryItem>();
   for (const dish of dishes)
     for (const raw of dish.ingredients) {
@@ -147,7 +152,7 @@ export function buildGroceryList(dishes: GroceryDish[]): GroceryItem[] {
       let { quantity: q, unit } = item;
       if (q !== null && unit === "tsp") [q, unit] = q >= 12 ? [q / 48, "cup"] : q >= 3 ? [q / 3, "tbsp"] : [q, "tsp"];
       if (q !== null && unit === "oz" && q >= 16) [q, unit] = [q / 16, "lb"];
-      return { ...item, quantity: q, unit, display: q === null ? item.name : display(q, unit, item.name) };
+      return { ...item, quantity: q, unit, display: q === null ? item.name : display(q, unit, item.name), onHand: shelf.has(item.key) };
     })
     .sort((a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name));
 }

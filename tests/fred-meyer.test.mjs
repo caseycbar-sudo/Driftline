@@ -48,3 +48,23 @@ test("the shopping list merges units and skips water", () => {
   assert.ok(names.includes("24 bone-in skin-on chicken thighs"), names.join(" | "));
   assert.ok(names.includes("1½ lb butter"), names.join(" | "));
 });
+
+test("the pantry kit is priced with the visit, and old saved prices still work", async () => {
+  const { DEFAULT_PRICING, parsePricing, readPricing } = await import("../app/pricing-core.ts");
+  assert.equal(DEFAULT_PRICING.pantryKitCents, 900);
+  const saved = JSON.stringify({ mealPrep: DEFAULT_PRICING.mealPrep, privateChef: DEFAULT_PRICING.privateChef });
+  assert.equal(readPricing(saved).pantryKitCents, 900, "prices saved before the kit existed get the default");
+  const ok = parsePricing({ mealPrep: [{ name: "Weekly", portions: 12, price: 235 }], pantryKit: 12, privateChef: { perGuest: 175, minGuests: 6, smallTableMin: 1050 } });
+  assert.equal(ok.ok && ok.pricing.pantryKitCents, 1200);
+  const off = parsePricing({ mealPrep: [{ name: "Weekly", portions: 12, price: 235 }], pantryKit: 0, privateChef: { perGuest: 175, minGuests: 6, smallTableMin: 1050 } });
+  assert.equal(off.ok && off.pricing.pantryKitCents, 0, "$0 turns the kit charge off");
+  const bad = parsePricing({ mealPrep: [{ name: "Weekly", portions: 12, price: 235 }], pantryKit: 500, privateChef: { perGuest: 175, minGuests: 6, smallTableMin: 1050 } });
+  assert.equal(bad.ok, false);
+});
+
+test("the shopping list knows what the household already has", async () => {
+  const { buildGroceryList } = await import("../app/portal/grocery-list.ts");
+  const list = buildGroceryList([{ title: "A", servings: 12, portions: 12, ingredients: ["4 large eggs", "2 lb chicken thighs"] }], ["count:large eggs"]);
+  assert.equal(list.find((i) => i.name === "large eggs").onHand, true);
+  assert.equal(list.find((i) => i.name === "chicken thighs").onHand, false);
+});

@@ -120,6 +120,13 @@
       "when": 1790110000000,
       "tag": "0016_fred_meyer",
       "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "6",
+      "when": 1790120000000,
+      "tag": "0017_house_pantry",
+      "breakpoints": true
     }
   ]
 }

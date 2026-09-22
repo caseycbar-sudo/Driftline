@@ -44,13 +44,16 @@ export async function chargeCompletedVisit(eventId: number): Promise<ChargeOutco
   if (!event.customerEmail) return { outcome: "not-autopay", message: "No customer account on this visit. Casey will bill it." };
 
   const pricing = await getPricing();
-  const serviceCents = event.priceCents || findPackage(pricing, event.packageName)?.priceCents || 0;
+  const packageCents = event.priceCents || findPackage(pricing, event.packageName)?.priceCents || 0;
+  // The chef brings spices, oil, salt and pepper; that flat kit charge rides with the visit.
+  const kitCents = packageCents ? Math.max(0, pricing.pantryKitCents || 0) : 0;
+  const serviceCents = packageCents + kitCents;
   if (!serviceCents) return { outcome: "not-autopay", message: "No price set for this visit. Casey will bill it." };
 
   const payment = await upsertVisitCharge({
     scheduleEventId: event.id,
     customerEmail: event.customerEmail,
-    description: `${event.packageName || "Meal prep"} visit, ${prettyVisitDate(event.serviceDate)}`,
+    description: `${event.packageName || "Meal prep"} visit, ${prettyVisitDate(event.serviceDate)}${kitCents ? ` (includes ${dollars(kitCents)} pantry kit)` : ""}`,
     serviceCents,
     groceryCents: event.groceryCents,
   });

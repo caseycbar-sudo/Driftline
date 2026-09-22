@@ -12,6 +12,7 @@ import { prettyTime, prettyVisitDate } from "../visit-emails";
 import DisclosureGate from "../disclosures/DisclosureGate";
 import VisitGallery from "./VisitGallery";
 import { listCustomerVisits } from "../../db/visits";
+import { listPantry } from "../../db/pantry";
 import BrandLogo from "../BrandLogo";
 import { CONTACT_EMAIL, smallImage } from "../site-config";
 import "./account.css";
@@ -27,6 +28,7 @@ export default async function AccountPage() {
   const profile = stored.fullName.includes("@") ? { ...stored, fullName: "" } : stored;
   const profileDone = Boolean(profile.fullName && profile.streetAddress);
   const hasVisit = (await listCustomerVisits(user.email).catch(() => [])).length > 0;
+  const pantry = await listPantry(user.email).catch(() => []);
   const mealPlan = await getMealPlan(user.email);
   const recipes = await getCookbook();
   const chosenRecipes = recipes.filter(recipe => recipe.side === "meal-prep" && mealPlan.selectedRecipeIds.includes(recipe.id));
@@ -44,6 +46,7 @@ export default async function AccountPage() {
       <section className="meal-plan"><div className="meal-plan-heading"><div><span>YOUR STARTER MEAL PLAN</span><h2>Dishes you&apos;d like us to make</h2></div><Link href="/cookbook">+ Choose more dishes</Link></div>{chosenRecipes.length+mealPlan.customRecipes.length===0?<div className="empty-meals"><b>Your menu is ready for a first choice.</b><p>Save a few favorites to give us a feel for your household. Each visit covers 2 to 4 entrées depending on your package, and we rotate the rest into later weeks. Nothing is scheduled or charged yet.</p><Link href="/cookbook">Browse the cookbook →</Link></div>:<div className="chosen-meals">{chosenRecipes.map(recipe=><article key={recipe.id}><DishPhoto src={recipe.image?smallImage(recipe.image):""} alt={recipe.title} label={recipe.category}/><div><small>DRIFTLINE RECIPE</small><h3>{recipe.title}</h3><p>{recipe.category}</p></div></article>)}{mealPlan.customRecipes.map(recipe=><article className="custom-meal" key={`custom-${recipe.id}`}><div className="custom-icon">♥</div><div><small>YOUR OWN RECIPE</small><h3>{recipe.title}</h3><p>{recipe.servings} servings · Saved for chef review</p></div></article>)}</div>}</section>
       {dinnerWishlist.length ? <section className="meal-plan"><div className="meal-plan-heading"><div><span>PRIVATE DINNER WISHLIST</span><h2>Dishes you&apos;d love at a dinner</h2></div><Link href="/cookbook?side=private-chef">+ Browse private chef dishes</Link></div><div className="chosen-meals">{dinnerWishlist.map(recipe=><article key={recipe.id}><DishPhoto src={recipe.image?smallImage(recipe.image):""} alt={recipe.title} label={recipe.category}/><div><small>{recipe.category.toUpperCase()}</small><h3>{recipe.title}</h3><p>Casey will build these into your menu</p></div></article>)}</div></section> : null}
       {upcoming.length ? <section className="upcoming-visits"><span>COMING UP</span><h2>Your next visits</h2><ul>{upcoming.map(v => <li key={v.id}><b>{prettyVisitDate(v.serviceDate).replace(/,.*$/, "")}<br/>{prettyVisitDate(v.serviceDate).replace(/^[^,]*, /, "")}</b><span>{prettyTime(v.startTime)}{v.endTime ? `–${prettyTime(v.endTime)}` : ""} · {v.serviceType === "meal_prep" ? `${v.packageName || "Meal prep"} visit` : v.serviceType === "catering" ? "Catering" : "Private dinner"}</span><small>{v.chefEmail ? `Your chef: ${v.chef.split(" ")[0]}` : "We'll confirm your chef soon"}{v.status === "confirmed" ? " · Confirmed" : ""}</small></li>)}</ul></section> : null}
+      {pantry.length ? <section className="meal-plan pantry-panel"><div className="meal-plan-heading"><div><span>IN YOUR KITCHEN</span><h2>Left from your last visit</h2></div></div><p className="pantry-note">Your chef put these away and will skip them on your next shopping list, so you aren&apos;t buying them twice.</p><ul className="pantry-items">{pantry.map(item => <li key={item.itemKey}>{item.name}{item.note ? <small> · {item.note}</small> : null}</li>)}</ul></section> : null}
       <div id="household"><ProfileForm initialProfile={profile} /></div>
       <BillingPanel />
       <VisitGallery />

@@ -40,7 +40,7 @@ function CheckIcon() {
   );
 }
 
-export default function Home({ packages }: { packages: Package[] }) {
+export default function Home({ packages, pantryKit = 0 }: { packages: Package[]; pantryKit?: number }) {
   const [selected, setSelected] = useState((packages.find((p) => p.featured) ?? packages[0]).name);
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
@@ -323,7 +323,7 @@ export default function Home({ packages }: { packages: Package[] }) {
           <h2>Choose the right amount for your week.</h2>
           <p>
             Service includes planning, cooking, portioning, labeling, and
-            cleanup. Groceries are charged separately at actual cost. Portions
+            cleanup{pantryKit ? `, and a $${pantryKit} pantry kit so your chef brings the spices, oil, salt and pepper` : ""}. Groceries are charged separately at actual cost. Portions
             are split across your entrées, and each visit fits one big-project
             dish so your chef is in and out in about three hours.
           </p>
