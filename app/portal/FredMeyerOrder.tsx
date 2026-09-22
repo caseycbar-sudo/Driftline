@@ -50,8 +50,11 @@ export default function FredMeyerOrder({ items, allItems, title = "Order at Fred
           <small>FRED MEYER · WARRENTON</small>
           <h2>{title}</h2>
           <p>
-            Link your Fred Meyer account once. Then this list goes straight into your Fred Meyer cart for pickup. Sign in with the
-            <b> same account you use in the Fred Meyer app</b>, or the items land in a cart you can&apos;t see.
+            Link your account once. Then this list goes straight into your Fred Meyer cart for pickup.
+          </p>
+          <p className="fm-note">
+            The sign-in page says <b>Kroger</b> — that&apos;s normal, Fred Meyer is a Kroger store and they share one login. Use the same
+            email and password you use in the Fred Meyer app, or the groceries land in a cart you can&apos;t see.
           </p>
         </header>
         <a className="fm-primary" href={`/api/kroger/connect?return_to=${encodeURIComponent(returnTo)}`}>
@@ -225,9 +228,17 @@ export default function FredMeyerOrder({ items, allItems, title = "Order at Fred
               <details className="fm-help">
                 <summary>Cart looks empty in the app?</summary>
                 <ol>
-                  <li>The app has to be signed in to the <b>same Fred Meyer account</b> you linked here. Different email, different cart.</li>
-                  <li>Set the store to <b>Warrenton</b> and the mode to <b>Pickup</b> — the app keeps a separate cart per store and pickup/delivery.</li>
-                  <li>Close the app all the way and reopen it, or check <a href="https://www.fredmeyer.com/cart" target="_blank" rel="noreferrer">fredmeyer.com/cart</a> in a browser.</li>
+                  <li>
+                    In the Fred Meyer app, set your store to <b>Fred Meyer Warrenton</b> and the mode to <b>Pickup</b>. The cart follows
+                    your store, so items land somewhere you can&apos;t see if the app is set to a different one.
+                  </li>
+                  <li>
+                    The app has to be signed in with the <b>same email</b> you used when you linked. Different email, different cart.
+                  </li>
+                  <li>
+                    Close the app all the way and reopen it, or check <a href="https://www.fredmeyer.com/cart" target="_blank" rel="noreferrer">fredmeyer.com/cart</a> in
+                    Safari — that shows the same cart and updates right away.
+                  </li>
                 </ol>
                 <button type="button" className="fm-link-swap" onClick={relink} disabled={busy === "relink"}>
                   {busy === "relink" ? "Signing out…" : "Link a different Fred Meyer account"}
