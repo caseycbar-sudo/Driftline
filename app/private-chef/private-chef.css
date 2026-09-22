@@ -629,3 +629,11 @@
 .pc-menu-more { text-align: center; margin: 34px 0 0; }
 .pc-menu-more a { color: #d2ae6a; font-weight: 700; text-decoration: none; font-size: 16px; }
 .pc-menu-more a:hover { text-decoration: underline; }
+
+/* Warm food under the private chef headline, behind a cream wash. */
+.pc-hero {
+  background:
+    linear-gradient(168deg, rgba(244, 237, 225, 0.96) 0%, rgba(244, 237, 225, 0.9) 38%, rgba(244, 237, 225, 0.67) 100%),
+    var(--dp-page-photo, none) center / cover no-repeat,
+    var(--pc-cream);
+}

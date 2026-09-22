@@ -39,7 +39,7 @@ const styles = [
 
 export default function CateringPage() {
   return (
-    <main className="dp">
+    <main className="dp" style={{ "--dp-page-photo": 'url("/cookbook/look/salmon-shrimp-spread.webp")' } as React.CSSProperties}>
       <SiteHeader current="/catering" />
 
       <section className="dp-hero dp-hero-short">

@@ -19,7 +19,7 @@ const gallery = [
 
 export default function OurStoryPage() {
   return (
-    <main className="dp">
+    <main className="dp" style={{ "--dp-page-photo": 'url("/gallery/chowder-stand.webp")' } as React.CSSProperties}>
       <SiteHeader current="/our-story" />
 
       <section className="dp-hero dp-hero-short">

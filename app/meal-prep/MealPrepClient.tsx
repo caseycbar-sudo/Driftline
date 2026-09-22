@@ -80,7 +80,7 @@ export default function Home({ packages, pantryKit = 0 }: { packages: Package[];
   const current = packages.find((item) => item.name === selected) ?? packages[0];
 
   return (
-    <main>
+    <main style={{ "--dp-page-photo": 'url("/cookbook/look/salmon-glass.webp")' } as React.CSSProperties}>
       <SiteHeader current="/meal-prep" />
       <nav className="dp-subnav" aria-label="On this page">
         <a href="#how">How it works</a>

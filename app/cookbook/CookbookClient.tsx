@@ -184,7 +184,15 @@ export default function CookbookClient({ recipes }: { recipes: Recipe[] }) {
   const credit = selected.photoCredit;
 
   return (
-    <main className={`cookbook${chosenHere > 0 && !detailOpen && !showOwnRecipe ? " has-next" : ""}`}>
+    <main
+      className={`cookbook${chosenHere > 0 && !detailOpen && !showOwnRecipe ? " has-next" : ""}`}
+      style={
+        {
+          // The banner photo follows whichever side of the book you're reading.
+          "--dp-page-photo": `url("${side === "meal-prep" ? "/cookbook/look/chicken-potatoes-broccoli.webp" : "/gallery/salmon.webp"}")`,
+        } as React.CSSProperties
+      }
+    >
       <SiteHeader current={side === "meal-prep" ? "/meal-prep" : "/private-chef"} label="Cookbook" />
       <nav className="dp-subnav" aria-label="Cookbook">
         {side === "meal-prep" ? (

@@ -348,7 +348,6 @@ footer,
 .book-top > div > small {
   color: var(--brand-pale) !important;
 }
-.book-hero,
 .chef-login,
 .legal-page {
   background-color: var(--brand-sand) !important;
@@ -367,8 +366,16 @@ footer,
 .legal-note {
   border-radius: 0 !important;
 }
+/* The cookbook banner sits over the food for whichever side you're reading,
+   not the faint cross-hatch the other dark panels use. */
 .book-hero {
   background-color: var(--brand-charcoal) !important;
+  background-image:
+    linear-gradient(168deg, rgba(13, 48, 68, 0.94) 0%, rgba(13, 48, 68, 0.87) 40%, rgba(13, 48, 68, 0.74) 100%),
+    var(--dp-page-photo, none) !important;
+  background-size: cover, cover !important;
+  background-position: center, center !important;
+  background-repeat: no-repeat, no-repeat !important;
 }
 .book-hero p,
 .book-hero aside strong,

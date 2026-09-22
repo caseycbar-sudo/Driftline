@@ -13,7 +13,7 @@ export const metadata: Metadata = pageMetadata(
 
 export default function SundayMarketPage() {
   return (
-    <main className="dp">
+    <main className="dp" style={{ "--dp-page-photo": 'url("/gallery/salad-prep.webp")' } as React.CSSProperties}>
       <SiteHeader current="/sunday-market" />
 
       <section className="dp-hero dp-hero-short">

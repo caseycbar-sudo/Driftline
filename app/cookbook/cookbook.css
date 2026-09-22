@@ -934,3 +934,12 @@ button.open-recipe {
 .cookbook.has-next .dp-footer {
   padding-bottom: 96px;
 }
+
+/* The cookbook banner, over food rather than flat navy. Heavier wash than the
+   light pages because the type on it is white. */
+.book-hero {
+  background:
+    linear-gradient(168deg, rgba(13, 48, 68, 0.93) 0%, rgba(13, 48, 68, 0.85) 40%, rgba(13, 48, 68, 0.62) 100%),
+    var(--dp-page-photo, none) center / cover no-repeat,
+    #0d3044;
+}

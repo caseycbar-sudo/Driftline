@@ -35,7 +35,7 @@ const paths = [
 
 export default function ContactPage() {
   return (
-    <main className="dp">
+    <main className="dp" style={{ "--dp-page-photo": 'url("/gallery/dessert-sm.webp")' } as React.CSSProperties}>
       <SiteHeader current="/contact" />
 
       <div className="dp-page-head-wrap">

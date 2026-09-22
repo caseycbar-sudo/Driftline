@@ -32,7 +32,9 @@ const worker = {
 
     // One public address: send driftlineprovisions.com (e.g. from a QR code) to
     // www.driftlineprovisions.com, keeping the path so old links still land right.
-    if (url.hostname === "driftlineprovisions.com") {
+    // Hostnames can arrive upper-cased or as a fully-qualified name with a
+    // trailing dot, and both would slip past a plain equality check.
+    if (url.hostname.toLowerCase().replace(/\.$/, "") === "driftlineprovisions.com") {
       url.hostname = "www.driftlineprovisions.com";
       url.protocol = "https:";
       return Response.redirect(url.toString(), 301);

@@ -1344,3 +1344,11 @@ footer > small {
 .look-grid a { display: block; width: 100%; height: 100%; }
 .look-tag { position: absolute; left: 10px; bottom: 10px; background: rgba(18, 33, 45, .82); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .02em; padding: 6px 9px; border-radius: 3px; }
 .package-card p.package-dishes { color: #7a5a2c; font-weight: 700; font-size: 12px; margin-bottom: 4px; }
+
+/* Food under the meal prep headline, behind a cream wash (see home.css). */
+.hero {
+  background:
+    linear-gradient(168deg, rgba(236, 226, 207, 0.96) 0%, rgba(236, 226, 207, 0.89) 38%, rgba(236, 226, 207, 0.66) 100%),
+    var(--dp-page-photo, none) center / cover no-repeat,
+    var(--cream);
+}

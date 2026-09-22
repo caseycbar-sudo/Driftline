@@ -1644,3 +1644,22 @@
     white-space: nowrap;
   }
 }
+
+/* ---------- appetite: each page carries its own food photograph ----------
+   Every page sets --dp-page-photo on its <main>; the vars inherit down, so no
+   extra markup is needed. The photo sits under a heavy wash of the page's own
+   background colour: enough warmth and shape to read as food, not enough
+   contrast to fight the headline sitting on top. Pages that set no photo fall
+   back to the flat colour exactly as before. */
+.dp-hero {
+  background:
+    linear-gradient(168deg, rgba(239, 230, 214, 0.96) 0%, rgba(239, 230, 214, 0.9) 38%, rgba(239, 230, 214, 0.68) 100%),
+    var(--dp-page-photo, none) center / cover no-repeat,
+    var(--dp-sand);
+}
+.dp-page-head {
+  padding-bottom: clamp(30px, 4vw, 52px);
+  background:
+    linear-gradient(168deg, rgba(247, 242, 233, 0.95) 0%, rgba(247, 242, 233, 0.87) 45%, rgba(247, 242, 233, 0.7) 100%),
+    var(--dp-page-photo, none) center / cover no-repeat;
+}

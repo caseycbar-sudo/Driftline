@@ -52,7 +52,7 @@ const services = [
 
 const gallery = [
   { src: "/gallery/salmon.webp", alt: "Roasted salmon with asparagus and saffron orzo" },
-  { src: "/gallery/shortrib.webp", alt: "Braised short rib over creamy polenta" },
+  { src: "/gallery/salmon.webp", alt: "Braised short rib over creamy polenta" },
   { src: "/gallery/dessert.webp", alt: "Dessert plated with chocolate drizzle and whipped cream" },
 ];
 
@@ -85,7 +85,7 @@ export default async function Home() {
         ? `From ${dollars(lowestMealPrepCents(pricing))} per visit`
         : detail;
   return (
-    <main className="dp">
+    <main className="dp" style={{ "--dp-page-photo": 'url("/gallery/salmon.webp")' } as React.CSSProperties}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(businessJsonLd).replace(/</g, "\\u003c") }}

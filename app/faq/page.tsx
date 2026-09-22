@@ -26,7 +26,7 @@ const faqJsonLd = {
 
 export default function FaqPage() {
   return (
-    <main className="dp">
+    <main className="dp" style={{ "--dp-page-photo": 'url("/cookbook/look/chicken-potatoes-broccoli-sm.webp")' } as React.CSSProperties}>
       <SiteHeader current="/faq" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c") }} />
 
