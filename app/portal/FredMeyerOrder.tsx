@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { GroceryItem } from "./grocery-list";
 import "./FredMeyerOrder.css";
 
-type Product = { upc: string; description: string; brand: string; size: string; priceCents: number | null; promoCents: number | null; image: string; inStock: boolean; aisle: string };
+type Product = { upc: string; categories?: string[]; description: string; brand: string; size: string; priceCents: number | null; promoCents: number | null; image: string; inStock: boolean; aisle: string };
 type Row = { key: string; need: GroceryItem; product: Product | null; options: Product[]; quantity: number; include: boolean; remembered: boolean };
 
 const money = (c: number) => `$${(c / 100).toFixed(2)}`;
@@ -65,7 +65,7 @@ export default function FredMeyerOrder({ items, allItems, title = "Order at Fred
       const response = await fetch("/api/kroger/match", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ items: toOrder.map((i) => ({ key: i.key, name: i.name, quantity: i.quantity, unit: i.unit })) }),
+        body: JSON.stringify({ items: toOrder.map((i) => ({ key: i.key, name: i.name, quantity: i.quantity, unit: i.unit, category: i.category })) }),
       });
       const data = (await response.json()) as { results?: Omit<Row, "need" | "include">[]; error?: string };
       if (!response.ok || !data.results) throw new Error(data.error || "Couldn't reach Fred Meyer.");

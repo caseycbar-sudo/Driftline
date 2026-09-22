@@ -8,19 +8,75 @@ export const WARRENTON_LOCATION_ID = "70100218";
 export const KROGER_API = "https://api.kroger.com/v1";
 export const KROGER_SCOPES = "cart.basic:write profile.compact product.compact";
 
-/** What to type into the store search for a shopping-list item. */
+/**
+ * What to type into the store search. Recipe size words ("2 medium lemons") make the
+ * store match product names instead of the food — "medium" once found a Yankee Candle —
+ * so they come out, except where the size is part of what you buy ("large eggs").
+ */
 export function searchTerm(name: string): string {
-  return name
+  const cleaned = name
     .replace(/\([^)]*\)/g, " ")
     .replace(/\b\d+(\.\d+)?%\s*/g, "") // "93% lean" -> "lean"
-    .replace(/\b(low-sodium|reduced-sodium)\b/gi, "low sodium")
+    .replace(/\b(low-sodium|reduced-sodium)\b/gi, "low sodium");
+  const keepSize = /\b(egg|eggs)\b/i.test(cleaned);
+  return cleaned
+    .replace(keepSize ? /\b(medium|small|jumbo|extra[- ]large)\b/gi : /\b(medium|small|large|jumbo|extra[- ]large)\b/gi, " ")
     .replace(/\s+/g, " ")
     .trim()
     .slice(0, 60);
 }
 
+/** Departments that are never groceries for a recipe. */
+const OFF_LIST = /home decor|floral|beauty|personal care|health|baby|pet|cleaning|household|kitchen|party|garden|apparel|toys|office|electronics|hardware|auto|tobacco|sports|gift|candle/i;
+
+/** Where each kind of shopping-list item should come from in the store. */
+const DEPARTMENT: Record<string, RegExp> = {
+  "Meat & seafood": /meat|seafood/i,
+  Produce: /produce/i,
+  "Dairy & eggs": /dairy|egg|cheese/i,
+  "Grains & bakery": /bakery|bread|pasta|grain|rice|tortilla/i,
+  Pantry: /pantry|canned|packaged|condiment|sauce|baking|spice|seasoning|oil|international|beverage|snack|breakfast/i,
+};
+
+const words = (value: string): string[] => value.toLowerCase().match(/[a-z]{3,}/g) ?? [];
+
+/**
+ * How well a store product fits a shopping-list line. Department comes first (fresh
+ * jalapeños, not a jar of sliced ones), then how much of the item's name it matches.
+ */
+export function scoreProduct(need: { name: string; category?: string; unit?: string }, product: StoreProduct): number {
+  const categories = (product.categories ?? []).join(" ");
+  if (OFF_LIST.test(categories) || OFF_LIST.test(product.description)) return -100;
+  let score = 0;
+  const wanted = need.category ? DEPARTMENT[need.category] : null;
+  if (wanted && categories) score += wanted.test(categories) ? 6 : -4;
+  const needWords = words(searchTerm(need.name));
+  const found = words(product.description);
+  for (const word of needWords) if (found.includes(word)) score += 2;
+  if (needWords.length && needWords.every((w) => found.includes(w))) score += 2;
+  if (product.inStock) score += 1;
+  if ((need.unit === "lb" || need.unit === "oz") && /\b(lb|oz)\b/i.test(product.size)) score += 1;
+  return score;
+}
+
+/** Best product for a shopping-list line, or null when nothing in the store fits. */
+export function pickBest(need: { name: string; category?: string; unit?: string }, products: StoreProduct[]): StoreProduct | null {
+  const ranked = rankProducts(need, products);
+  return ranked[0] ?? null;
+}
+
+/** Every product that could fit, best first, with the plainly wrong ones dropped. */
+export function rankProducts(need: { name: string; category?: string; unit?: string }, products: StoreProduct[]): StoreProduct[] {
+  return products
+    .map((product) => ({ product, score: scoreProduct(need, product) }))
+    .filter((row) => row.score > -50)
+    .sort((a, b) => b.score - a.score)
+    .map((row) => row.product);
+}
+
 export type StoreProduct = {
   upc: string;
+  categories: string[];
   description: string;
   brand: string;
   size: string;
@@ -35,6 +91,7 @@ type RawProduct = {
   upc?: string;
   description?: string;
   brand?: string;
+  categories?: string[];
   images?: { perspective?: string; featured?: boolean; sizes?: { size?: string; url?: string }[] }[];
   items?: { size?: string; price?: { regular?: number; promo?: number }; inventory?: { stockLevel?: string }; fulfillment?: { curbside?: boolean; inStore?: boolean } }[];
   aisleLocations?: { description?: string; number?: string }[];
@@ -52,6 +109,7 @@ export function toStoreProduct(raw: RawProduct): StoreProduct | null {
   const aisle = raw.aisleLocations?.[0];
   return {
     upc: raw.upc,
+    categories: raw.categories ?? [],
     description: raw.description,
     brand: raw.brand ?? "",
     size: item.size ?? "",
@@ -87,8 +145,10 @@ export function suggestQuantity(need: { quantity: number | null; unit: string },
   }
   if (!need.unit || need.unit === "can" || need.unit === "bunch" || need.unit === "package") {
     const count = productSize.toLowerCase().match(/(\d+)\s*(ct|count|pk|pack)\b/);
-    const per = count ? Number(count[1]) : 1;
-    return Math.min(24, Math.max(1, Math.ceil(q / per - 0.05)));
+    if (count) return Math.min(24, Math.max(1, Math.ceil(q / Number(count[1]) - 0.05)));
+    // "2 lemons" against a 2 lb bag is one bag, not two.
+    if (packageOunces(productSize) && packageOunces(productSize)! >= 16) return 1;
+    return Math.min(24, Math.max(1, Math.ceil(q - 0.05)));
   }
   return 1;
 }

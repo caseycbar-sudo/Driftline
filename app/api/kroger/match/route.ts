@@ -2,11 +2,11 @@ import { NextResponse } from "next/server";
 import { requireStaffRole } from "../../../staff-auth";
 import { isCrossSiteRequest } from "../../../auth-core";
 import { getPicks, krogerConfig, searchProducts } from "../../../kroger";
-import { searchTerm, suggestQuantity, type StoreProduct } from "../../../kroger-core";
+import { rankProducts, searchTerm, suggestQuantity, type StoreProduct } from "../../../kroger-core";
 
 export const dynamic = "force-dynamic";
 
-type Need = { key: string; name: string; quantity: number | null; unit: string };
+type Need = { key: string; name: string; quantity: number | null; unit: string; category?: string };
 
 /**
  * Match a shopping list to products at Fred Meyer Warrenton. Items chosen before
@@ -23,6 +23,7 @@ export async function POST(request: Request) {
     name: String(i.name ?? "").slice(0, 120),
     quantity: typeof i.quantity === "number" && Number.isFinite(i.quantity) ? i.quantity : null,
     unit: String(i.unit ?? "").slice(0, 12),
+    category: String(i.category ?? "").slice(0, 40),
   }));
   const picks = await getPicks(items.map((i) => i.key));
 
@@ -34,12 +35,14 @@ export async function POST(request: Request) {
       batch.map(async (need) => {
         let options: StoreProduct[] = [];
         try {
-          options = await searchProducts(searchTerm(need.name), 5);
+          // Ask for more than we show, then rank them: the store's own order puts
+          // scented candles above lemons when a recipe says "2 medium lemons".
+          options = rankProducts(need, await searchProducts(searchTerm(need.name), 12)).slice(0, 6);
         } catch {}
         const saved = picks[need.key];
         const product: StoreProduct | null = saved
-          ? options.find((o) => o.upc === saved.upc) ?? { upc: saved.upc, description: saved.description, brand: "", size: saved.size, priceCents: null, promoCents: null, image: saved.image, inStock: true, aisle: "" }
-          : options.find((o) => o.inStock) ?? options[0] ?? null;
+          ? options.find((o) => o.upc === saved.upc) ?? { upc: saved.upc, categories: [], description: saved.description, brand: "", size: saved.size, priceCents: null, promoCents: null, image: saved.image, inStock: true, aisle: "" }
+          : options[0] ?? null;
         return { key: need.key, product, options, quantity: product ? suggestQuantity(need, product.size) : 1, remembered: Boolean(saved) };
       }),
     );

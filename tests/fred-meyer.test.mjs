@@ -18,6 +18,7 @@ test("package counts come from the package size", () => {
   assert.equal(suggestQuantity({ quantity: 24, unit: "oz" }, "16 oz"), 2);
   assert.equal(suggestQuantity({ quantity: 10, unit: "" }, "12 ct"), 1, "10 eggs is one dozen");
   assert.equal(suggestQuantity({ quantity: 6, unit: "" }, "1 each"), 6, "six peppers");
+  assert.equal(suggestQuantity({ quantity: 2, unit: "" }, "2 lb"), 1, "two lemons is one bag");
   assert.equal(suggestQuantity({ quantity: 2, unit: "tbsp" }, "2.6 oz"), 1, "spices start at one jar");
   assert.equal(suggestQuantity({ quantity: null, unit: "" }, ""), 1);
 });
@@ -67,4 +68,33 @@ test("the shopping list knows what the household already has", async () => {
   const list = buildGroceryList([{ title: "A", servings: 12, portions: 12, ingredients: ["4 large eggs", "2 lb chicken thighs"] }], ["count:large eggs"]);
   assert.equal(list.find((i) => i.name === "large eggs").onHand, true);
   assert.equal(list.find((i) => i.name === "chicken thighs").onHand, false);
+});
+
+const product = (description, categories, extra = {}) => ({ upc: "0001111000000", categories, description, brand: "", size: "1 each", priceCents: 199, promoCents: null, image: "", inStock: true, aisle: "", ...extra });
+
+test("recipe size words don't leak into the store search", async () => {
+  const { searchTerm } = await import("../app/kroger-core.ts");
+  assert.equal(searchTerm("medium lemons"), "lemons");
+  assert.equal(searchTerm("medium white onions"), "white onions");
+  assert.equal(searchTerm("large eggs"), "large eggs", "egg size is what you actually buy");
+  assert.equal(searchTerm("small red potatoes"), "red potatoes");
+});
+
+test("the store match stays in the right department", async () => {
+  const { pickBest, rankProducts } = await import("../app/kroger-core.ts");
+  const need = { name: "medium lemons", category: "Produce", unit: "" };
+  const candle = product("Yankee Candle Medium Pillar Scented Candle, Lemon Lavender", ["Home Decor"]);
+  const lemon = product("Fresh Large Lemon - Each", ["Produce"]);
+  assert.equal(pickBest(need, [candle, lemon]).description, "Fresh Large Lemon - Each");
+  assert.equal(rankProducts(need, [candle]).length, 0, "a candle is never groceries");
+
+  const peppers = { name: "medium jalapeños", category: "Produce", unit: "" };
+  const jar = product("Simple Truth Organic Sliced Jalapeno Peppers", ["Canned & Packaged"]);
+  const fresh = product("Jalapeno Pepper - Each", ["Produce"]);
+  assert.equal(pickBest(peppers, [jar, fresh]).description, "Jalapeno Pepper - Each", "fresh produce beats a jar");
+
+  const turkey = { name: "93% lean ground turkey", category: "Meat & seafood", unit: "lb" };
+  const jerky = product("Turkey Jerky Original", ["Snacks"]);
+  const ground = product("Kroger 93/7 Lean Fresh Ground Turkey - 1 LB", ["Meat & Seafood"], { size: "1 lb" });
+  assert.equal(pickBest(turkey, [jerky, ground]).description, "Kroger 93/7 Lean Fresh Ground Turkey - 1 LB");
 });
