@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
-import { biometricName, passkeysSupported, signInWithPasskey } from "../passkey-client";
+import { biometricName, passkeyAutofill, passkeyReadyHere, passkeysSupported, signInWithPasskey } from "../passkey-client";
 
 const SERVER_ERRORS: Record<string, string> = {
   "400": "Please enter a valid email address.",
@@ -33,8 +33,19 @@ export default function SignInForm({
   const [passkeyBusy, setPasskeyBusy] = useState(false);
 
   useEffect(() => {
-    setPasskey({ ok: passkeysSupported(), name: biometricName() });
-  }, []);
+    // The big Face ID button only shows on phones that have used it here before;
+    // otherwise saved passkeys are still offered above the keyboard in the email box.
+    const supported = passkeysSupported();
+    setPasskey({ ok: supported && passkeyReadyHere(), name: biometricName() });
+    if (!supported) return;
+    let cancelled = false;
+    passkeyAutofill(returnTo).then((to) => {
+      if (to && !cancelled) window.location.assign(to);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [returnTo]);
 
   async function usePasskey() {
     setPasskeyBusy(true);
@@ -166,7 +177,7 @@ export default function SignInForm({
         type="email"
         name="email"
         required
-        autoComplete="email"
+        autoComplete="username webauthn"
         inputMode="email"
         placeholder="you@example.com"
         value={email}
@@ -181,7 +192,7 @@ export default function SignInForm({
           {error}
         </p>
       ) : null}
-      <p className="dp-signin-small">No password needed. We&apos;ll email you a 6-digit code. After that you can turn on {passkey.ok ? passkey.name : "one-tap sign-in"}.</p>
+      <p className="dp-signin-small">No password needed. We&apos;ll email you a 6-digit code. Once you&apos;re in, turn on {passkey.name} for one-tap sign-in next time.</p>
     </form>
   );
 }
