@@ -1325,13 +1325,18 @@ td {
     margin: 0;
     overflow: auto;
   }
+  /* All eight owner tabs fit across a phone, so People and Reviews aren't hidden off-screen. */
   .portal-side nav button {
-    flex: 1 0 58px;
-    min-width: 58px;
+    flex: 1 1 0;
+    min-width: 0;
     display: grid;
     place-items: center;
     gap: 2px;
-    font-size: 10px !important;
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 9px !important;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
   }
   .p-icon {
     font-size: 14px;

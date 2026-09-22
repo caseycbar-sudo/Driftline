@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { signOutPath } from "./auth";
+import "./portal/portal.css";
 
 /**
  * Shown to a signed-in identity that is not active staff.
