@@ -49,7 +49,10 @@ export default function FredMeyerOrder({ items, allItems, title = "Order at Fred
         <header>
           <small>FRED MEYER · WARRENTON</small>
           <h2>{title}</h2>
-          <p>Link your Fred Meyer account once. Then this list goes straight into your Fred Meyer cart for pickup.</p>
+          <p>
+            Link your Fred Meyer account once. Then this list goes straight into your Fred Meyer cart for pickup. Sign in with the
+            <b> same account you use in the Fred Meyer app</b>, or the items land in a cart you can&apos;t see.
+          </p>
         </header>
         <a className="fm-primary" href={`/api/kroger/connect?return_to=${encodeURIComponent(returnTo)}`}>
           Link my Fred Meyer account →
@@ -90,6 +93,19 @@ export default function FredMeyerOrder({ items, allItems, title = "Order at Fred
     if (q.trim().length < 2) return setResults([]);
     const r = await fetch(`/api/kroger/search?q=${encodeURIComponent(q)}`).then((x) => x.json()).catch(() => ({ products: [] }));
     setResults((r as { products?: Product[] }).products ?? []);
+  }
+
+  /** Drop the stored tokens so the next link can use a different Fred Meyer login. */
+  async function relink() {
+    setBusy("relink");
+    try {
+      await fetch("/api/kroger/status", { method: "DELETE" });
+      setStatus({ configured: true, linked: false });
+      setMessage(null);
+    } catch {
+      setMessage({ kind: "error", text: "Couldn't sign out of Fred Meyer. Try again." });
+    }
+    setBusy("");
   }
 
   async function sendToCart() {
@@ -202,9 +218,22 @@ export default function FredMeyerOrder({ items, allItems, title = "Order at Fred
         <div className={`fm-msg ${message.kind}`}>
           <p>{message.text}</p>
           {message.kind === "ok" ? (
-            <p>
-              Now open the Fred Meyer app (or <a href="https://www.fredmeyer.com/cart" target="_blank" rel="noreferrer">fredmeyer.com/cart</a>), choose <b>Pickup at Warrenton</b>, pick a time and check out. Keep the receipt for the visit.
-            </p>
+            <>
+              <p>
+                Now open the Fred Meyer app (or <a href="https://www.fredmeyer.com/cart" target="_blank" rel="noreferrer">fredmeyer.com/cart</a>), choose <b>Pickup at Warrenton</b>, pick a time and check out. Keep the receipt for the visit.
+              </p>
+              <details className="fm-help">
+                <summary>Cart looks empty in the app?</summary>
+                <ol>
+                  <li>The app has to be signed in to the <b>same Fred Meyer account</b> you linked here. Different email, different cart.</li>
+                  <li>Set the store to <b>Warrenton</b> and the mode to <b>Pickup</b> — the app keeps a separate cart per store and pickup/delivery.</li>
+                  <li>Close the app all the way and reopen it, or check <a href="https://www.fredmeyer.com/cart" target="_blank" rel="noreferrer">fredmeyer.com/cart</a> in a browser.</li>
+                </ol>
+                <button type="button" className="fm-link-swap" onClick={relink} disabled={busy === "relink"}>
+                  {busy === "relink" ? "Signing out…" : "Link a different Fred Meyer account"}
+                </button>
+              </details>
+            </>
           ) : null}
         </div>
       ) : null}

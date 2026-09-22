@@ -34,3 +34,8 @@
 .fm-msg.error{background:#fbeee8;border-left:3px solid #b05f3e}
 .fm-none-needed{margin:0;padding:12px;background:#eef5ef;border-left:3px solid #4f8171;font-size:14px;color:#2b4149}
 .fm-scope{display:block;margin-top:10px;text-align:left}
+.fm-help{margin-top:8px;border-top:1px solid #cfe2d6;padding-top:8px}
+.fm-help summary{font-weight:700;cursor:pointer;color:#1f5fa8;font-size:14px}
+.fm-help ol{margin:8px 0;padding-left:20px}
+.fm-help li{margin-bottom:6px;line-height:1.45}
+.fm-link-swap{border:1px solid #c9d2cc;background:#fff;padding:8px 12px;font-size:14px;font-weight:700;color:#123349;cursor:pointer;min-height:40px}
