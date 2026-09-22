@@ -1,5 +1,7 @@
 "use client";
 import { effortOf, formatMinutes, planVisit } from "../visit-plan";
+import { buildGroceryList } from "./grocery-list";
+import FredMeyerOrder from "./FredMeyerOrder";
 import { useEffect, useMemo, useState } from "react";
 
 import { oregonToday } from "../oregon-time";
@@ -170,12 +172,12 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
       ...Array.from({ length: count }, (_, index) => index + 1),
     ];
   }, [month]);
-  const [recipes, setRecipes] = useState<{ id: number; title: string; side: string; category: string; active?: number; total: number; image: string }[]>([]);
+  const [recipes, setRecipes] = useState<{ id: number; title: string; side: string; category: string; active?: number; total: number; image: string; servings?: number; ingredients?: string[] }[]>([]);
   // Dish names come from the API so edits made in the Cookbook tab show up here.
   useEffect(() => {
     fetch("/api/cookbook", { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : null))
-      .then((d: { recipes?: { id: number; title: string; side: string; category: string; active?: number; total: number; image: string }[] } | null) => d?.recipes && setRecipes(d.recipes))
+      .then((d: { recipes?: { id: number; title: string; side: string; category: string; active?: number; total: number; image: string; servings?: number; ingredients?: string[] }[] } | null) => d?.recipes && setRecipes(d.recipes))
       .catch(() => {});
   }, []);
   const selected = events.filter((event) => event.serviceDate === selectedDate);
@@ -188,6 +190,17 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
       return r ? { title, category: r.category, active: r.active, total: r.total } : { title };
     });
     return planVisit(dishes, portions);
+  }, [editing, recipes, pricePackages]);
+  // The combined shopping list for this visit, scaled the same way the chef's app does it.
+  const visitGroceries = useMemo(() => {
+    if (!editing || !editing.dishes.length) return [];
+    const pkg = pricePackages.find((p) => p.name === editing.packageName);
+    const portionsEach = editing.guestCount ? editing.guestCount : pkg ? Math.max(1, Math.round(pkg.portions / editing.dishes.length)) : 0;
+    const dishes = editing.dishes
+      .map((title) => recipes.find((r) => r.title === title))
+      .filter((r): r is NonNullable<typeof r> => Boolean(r?.ingredients?.length))
+      .map((r) => ({ title: r.title, ingredients: r.ingredients ?? [], servings: r.servings ?? 12, portions: portionsEach || r.servings || 12 }));
+    return buildGroceryList(dishes);
   }, [editing, recipes, pricePackages]);
   const recipeMatches = useMemo(() => {
     const query = recipeSearch.trim().toLowerCase();
@@ -913,6 +926,20 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
                   ) : null}
                 </div>
               ) : null}
+              {visitGroceries.length ? (
+                <details className="visit-shopping">
+                  <summary>🛒 Shopping list · {visitGroceries.length} items</summary>
+                  <ul>
+                    {visitGroceries.map((g) => (
+                      <li key={g.key}>
+                        <b>{g.display}</b>
+                        <small>{g.category}</small>
+                      </li>
+                    ))}
+                  </ul>
+                  <FredMeyerOrder items={visitGroceries} title="Order this visit's groceries" />
+                </details>
+              ) : null}
               <label>
                 Dishes for this visit
                 <textarea
@@ -950,36 +977,6 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
             </button>
           </form>
         </div>
-      ) : null}
-      {editing ? (
-        <aside className="schedule-pay-field">
-          <label>
-            Chef pay for this visit ($)
-            <input
-              type="number"
-              min="0"
-              max="10000"
-              step="0.01"
-              value={editing.chefPayCents / 100}
-              onChange={(event) =>
-                setEditing((current) =>
-                  current
-                    ? {
-                        ...current,
-                        chefPayCents: Math.round(
-                          Math.max(0, Number(event.target.value) || 0) * 100,
-                        ),
-                      }
-                    : current,
-                )
-              }
-            />
-          </label>
-          <small>
-            This appears in the assigned chef&apos;s earnings after the job is
-            completed.
-          </small>
-        </aside>
       ) : null}
     </>
   );
