@@ -27,7 +27,7 @@ export default async function VerifyPage({ searchParams }: { searchParams: Searc
 
   return (
     <main className="dp">
-      <SiteHeader />
+      <SiteHeader label="Sign in" />
       <section className="dp-signin-page">
         <div className="dp-signin-copy">
           <p className="dp-eyebrow">

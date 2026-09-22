@@ -25,11 +25,13 @@ function homeFor(session: Session | null) {
   return { href: "/account", label: "My account" };
 }
 
-export default function SiteHeader({ current }: { current?: string }) {
+export default function SiteHeader({ current, label }: { current?: string; label?: string }) {
   const [open, setOpen] = useState(false);
   const [session, setSession] = useState<Session | null>(null);
   const close = () => setOpen(false);
   const home = homeFor(session);
+  /** Which part of the site this is, shown in the bar itself. */
+  const here = label ?? links.find((l) => l.href === current)?.label ?? "";
 
   useEffect(() => {
     fetch("/api/session", { cache: "no-store" })
@@ -56,6 +58,9 @@ export default function SiteHeader({ current }: { current?: string }) {
       <Link className="dp-header-logo" href="/" aria-label="Driftline Provisions home">
         <BrandLogo />
       </Link>
+      {/* On a phone the whole nav is behind the menu button, so nothing told you
+          which part of the site you were in. This does. */}
+      {here ? <span className="dp-here">{here}</span> : null}
       <nav className={open ? "dp-nav open" : "dp-nav"} aria-label="Main navigation">
         {session?.signedIn ? (
           <div className="dp-nav-account">

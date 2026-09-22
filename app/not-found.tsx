@@ -8,7 +8,7 @@ export const metadata = { title: "Page not found · Driftline Provisions", robot
 export default function NotFound() {
   return (
     <main className="dp">
-      <SiteHeader />
+      <SiteHeader label="Not found" />
       <section className="dp-signin-page dp-not-found">
         <div className="dp-signin-copy">
           <p className="dp-eyebrow">

@@ -1620,3 +1620,27 @@
 .dp-code-form button:disabled {
   opacity: 0.55;
 }
+
+/* Which part of the site you're in, shown in the header bar itself. The full
+   nav is hidden behind the menu button below 1180px, so this is where it
+   matters; above that the nav already answers the question. */
+.dp-here {
+  display: none;
+}
+@media (max-width: 1180px) {
+  .dp-here {
+    display: block;
+    margin-left: 14px;
+    padding-left: 14px;
+    border-left: 1px solid rgba(232, 225, 211, 0.28);
+    color: #e8e1d3;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

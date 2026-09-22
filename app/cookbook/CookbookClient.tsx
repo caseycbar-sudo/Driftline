@@ -185,7 +185,7 @@ export default function CookbookClient({ recipes }: { recipes: Recipe[] }) {
 
   return (
     <main className={`cookbook${chosenHere > 0 && !detailOpen && !showOwnRecipe ? " has-next" : ""}`}>
-      <SiteHeader current={side === "meal-prep" ? "/meal-prep" : "/private-chef"} />
+      <SiteHeader current={side === "meal-prep" ? "/meal-prep" : "/private-chef"} label="Cookbook" />
       <nav className="dp-subnav" aria-label="Cookbook">
         {side === "meal-prep" ? (
           <>
