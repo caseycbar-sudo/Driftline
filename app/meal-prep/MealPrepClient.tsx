@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import SiteHeader from "../SiteHeader";
 import SiteFooter from "../SiteFooter";
 import "../home.css";
@@ -45,6 +45,19 @@ export default function Home({ packages }: { packages: Package[] }) {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [formError, setFormError] = useState("");
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  // Signed-in customers shouldn't have to type their name and email again.
+  useEffect(() => {
+    fetch("/api/session", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((s: { signedIn?: boolean; fullName?: string; email?: string } | null) => {
+        if (!s?.signedIn) return;
+        if (nameRef.current && !nameRef.current.value && s.fullName && !s.fullName.includes("@")) nameRef.current.value = s.fullName;
+        if (emailRef.current && !emailRef.current.value && s.email) emailRef.current.value = s.email;
+      })
+      .catch(() => {});
+  }, []);
 
   async function requestAvailability(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -472,6 +485,7 @@ export default function Home({ packages }: { packages: Package[] }) {
                   Name
                   <input
                     required
+                    ref={nameRef}
                     name="fullName"
                     autoComplete="name"
                     placeholder="First and last name"
@@ -481,6 +495,7 @@ export default function Home({ packages }: { packages: Package[] }) {
                   Email
                   <input
                     required
+                    ref={emailRef}
                     type="email"
                     name="email"
                     autoComplete="email"

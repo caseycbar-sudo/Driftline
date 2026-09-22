@@ -48,7 +48,7 @@ export async function getOrCreateCustomer(email: string, displayName: string): P
   const existing = await db.prepare("SELECT * FROM customer_profiles WHERE email = ?").bind(email).first<Record<string, unknown>>();
   if (!existing) {
     const now = new Date().toISOString();
-    await db.prepare("INSERT INTO customer_profiles (email, full_name, created_at, updated_at) VALUES (?, ?, ?, ?)").bind(email, displayName, now, now).run();
+    await db.prepare("INSERT INTO customer_profiles (email, full_name, created_at, updated_at) VALUES (?, ?, ?, ?)").bind(email, displayName.includes("@") ? "" : displayName, now, now).run();
   }
   const row = await db.prepare("SELECT * FROM customer_profiles WHERE email = ?").bind(email).first<Record<string, unknown>>();
   if (!row) throw new Error("Unable to create customer profile");
