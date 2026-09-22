@@ -21,3 +21,6 @@
 .pantry-have strong{display:block;font:15px Georgia,serif;color:#123349}
 .pantry-have p{font-size:12px;color:#56676d;margin:4px 0 8px}
 .pantry-have ul{margin:0;padding-left:18px;font-size:13px;line-height:1.6;color:#2b4149}
+.grocery-progress.shopping-on{border-left:5px solid #4f8171;background:#f2f8f4}
+.shopping-timer{display:block;margin-top:6px;font-style:normal;font-size:12px;font-weight:700;color:#3d6f5c}
+.shopping-off{display:block;margin-top:6px;font-style:normal;font-size:12px;color:#7b8a8e}

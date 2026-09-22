@@ -32,3 +32,5 @@
 .fm-msg p{margin:0 0 6px}
 .fm-msg.ok{background:#e8f3ec;border-left:3px solid #1b7f3a}
 .fm-msg.error{background:#fbeee8;border-left:3px solid #b05f3e}
+.fm-none-needed{margin:0;padding:12px;background:#eef5ef;border-left:3px solid #4f8171;font-size:14px;color:#2b4149}
+.fm-scope{display:block;margin-top:10px;text-align:left}

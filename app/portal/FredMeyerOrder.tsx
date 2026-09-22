@@ -15,7 +15,10 @@ const probablyOnHand = (i: GroceryItem) => Boolean(i.onHand) || (i.category === 
  * Turn a visit's shopping list into a Fred Meyer Warrenton pickup order: match each
  * item to a product, adjust, and add everything to the linked Fred Meyer cart.
  */
-export default function FredMeyerOrder({ items, title = "Order at Fred Meyer" }: { items: GroceryItem[]; title?: string }) {
+export default function FredMeyerOrder({ items, allItems, title = "Order at Fred Meyer" }: { items: GroceryItem[]; allItems?: GroceryItem[]; title?: string }) {
+  const full = allItems ?? items;
+  const [wholeList, setWholeList] = useState(false);
+  const toOrder = wholeList ? full : items;
   const [status, setStatus] = useState<{ configured: boolean; linked: boolean } | null>(null);
   const [rows, setRows] = useState<Row[]>([]);
   const [busy, setBusy] = useState<"" | "match" | "cart">("");
@@ -36,7 +39,7 @@ export default function FredMeyerOrder({ items, title = "Order at Fred Meyer" }:
   const chosen = rows.filter((r) => r.include && r.product);
   const total = useMemo(() => chosen.reduce((sum, r) => sum + ((r.product?.promoCents ?? r.product?.priceCents) ?? 0) * r.quantity, 0), [chosen]);
 
-  if (!status?.configured || !items.length) return null;
+  if (!status?.configured || !full.length) return null;
 
   const returnTo = typeof window === "undefined" ? "/" : window.location.pathname + window.location.search.replace(/[?&]fredmeyer=\w+/, "");
 
@@ -62,11 +65,11 @@ export default function FredMeyerOrder({ items, title = "Order at Fred Meyer" }:
       const response = await fetch("/api/kroger/match", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ items: items.map((i) => ({ key: i.key, name: i.name, quantity: i.quantity, unit: i.unit })) }),
+        body: JSON.stringify({ items: toOrder.map((i) => ({ key: i.key, name: i.name, quantity: i.quantity, unit: i.unit })) }),
       });
       const data = (await response.json()) as { results?: Omit<Row, "need" | "include">[]; error?: string };
       if (!response.ok || !data.results) throw new Error(data.error || "Couldn't reach Fred Meyer.");
-      const byKey = new Map(items.map((i) => [i.key, i]));
+      const byKey = new Map(full.map((i) => [i.key, i]));
       setRows(data.results.map((r) => ({ ...r, need: byKey.get(r.key)!, include: Boolean(r.product) && !probablyOnHand(byKey.get(r.key)!) })));
     } catch (e) {
       setMessage({ kind: "error", text: e instanceof Error ? e.message : "Couldn't reach Fred Meyer." });
@@ -113,12 +116,28 @@ export default function FredMeyerOrder({ items, title = "Order at Fred Meyer" }:
       <header>
         <small>FRED MEYER · WARRENTON · PICKUP</small>
         <h2>{title}</h2>
-        <p>Match this list to Fred Meyer products, check the ones you need, and send them to your cart.</p>
+        <p>
+          Only the items you haven&apos;t checked off get ordered, so anything you already have is skipped. Match them to Fred Meyer
+          products, adjust, and send them to your cart.
+        </p>
       </header>
       {!rows.length ? (
-        <button type="button" className="fm-primary" onClick={match} disabled={busy === "match"}>
-          {busy === "match" ? "Finding products…" : `Match ${items.length} items at Fred Meyer`}
-        </button>
+        <>
+          {toOrder.length ? (
+            <button type="button" className="fm-primary" onClick={match} disabled={busy === "match"}>
+              {busy === "match" ? "Finding products…" : `Match ${toOrder.length} ${toOrder.length === 1 ? "item" : "items"} at Fred Meyer`}
+            </button>
+          ) : (
+            <p className="fm-none-needed">Everything on the list is checked off, so there's nothing left to order.</p>
+          )}
+          {full.length !== items.length ? (
+            <button type="button" className="fm-link fm-scope" onClick={() => setWholeList(!wholeList)}>
+              {wholeList
+                ? `Only order the ${items.length} ${items.length === 1 ? "item" : "items"} still unchecked`
+                : `Order the whole list instead (${full.length} items)`}
+            </button>
+          ) : null}
+        </>
       ) : (
         <>
           <ul className="fm-rows">
