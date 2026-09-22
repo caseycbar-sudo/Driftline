@@ -59,10 +59,39 @@ export function scoreProduct(need: { name: string; category?: string; unit?: str
   return score;
 }
 
-/** Best product for a shopping-list line, or null when nothing in the store fits. */
-export function pickBest(need: { name: string; category?: string; unit?: string }, products: StoreProduct[]): StoreProduct | null {
+/** Units in a package: "18 ct" -> 18, "2 lb" -> 32 oz. */
+export function packageUnits(size: string): { count: number | null; ounces: number | null } {
+  const count = size.toLowerCase().match(/(\d+)\s*(ct|count|pk|pack|each|ea)\b/);
+  return { count: count ? Number(count[1]) : null, ounces: packageOunces(size) };
+}
+
+/** What it costs to cover this line with a given product, and how much is left over. */
+export function costToCover(need: { quantity: number | null; unit?: string }, product: StoreProduct) {
+  const packs = suggestQuantity({ quantity: need.quantity, unit: need.unit ?? "" }, product.size);
+  const price = product.promoCents ?? product.priceCents;
+  const { count, ounces } = packageUnits(product.size);
+  const per = need.unit === "lb" || need.unit === "oz" ? ounces : count;
+  const needed = need.quantity ?? 0;
+  const have = per ? per * packs : needed;
+  const wanted = need.unit === "lb" ? needed * 16 : needed;
+  return { packs, totalCents: price === null ? null : price * packs, leftOver: per ? Math.max(0, have - wanted) / (per || 1) : 0 };
+}
+
+/**
+ * Best product for a shopping-list line: the right thing first, then the cheapest way
+ * to cover what the recipe needs. Three eggs shouldn't buy an 18-pack, and 11 lb of
+ * chicken shouldn't buy eleven 1-lb trays when a family pack costs less.
+ */
+export function pickBest(need: { name: string; category?: string; unit?: string; quantity?: number | null }, products: StoreProduct[]): StoreProduct | null {
   const ranked = rankProducts(need, products);
-  return ranked[0] ?? null;
+  if (ranked.length < 2) return ranked[0] ?? null;
+  const top = scoreProduct(need, ranked[0]);
+  // Only compare products that are clearly the same thing; a cheaper wrong item is no bargain.
+  const contenders = ranked.filter((p) => scoreProduct(need, p) >= top - 2);
+  const priced = contenders.map((product) => ({ product, ...costToCover({ quantity: need.quantity ?? null, unit: need.unit }, product) })).filter((row) => row.totalCents !== null);
+  if (!priced.length) return ranked[0];
+  priced.sort((a, b) => (a.totalCents! - b.totalCents!) || a.leftOver - b.leftOver || contenders.indexOf(a.product) - contenders.indexOf(b.product));
+  return priced[0].product;
 }
 
 /** Every product that could fit, best first, with the plainly wrong ones dropped. */

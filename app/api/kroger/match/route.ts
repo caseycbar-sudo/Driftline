@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { requireStaffRole } from "../../../staff-auth";
 import { isCrossSiteRequest } from "../../../auth-core";
 import { getPicks, krogerConfig, searchProducts } from "../../../kroger";
-import { rankProducts, searchTerm, suggestQuantity, type StoreProduct } from "../../../kroger-core";
+import { pickBest, rankProducts, searchTerm, suggestQuantity, type StoreProduct } from "../../../kroger-core";
 
 export const dynamic = "force-dynamic";
 
@@ -42,7 +42,7 @@ export async function POST(request: Request) {
         const saved = picks[need.key];
         const product: StoreProduct | null = saved
           ? options.find((o) => o.upc === saved.upc) ?? { upc: saved.upc, categories: [], description: saved.description, brand: "", size: saved.size, priceCents: null, promoCents: null, image: saved.image, inStock: true, aisle: "" }
-          : options[0] ?? null;
+          : pickBest(need, options);
         return { key: need.key, product, options, quantity: product ? suggestQuantity(need, product.size) : 1, remembered: Boolean(saved) };
       }),
     );

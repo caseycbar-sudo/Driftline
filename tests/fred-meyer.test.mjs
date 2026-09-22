@@ -98,3 +98,23 @@ test("the store match stays in the right department", async () => {
   const ground = product("Kroger 93/7 Lean Fresh Ground Turkey - 1 LB", ["Meat & Seafood"], { size: "1 lb" });
   assert.equal(pickBest(turkey, [jerky, ground]).description, "Kroger 93/7 Lean Fresh Ground Turkey - 1 LB");
 });
+
+test("it buys the cheapest way to cover the recipe, not the biggest pack", async () => {
+  const { pickBest } = await import("../app/kroger-core.ts");
+  const eggs = [
+    product("Kroger® Grade A Large White Eggs", ["Dairy"], { size: "6 ct", priceCents: 129 }),
+    product("Kroger® Cage Free Grade AA Large White Eggs", ["Dairy"], { size: "12 ct", priceCents: 179 }),
+    product("Kroger® Cage Free Grade AA Large White Eggs", ["Dairy"], { size: "18 ct", priceCents: 265 }),
+  ];
+  const need = { name: "large eggs", category: "Dairy & eggs", unit: "", quantity: 3 };
+  assert.equal(pickBest(need, eggs).size, "6 ct", "three eggs is a half dozen");
+  assert.equal(pickBest({ ...need, quantity: 16 }, eggs).size, "18 ct", "sixteen eggs is one 18-pack, not two dozen");
+
+  const chicken = [
+    product("Heritage Farm® Boneless Skinless Chicken Thighs", ["Meat & Seafood"], { size: "1 lb", priceCents: 399 }),
+    product("Heritage Farm® Boneless Skinless Chicken Thighs Family Pack", ["Meat & Seafood"], { size: "4 lb", priceCents: 1396 }),
+  ];
+  const meat = { name: "boneless skinless chicken thighs", category: "Meat & seafood", unit: "lb", quantity: 11 };
+  assert.equal(pickBest(meat, chicken).size, "4 lb", "family packs win on 11 lb");
+  assert.equal(pickBest({ ...meat, quantity: 1 }, chicken).size, "1 lb", "one pound buys one pound");
+});
