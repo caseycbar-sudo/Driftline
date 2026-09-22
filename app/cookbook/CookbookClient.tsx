@@ -123,6 +123,23 @@ export default function CookbookClient({ recipes }: { recipes: Recipe[] }) {
   const factor = portions / selected.servings;
   const scaledIngredients = useMemo(() => scaleIngredients(selected.ingredients, selected.servings, portions), [selected, portions]);
   const savedOnSide = saved.filter((id) => recipes.find((r) => r.id === id)?.side === side).length;
+  const chosenHere = savedOnSide + (side === "meal-prep" ? customCount : 0);
+  const nextStep =
+    side === "meal-prep"
+      ? {
+          one: "meal chosen",
+          many: "meals chosen",
+          hint: "Nothing is scheduled or charged yet.",
+          label: "Review my menu →",
+          href: "/account",
+        }
+      : {
+          one: "dish on your wishlist",
+          many: "dishes on your wishlist",
+          hint: "Casey shapes these into your menu.",
+          label: "Plan the dinner →",
+          href: "/private-chef#inquire",
+        };
 
   async function toggleMeal(recipeId: number) {
     if (!signedIn) {
@@ -167,7 +184,7 @@ export default function CookbookClient({ recipes }: { recipes: Recipe[] }) {
   const credit = selected.photoCredit;
 
   return (
-    <main className="cookbook">
+    <main className={`cookbook${chosenHere > 0 && !detailOpen && !showOwnRecipe ? " has-next" : ""}`}>
       <SiteHeader current={side === "meal-prep" ? "/meal-prep" : "/private-chef"} />
       <nav className="dp-subnav" aria-label="Cookbook">
         {side === "meal-prep" ? (
@@ -204,9 +221,14 @@ export default function CookbookClient({ recipes }: { recipes: Recipe[] }) {
           </h1>
           <span>{hero.lede}</span>
           <div className="hero-choice">
-            <strong>{savedOnSide + (side === "meal-prep" ? customCount : 0)}</strong>
+            <strong>{chosenHere}</strong>
             <span>{hero.countLabel}</span>
             {side === "meal-prep" ? <button onClick={() => setShowOwnRecipe(true)}>+ Add my own recipe</button> : null}
+            {chosenHere > 0 ? (
+              <a className="hero-next" href={signedIn ? nextStep.href : signInHere()}>
+                {nextStep.label}
+              </a>
+            ) : null}
           </div>
         </div>
         <aside>
@@ -479,6 +501,23 @@ export default function CookbookClient({ recipes }: { recipes: Recipe[] }) {
             </button>
             <small>{signedIn ? "This recipe will be saved privately to your account." : "You'll be asked to sign in before this recipe is saved."}</small>
           </form>
+        </div>
+      ) : null}
+      {/*
+        Picking dishes used to be a dead end: the count sits in the hero, which
+        scrolls away, and nothing said what happens next. This bar follows you
+        down the page as soon as something is chosen, and it is hidden while the
+        recipe drawer or the own-recipe form is open so it can't cover them.
+      */}
+      {chosenHere > 0 && !detailOpen && !showOwnRecipe ? (
+        <div className="book-next" role="region" aria-label="Your choices so far">
+          <div>
+            <strong>
+              {chosenHere} {chosenHere === 1 ? nextStep.one : nextStep.many}
+            </strong>
+            <small>{nextStep.hint}</small>
+          </div>
+          <a href={signedIn ? nextStep.href : signInHere()}>{nextStep.label}</a>
         </div>
       ) : null}
       <SiteFooter />
