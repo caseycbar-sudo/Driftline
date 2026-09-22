@@ -3,6 +3,19 @@
 Square account: Driftline Provisions. Developer app: "Driftline Website"
 (developer.squareup.com/apps → Credentials).
 
+## Production (LIVE — real money) — set Sep 22 2026
+- SQUARE_ENVIRONMENT = production          (var, in deploy/cloudflare.json)
+- SQUARE_APPLICATION_ID = sq0idp-fp9fF6Hy-pdLhJeP0SKMNQ   (var)
+- SQUARE_LOCATION_ID = LQBGN9FDE9ZVV       (var — "Driftline Provisions", 1425 9th St, Astoria OR)
+- SQUARE_ACCESS_TOKEN = secret, set in the Cloudflare dashboard by Casey
+- SQUARE_WEBHOOK_SIGNATURE_KEY = secret, still to set
+
+Confirm whose account the token belongs to any time with
+/api/admin/square-check (owner only). It reports the business name,
+address, and whether the token is production or sandbox. The first
+token pasted in was a sandbox one ("Default Test Account"), so this
+check is worth re-running after any token change.
+
 ## Sandbox (test mode, no real money)
 - SQUARE_ENVIRONMENT = sandbox
 - SQUARE_APPLICATION_ID = sandbox-sq0idb-SND6IUgPknrN4zIW83j0iQ

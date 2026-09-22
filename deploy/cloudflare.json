@@ -12,7 +12,10 @@
     "SITE_URL": "https://www.driftlineprovisions.com",
     "NOTIFY_EMAIL": "driftlineprovisions@gmail.com",
     "FROM_EMAIL": "Driftline Provisions <hello@driftlineprovisions.com>",
-    "BOOTSTRAP_ADMIN_EMAIL": "driftlineprovisions@gmail.com"
+    "BOOTSTRAP_ADMIN_EMAIL": "driftlineprovisions@gmail.com",
+    "SQUARE_ENVIRONMENT": "production",
+    "SQUARE_APPLICATION_ID": "sq0idp-fp9fF6Hy-pdLhJeP0SKMNQ",
+    "SQUARE_LOCATION_ID": "LQBGN9FDE9ZVV"
   },
   "customDomains": [
     "www.driftlineprovisions.com",
