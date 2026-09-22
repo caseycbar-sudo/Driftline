@@ -91,7 +91,7 @@ test("cookies are read by exact name", () => {
 
 test("session cookie is HttpOnly, SameSite=Lax, and Secure on HTTPS", () => {
   const c = sessionCookie("v", true);
-  assert.match(c, /^dl_session=v; Path=\/; HttpOnly; SameSite=Lax; Secure; Max-Age=2592000$/);
+  assert.match(c, /^dl_session=v; Path=\/; HttpOnly; SameSite=Lax; Secure; Max-Age=7776000$/);
   assert.doesNotMatch(sessionCookie("v", false), /Secure/);
   assert.match(clearedSessionCookie(true), /^dl_session=; .*Max-Age=0$/);
   assert.equal(shouldUseSecureCookie("https://driftlineprovisions.com/"), true);

@@ -1,3 +1,4 @@
+import PasskeyPrompt from "../PasskeyPrompt";
 import PortalClient from "./PortalClient";
 import StaffAccessPending from "../StaffAccessPending";
 import { requireStaffPage } from "../staff-auth";
@@ -14,8 +15,11 @@ export default async function PortalPage() {
 
   const { staff } = access;
   return (
-    <PortalClient
-      staff={{ email: staff.email, fullName: staff.fullName, role: staff.role }}
-    />
+    <>
+      <PasskeyPrompt placement="above-nav" />
+      <PortalClient
+        staff={{ email: staff.email, fullName: staff.fullName, role: staff.role }}
+      />
+    </>
   );
 }

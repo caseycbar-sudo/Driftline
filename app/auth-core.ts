@@ -10,8 +10,14 @@ export const SESSION_COOKIE = "dl_session";
 
 /** A sign-in link is good for 15 minutes and works once. */
 export const LINK_TTL_MS = 15 * 60 * 1000;
-/** A session lasts 30 days from sign-in. */
-export const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000;
+/** A session lasts 90 days from sign-in. */
+export const SESSION_TTL_MS = 90 * 24 * 60 * 60 * 1000;
+/** Wrong 6-digit codes allowed per emailed sign-in before that email's codes stop working. */
+export const CODE_MAX_ATTEMPTS = 5;
+/** Passkey and Google round trips must finish within 10 minutes. */
+export const CHALLENGE_TTL_MS = 10 * 60 * 1000;
+/** Short-lived cookie that ties a passkey or Google round trip to this browser. */
+export const FLOW_COOKIE = "dl_flow";
 
 /** Per hour: at most this many links per email address, and per requesting address. */
 export const LINKS_PER_EMAIL_PER_HOUR = 5;
@@ -150,4 +156,41 @@ export function clearedSessionCookie(secure: boolean): string {
 export function shouldUseSecureCookie(requestUrl: string): boolean {
   const url = new URL(requestUrl);
   return url.protocol === "https:" || url.hostname === "localhost" || url.hostname === "127.0.0.1";
+}
+
+/** A 6-digit sign-in code, uniformly random (no modulo bias). */
+export function randomCode(): string {
+  const buf = new Uint32Array(1);
+  const limit = Math.floor(0xffffffff / 1_000_000) * 1_000_000;
+  do crypto.getRandomValues(buf);
+  while (buf[0] >= limit);
+  return String(buf[0] % 1_000_000).padStart(6, "0");
+}
+
+/** Codes are only meaningful together with the email they were sent to. */
+export function codeHash(email: string, code: string): Promise<string> {
+  return sha256Hex(`driftline-code:${email}:${code}`);
+}
+
+/** Accepts "123456" or "123 456" as typed or pasted; returns the 6 digits or null. */
+export function cleanCode(value: unknown): string | null {
+  const digits = String(value ?? "").replace(/[\s-]/g, "");
+  return /^\d{6}$/.test(digits) ? digits : null;
+}
+
+/**
+ * The passkey "relying party" for this host. Passkeys made on www also work on
+ * driftlineprovisions.com and new.driftlineprovisions.com; local development uses its own host.
+ */
+export function passkeyRpId(hostname: string): string {
+  const host = hostname.toLowerCase();
+  if (host === "driftlineprovisions.com" || host.endsWith(".driftlineprovisions.com")) return "driftlineprovisions.com";
+  return host;
+}
+
+/** Short-lived, HttpOnly cookie for a passkey or Google round trip. */
+export function flowCookie(value: string, secure: boolean, maxAgeSeconds = CHALLENGE_TTL_MS / 1000): string {
+  return [`${FLOW_COOKIE}=${value}`, "Path=/", "HttpOnly", "SameSite=Lax", secure ? "Secure" : "", `Max-Age=${Math.floor(maxAgeSeconds)}`]
+    .filter(Boolean)
+    .join("; ");
 }

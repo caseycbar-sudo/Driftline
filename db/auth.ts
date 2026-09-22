@@ -1,11 +1,15 @@
 import { and, eq, gt, gte, lt, sql } from "drizzle-orm";
 import { getDb } from "./index";
-import { authSessions, authTokens } from "./schema";
-import { LINK_TTL_MS, SESSION_TTL_MS, randomToken, sha256Hex } from "../app/auth-core";
+import { authChallenges, authSessions, authTokens, passkeys } from "./schema";
+import { CHALLENGE_TTL_MS, CODE_MAX_ATTEMPTS, LINK_TTL_MS, SESSION_TTL_MS, codeHash, randomCode, randomToken, sha256Hex } from "../app/auth-core";
 
-/** Create a one-time sign-in token. Returns the raw token for the email link; only its hash is stored. */
+/**
+ * Create a one-time sign-in token and its 6-digit code. Returns both raw values for
+ * the email; only their hashes are stored. Either one signs the person in, once.
+ */
 export async function createLoginToken(email: string, returnTo: string, sourceHash: string) {
   const token = randomToken();
+  const code = randomCode();
   const now = new Date();
   await getDb().insert(authTokens).values({
     tokenHash: await sha256Hex(token),
@@ -15,8 +19,94 @@ export async function createLoginToken(email: string, returnTo: string, sourceHa
     createdAt: now.toISOString(),
     expiresAt: new Date(now.getTime() + LINK_TTL_MS).toISOString(),
     usedAt: "",
+    codeHash: await codeHash(email, code),
+    attempts: 0,
   });
-  return token;
+  return { token, code };
+}
+
+/**
+ * Sign in with the 6-digit code from the email. Only the newest few open emails for
+ * that address count, each allows a handful of wrong tries, and the matching token is
+ * used up in one conditional update so the same code can't work twice.
+ */
+export async function consumeLoginCode(email: string, code: string): Promise<{ email: string; returnTo: string } | null> {
+  const now = new Date().toISOString();
+  const db = getDb();
+  const hash = await codeHash(email, code);
+  const used = await db
+    .update(authTokens)
+    .set({ usedAt: now })
+    .where(
+      and(
+        eq(authTokens.email, email),
+        eq(authTokens.codeHash, hash),
+        eq(authTokens.usedAt, ""),
+        gt(authTokens.expiresAt, now),
+        lt(authTokens.attempts, CODE_MAX_ATTEMPTS),
+      ),
+    )
+    .returning({ email: authTokens.email, returnTo: authTokens.returnTo });
+  if (used[0]) return used[0];
+  // Wrong code: count it against every open sign-in for this address.
+  await db
+    .update(authTokens)
+    .set({ attempts: sql`${authTokens.attempts} + 1` })
+    .where(and(eq(authTokens.email, email), eq(authTokens.usedAt, ""), gt(authTokens.expiresAt, now)));
+  return null;
+}
+
+/* ---------- passkeys (Face ID) and the Google round trip ---------- */
+
+export type StoredPasskey = typeof passkeys.$inferSelect;
+
+/** Save a short-lived challenge; returns the raw id for the flow cookie. */
+export async function saveChallenge(input: { challenge: string; purpose: string; email?: string; returnTo?: string }) {
+  const id = randomToken();
+  await getDb().insert(authChallenges).values({
+    idHash: await sha256Hex(id),
+    challenge: input.challenge,
+    purpose: input.purpose,
+    email: input.email ?? "",
+    returnTo: input.returnTo ?? "/",
+    expiresAt: new Date(Date.now() + CHALLENGE_TTL_MS).toISOString(),
+  });
+  return id;
+}
+
+/** Take (and delete) a challenge so it can only be answered once. */
+export async function takeChallenge(id: string, purpose: string) {
+  const idHash = await sha256Hex(id);
+  const now = new Date().toISOString();
+  const rows = await getDb()
+    .delete(authChallenges)
+    .where(and(eq(authChallenges.idHash, idHash), eq(authChallenges.purpose, purpose), gt(authChallenges.expiresAt, now)))
+    .returning();
+  return rows[0] ?? null;
+}
+
+export async function passkeysFor(email: string) {
+  return getDb().select().from(passkeys).where(eq(passkeys.email, email));
+}
+
+export async function findPasskey(credentialId: string) {
+  const rows = await getDb().select().from(passkeys).where(eq(passkeys.credentialId, credentialId)).limit(1);
+  return rows[0] ?? null;
+}
+
+export async function savePasskey(input: { credentialId: string; email: string; publicKey: string; counter: number; transports: string; device: string }) {
+  await getDb()
+    .insert(passkeys)
+    .values({ ...input, createdAt: new Date().toISOString(), lastUsedAt: "" })
+    .onConflictDoNothing();
+}
+
+export async function touchPasskey(credentialId: string, counter: number) {
+  await getDb().update(passkeys).set({ counter, lastUsedAt: new Date().toISOString() }).where(eq(passkeys.credentialId, credentialId));
+}
+
+export async function removePasskeys(email: string) {
+  await getDb().delete(passkeys).where(eq(passkeys.email, email));
 }
 
 /** How many links were requested in the last hour for this email and from this address. */
@@ -95,6 +185,7 @@ export async function pruneExpired() {
   const db = getDb();
   await db.delete(authTokens).where(lt(authTokens.expiresAt, new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()));
   await db.delete(authSessions).where(lt(authSessions.expiresAt, now));
+  await db.delete(authChallenges).where(lt(authChallenges.expiresAt, now));
 }
 
 /** A friendly name for an email: staff name, then customer name, then the email itself. */

@@ -172,6 +172,32 @@ export const authTokens = sqliteTable("auth_tokens", {
   createdAt: text("created_at").notNull(),
   expiresAt: text("expires_at").notNull(),
   usedAt: text("used_at").notNull().default(""),
+  /** SHA-256 of email + the 6-digit code sent with the link. */
+  codeHash: text("code_hash").notNull().default(""),
+  /** Wrong codes tried against this token; it stops accepting codes after a few. */
+  attempts: integer("attempts").notNull().default(0),
+});
+
+/** Face ID / Touch ID / security-key sign-in (WebAuthn passkeys), one row per device. */
+export const passkeys = sqliteTable("passkeys", {
+  credentialId: text("credential_id").primaryKey(),
+  email: text("email").notNull(),
+  publicKey: text("public_key").notNull(),
+  counter: integer("counter").notNull().default(0),
+  transports: text("transports").notNull().default(""),
+  device: text("device").notNull().default(""),
+  createdAt: text("created_at").notNull(),
+  lastUsedAt: text("last_used_at").notNull().default(""),
+});
+
+/** Short-lived challenges for passkeys and the Google sign-in round trip. */
+export const authChallenges = sqliteTable("auth_challenges", {
+  idHash: text("id_hash").primaryKey(),
+  challenge: text("challenge").notNull(),
+  purpose: text("purpose").notNull(),
+  email: text("email").notNull().default(""),
+  returnTo: text("return_to").notNull().default("/"),
+  expiresAt: text("expires_at").notNull(),
 });
 
 /** Signed-in sessions. The cookie holds a random id; only its SHA-256 hash is stored. */

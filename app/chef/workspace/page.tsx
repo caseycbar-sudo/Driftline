@@ -1,3 +1,4 @@
+import PasskeyPrompt from "../../PasskeyPrompt";
 import ChefFieldApp from "../../portal/ChefFieldApp";
 import StaffAccessPending from "../../StaffAccessPending";
 import { requireStaffPage } from "../../staff-auth";
@@ -14,8 +15,11 @@ export default async function ChefWorkspace() {
 
   const { staff } = access;
   return (
-    <ChefFieldApp
-      staff={{ email: staff.email, fullName: staff.fullName, role: "chef" }}
-    />
+    <>
+      <PasskeyPrompt placement="above-nav" />
+      <ChefFieldApp
+        staff={{ email: staff.email, fullName: staff.fullName, role: "chef" }}
+      />
+    </>
   );
 }

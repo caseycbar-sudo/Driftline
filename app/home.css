@@ -1564,3 +1564,59 @@
   text-align: center;
 }
 .dp-faq-cta h2 { margin: 0 0 22px; }
+
+/* Quick sign-in: Face ID and Google above the email form, and the code box. */
+.dp-signin-quick {
+  display: grid;
+  gap: 10px;
+}
+.dp-signin-card .dp-signin-passkey {
+  background: var(--dp-deep);
+}
+.dp-signin-card .dp-signin-passkey:hover {
+  background: #0f1a24;
+}
+.dp-signin-google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  border: 1px solid rgba(35, 47, 56, 0.28);
+  background: #fff;
+  color: #1f1f1f;
+  font: 700 16px var(--dp-sans);
+  text-decoration: none;
+}
+.dp-signin-google:hover {
+  background: #f6f4ef;
+}
+.dp-signin-or {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 6px 0 2px !important;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.dp-signin-or::before,
+.dp-signin-or::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--dp-line);
+}
+.dp-code-form {
+  margin: 16px 0 14px;
+  text-align: left;
+}
+.dp-code-form input {
+  font-size: 28px !important;
+  letter-spacing: 0.35em;
+  text-align: center;
+  font-family: Menlo, Consolas, monospace !important;
+}
+.dp-code-form button:disabled {
+  opacity: 0.55;
+}

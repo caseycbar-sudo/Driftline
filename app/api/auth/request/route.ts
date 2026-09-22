@@ -47,9 +47,9 @@ export async function POST(request: Request) {
     return reply(429, "Too many sign-in links requested. Please check your inbox, or try again in an hour.");
   }
 
-  const token = await createLoginToken(email, returnTo, source);
+  const { token, code } = await createLoginToken(email, returnTo, source);
   const link = `${siteOrigin(request.url)}${VERIFY_PATH}?token=${encodeURIComponent(token)}`;
-  const sent = await sendSignInLink(email, link);
+  const sent = await sendSignInLink(email, link, code);
   if (!sent) {
     return reply(503, "We couldn't send the email just now. Please try again in a few minutes.");
   }

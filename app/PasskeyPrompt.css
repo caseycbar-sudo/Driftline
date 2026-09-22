@@ -1,0 +1,12 @@
+.passkey-prompt{position:fixed;left:12px;right:12px;bottom:16px;z-index:80;max-width:460px;margin:0 auto;display:flex;flex-direction:column;gap:12px;padding:16px 18px;background:#16232f;color:#f2ece0;border-left:4px solid #d2ae6a;box-shadow:0 14px 40px rgba(0,0,0,.35);font-family:Arial,Helvetica,sans-serif}
+.passkey-prompt.above-nav{bottom:84px}
+.passkey-prompt strong{display:block;font-family:Georgia,serif;font-size:19px;font-weight:400;color:#fff}
+.passkey-prompt p{margin:4px 0 0;font-size:14px;line-height:1.45;color:#d9d2c3}
+.passkey-prompt .passkey-error{color:#f3b9a2}
+.passkey-actions{display:flex;gap:10px}
+.passkey-actions button{flex:1;min-height:44px;border:0;font-size:15px;font-weight:700;cursor:pointer}
+.passkey-yes{background:#d2ae6a;color:#16232f}
+.passkey-yes:disabled{opacity:.7}
+.passkey-no{background:transparent;color:#d9d2c3;border:1px solid rgba(255,255,255,.3)!important}
+.passkey-done{font-size:15px!important;color:#fff!important}
+.passkey-done b{color:#d2ae6a}

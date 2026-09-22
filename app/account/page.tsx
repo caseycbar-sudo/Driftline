@@ -16,6 +16,7 @@ import BrandLogo from "../BrandLogo";
 import { CONTACT_EMAIL, smallImage } from "../site-config";
 import "./account.css";
 import DishPhoto from "../DishPhoto";
+import PasskeyPrompt from "../PasskeyPrompt";
 
 export const dynamic = "force-dynamic";
 
@@ -34,6 +35,7 @@ export default async function AccountPage() {
   const upcoming = await listUpcomingForCustomer(user.email, oregonToday()).catch(() => []);
   return <main className="account-page">
     <DisclosureGate scope="customer" />
+    <PasskeyPrompt />
     <header className="account-nav"><Link className="account-brand" href="/"><BrandLogo/></Link><nav><Link href="/cookbook">Cookbook</Link><Link href="/meal-prep#pricing">Pricing</Link><a href={signOutPath("/")}>Sign out</a></nav></header>
     <section className="welcome-panel"><div><p>YOUR DRIFTLINE ACCOUNT</p><h1>{firstName ? `Welcome, ${firstName}.` : "Welcome."}</h1><span>Let&apos;s make home meals feel easier this week.</span></div><div className="account-status"><i>✓</i><span><small>Account ready</small><strong>Your preferences travel with every visit</strong></span></div></section>
     <section className="account-content">
