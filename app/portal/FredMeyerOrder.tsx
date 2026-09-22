@@ -128,7 +128,7 @@ export default function FredMeyerOrder({ items, allItems, title = "Order at Fred
               {busy === "match" ? "Finding products…" : `Match ${toOrder.length} ${toOrder.length === 1 ? "item" : "items"} at Fred Meyer`}
             </button>
           ) : (
-            <p className="fm-none-needed">Everything on the list is checked off, so there's nothing left to order.</p>
+            <p className="fm-none-needed">Everything on the list is checked off, so there&apos;s nothing left to order.</p>
           )}
           {full.length !== items.length ? (
             <button type="button" className="fm-link fm-scope" onClick={() => setWholeList(!wholeList)}>

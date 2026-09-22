@@ -59,7 +59,12 @@ function serviceSummary(job:Job){const kind=SERVICE_LABELS[job.serviceType??"mea
 function JobCard({job,sequence,open}:{job:Job;sequence:number;open:()=>void}){return <button className="field-job-card" onClick={open}><span className="field-sequence">{sequence}</span><time><strong>{job.startTime||"Time pending"}</strong><small>{prettyDate(job.serviceDate)}</small></time><div><span className={`field-pill ${job.status}`}>{job.status.replaceAll("-"," ")}</span><h3>{job.household}</h3><p>{job.visit?.address||job.location||"Address pending"}</p><small>{serviceSummary(job)}</small></div><b>Open job →</b></button>}
 
 function JobWorkspace({job,entries,checks,setCheck,busy,error,back,action,reload}:{job:Job;entries:Entry[];checks:Record<string,boolean>;setCheck:(key:string)=>void;busy:string;error:string;back:()=>void;action:(type:string,job?:Job)=>Promise<void>;reload:()=>Promise<void>}){
-  const shoppingEntry=entries.find(e=>e.activityType==="shopping"&&e.scheduleEventId===job.id&&!e.endedAt),shoppingSince=shoppingEntry?.startedAt||"",shopping=Boolean(shoppingEntry),shoppingMinutes=shoppingEntry?Math.max(0,Math.round((Date.now()-new Date(shoppingEntry.startedAt).getTime())/60000)):0,working=entries.some(e=>e.activityType==="job"&&e.scheduleEventId===job.id&&!e.endedAt)||job.status==="in-progress";
+  const shoppingEntry=entries.find(e=>e.activityType==="shopping"&&e.scheduleEventId===job.id&&!e.endedAt),shoppingSince=shoppingEntry?.startedAt||"",shopping=Boolean(shoppingEntry);
+  // The clock has to tick on its own: reading Date.now() while rendering only
+  // updates when something else happens to re-render the job workspace.
+  const[now,setNow]=useState(0);
+  useEffect(()=>{if(!shoppingSince)return;const tick=()=>setNow(Date.now());tick();const id=setInterval(tick,30000);return()=>clearInterval(id)},[shoppingSince]);
+  const shoppingMinutes=shoppingEntry&&now?Math.max(0,Math.round((now-new Date(shoppingEntry.startedAt).getTime())/60000)):0,working=entries.some(e=>e.activityType==="job"&&e.scheduleEventId===job.id&&!e.endedAt)||job.status==="in-progress";
   const[portions,setPortions]=useState<Record<number,number>>(()=>Object.fromEntries(job.dishDetails.map((dish,index)=>[index,dish.servings||12])));
   const adjustedDishes=useMemo(()=>job.dishDetails.map((dish,index)=>({...dish,portions:portions[index]||dish.servings||12})),[job.dishDetails,portions]);
   const groceries=useMemo(()=>buildGroceryList(adjustedDishes,(job.pantry??[]).map(p=>p.itemKey)),[adjustedDishes,job.pantry]),groceryKey=(key:string)=>`grocery-${job.id}-${key}`,groceryTotal=groceries.length,groceryDone=groceries.filter(item=>checks[groceryKey(item.key)]).length;
