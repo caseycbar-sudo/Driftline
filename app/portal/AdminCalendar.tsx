@@ -607,6 +607,17 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
                           {event.address || event.location || "Location pending"}
                         </p>
                         <small>{event.chef}</small>
+                        {/* Without an email address this visit fails quietly: no
+                            day-before reminder, no completion photos, no receipt.
+                            Worth saying out loud on the card. */}
+                        {!event.customerEmail ? (
+                          <p className="agenda-gap">
+                            No customer email — they won&apos;t get a reminder, photos or a receipt.{" "}
+                            <button type="button" onClick={() => openEditor(event)}>
+                              Add one
+                            </button>
+                          </p>
+                        ) : null}
                         {event.dishes.length ? (
                           <div className="agenda-dishes">
                             <b>COOKING TODAY</b>

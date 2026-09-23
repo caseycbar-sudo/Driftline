@@ -167,11 +167,23 @@ export default function Home({ packages, pantryKit = 0 }: { packages: Package[];
             <figure key={photo.src} className={i === 0 ? "look-feature" : undefined}>
               {photo.recipe ? (
                 <a href={`/cookbook?recipe=${photo.recipe}`} aria-label={`${photo.alt}: see the recipe`}>
-                  <img src={i === 0 ? photo.src : smallImage(photo.src)} alt={photo.alt} loading={i < 3 ? "eager" : "lazy"} decoding="async" />
+                  <img
+                    src={smallImage(photo.src)}
+                    {...(i === 0 ? { srcSet: `${smallImage(photo.src)} 720w, ${photo.src} 1400w`, sizes: "(max-width: 900px) 100vw, 60vw" } : {})}
+                    alt={photo.alt}
+                    loading={i < 3 ? "eager" : "lazy"}
+                    decoding="async"
+                  />
                   <span className="look-tag">See the recipe →</span>
                 </a>
               ) : (
-                <img src={i === 0 ? photo.src : smallImage(photo.src)} alt={photo.alt} loading={i < 3 ? "eager" : "lazy"} decoding="async" />
+                <img
+                  src={smallImage(photo.src)}
+                  {...(i === 0 ? { srcSet: `${smallImage(photo.src)} 720w, ${photo.src} 1400w`, sizes: "(max-width: 900px) 100vw, 60vw" } : {})}
+                  alt={photo.alt}
+                  loading={i < 3 ? "eager" : "lazy"}
+                  decoding="async"
+                />
               )}
             </figure>
           ))}
