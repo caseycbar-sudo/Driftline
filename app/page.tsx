@@ -52,7 +52,7 @@ const services = [
 
 const gallery = [
   { src: "/gallery/salmon.webp", alt: "Roasted salmon with asparagus and saffron orzo" },
-  { src: "/gallery/salmon.webp", alt: "Braised short rib over creamy polenta" },
+  { src: "/gallery/shortrib.webp", alt: "Braised short rib over creamy polenta" },
   { src: "/gallery/dessert.webp", alt: "Dessert plated with chocolate drizzle and whipped cream" },
 ];
 
