@@ -18,7 +18,9 @@
   --dp-sans: "Helvetica Neue", Arial, Helvetica, sans-serif;
   --dp-gutter: clamp(20px, 5vw, 72px);
 
-  background: var(--dp-paper);
+  /* Transparent so the page canvas photo shows through; the paper colour lives
+     on <html> and inside the canvas wash. */
+  background: transparent;
   color: var(--dp-ink);
   font-family: var(--dp-sans);
   font-size: 17px;
@@ -1662,4 +1664,23 @@
   background:
     linear-gradient(168deg, rgba(247, 242, 233, 0.95) 0%, rgba(247, 242, 233, 0.87) 45%, rgba(247, 242, 233, 0.7) 100%),
     var(--dp-page-photo, none) center / cover no-repeat;
+}
+
+/* The page-wide photograph (PageCanvas). Fixed to the viewport so it keeps its
+   own shape however long the page is, and washed hard enough that the cards and
+   copy scrolling over it stay easy to read. */
+.dp-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.dp-canvas::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(168deg, rgba(247, 242, 233, 0.94) 0%, rgba(247, 242, 233, 0.9) 45%, rgba(247, 242, 233, 0.86) 100%);
 }

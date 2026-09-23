@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { SIDES, type CookbookSide, type Recipe } from "./recipes";
 import { scaleIngredients } from "../portal/grocery-list";
 import "./cookbook.css";
+import PageCanvas from "../PageCanvas";
 import SiteHeader from "../SiteHeader";
 import SiteFooter from "../SiteFooter";
 import "../home.css";
@@ -184,6 +185,8 @@ export default function CookbookClient({ recipes }: { recipes: Recipe[] }) {
   const credit = selected.photoCredit;
 
   return (
+    <>
+    <PageCanvas src="/canvas/cookbook.webp" />
     <main
       className={`cookbook${chosenHere > 0 && !detailOpen && !showOwnRecipe ? " has-next" : ""}`}
       style={
@@ -530,5 +533,6 @@ export default function CookbookClient({ recipes }: { recipes: Recipe[] }) {
       ) : null}
       <SiteFooter />
     </main>
+    </>
   );
 }

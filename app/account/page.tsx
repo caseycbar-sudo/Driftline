@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PageCanvas from "../PageCanvas";
 import { requireUser, signOutPath } from "../auth";
 import { getOrCreateCustomer } from "../../db/customers";
 import { getMealPlan } from "../../db/meals";
@@ -35,7 +36,9 @@ export default async function AccountPage() {
   const dinnerWishlist = recipes.filter(recipe => recipe.side === "private-chef" && mealPlan.selectedRecipeIds.includes(recipe.id));
   const firstName = profile.fullName.split(" ")[0] || "";
   const upcoming = await listUpcomingForCustomer(user.email, oregonToday()).catch(() => []);
-  return <main className="account-page">
+  return <>
+    <PageCanvas src="/canvas/account.webp" />
+    <main className="account-page">
     <DisclosureGate scope="customer" />
     <PasskeyPrompt />
     <header className="account-nav"><Link className="account-brand" href="/"><BrandLogo/></Link><nav><Link href="/cookbook">Cookbook</Link><Link href="/meal-prep#pricing">Pricing</Link><a href={signOutPath("/")}>Sign out</a></nav></header>
@@ -53,5 +56,6 @@ export default async function AccountPage() {
       {hasVisit ? <ReviewForm defaultName={profile.fullName} defaultTown={profile.city} /> : null}
       <aside className="account-help"><div><span>Need a hand?</span><h2>We&apos;re real people, right here on the coast.</h2><p>Questions about packages, allergies, or whether the service is right for your household? Reach out and we&apos;ll talk it through.</p></div><a href={`mailto:${CONTACT_EMAIL}`}>Email Driftline →</a></aside>
     </section>
-  </main>;
+  </main>
+  </>;
 }

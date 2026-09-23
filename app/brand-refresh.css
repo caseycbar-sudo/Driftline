@@ -63,18 +63,20 @@
 .menu-toggle span {
   background: var(--brand-ivory) !important;
 }
+/* The page canvas. The faint cross-hatch that used to live here has been
+   replaced by a photograph -- see PageCanvas and .dp-canvas. These roots stay
+   transparent so it shows through; the ivory is on <html> underneath, so a page
+   without a canvas still looks the way it always did. */
 body,
 .account-page,
 .pc-page,
 .start-page {
-  background-color: var(--brand-ivory) !important;
-  background-image:
-    linear-gradient(115deg, #ece2cf40 1px, transparent 1px),
-    linear-gradient(25deg, #c6d1da1a 1px, transparent 1px) !important;
-  background-size:
-    34px 34px,
-    51px 51px !important;
+  background-color: transparent !important;
+  background-image: none !important;
   color: var(--brand-charcoal) !important;
+}
+html {
+  background-color: var(--brand-ivory);
 }
 .hero,
 .pricing,

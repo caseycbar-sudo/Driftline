@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import PageCanvas from "../PageCanvas";
 import SiteHeader from "../SiteHeader";
 import SiteFooter from "../SiteFooter";
 import ContactForm from "./ContactForm";
@@ -35,6 +36,8 @@ const paths = [
 
 export default function ContactPage() {
   return (
+    <>
+    <PageCanvas src="/canvas/contact.webp" />
     <main className="dp" style={{ "--dp-page-photo": 'url("/backdrop/canapes.webp")' } as React.CSSProperties}>
       <SiteHeader current="/contact" />
 
@@ -124,5 +127,6 @@ export default function ContactPage() {
 
       <SiteFooter />
     </main>
+    </>
   );
 }

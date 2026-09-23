@@ -1,5 +1,6 @@
 import "./private-chef.css";
 import InquiryForm from "./InquiryForm";
+import PageCanvas from "../PageCanvas";
 import SiteHeader from "../SiteHeader";
 import SiteFooter from "../SiteFooter";
 import "../home.css";
@@ -31,7 +32,9 @@ const NUMBER_WORDS = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven",
 export default async function PrivateChefPage() {
   const { privateChef } = await getPricing();
   const minWord = NUMBER_WORDS[privateChef.minGuests] ?? String(privateChef.minGuests);
-  return <main className="pc-page" style={{ "--dp-page-photo": 'url("/backdrop/fine-dining-fish.webp")' } as React.CSSProperties}>
+  return <>
+    <PageCanvas src="/canvas/private-chef.webp" />
+    <main className="pc-page" style={{ "--dp-page-photo": 'url("/backdrop/fine-dining-fish.webp")' } as React.CSSProperties}>
     <SiteHeader current="/private-chef" />
 
     <section className="pc-hero">
@@ -82,5 +85,6 @@ export default async function PrivateChefPage() {
     </section>
 
     <SiteFooter />
-  </main>;
+  </main>
+  </>;
 }

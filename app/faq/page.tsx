@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import PageCanvas from "../PageCanvas";
 import SiteHeader from "../SiteHeader";
 import SiteFooter from "../SiteFooter";
 import { pageMetadata } from "../site-config";
@@ -26,6 +27,8 @@ const faqJsonLd = {
 
 export default function FaqPage() {
   return (
+    <>
+    <PageCanvas src="/canvas/questions.webp" />
     <main className="dp" style={{ "--dp-page-photo": 'url("/backdrop/prep-boxes.webp")' } as React.CSSProperties}>
       <SiteHeader current="/faq" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c") }} />
@@ -78,5 +81,6 @@ export default function FaqPage() {
       </section>
       <SiteFooter />
     </main>
+    </>
   );
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import PageCanvas from "../PageCanvas";
 import SiteHeader from "../SiteHeader";
 import SiteFooter from "../SiteFooter";
 import "../home.css";
@@ -19,6 +20,8 @@ const gallery = [
 
 export default function OurStoryPage() {
   return (
+    <>
+    <PageCanvas src="/canvas/our-story.webp" />
     <main className="dp" style={{ "--dp-page-photo": 'url("/backdrop/chef-plating.webp")' } as React.CSSProperties}>
       <SiteHeader current="/our-story" />
 
@@ -130,5 +133,6 @@ export default function OurStoryPage() {
 
       <SiteFooter />
     </main>
+    </>
   );
 }

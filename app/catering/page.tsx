@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import PageCanvas from "../PageCanvas";
 import SiteHeader from "../SiteHeader";
 import SiteFooter from "../SiteFooter";
 import InquiryForm from "../private-chef/InquiryForm";
@@ -39,6 +40,8 @@ const styles = [
 
 export default function CateringPage() {
   return (
+    <>
+    <PageCanvas src="/canvas/catering.webp" />
     <main className="dp" style={{ "--dp-page-photo": 'url("/backdrop/party-spread.webp")' } as React.CSSProperties}>
       <SiteHeader current="/catering" />
 
@@ -163,5 +166,6 @@ export default function CateringPage() {
 
       <SiteFooter />
     </main>
+    </>
   );
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import PageCanvas from "./PageCanvas";
 import SiteHeader from "./SiteHeader";
 import SiteFooter from "./SiteFooter";
 import "./home.css";
@@ -85,6 +86,8 @@ export default async function Home() {
         ? `From ${dollars(lowestMealPrepCents(pricing))} per visit`
         : detail;
   return (
+    <>
+    <PageCanvas src="/canvas/home.webp" />
     <main className="dp" style={{ "--dp-page-photo": 'url("/backdrop/plated-dinner.webp")' } as React.CSSProperties}>
       <script
         type="application/ld+json"
@@ -261,5 +264,6 @@ export default async function Home() {
 
       <SiteFooter />
     </main>
+    </>
   );
 }

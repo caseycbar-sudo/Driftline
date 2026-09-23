@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import PageCanvas from "../PageCanvas";
 import SiteHeader from "../SiteHeader";
 import SiteFooter from "../SiteFooter";
 import "../home.css";
@@ -13,6 +14,8 @@ export const metadata: Metadata = pageMetadata(
 
 export default function SundayMarketPage() {
   return (
+    <>
+    <PageCanvas src="/canvas/sunday-market.webp" />
     <main className="dp" style={{ "--dp-page-photo": 'url("/backdrop/warm-bowl.webp")' } as React.CSSProperties}>
       <SiteHeader current="/sunday-market" />
 
@@ -99,5 +102,6 @@ export default function SundayMarketPage() {
 
       <SiteFooter />
     </main>
+    </>
   );
 }

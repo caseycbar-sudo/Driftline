@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useRef, useState } from "react";
+import PageCanvas from "../PageCanvas";
 import SiteHeader from "../SiteHeader";
 import SiteFooter from "../SiteFooter";
 import "../home.css";
@@ -80,6 +81,8 @@ export default function Home({ packages, pantryKit = 0 }: { packages: Package[];
   const current = packages.find((item) => item.name === selected) ?? packages[0];
 
   return (
+    <>
+    <PageCanvas src="/canvas/meal-prep.webp" />
     <main style={{ "--dp-page-photo": 'url("/backdrop/prep-flatlay.webp")' } as React.CSSProperties}>
       <SiteHeader current="/meal-prep" />
       <nav className="dp-subnav" aria-label="On this page">
@@ -561,5 +564,6 @@ export default function Home({ packages, pantryKit = 0 }: { packages: Package[];
 
       <SiteFooter />
     </main>
+    </>
   );
 }
