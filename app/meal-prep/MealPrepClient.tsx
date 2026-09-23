@@ -46,6 +46,23 @@ export default function Home({ packages, pantryKit = 0 }: { packages: Package[];
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [formError, setFormError] = useState("");
+  /**
+   * Dishes this visitor already saved in the cookbook. Attached to the request
+   * so Casey can see what they're after before he calls, but never required:
+   * putting 48 recipes between someone and the request button is the most
+   * expensive place on the site to add work.
+   */
+  const [savedDishes, setSavedDishes] = useState<string[]>([]);
+
+  useEffect(() => {
+    fetch("/api/meals")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data: { signedIn?: boolean; selectedTitles?: string[]; customRecipes?: { title: string }[] } | null) => {
+        if (!data?.signedIn) return;
+        setSavedDishes([...(data.selectedTitles ?? []), ...(data.customRecipes ?? []).map((r) => r.title)]);
+      })
+      .catch(() => {});
+  }, []);
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   // Signed-in customers shouldn't have to type their name and email again.
@@ -65,10 +82,15 @@ export default function Home({ packages, pantryKit = 0 }: { packages: Package[];
     const form = event.currentTarget;
     setSending(true);
     setFormError("");
-    const result = await submitInquiry({
-      ...Object.fromEntries(new FormData(form)),
-      inquiryType: "meal_prep",
-    });
+    const fields = Object.fromEntries(new FormData(form)) as Record<string, string>;
+    // Whatever they typed, plus whatever they already picked in the cookbook.
+    const details = [
+      String(fields.details ?? "").trim(),
+      savedDishes.length ? `Already saved in the cookbook: ${savedDishes.join(", ")}.` : "",
+    ]
+      .filter(Boolean)
+      .join("\n\n");
+    const result = await submitInquiry({ ...fields, details, inquiryType: "meal_prep" });
     setSending(false);
     if (result.ok) {
       form.reset();
@@ -551,6 +573,26 @@ export default function Home({ packages, pantryKit = 0 }: { packages: Package[];
                   ))}
                 </select>
               </label>
+              <label>
+                Anything you&apos;re craving? <small>(optional)</small>
+                <textarea
+                  name="details"
+                  rows={3}
+                  maxLength={1200}
+                  placeholder="We love Italian, my husband won't eat fish, the kids are picky…"
+                />
+              </label>
+              {savedDishes.length ? (
+                <p className="request-picked">
+                  <b>We&apos;ll include the {savedDishes.length} {savedDishes.length === 1 ? "dish" : "dishes"} you saved:</b>{" "}
+                  {savedDishes.join(", ")}.
+                </p>
+              ) : (
+                <p className="request-nudge">
+                  Already know what sounds good?{" "}
+                  <a href="/cookbook">Pick a few dishes</a> — optional, but it helps Casey plan your first week.
+                </p>
+              )}
               <div
                 aria-hidden="true"
                 style={{ position: "absolute", left: "-10000px", width: 1, height: 1, overflow: "hidden" }}

@@ -5,7 +5,16 @@ import { addCustomRecipe, addSelectedMeal, getMealPlan, removeCustomRecipe, remo
 
 export const dynamic = "force-dynamic";
 
-export async function GET(){ const user=await getUser(); if(!user)return NextResponse.json({signedIn:false,selectedRecipeIds:[],customRecipes:[]}); return NextResponse.json({signedIn:true,...await getMealPlan(user.email)}); }
+export async function GET(){
+  const user=await getUser();
+  if(!user)return NextResponse.json({signedIn:false,selectedRecipeIds:[],customRecipes:[],selectedTitles:[]});
+  const plan=await getMealPlan(user.email);
+  // Titles as well as ids, so a page that doesn't carry the whole cookbook
+  // (the meal prep request form) can still say what someone picked.
+  const selectedTitles=(await Promise.all(plan.selectedRecipeIds.map((id)=>findCookbookRecipe(id))))
+    .filter(Boolean).map((r)=>(r as {title:string}).title);
+  return NextResponse.json({signedIn:true,...plan,selectedTitles});
+}
 export async function POST(request:Request){
   const user=await getUser(); if(!user)return NextResponse.json({error:"Sign in required"},{status:401});
   const body=await request.json() as Record<string,unknown>;

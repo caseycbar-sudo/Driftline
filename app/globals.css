@@ -1352,3 +1352,38 @@ footer > small {
     var(--dp-page-photo, none) center / cover no-repeat,
     var(--cream);
 }
+
+/* Meal prep request: the optional craving box, the dishes we'll attach, and
+   the nudge toward the cookbook for anyone who hasn't picked yet. */
+.booking-form textarea {
+  width: 100%;
+  min-height: 84px;
+  padding: 11px 12px;
+  border: 1px solid #c9d2cc;
+  background: #fff;
+  font: inherit;
+  font-size: 15px;
+  line-height: 1.5;
+  resize: vertical;
+}
+.request-picked,
+.request-nudge {
+  margin: 4px 0 0;
+  padding: 10px 12px;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.request-picked {
+  background: #eef5ef;
+  border-left: 3px solid #4f8171;
+  color: #2b4149;
+}
+.request-nudge {
+  background: #f5f3ed;
+  border-left: 3px solid #c9bfa6;
+  color: #4a5763;
+}
+.request-nudge a {
+  color: #8a6a34;
+  font-weight: 700;
+}
