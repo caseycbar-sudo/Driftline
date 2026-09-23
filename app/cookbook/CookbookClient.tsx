@@ -189,7 +189,7 @@ export default function CookbookClient({ recipes }: { recipes: Recipe[] }) {
       style={
         {
           // The banner photo follows whichever side of the book you're reading.
-          "--dp-page-photo": `url("${side === "meal-prep" ? "/cookbook/look/chicken-potatoes-broccoli.webp" : "/gallery/salmon.webp"}")`,
+          "--dp-page-photo": `url("${side === "meal-prep" ? "/backdrop/prep-trays.webp" : "/backdrop/fillet-dark.webp"}")`,
         } as React.CSSProperties
       }
     >

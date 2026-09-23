@@ -85,7 +85,7 @@ export default async function Home() {
         ? `From ${dollars(lowestMealPrepCents(pricing))} per visit`
         : detail;
   return (
-    <main className="dp" style={{ "--dp-page-photo": 'url("/gallery/salmon.webp")' } as React.CSSProperties}>
+    <main className="dp" style={{ "--dp-page-photo": 'url("/backdrop/plated-dinner.webp")' } as React.CSSProperties}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(businessJsonLd).replace(/</g, "\\u003c") }}

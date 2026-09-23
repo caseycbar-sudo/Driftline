@@ -31,7 +31,7 @@ const NUMBER_WORDS = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven",
 export default async function PrivateChefPage() {
   const { privateChef } = await getPricing();
   const minWord = NUMBER_WORDS[privateChef.minGuests] ?? String(privateChef.minGuests);
-  return <main className="pc-page" style={{ "--dp-page-photo": 'url("/gallery/scallops.webp")' } as React.CSSProperties}>
+  return <main className="pc-page" style={{ "--dp-page-photo": 'url("/backdrop/fine-dining-fish.webp")' } as React.CSSProperties}>
     <SiteHeader current="/private-chef" />
 
     <section className="pc-hero">
