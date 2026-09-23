@@ -549,23 +549,13 @@
 }
 
 /* Coastal customer experience: the photograph adds atmosphere while every working surface keeps protected contrast. */
+/* The dark band behind the welcome panel, fading into the page. The photograph
+   behind everything is PageCanvas now, and the 48px grid that used to sit on
+   top of it is gone -- it read as graph paper over the food. No `isolation`
+   either: that made a stacking context and hid the canvas underneath. */
 .account-page {
   position: relative;
-  background:
-    linear-gradient(180deg, #0a293bd9 0 430px, #efe7d8e8 760px, #eee6d7f2 100%),
-    url("/customer-kitchen-background-v2.webp") center top/cover fixed;
-  isolation: isolate;
-}
-.account-page:before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background:
-    linear-gradient(90deg, #0a293b17 1px, transparent 1px),
-    linear-gradient(#0a293b12 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: linear-gradient(to bottom, transparent 260px, #000 700px);
+  background: linear-gradient(180deg, #0a293bd9 0 430px, #efe7d8b8 760px, transparent 100%);
 }
 .account-nav {
   background: #fffdf8f2;
