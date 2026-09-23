@@ -32,6 +32,8 @@ export default function SiteFooter() {
         <a href="/account">Customer sign in</a>
         <a href="/chef">Chef login</a>
         <a href="/disclosures">Disclosures</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
       </div>
       <small>© 2026 Driftline Provisions · Astoria, Oregon</small>
     </div>
