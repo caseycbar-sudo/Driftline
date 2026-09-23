@@ -109,14 +109,19 @@ export default async function Home() {
             Private chef dinners, catering, and weekly meal prep from Chef Casey
             Barella, built on Astoria&apos;s fish, foraged greens, and slow fire.
           </p>
-          <div className="dp-hero-actions">
-            <a className="dp-btn dp-btn-gold" href="/private-chef">
-              Plan a private dinner <span aria-hidden="true">→</span>
-            </a>
-            <a className="dp-btn dp-btn-line" href="/meal-prep">
-              Explore weekly meal prep
-            </a>
-          </div>
+          {/* Three doors, side by side even on a phone. The full service cards
+              are ~1,400px down the page on mobile and nearly a screen tall
+              each, so without this a visitor scrolls through two screens
+              before learning there are three services at all -- and catering,
+              the biggest ticket, was not offered up here in any form. */}
+          <nav className="dp-hero-pick" aria-label="Choose a service">
+            {services.map((service) => (
+              <a key={service.id} href={service.href}>
+                <span>{service.title.replace(" Dinners", "").replace("Weekly ", "")}</span>
+                <small>{service.kicker}</small>
+              </a>
+            ))}
+          </nav>
           <MarketHeroLink />
         </div>
         <figure className="dp-hero-photo">
