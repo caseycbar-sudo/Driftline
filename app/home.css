@@ -1685,60 +1685,82 @@
   background: linear-gradient(168deg, rgba(247, 242, 233, 0.94) 0%, rgba(247, 242, 233, 0.9) 45%, rgba(247, 242, 233, 0.86) 100%);
 }
 
-/* Three doors in the hero: the home page's real job is routing someone to the
-   right service, and on a phone the full cards are two screens down. Equal
-   weight on purpose -- these are three different businesses to three
-   different people, not a primary and two also-rans. */
+
+/* THREE DOORS. The home page's whole job is routing someone to the right
+   service, so these sit directly under the headline and carry the weight of
+   the screen: navy blocks against the light hero, the service name big enough
+   to read at arm's length. Equal weight on purpose -- three different
+   businesses to three different people. */
 .dp-hero-pick {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  margin-top: 4px;
-  max-width: 520px;
+  gap: 12px;
+  margin: 30px 0 26px;
+  max-width: 620px;
 }
 .dp-hero-pick a {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  min-height: 78px;
-  padding: 13px 12px;
-  background: #fffdf8;
-  border: 1px solid #d8cdb6;
+  gap: 6px;
+  min-height: 132px;
+  padding: 18px 16px 16px;
+  background: var(--dp-deep);
+  border: 0;
   text-decoration: none;
-  transition: border-color 0.15s ease, background 0.15s ease;
+  position: relative;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.dp-hero-pick a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--dp-gold-light);
 }
 .dp-hero-pick a:hover,
 .dp-hero-pick a:focus-visible {
-  background: #fff;
-  border-color: #7a6032;
+  background: #0d1a25;
+  transform: translateY(-2px);
+}
+.dp-hero-pick small {
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--dp-gold-light);
+  line-height: 1.3;
 }
 .dp-hero-pick span {
   font-family: var(--dp-serif);
+  font-size: 23px;
+  line-height: 1.1;
+  color: #fff;
+  margin-top: auto;
+}
+.dp-hero-pick b {
   font-size: 17px;
-  line-height: 1.15;
-  color: #1f2a33;
+  font-weight: 400;
+  color: var(--dp-gold-light);
+  line-height: 1;
 }
-.dp-hero-pick small {
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #6b5a33;
-  line-height: 1.3;
-}
-@media (max-width: 420px) {
+@media (max-width: 760px) {
   .dp-hero-pick {
-    gap: 7px;
+    gap: 8px;
+    margin: 24px 0 22px;
   }
   .dp-hero-pick a {
-    padding: 11px 9px;
-    min-height: 74px;
-  }
-  .dp-hero-pick span {
-    font-size: 15px;
+    min-height: 118px;
+    padding: 14px 11px 12px;
   }
   .dp-hero-pick small {
-    font-size: 9px;
-    letter-spacing: 0.07em;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+  }
+  .dp-hero-pick span {
+    font-size: 19px;
+  }
+  .dp-hero-pick b {
+    font-size: 15px;
   }
 }

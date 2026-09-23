@@ -105,10 +105,6 @@ export default async function Home() {
             Weathered by the coast.
             <em>Made for the table.</em>
           </h1>
-          <p className="dp-lede">
-            Private chef dinners, catering, and weekly meal prep from Chef Casey
-            Barella, built on Astoria&apos;s fish, foraged greens, and slow fire.
-          </p>
           {/* Three doors, side by side even on a phone. The full service cards
               are ~1,400px down the page on mobile and nearly a screen tall
               each, so without this a visitor scrolls through two screens
@@ -117,11 +113,16 @@ export default async function Home() {
           <nav className="dp-hero-pick" aria-label="Choose a service">
             {services.map((service) => (
               <a key={service.id} href={service.href}>
-                <span>{service.title.replace(" Dinners", "").replace("Weekly ", "")}</span>
                 <small>{service.kicker}</small>
+                <span>{service.title.replace(" Dinners", "").replace("Weekly ", "")}</span>
+                <b aria-hidden="true">&rarr;</b>
               </a>
             ))}
           </nav>
+          <p className="dp-lede">
+            Cooked in your kitchen on the Oregon North Coast, by a chef with
+            twenty years behind the line.
+          </p>
           <MarketHeroLink />
         </div>
         <figure className="dp-hero-photo">
