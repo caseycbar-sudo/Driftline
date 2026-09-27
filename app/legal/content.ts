@@ -11,7 +11,7 @@
  * relied on in a dispute.
  */
 
-export const LEGAL_UPDATED = "September 22, 2026";
+export const LEGAL_UPDATED = "September 27, 2026";
 
 export type Section = { title: string; body: string };
 
@@ -76,8 +76,16 @@ export const termsSections: Section[] = [
     body: "Private chef dinners, small-scale catering, and weekly in-home meal prep, on the Oregon North Coast — Astoria, Warrenton, Gearhart, Seaside and Cannon Beach. If you are somewhere else on the coast, ask; we may still come to you, and we will say so plainly rather than quoting you for a drive we won't make.",
   },
   {
+    title: "Who can book",
+    body: "You need to be 18 to hold an account or book a visit. If you are arranging meals for a parent, or for anyone else you look after, you are welcome to book on their behalf \u2014 just tell us that is the arrangement, so we know whose kitchen it is, who to call, and where the receipt goes.",
+  },
+  {
     title: "Booking and confirmation",
     body: "Asking about a date does not hold it. A visit or an event is booked when we confirm it to you in writing, and for private dinners and catering that confirmation is a written proposal covering the menu, the price, and the payment and cancellation terms for your event. If a proposal and this page disagree, your proposal wins.",
+  },
+  {
+    title: "Who cooks",
+    body: "Usually Casey. As Driftline grows, another Driftline chef may cook your visit. If the person coming to your house is not the person you booked with, we will tell you before the visit rather than after, and you can say no and reschedule.",
   },
   {
     title: "Prices and groceries",
@@ -92,16 +100,32 @@ export const termsSections: Section[] = [
     body: "Tell us as early as you can and we will move things around; life on the coast is like that and we would rather reschedule than have you pay for a visit you didn't get. For meal prep, a visit cancelled after groceries have been bought may be charged for the groceries, which are yours to keep. For dinners and events, the deposit and cancellation terms in your written proposal apply.",
   },
   {
+    title: "When the coast has other plans",
+    body: "Storms, power cuts, a closed bridge, a chef who wakes up sick. If we cannot safely reach you, or cannot cook once we are there, we will move the visit and you will not be charged for it. It runs the other way too \u2014 if your power is out or your kitchen is out of action, call before we load the car.",
+  },
+  {
     title: "What we need from your kitchen",
     body: "A working stove, oven, refrigerator and running water, and a way for your chef to get in at the agreed time. We bring the pans, tools and plating gear. If we arrive and cannot get in, or the kitchen cannot be cooked in, we may have to charge for the visit — we will always call you before it comes to that.",
+  },
+  {
+    title: "Your home while we are in it",
+    body: "A kitchen in use has heat, knives and someone moving quickly through it. Please keep children and pets clear of the cooking area while your chef is working. If we damage something of yours, tell us and we will make it right. What we cannot take on is a problem that was already there \u2014 an appliance on its way out, a leak behind a cabinet \u2014 that happens to show itself while we are in the room.",
   },
   {
     title: "Allergies and food safety",
     body: "Tell us about allergies, intolerances and diets, and how serious they are, and we will build around them. Be aware that a home kitchen has shared surfaces, shared equipment and other people's food in it, so we cannot promise a kitchen free of any given allergen. If an allergy is severe enough that cross-contact is dangerous, say so directly and we will tell you honestly whether we can cook for you safely.",
   },
   {
+    title: "Cooking is not medical or nutrition advice",
+    body: "Casey is a chef. He is not a doctor, a dietitian or a nutritionist, and nothing we cook, write or say is medical advice. We will happily cook to a diet your doctor gave you, and we take allergies seriously. Deciding what you should be eating for a medical condition is between you and someone licensed to advise you. If a doctor and one of our recipes disagree, follow the doctor.",
+  },
+  {
     title: "Your food, your household",
     body: "Everything is cooked in your kitchen, for your household and guests. Meals keep three to four days in the refrigerator, following USDA guidance for cooked food, and every container is labelled with the dish, the day it was cooked and an eat-by date. Once we leave, storing and reheating the food is yours to manage — keep it at 40°F or below and reheat to 165°F. We are not responsible for food kept past its date or held outside those temperatures.",
+  },
+  {
+    title: "Alcohol",
+    body: "We do not supply, sell or pour alcohol. If you want wine with dinner, it is your bottle and your household pours it.",
   },
   {
     title: "Photos of your home",
@@ -116,12 +140,28 @@ export const termsSections: Section[] = [
     body: "The recipes on this site are ours to share with you and to cook for you. Cook them at home as much as you like. Please don't republish the collection as your own. Recipes you add to your own account stay yours; we use them to cook for you and for nothing else.",
   },
   {
+    title: "The site itself",
+    body: "We keep this website accurate and running as best we can, but we offer it as it is. A price, a date or a recipe can be wrong, and if one is, tell us and we will fix it. Cooking from the cookbook at home is your own call, in your own kitchen, at your own risk \u2014 the only promise attached to those recipes is that we cook them ourselves.",
+  },
+  {
+    title: "Other companies we connect to",
+    body: "Payments run through Square and grocery pickup runs through Fred Meyer. Those are their businesses, with their own terms and their own privacy policies, and we cannot answer for how they are run.",
+  },
+  {
     title: "When things go wrong",
     body: "If a meal isn't right, tell Casey. He reads every message himself and would rather hear it from you than read it in a review. We will make it right — remake the dish, credit the visit, or refund it — and we would rather do that than argue about who was at fault.",
   },
   {
     title: "The limit of what we owe you",
-    body: "If we get something wrong, what we owe you is capped at what you paid us for the visit or event it happened on. Nothing here limits responsibility for injury caused by our own negligence, and nothing here takes away rights Oregon law gives you as a consumer. These terms are governed by Oregon law.",
+    body: "If we get something wrong, what we owe you is capped at what you paid us for the visit or event it happened on. Nothing here limits responsibility for injury caused by our own negligence, and nothing here takes away rights Oregon law gives you as a consumer. These terms are governed by Oregon law, and any dispute that cannot be settled between us belongs in the state courts of Clatsop County, Oregon.",
+  },
+  {
+    title: "If a claim comes from your side",
+    body: "If someone in your household or one of your guests brings a claim against us over something we were not told \u2014 an allergy that was known and left off the form, a hazard in the house, a guest nobody mentioned \u2014 we may ask you to cover what it costs us to deal with it. That is not us looking for a fight. It is why telling us the whole picture matters.",
+  },
+  {
+    title: "If part of this does not hold up",
+    body: "If a court decides one part of these terms cannot stand, that part is struck out and everything else carries on unaffected.",
   },
   {
     title: "Changes to these terms",
