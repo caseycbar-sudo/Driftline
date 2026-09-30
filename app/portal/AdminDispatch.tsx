@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { oregonToday } from "../oregon-time";
+import NewRequests from "./NewRequests";
 
 type Visit = {
   id: number;
@@ -127,6 +128,7 @@ export default function AdminDispatch({
         </button>
       </header>
       <div className="page-body live-dispatch">
+        <NewRequests />
         {error ? <p className="dispatch-error">{error}</p> : null}
         <div className="calendar-summary">
           <div>

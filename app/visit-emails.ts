@@ -19,12 +19,12 @@ export function prettyTime(hhmm: string) {
   const hour = h % 12 || 12;
   return m ? `${hour}:${String(m).padStart(2, "0")}${suffix}` : `${hour}${suffix}`;
 }
-const when = (v: ScheduleEvent) =>
+export const when = (v: ScheduleEvent) =>
   `${prettyVisitDate(v.serviceDate)}, ${prettyTime(v.startTime)}${v.endTime ? `–${prettyTime(v.endTime)}` : ""}`;
-const serviceLabel = (v: ScheduleEvent) => SERVICE_TYPES.find((t) => t.value === v.serviceType)?.label ?? "Visit";
-const firstName = (name: string) => name.trim().split(/\s+/)[0] || "there";
+export const serviceLabel = (v: ScheduleEvent) => SERVICE_TYPES.find((t) => t.value === v.serviceType)?.label ?? "Visit";
+export const firstName = (name: string) => name.trim().split(/\s+/)[0] || "there";
 
-function layout(title: string, lines: [string, string][], note: string, button?: { href: string; label: string }) {
+export function layout(title: string, lines: [string, string][], note: string, button?: { href: string; label: string }) {
   const rows = lines
     .filter(([, v]) => v)
     .map(
@@ -39,7 +39,7 @@ function layout(title: string, lines: [string, string][], note: string, button?:
 ${button ? `<p><a href="${escapeHtml(button.href)}" style="background:#7a6032;color:#fff;padding:11px 18px;text-decoration:none;font-weight:bold;display:inline-block">${escapeHtml(button.label)}</a></p>` : ""}
 <p style="color:#596568;font-size:13px">Driftline Provisions · Astoria, Oregon</p></div>`;
 }
-const asText = (title: string, lines: [string, string][], note: string, link?: string) =>
+export const asText = (title: string, lines: [string, string][], note: string, link?: string) =>
   [title, "", ...lines.filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`), "", note, link ?? ""].join("\n").trim();
 
 function chefLines(v: ScheduleEvent): [string, string][] {

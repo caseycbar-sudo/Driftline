@@ -17,6 +17,8 @@ export const customerProfiles = sqliteTable("customer_profiles", {
   accessNotes: text("access_notes").notNull().default(""),
   /** Kitchen quirks: oven runs hot, induction cooktop, where the pans are. */
   kitchenNotes: text("kitchen_notes").notNull().default(""),
+  /** The customer confirmed they have no allergies, so the allergy question is answered even with the notes empty. */
+  noAllergies: integer("no_allergies", { mode: "boolean" }).notNull().default(false),
   createdAt: text("created_at").notNull(),
   updatedAt: text("updated_at").notNull(),
 });
@@ -72,6 +74,10 @@ export const scheduleEvents = sqliteTable("schedule_events", {
   /** Grocery receipt total entered by the chef at the end of a meal prep visit. */
   groceryCents: integer("grocery_cents").notNull().default(0),
   receiptKey: text("receipt_key").notNull().default(""),
+  /** accepted | pending | declined. Visits made from a customer request wait for the chef to accept. */
+  chefResponse: text("chef_response").notNull().default("accepted"),
+  /** The customer session request this visit came from, if any. */
+  requestId: integer("request_id").notNull().default(0),
   createdBy: text("created_by").notNull(),
   createdAt: text("created_at").notNull(),
   updatedAt: text("updated_at").notNull(),
@@ -268,5 +274,38 @@ export const recipeOverrides = sqliteTable("recipe_overrides", {
   hidden: integer("hidden").notNull().default(0),
   custom: integer("custom").notNull().default(0),
   updatedBy: text("updated_by").notNull().default(""),
+  updatedAt: text("updated_at").notNull(),
+});
+
+/** A customer's request for a meal prep session, from "Submit" until an admin schedules it. */
+export const sessionRequests = sqliteTable("session_requests", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  customerEmail: text("customer_email").notNull(),
+  /** requested | change_requested | needs_new_time | scheduled | declined | cancelled */
+  status: text("status").notNull().default("requested"),
+  /** JSON array of cookbook recipe ids. */
+  recipeIds: text("recipe_ids").notNull().default("[]"),
+  /** JSON array of dish titles, frozen when the request is sent. */
+  dishes: text("dishes").notNull().default("[]"),
+  people: integer("people").notNull().default(2),
+  packageName: text("package_name").notNull().default(""),
+  priceCents: integer("price_cents").notNull().default(0),
+  /** Visit address for this session; empty means the profile address. */
+  address: text("address").notNull().default(""),
+  city: text("city").notNull().default(""),
+  /** JSON array of { date, from, to } the customer can do. */
+  windows: text("windows").notNull().default("[]"),
+  accessNotes: text("access_notes").notNull().default(""),
+  kitchenNotes: text("kitchen_notes").notNull().default(""),
+  policyAcceptedAt: text("policy_accepted_at").notNull().default(""),
+  /** A note from the admin shown to the customer (why it needs a new time, or why it was declined). */
+  adminNote: text("admin_note").notNull().default(""),
+  /** JSON array of { date, from, to } the admin suggested. */
+  suggestedTimes: text("suggested_times").notNull().default("[]"),
+  /** The visit this request became. 0 until approved. */
+  scheduleEventId: integer("schedule_event_id").notNull().default(0),
+  /** When the admin was last reminded that this is waiting. */
+  remindedAt: text("reminded_at").notNull().default(""),
+  createdAt: text("created_at").notNull(),
   updatedAt: text("updated_at").notNull(),
 });

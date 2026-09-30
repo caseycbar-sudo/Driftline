@@ -14,6 +14,7 @@ export type CustomerProfile = {
   streetAddress: string;
   accessNotes: string;
   kitchenNotes: string;
+  noAllergies: boolean;
   createdAt: string;
   updatedAt: string;
 };
@@ -63,11 +64,11 @@ export async function updateCustomer(email: string, profile: Omit<CustomerProfil
   await database().prepare(`UPDATE customer_profiles SET
     full_name = ?, phone = ?, city = ?, household_size = ?, service_for = ?,
     dietary_needs = ?, favorite_foods = ?, foods_to_avoid = ?, preferred_package = ?,
-    street_address = ?, access_notes = ?, kitchen_notes = ?, updated_at = ?
+    street_address = ?, access_notes = ?, kitchen_notes = ?, no_allergies = ?, updated_at = ?
     WHERE email = ?`).bind(
       profile.fullName, profile.phone, profile.city, profile.householdSize, profile.serviceFor,
       profile.dietaryNeeds, profile.favoriteFoods, profile.foodsToAvoid, profile.preferredPackage,
-      profile.streetAddress, profile.accessNotes, profile.kitchenNotes, now, email,
+      profile.streetAddress, profile.accessNotes, profile.kitchenNotes, profile.noAllergies ? 1 : 0, now, email,
     ).run();
   return getOrCreateCustomer(email, profile.fullName);
 }
@@ -83,7 +84,7 @@ function mapCustomer(row: Record<string, unknown>): CustomerProfile {
     email: String(row.email), fullName: String(row.full_name), phone: String(row.phone), city: String(row.city),
     householdSize: Number(row.household_size), serviceFor: String(row.service_for), dietaryNeeds: String(row.dietary_needs),
     favoriteFoods: String(row.favorite_foods), foodsToAvoid: String(row.foods_to_avoid), preferredPackage: String(row.preferred_package),
-    streetAddress: String(row.street_address ?? ""), accessNotes: String(row.access_notes ?? ""), kitchenNotes: String(row.kitchen_notes ?? ""),
+    streetAddress: String(row.street_address ?? ""), accessNotes: String(row.access_notes ?? ""), kitchenNotes: String(row.kitchen_notes ?? ""), noAllergies: Number(row.no_allergies ?? 0) === 1,
     createdAt: String(row.created_at), updatedAt: String(row.updated_at),
   };
 }
