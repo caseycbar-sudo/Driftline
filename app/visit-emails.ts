@@ -20,7 +20,7 @@ export function prettyTime(hhmm: string) {
   return m ? `${hour}:${String(m).padStart(2, "0")}${suffix}` : `${hour}${suffix}`;
 }
 export const when = (v: ScheduleEvent) =>
-  `${prettyVisitDate(v.serviceDate)}, ${prettyTime(v.startTime)}${v.endTime ? `–${prettyTime(v.endTime)}` : ""}`;
+  `${prettyVisitDate(v.serviceDate)}, ${prettyTime(v.startTime)}${v.endTime ? ` to ${prettyTime(v.endTime)}` : ""}`;
 export const serviceLabel = (v: ScheduleEvent) => SERVICE_TYPES.find((t) => t.value === v.serviceType)?.label ?? "Visit";
 export const firstName = (name: string) => name.trim().split(/\s+/)[0] || "there";
 
