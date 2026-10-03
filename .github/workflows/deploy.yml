@@ -1,8 +1,11 @@
 name: Deploy to Cloudflare
 
-# Manual on purpose: run it from the Actions tab when you want to publish.
-# It deploys to the address in deploy/cloudflare.json (the test address until launch day).
+# Deploys automatically every time something is merged to main, and can still be run by hand
+# from the Actions tab. It deploys to the address in deploy/cloudflare.json (the test address
+# until launch day). Before launch, remove the "push" trigger below so merges stop going live.
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 concurrency:
