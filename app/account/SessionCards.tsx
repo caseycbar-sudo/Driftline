@@ -93,7 +93,7 @@ function Card({ r, cancel }: { r: Req; cancel: (r: Req) => void }) {
   return (
     <article className={`session-card status-${r.status}`}>
       <header>
-        <b>{r.status === "scheduled" && r.visit ? `${day(r.visit.serviceDate)}, ${clock(r.visit.startTime)}` : STATUS_LABELS[r.status]}</b>
+        <b>{r.status === "scheduled" && r.visit ? `${day(r.visit.serviceDate)}, ${clock(r.visit.startTime)}` : "Meal prep session"}</b>
         <small>{r.status === "scheduled" ? "Scheduled" : STATUS_LABELS[r.status]}</small>
       </header>
       {r.status === "requested" || r.status === "awaiting_chef" ? <p>We received your request and will update you when it&apos;s scheduled.</p> : null}

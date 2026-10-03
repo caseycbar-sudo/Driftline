@@ -119,7 +119,7 @@ export default function ScheduleForm(props: {
         <fieldset>
           <legend>Where</legend>
           <p>{profile.address ? `Your home address: ${profile.address}, ${profile.city}` : "No home address on file yet."}</p>
-          <label>
+          <label className="check">
             <input type="checkbox" checked={other} onChange={(e) => setOther(e.target.checked)} /> Use a different address for this visit
           </label>
           {other ? (
@@ -158,7 +158,7 @@ export default function ScheduleForm(props: {
           </label>
         </div>
 
-        <label className="wide">
+        <label className="wide check">
           <input type="checkbox" checked={policy} onChange={(e) => setPolicy(e.target.checked)} required /> {CANCELLATION_POLICY}
         </label>
 

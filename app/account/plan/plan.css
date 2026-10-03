@@ -35,3 +35,6 @@
 .steps-first a{display:flex;gap:12px;align-items:center;border:1px solid #e5dfd2;background:#fff;border-radius:12px;padding:14px;text-decoration:none;color:inherit}
 .steps-first a.done i{background:#1f3a34;color:#fff}
 .steps-first i{width:30px;height:30px;border-radius:50%;border:2px solid #1f3a34;display:grid;place-items:center;font-style:normal;font-weight:700}
+.profile-form label.check{display:flex;align-items:center;gap:10px;text-transform:none;letter-spacing:normal;font-size:15px;font-weight:400}
+.profile-form label.check input{width:auto;flex:none;margin:0}
+.profile-form label.check span{display:flex;align-items:center;gap:10px}

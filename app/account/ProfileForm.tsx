@@ -36,7 +36,7 @@ export default function ProfileForm({ initialProfile }: { initialProfile: Custom
     </div>
     <div className="notes-grid">
       <label>Allergies or dietary needs<textarea value={profile.dietaryNeeds} onChange={(e) => update("dietaryNeeds", e.target.value)} placeholder="Tell us what needs special care." /></label>
-      <label className="wide"><span><input type="checkbox" checked={profile.noAllergies} onChange={(e) => update("noAllergies", e.target.checked)} /> No allergies or dietary needs in my household</span></label>
+      <label className="wide check"><span><input type="checkbox" checked={profile.noAllergies} onChange={(e) => update("noAllergies", e.target.checked)} /> No allergies or dietary needs in my household</span></label>
       <label>Foods you love<textarea value={profile.favoriteFoods} onChange={(e) => update("favoriteFoods", e.target.value)} placeholder="Favorite dishes, flavors, and comfort foods." /></label>
       <label>Foods to avoid<textarea value={profile.foodsToAvoid} onChange={(e) => update("foodsToAvoid", e.target.value)} placeholder="Dislikes, textures, or ingredients to skip." /></label>
     </div>
