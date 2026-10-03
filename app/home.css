@@ -214,11 +214,26 @@
   background: #fff;
   transition: transform 0.2s;
 }
+.dp-menu-toggle {
+  gap: 6px;
+}
+.dp-menu-toggle span {
+  width: 24px;
+  transition: transform 0.2s, opacity 0.2s;
+}
 .dp-menu-toggle[aria-expanded="true"] span:first-child {
-  transform: translateY(4.5px) rotate(45deg);
+  transform: translateY(8px) rotate(45deg);
+}
+.dp-menu-toggle[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
 }
 .dp-menu-toggle[aria-expanded="true"] span:last-child {
-  transform: translateY(-4.5px) rotate(-45deg);
+  transform: translateY(-8px) rotate(-45deg);
+}
+/* Cookbook, Questions and the signed-in block only appear in the phone menu. */
+.dp-nav-menu-only,
+.dp-nav-account {
+  display: none;
 }
 
 /* ---------- hero ---------- */
@@ -704,6 +719,39 @@
     font-size: 18px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
+  .dp-nav.open {
+    max-height: calc(100dvh - 84px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .dp-nav.open .dp-nav-menu-only {
+    display: block;
+  }
+  .dp-nav.open .dp-nav-account {
+    display: flex;
+    flex-direction: column;
+    margin: 4px 0 10px;
+    padding: 14px 16px 6px;
+    background: rgba(255, 255, 255, 0.06);
+    border-left: 3px solid var(--dp-gold-light);
+  }
+  .dp-nav.open .dp-nav-account small {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--dp-gold-light);
+  }
+  .dp-nav.open .dp-nav-account a {
+    font-size: 17px;
+    padding: 11px 0;
+  }
+  .dp-nav.open .dp-nav-account a:first-of-type {
+    color: #fff;
+    font-weight: 700;
+  }
+  .dp-nav.open .dp-nav-account a:last-child {
+    border-bottom: 0;
+  }
   .dp-service-grid {
     grid-template-columns: 1fr 1fr;
   }
@@ -743,6 +791,7 @@
   }
   .dp-nav.open {
     top: 72px;
+    max-height: calc(100dvh - 72px);
   }
   .dp-nav.open .dp-nav-signin,
   .dp-nav.open .dp-nav-cta-mobile {
@@ -1515,3 +1564,59 @@
   text-align: center;
 }
 .dp-faq-cta h2 { margin: 0 0 22px; }
+
+/* Quick sign-in: Face ID and Google above the email form, and the code box. */
+.dp-signin-quick {
+  display: grid;
+  gap: 10px;
+}
+.dp-signin-card .dp-signin-passkey {
+  background: var(--dp-deep);
+}
+.dp-signin-card .dp-signin-passkey:hover {
+  background: #0f1a24;
+}
+.dp-signin-google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  border: 1px solid rgba(35, 47, 56, 0.28);
+  background: #fff;
+  color: #1f1f1f;
+  font: 700 16px var(--dp-sans);
+  text-decoration: none;
+}
+.dp-signin-google:hover {
+  background: #f6f4ef;
+}
+.dp-signin-or {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 6px 0 2px !important;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.dp-signin-or::before,
+.dp-signin-or::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--dp-line);
+}
+.dp-code-form {
+  margin: 16px 0 14px;
+  text-align: left;
+}
+.dp-code-form input {
+  font-size: 28px !important;
+  letter-spacing: 0.35em;
+  text-align: center;
+  font-family: Menlo, Consolas, monospace !important;
+}
+.dp-code-form button:disabled {
+  opacity: 0.55;
+}

@@ -1,5 +1,5 @@
 export type GroceryCategory = "Meat & seafood" | "Produce" | "Dairy & eggs" | "Grains & bakery" | "Pantry";
-export type GroceryItem = { key: string; name: string; quantity: number | null; unit: string; display: string; category: GroceryCategory; dishes: string[] };
+export type GroceryItem = { key: string; name: string; quantity: number | null; unit: string; display: string; category: GroceryCategory; dishes: string[]; onHand?: boolean };
 type GroceryDish = { title: string; ingredients: string[]; servings?: number; portions?: number };
 
 const fractions: Record<string, number> = { "¼": 0.25, "½": 0.5, "¾": 0.75, "⅓": 1 / 3, "⅔": 2 / 3, "⅛": 0.125, "⅜": 0.375, "⅝": 0.625, "⅞": 0.875 };
@@ -23,12 +23,23 @@ function amount(value: string) {
 }
 
 /** Shopping-list name: drop prep notes ("…, minced") and component notes ("(for the sauce)"). */
-const shoppingName = (value: string) =>
-  value
-    .replace(/\s*\((for|to) [^)]*\)/gi, "")
-    .replace(/,.*$/, "")
-    .replace(/\s+/g, " ")
-    .trim();
+// Words that start a prep note after a comma ("…, minced", "…, cut into 1-inch cubes").
+const PREP = /^(and |or )?(peeled|minced|chopped|finely|roughly|thinly|cut|trimmed|sliced|diced|grated|halved|quartered|rinsed|drained|thawed|patted|softened|melted|divided|torn|removed|cored|seeded|stemmed|julienned|crushed|shredded|zested|juiced|mashed|husked|scrubbed|picked|pin bones|at room|to taste|plus|with|without|about|from|such as|if |optional|warmed|cooled|chilled|cubed|lightly|well|packed|heaping|skin on|casings|hard fat|woody|silver|butterflied|pounded|broken|separated|beaten|whisked|cooked|soaked|leaves|skin (pulled|removed)|to garnish|for (serving|garnish)|in \d)/i;
+
+const shoppingName = (value: string) => {
+  const cleaned = value.replace(/\s*\([^)]*\)/g, "").replace(/;.*$/, "").replace(/^(loosely |firmly )?packed (cups?|tbsp|tsp) /i, "");
+  const [first, ...rest] = cleaned.split(",");
+  const kept = [first];
+  // Keep describing words that come after a comma ("bone-in, skin-on chicken thighs"), stop at prep notes.
+  for (const part of rest) {
+    if (PREP.test(part.trim()) || /\d/.test(part)) break;
+    kept.push(part);
+  }
+  return kept.join(" ").replace(/\s+/g, " ").trim();
+};
+
+/** Things nobody buys at the store. */
+const NOT_SHOPPING = /^(water|cold water|warm water|hot water|boiling water|ice|ice water|tap water)$/i;
 
 const has = (value: string, pattern: RegExp) => pattern.test(value);
 
@@ -68,7 +79,8 @@ const amountPattern = "(\\d+(?:\\.\\d+)?(?:\\s+\\d+\\/\\d+)?|\\d+\\/\\d+|\\d*[¼
 type Parsed = { quantity: number | null; unit: string; name: string; rest: string };
 /** Split "3 cloves garlic, minced" into amount, unit, shopping name, and the original remainder. */
 function parse(raw: string): Parsed {
-  const value = raw.trim();
+  // "2 packed cups fresh parsley" is 2 cups of parsley.
+  const value = raw.trim().replace(/^(\S+\s+)(?:loosely |firmly )?packed (cups?|tbsp|tsp)\b/i, "$1$2");
   const match = value.match(new RegExp(`^${amountPattern}\\s+(\\S+)\\s+(.+)$`));
   if (!match) {
     const bare = value.match(new RegExp(`^${amountPattern}\\s+(.+)$`));
@@ -81,6 +93,8 @@ function parse(raw: string): Parsed {
   const rest = `${match[2]} ${match[3]}`;
   return { quantity: amount(match[1]), unit: "", name: shoppingName(rest), rest };
 }
+
+const VOLUME: Record<string, number> = { tsp: 1, tbsp: 3, cup: 48 };
 
 function factor(dish: GroceryDish) {
   const base = Math.max(1, dish.servings || 12), target = Math.max(1, dish.portions || base);
@@ -108,22 +122,37 @@ export function scaleIngredients(ingredients: string[], baseServings: number, po
   });
 }
 
-/** Combine every dish's ingredients into one shopping list, scaled to each dish's portions. */
-export function buildGroceryList(dishes: GroceryDish[]): GroceryItem[] {
+/**
+ * Combine every dish's ingredients into one shopping list, scaled to each dish's
+ * portions. Anything the household already has (from the last visit) is marked
+ * `onHand` instead of being dropped, so the chef can still see it and tick it back on.
+ */
+export function buildGroceryList(dishes: GroceryDish[], onHand: string[] = []): GroceryItem[] {
+  const shelf = new Set(onHand);
   const map = new Map<string, GroceryItem>();
   for (const dish of dishes)
     for (const raw of dish.ingredients) {
       const item = parse(raw);
-      const scaled = item.quantity === null ? null : item.quantity * factor(dish);
-      const key = `${item.unit || (item.quantity === null ? "item" : "count")}:${item.name.toLowerCase()}`;
+      if (NOT_SHOPPING.test(item.name)) continue;
+      let scaled = item.quantity === null ? null : item.quantity * factor(dish);
+      // Add teaspoons to cups and ounces to pounds, so "kosher salt" shows up once.
+      let unit = item.unit;
+      if (scaled !== null && VOLUME[unit]) [scaled, unit] = [scaled * VOLUME[unit], "tsp"];
+      if (scaled !== null && unit === "lb") [scaled, unit] = [scaled * 16, "oz"];
+      const key = `${unit || (item.quantity === null ? "item" : "count")}:${item.name.toLowerCase()}`;
       const existing = map.get(key);
       if (existing) {
         if (existing.quantity !== null && scaled !== null) existing.quantity += scaled;
         if (!existing.dishes.includes(dish.title)) existing.dishes.push(dish.title);
       } else
-        map.set(key, { key, name: item.name, quantity: scaled, unit: item.unit, display: raw.trim(), category: groceryCategory(item.name, item.unit), dishes: [dish.title] });
+        map.set(key, { key, name: item.name, quantity: scaled, unit, display: raw.trim(), category: groceryCategory(item.name, unit), dishes: [dish.title] });
     }
   return [...map.values()]
-    .map((item) => ({ ...item, display: item.quantity === null ? item.name : display(item.quantity, item.unit, item.name) }))
+    .map((item) => {
+      let { quantity: q, unit } = item;
+      if (q !== null && unit === "tsp") [q, unit] = q >= 12 ? [q / 48, "cup"] : q >= 3 ? [q / 3, "tbsp"] : [q, "tsp"];
+      if (q !== null && unit === "oz" && q >= 16) [q, unit] = [q / 16, "lb"];
+      return { ...item, quantity: q, unit, display: q === null ? item.name : display(q, unit, item.name), onHand: shelf.has(item.key) };
+    })
     .sort((a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name));
 }

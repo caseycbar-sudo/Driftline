@@ -1,4 +1,7 @@
 "use client";
+import { effortOf, formatMinutes, planVisit } from "../visit-plan";
+import { buildGroceryList } from "./grocery-list";
+import FredMeyerOrder from "./FredMeyerOrder";
 import { useEffect, useMemo, useState } from "react";
 
 import { oregonToday } from "../oregon-time";
@@ -169,15 +172,49 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
       ...Array.from({ length: count }, (_, index) => index + 1),
     ];
   }, [month]);
-  const [recipes, setRecipes] = useState<{ id: number; title: string; side: string; category: string; total: number; image: string }[]>([]);
+  const [recipes, setRecipes] = useState<{ id: number; title: string; side: string; category: string; active?: number; total: number; image: string; servings?: number; ingredients?: string[] }[]>([]);
   // Dish names come from the API so edits made in the Cookbook tab show up here.
   useEffect(() => {
     fetch("/api/cookbook", { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : null))
-      .then((d: { recipes?: { id: number; title: string; side: string; category: string; total: number; image: string }[] } | null) => d?.recipes && setRecipes(d.recipes))
+      .then((d: { recipes?: { id: number; title: string; side: string; category: string; active?: number; total: number; image: string; servings?: number; ingredients?: string[] }[] } | null) => d?.recipes && setRecipes(d.recipes))
       .catch(() => {});
   }, []);
   const selected = events.filter((event) => event.serviceDate === selectedDate);
+  // How long this visit will take and whether it fits the package (meal prep only).
+  const visitPlan = useMemo(() => {
+    if (!editing || (editing.serviceType ?? "meal_prep") !== "meal_prep" || !editing.dishes.length) return null;
+    const portions = pricePackages.find((p) => p.name === editing.packageName)?.portions ?? 12;
+    const dishes = editing.dishes.map((title) => {
+      const r = recipes.find((x) => x.title.toLowerCase() === title.toLowerCase() && x.side === "meal-prep");
+      return r ? { title, category: r.category, active: r.active, total: r.total } : { title };
+    });
+    return planVisit(dishes, portions);
+  }, [editing, recipes, pricePackages]);
+  // What this household already has, so the list doesn't buy it twice.
+  const [pantry, setPantry] = useState<{ itemKey: string; name: string }[]>([]);
+  const pantryEmail = editing?.customerEmail ?? "";
+  useEffect(() => {
+    if (!pantryEmail) return setPantry([]);
+    fetch(`/api/admin/pantry?email=${encodeURIComponent(pantryEmail)}`, { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d: { items?: { itemKey: string; name: string }[] } | null) => setPantry(d?.items ?? []))
+      .catch(() => setPantry([]));
+  }, [pantryEmail]);
+
+  // The combined shopping list for this visit, scaled the same way the chef's app does it.
+  const visitGroceries = useMemo(() => {
+    if (!editing || !editing.dishes.length) return [];
+    const pkg = pricePackages.find((p) => p.name === editing.packageName);
+    const portionsEach = editing.guestCount ? editing.guestCount : pkg ? Math.max(1, Math.round(pkg.portions / editing.dishes.length)) : 0;
+    const dishes = editing.dishes
+      .map((title) => recipes.find((r) => r.title === title))
+      .filter((r): r is NonNullable<typeof r> => Boolean(r?.ingredients?.length))
+      .map((r) => ({ title: r.title, ingredients: r.ingredients ?? [], servings: r.servings ?? 12, portions: portionsEach || r.servings || 12 }));
+    return buildGroceryList(dishes, pantry.map((p) => p.itemKey));
+  }, [editing, recipes, pricePackages, pantry]);
+  // Ingredients more than one chosen dish needs: one package covers them.
+  const shared = useMemo(() => visitGroceries.filter((g) => g.dishes.length > 1).map((g) => g.name).slice(0, 8), [visitGroceries]);
   const recipeMatches = useMemo(() => {
     const query = recipeSearch.trim().toLowerCase();
     return recipes
@@ -875,7 +912,7 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
                       <span>
                         <strong>{recipe.title}</strong>
                         <small>
-                          {recipe.category} · {recipe.total} min
+                          {recipe.category} · {recipe.side === "meal-prep" ? `${effortOf(recipe)} · ` : ""}{recipe.total} min
                         </small>
                       </span>
                       <b>{editing.dishes.includes(recipe.title) ? "✓" : "+"}</b>
@@ -883,6 +920,42 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
                   ))}
                 </div>
               </div>
+              {visitPlan ? (
+                <div className={`visit-plan visit-plan-${visitPlan.level}`} role="status">
+                  <strong>
+                    About {formatMinutes(visitPlan.minutes)} in the kitchen
+                    <span>{visitPlan.level === "good" ? "Fits a 3-hour visit" : visitPlan.level === "tight" ? "3 to 4 hours" : "Over 4 hours"}</span>
+                  </strong>
+                  <small>
+                    {visitPlan.entrees} of {visitPlan.maxEntrees} entrées · {visitPlan.bigProjects} of {visitPlan.maxBig} big project{visitPlan.maxBig === 1 ? "" : "s"} · {visitPlan.desserts} of 1 dessert
+                    {visitPlan.unknown.length ? ` · ${visitPlan.unknown.length} typed-in dish${visitPlan.unknown.length === 1 ? "" : "es"} estimated` : ""}
+                  </small>
+                  {visitPlan.warnings.length ? (
+                    <ul>
+                      {visitPlan.warnings.map((w) => (
+                        <li key={w}>{w}</li>
+                      ))}
+                    </ul>
+                  ) : null}
+                </div>
+              ) : null}
+              {visitGroceries.length ? (
+                <details className="visit-shopping">
+                  <summary>🛒 Shopping list · {visitGroceries.length} items</summary>
+                  {shared.length ? (
+                    <p className="visit-shared">Shared across dishes: {shared.join(", ")}. One package covers them all.</p>
+                  ) : null}
+                  <ul>
+                    {visitGroceries.map((g) => (
+                      <li key={g.key} className={g.onHand ? "on-hand" : undefined}>
+                        <b>{g.display}</b>
+                        <small>{g.onHand ? "already at the house" : g.category}</small>
+                      </li>
+                    ))}
+                  </ul>
+                  <FredMeyerOrder items={visitGroceries} title="Order this visit's groceries" />
+                </details>
+              ) : null}
               <label>
                 Dishes for this visit
                 <textarea
@@ -920,36 +993,6 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
             </button>
           </form>
         </div>
-      ) : null}
-      {editing ? (
-        <aside className="schedule-pay-field">
-          <label>
-            Chef pay for this visit ($)
-            <input
-              type="number"
-              min="0"
-              max="10000"
-              step="0.01"
-              value={editing.chefPayCents / 100}
-              onChange={(event) =>
-                setEditing((current) =>
-                  current
-                    ? {
-                        ...current,
-                        chefPayCents: Math.round(
-                          Math.max(0, Number(event.target.value) || 0) * 100,
-                        ),
-                      }
-                    : current,
-                )
-              }
-            />
-          </label>
-          <small>
-            This appears in the assigned chef&apos;s earnings after the job is
-            completed.
-          </small>
-        </aside>
       ) : null}
     </>
   );

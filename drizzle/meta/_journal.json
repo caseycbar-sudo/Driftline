@@ -110,8 +110,29 @@
     {
       "idx": 15,
       "version": "6",
-      "when": 1790791779686,
-      "tag": "0015_session_requests",
+      "when": 1790100000000,
+      "tag": "0015_signin_codes_and_passkeys",
+      "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "6",
+      "when": 1790110000000,
+      "tag": "0016_fred_meyer",
+      "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "6",
+      "when": 1790120000000,
+      "tag": "0017_house_pantry",
+      "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "6",
+      "when": 1791062325368,
+      "tag": "0018_session_requests",
       "breakpoints": true
     }
   ]

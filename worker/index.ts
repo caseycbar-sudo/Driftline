@@ -38,6 +38,11 @@ const worker = {
       return Response.redirect(url.toString(), 301);
     }
 
+    // Common addresses from the old Squarespace site, so saved links and search results still land somewhere useful.
+    const legacy: Record<string, string> = { "/about": "/our-story", "/about-us": "/our-story", "/menu": "/meal-prep", "/menus": "/meal-prep", "/services": "/private-chef", "/book": "/contact", "/booking": "/contact", "/home": "/" };
+    const moved = legacy[url.pathname.replace(/\/+$/, "").toLowerCase()];
+    if (moved) return Response.redirect(new URL(moved, url).toString(), 301);
+
     if (url.pathname === "/_vinext/image") {
       const allowedWidths = [...DEFAULT_DEVICE_SIZES, ...DEFAULT_IMAGE_SIZES];
       return handleImageOptimization(request, {

@@ -9,6 +9,7 @@ import SiteFooter from "../SiteFooter";
 import "../home.css";
 import { smallImage } from "../site-config";
 import DishPhoto from "../DishPhoto";
+import { effortOf, isDessert } from "../visit-plan";
 
 const signInHere = () => `/signin?return_to=${encodeURIComponent(window.location.pathname + window.location.search)}`;
 
@@ -261,6 +262,7 @@ export default function CookbookClient({ recipes }: { recipes: Recipe[] }) {
                 <small>{r.category}</small>
                 <h2>{r.title}</h2>
                 <p>
+                  {r.side === "meal-prep" ? (isDessert(r) ? "Dessert add-on · " : `${effortOf(r)} · `) : ""}
                   {r.active} min active · {r.total} min total
                 </p>
                 <span>
@@ -331,6 +333,23 @@ export default function CookbookClient({ recipes }: { recipes: Recipe[] }) {
               <b>{selected.allergens.length ? selected.allergens.join(", ") : "None of the major 9"}</b>
             </span>
           </div>
+          {selected.side === "meal-prep" ? (
+            <p className={`effort-note effort-${isDessert(selected) ? "dessert" : effortOf(selected).split(" ")[0].toLowerCase()}`}>
+              {isDessert(selected) ? (
+                <>
+                  <b>Dessert add-on.</b> Add one dessert to any visit; it doesn&apos;t use one of your entrée choices.
+                </>
+              ) : (
+                <>
+                  <b>{effortOf(selected)}.</b>{" "}
+                  {effortOf(selected) === "Big project"
+                    ? "A longer cook, so a visit can include one big project. Pair it with easier dishes."
+                    : "Fits easily into a visit alongside your other picks."}{" "}
+                  Packages include 2 entrées for 6–8 portions, 3 for 12, and 4 for 16 or more.
+                </>
+              )}
+            </p>
+          ) : null}
           <div className="portion-tool">
             <div>
               <small>{selected.side === "meal-prep" ? "PORTION CALCULATOR" : "GUEST CALCULATOR"}</small>

@@ -1,13 +1,28 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import SiteHeader from "../SiteHeader";
 import SiteFooter from "../SiteFooter";
 import "../home.css";
 import { submitInquiry } from "../submit-inquiry";
 import { smallImage } from "../site-config";
+import { packageAllowance } from "../visit-plan";
 
 type Package = { name: string; portions: number; price: number; note: string; featured?: boolean };
+
+// The look of a finished week: sample photos in the style Casey packs, shown for mood.
+// They are not tied to a recipe, so they don't have to match one ingredient for ingredient.
+const looks: { recipe?: number; src: string; alt: string }[] = [
+  { recipe: 36, src: "/cookbook/look/salmon-shrimp-spread.webp", alt: "Meal prep trays of salmon with green beans and shrimp with roasted sweet potatoes" },
+  { src: "/cookbook/look/stacked-week.webp", alt: "A week of lidded meal prep containers stacked and ready for the fridge" },
+  { src: "/cookbook/look/chicken-potatoes-broccoli.webp", alt: "Sliced chicken with roasted red potatoes and broccoli in a meal prep tray" },
+  { recipe: 41, src: "/cookbook/look/lentil-bowls.webp", alt: "Three glass containers of lentils, black rice, chickpeas and vegetables" },
+  { recipe: 37, src: "/cookbook/look/steak-bites.webp", alt: "Steak bites with roasted potatoes and green beans" },
+  { recipe: 38, src: "/cookbook/look/salmon-glass.webp", alt: "Glazed salmon over quinoa and spinach in a glass container" },
+  { recipe: 34, src: "/cookbook/look/wild-rice-trays.webp", alt: "Wild rice bowls with roasted sweet potato, tomato and white beans" },
+  { recipe: 39, src: "/cookbook/look/turkey-rice-green-beans.webp", alt: "A meal prep tray of rice, green beans and ground turkey with sides around it" },
+  { recipe: 40, src: "/cookbook/look/chicken-plate-box.webp", alt: "Grilled chicken with rice, beans and mashed potatoes in a container" },
+];
 
 const meals = [
   // Featured here only when the photo honestly matches the recipe, and shows it packed the way customers get it.
@@ -25,11 +40,24 @@ function CheckIcon() {
   );
 }
 
-export default function Home({ packages }: { packages: Package[] }) {
+export default function Home({ packages, pantryKit = 0 }: { packages: Package[]; pantryKit?: number }) {
   const [selected, setSelected] = useState((packages.find((p) => p.featured) ?? packages[0]).name);
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [formError, setFormError] = useState("");
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  // Signed-in customers shouldn't have to type their name and email again.
+  useEffect(() => {
+    fetch("/api/session", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((s: { signedIn?: boolean; fullName?: string; email?: string } | null) => {
+        if (!s?.signedIn) return;
+        if (nameRef.current && !nameRef.current.value && s.fullName && !s.fullName.includes("@")) nameRef.current.value = s.fullName;
+        if (emailRef.current && !emailRef.current.value && s.email) emailRef.current.value = s.email;
+      })
+      .catch(() => {});
+  }, []);
 
   async function requestAvailability(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -118,6 +146,36 @@ export default function Home({ packages }: { packages: Package[] }) {
         <span>
           <CheckIcon /> Photo updates included
         </span>
+      </section>
+
+      <section className="look section" id="look" aria-labelledby="look-title">
+        <div className="section-intro">
+          <p className="eyebrow">
+            <span /> What lands in your fridge
+          </p>
+          <h2 id="look-title">Open the door to a week that&apos;s already handled.</h2>
+          <p>
+            Every meal portioned, lidded and labeled, ready to heat and eat. Bright
+            vegetables, real proteins, sauces packed on the side so nothing goes soggy.
+          </p>
+        </div>
+        <div className="look-grid">
+          {looks.map((photo, i) => (
+            <figure key={photo.src} className={i === 0 ? "look-feature" : undefined}>
+              {photo.recipe ? (
+                <a href={`/cookbook?recipe=${photo.recipe}`} aria-label={`${photo.alt}: see the recipe`}>
+                  <img src={i === 0 ? photo.src : smallImage(photo.src)} alt={photo.alt} loading={i < 3 ? "eager" : "lazy"} decoding="async" />
+                  <span className="look-tag">See the recipe →</span>
+                </a>
+              ) : (
+                <img src={i === 0 ? photo.src : smallImage(photo.src)} alt={photo.alt} loading={i < 3 ? "eager" : "lazy"} decoding="async" />
+              )}
+            </figure>
+          ))}
+        </div>
+        <p className="look-credit">
+          Tap a photo for its recipe · Justin Doherty, IARA MELO &amp; Ella Olsson on Pexels; Leanna Myers &amp; Ello on Unsplash
+        </p>
       </section>
 
       <section
@@ -219,7 +277,7 @@ export default function Home({ packages }: { packages: Package[] }) {
         <div className="menu-heading">
           <div>
             <p className="eyebrow light">
-              <span /> 35 recipes to explore
+              <span /> 48 recipes to explore
             </p>
             <h2>
               More choice for every
@@ -228,7 +286,7 @@ export default function Home({ packages }: { packages: Package[] }) {
             </h2>
           </div>
           <p>
-            Browse poultry, beef and pork, seafood, and vegetarian dishes. Save
+            Browse poultry, beef and pork, seafood, vegetarian dishes and desserts. Save
             favorites to your account or share a family recipe of your own.
           </p>
         </div>
@@ -248,7 +306,7 @@ export default function Home({ packages }: { packages: Package[] }) {
         </div>
         <div className="menu-actions">
           <a href="/cookbook">
-            Browse all 35 recipes <span>→</span>
+            Browse all 48 recipes <span>→</span>
           </a>
           <p>
             Allergy-aware planning <span>·</span> Portion calculator{" "}
@@ -265,7 +323,9 @@ export default function Home({ packages }: { packages: Package[] }) {
           <h2>Choose the right amount for your week.</h2>
           <p>
             Service includes planning, cooking, portioning, labeling, and
-            cleanup. Groceries are charged separately at actual cost.
+            cleanup{pantryKit ? `, and a $${pantryKit} pantry kit so your chef brings the spices, oil, salt and pepper` : ""}. Groceries are charged separately at actual cost. Portions
+            are split across your entrées, and each visit fits one big-project
+            dish so your chef is in and out in about three hours.
           </p>
         </div>
         <div className="package-grid">
@@ -288,6 +348,7 @@ export default function Home({ packages }: { packages: Package[] }) {
               <span className="price">
                 <b>${item.price}</b> / visit
               </span>
+              <p className="package-dishes">{packageAllowance(item.portions)}</p>
               <p>{item.note}</p>
             </button>
           ))}
@@ -298,6 +359,7 @@ export default function Home({ packages }: { packages: Package[] }) {
             <strong>
               {current.name} · {current.portions} portions
             </strong>
+            <small>{packageAllowance(current.portions)}</small>
           </span>
           <span className="selection-price">
             <strong>${current.price}</strong>
@@ -423,6 +485,7 @@ export default function Home({ packages }: { packages: Package[] }) {
                   Name
                   <input
                     required
+                    ref={nameRef}
                     name="fullName"
                     autoComplete="name"
                     placeholder="First and last name"
@@ -432,6 +495,7 @@ export default function Home({ packages }: { packages: Package[] }) {
                   Email
                   <input
                     required
+                    ref={emailRef}
                     type="email"
                     name="email"
                     autoComplete="email"

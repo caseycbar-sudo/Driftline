@@ -879,3 +879,4 @@ button.open-recipe {
   .cookbook .book-tools > div { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
   .cookbook .book-tools button { flex: none; white-space: nowrap; }
 }
+.effort-note{margin:14px 0 0;padding:11px 14px;border-left:4px solid #4f7d63;background:#eef5ef;font-size:14px;line-height:1.5;color:#26393f}.effort-note b{color:#123349}.effort-note.effort-medium{border-color:#c89b4f;background:#fdf6ea}.effort-note.effort-big{border-color:#b05f3e;background:#fbeee8}.effort-note.effort-dessert{border-color:#8b6a9e;background:#f5f0f8}
