@@ -32,7 +32,6 @@ export default async function SchedulePage({ searchParams }: { searchParams: Pro
     }
   }
 
-  const now = Date.now();
   return (
     <ScheduleForm
       recipeIds={dishes.map((d) => d.id)}
@@ -43,8 +42,8 @@ export default async function SchedulePage({ searchParams }: { searchParams: Pro
       editId={editId}
       initial={initial}
       profile={{ address: profile.streetAddress, city: profile.city, accessNotes: profile.accessNotes, kitchenNotes: profile.kitchenNotes, gaps: profileGaps(profile) }}
-      earliest={earliestDate(now)}
-      latest={latestDate(now)}
+      earliest={earliestDate()}
+      latest={latestDate()}
     />
   );
 }

@@ -28,25 +28,25 @@ const span = (w: Win) => `${day(w.date)}, ${clock(w.from)} to ${clock(w.to)}`;
 export default function SessionCards({ sent }: { sent: boolean }) {
   const [requests, setRequests] = useState<Req[] | null>(null),
     [error, setError] = useState("");
-  const load = useCallback(async () => {
-    try {
-      const response = await fetch("/api/requests", { cache: "no-store" });
-      if (!response.ok) throw new Error();
-      setRequests((await response.json()) as Req[]);
-    } catch {
-      setError("We couldn't load your sessions. Refresh the page.");
-    }
-  }, []);
+  const [tick, setTick] = useState(0);
+  const load = useCallback(() => setTick((t) => t + 1), []);
   useEffect(() => {
-    void load();
-  }, [load]);
+    let live = true;
+    fetch("/api/requests", { cache: "no-store" })
+      .then((response) => (response.ok ? (response.json() as Promise<Req[]>) : Promise.reject(new Error("load"))))
+      .then((data) => live && setRequests(data))
+      .catch(() => live && setError("We couldn't load your sessions. Refresh the page."));
+    return () => {
+      live = false;
+    };
+  }, [tick]);
 
   async function cancel(r: Req) {
     if (!window.confirm("Cancel this session request?")) return;
     setError("");
     const response = await fetch("/api/requests", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "cancel", id: r.id }) });
     if (!response.ok) setError(((await response.json()) as { error?: string }).error || "That didn't save.");
-    await load();
+    load();
   }
 
   if (!requests) return <section className="session-cards"><p>{error || "Loading your sessions…"}</p></section>;

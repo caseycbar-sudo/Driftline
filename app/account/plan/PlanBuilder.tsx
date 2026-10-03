@@ -47,16 +47,15 @@ export default function PlanBuilder({
   const conflict = (d: Dish) => d.allergens.filter((a) => avoid.includes(a.toLowerCase()));
   const href = `/account/schedule?items=${items.join(",")}&people=${shownPeople}${editId ? `&edit=${editId}` : ""}`;
   const ready = Boolean(plan);
-  const ScheduleButton = () =>
-    ready ? (
-      <Link className="plan-schedule" href={href}>
-        Schedule →
-      </Link>
-    ) : (
-      <span className="plan-schedule disabled" aria-disabled="true">
-        Pick {MIN_ITEMS - items.length} more to schedule
-      </span>
-    );
+  const scheduleButton = ready ? (
+    <Link className="plan-schedule" href={href}>
+      Schedule →
+    </Link>
+  ) : (
+    <span className="plan-schedule disabled" aria-disabled="true">
+      Pick {MIN_ITEMS - items.length} more to schedule
+    </span>
+  );
 
   return (
     <main className="account-page plan-page">
@@ -90,7 +89,7 @@ export default function PlanBuilder({
             ))}
           </select>
         </label>
-        <ScheduleButton />
+        {scheduleButton}
       </section>
       <p className="plan-note">{PRICE_COVERS}</p>
       {!profileReady ? (
@@ -132,7 +131,7 @@ export default function PlanBuilder({
       </section>
 
       <section className="plan-bottom">
-        <ScheduleButton />
+        {scheduleButton}
       </section>
     </main>
   );

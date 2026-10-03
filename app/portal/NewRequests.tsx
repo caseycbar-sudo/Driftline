@@ -35,21 +35,23 @@ export default function NewRequests() {
     [waiting, setWaiting] = useState<Waiting[]>([]),
     [error, setError] = useState(""),
     [open, setOpen] = useState(0);
-  const load = useCallback(async () => {
-    try {
-      const response = await fetch("/api/admin/requests", { cache: "no-store" });
-      if (!response.ok) throw new Error();
-      const data = (await response.json()) as { requests: Card[]; awaitingChef: Waiting[] };
-      setCards(data.requests);
-      setWaiting(data.awaitingChef);
-      setError("");
-    } catch {
-      setError("New requests could not load. Refresh the page.");
-    }
-  }, []);
+  const [tick, setTick] = useState(0);
+  const load = useCallback(() => setTick((t) => t + 1), []);
   useEffect(() => {
-    void load();
-  }, [load]);
+    let live = true;
+    fetch("/api/admin/requests", { cache: "no-store" })
+      .then((response) => (response.ok ? (response.json() as Promise<{ requests: Card[]; awaitingChef: Waiting[] }>) : Promise.reject(new Error("load"))))
+      .then((data) => {
+        if (!live) return;
+        setCards(data.requests);
+        setWaiting(data.awaitingChef);
+        setError("");
+      })
+      .catch(() => live && setError("New requests could not load. Refresh the page."));
+    return () => {
+      live = false;
+    };
+  }, [tick]);
 
   return (
     <section className="request-inbox" aria-label="New requests">
@@ -77,7 +79,7 @@ export default function NewRequests() {
   );
 }
 
-function RequestCard({ card, open, toggle, done }: { card: Card; open: boolean; toggle: () => void; done: () => Promise<void> }) {
+function RequestCard({ card, open, toggle, done }: { card: Card; open: boolean; toggle: () => void; done: () => void }) {
   const [pick, setPick] = useState<{ date: string; start: string; end: string } | null>(null),
     [chefs, setChefs] = useState<ChefChoice[]>([]),
     [chef, setChef] = useState(""),
@@ -105,7 +107,7 @@ function RequestCard({ card, open, toggle, done }: { card: Card; open: boolean; 
       const response = await fetch("/api/admin/requests", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ id: card.id, ...body }) });
       const data = (await response.json()) as { error?: string };
       if (!response.ok) throw new Error(data.error || "That didn't save.");
-      await done();
+      done();
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "That didn't save.");
     } finally {
@@ -230,7 +232,7 @@ function RequestCard({ card, open, toggle, done }: { card: Card; open: boolean; 
   );
 }
 
-function WaitingRow({ visit, done }: { visit: Waiting; done: () => Promise<void> }) {
+function WaitingRow({ visit, done }: { visit: Waiting; done: () => void }) {
   const [chefs, setChefs] = useState<ChefChoice[]>([]),
     [show, setShow] = useState(false),
     [error, setError] = useState("");
@@ -247,7 +249,7 @@ function WaitingRow({ visit, done }: { visit: Waiting; done: () => Promise<void>
     const data = (await response.json()) as { error?: string };
     if (!response.ok) return setError(data.error || "That didn't save.");
     setShow(false);
-    await done();
+    done();
   }
   const declined = !visit.chefEmail;
   return (
