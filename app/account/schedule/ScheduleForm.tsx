@@ -3,11 +3,13 @@
 import Link from "next/link";
 import { useState } from "react";
 import DishBackdrop from "../DishBackdrop";
-import { CANCELLATION_POLICY, MAX_WINDOWS, MIN_LEAD_HOURS, OUTSIDE_AREA, REQUEST_RESPONSE_HOURS, SERVICE_CITIES } from "../../request-core";
+import DayPicker from "./DayPicker";
+import { BUSINESS_PHONE, CANCELLATION_POLICY, MAX_WINDOWS, MIN_LEAD_HOURS, OUTSIDE_AREA, REQUEST_RESPONSE_HOURS, SERVICE_CITIES, TIME_PRESETS } from "../../request-core";
 
 type Win = { date: string; from: string; to: string };
 const money = (cents: number) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(cents / 100);
-const blank = (): Win => ({ date: "", from: "09:00", to: "13:00" });
+const dayLabel = (d: string) => new Date(`${d}T12:00:00`).toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" });
+const byDate = (a: Win, b: Win) => (a.date + a.from).localeCompare(b.date + b.from);
 
 export default function ScheduleForm(props: {
   recipeIds: number[];
@@ -20,10 +22,11 @@ export default function ScheduleForm(props: {
   profile: { address: string; city: string; accessNotes: string; kitchenNotes: string; gaps: string[] };
   earliest: string;
   latest: string;
+  unavailable: string[];
   backdrop: string[];
 }) {
   const { profile, initial } = props;
-  const [windows, setWindows] = useState<Win[]>(initial?.windows.length ? initial.windows : [blank()]),
+  const [windows, setWindows] = useState<Win[]>(initial?.windows ?? []),
     [other, setOther] = useState(Boolean(initial?.address)),
     [address, setAddress] = useState(initial?.address ?? ""),
     [city, setCity] = useState(profile.city),
@@ -34,9 +37,21 @@ export default function ScheduleForm(props: {
     [busy, setBusy] = useState(false);
   const outside = city === OUTSIDE_AREA || (Boolean(city) && !SERVICE_CITIES.some((c) => c === city));
   const set = (i: number, patch: Partial<Win>) => setWindows((w) => w.map((x, j) => (j === i ? { ...x, ...patch } : x)));
+  const toggleDate = (date: string) =>
+    setWindows((w) =>
+      w.some((x) => x.date === date)
+        ? w.filter((x) => x.date !== date)
+        : w.length >= MAX_WINDOWS
+          ? w
+          : [...w, { date, from: TIME_PRESETS[0].from, to: TIME_PRESETS[0].to }].sort(byDate),
+    );
 
   async function submit(event: React.FormEvent) {
     event.preventDefault();
+    if (!windows.length) {
+      setError("Tap at least one day on the calendar that works for you.");
+      return;
+    }
     setBusy(true);
     setError("");
     try {
@@ -94,29 +109,45 @@ export default function ScheduleForm(props: {
           </p>
         ) : null}
 
+        <p className="plan-note schedule-callout">
+          <strong>This is a request, not a booking yet.</strong> Tell us when you could be home. We will match you with a chef and confirm within {REQUEST_RESPONSE_HOURS} hours. Sending this does not charge you.
+        </p>
+
         <fieldset>
-          <legend>Times that work for you</legend>
+          <legend>Days that work for you</legend>
           <p className="plan-note">
-            Give us up to {MAX_WINDOWS} windows of at least 3 hours, between {props.earliest} and {props.latest}. We need at least {MIN_LEAD_HOURS} hours of notice.
+            Tap up to {MAX_WINDOWS} days. The more options you give us, the faster we can book you. We need at least {MIN_LEAD_HOURS} hours of notice. Greyed out days are not available. If you need one of those, call or text us at {BUSINESS_PHONE}.
           </p>
-          {windows.map((w, i) => (
-            <div className="schedule-window" key={i}>
-              <input type="date" min={props.earliest} max={props.latest} value={w.date} onChange={(e) => set(i, { date: e.target.value })} required aria-label="Date" />
-              <input type="time" step={1800} value={w.from} onChange={(e) => set(i, { from: e.target.value })} required aria-label="From" />
-              <span>to</span>
-              <input type="time" step={1800} value={w.to} onChange={(e) => set(i, { to: e.target.value })} required aria-label="To" />
-              {windows.length > 1 ? (
-                <button type="button" onClick={() => setWindows((x) => x.filter((_, j) => j !== i))}>
-                  Remove
+          <DayPicker earliest={props.earliest} latest={props.latest} unavailable={props.unavailable} selected={windows.map((w) => w.date)} full={windows.length >= MAX_WINDOWS} onToggle={toggleDate} />
+          {windows.length ? <h3 className="schedule-sub">What part of each day?</h3> : null}
+          {windows.map((w, i) => {
+            const preset = TIME_PRESETS.find((p) => p.from === w.from && p.to === w.to);
+            return (
+              <div className="schedule-window" key={w.date + i}>
+                <strong>{dayLabel(w.date)}</strong>
+                <div className="schedule-presets" role="group" aria-label={`Time of day on ${dayLabel(w.date)}`}>
+                  {TIME_PRESETS.map((p) => (
+                    <button type="button" key={p.key} className={preset?.key === p.key ? "on" : ""} aria-pressed={preset?.key === p.key} onClick={() => set(i, { from: p.from, to: p.to })}>
+                      {p.label}
+                      <small>{p.sub}</small>
+                    </button>
+                  ))}
+                </div>
+                <details open={!preset}>
+                  <summary>Set exact times</summary>
+                  <div className="schedule-exact">
+                    <input type="time" step={1800} value={w.from} onChange={(e) => set(i, { from: e.target.value })} required aria-label="From" />
+                    <span>to</span>
+                    <input type="time" step={1800} value={w.to} onChange={(e) => set(i, { to: e.target.value })} required aria-label="To" />
+                    <small>At least 3 hours, so your chef has room to cook.</small>
+                  </div>
+                </details>
+                <button type="button" className="schedule-remove" onClick={() => toggleDate(w.date)}>
+                  Remove this day
                 </button>
-              ) : null}
-            </div>
-          ))}
-          {windows.length < MAX_WINDOWS ? (
-            <button type="button" onClick={() => setWindows((x) => [...x, blank()])}>
-              + Add another time
-            </button>
-          ) : null}
+              </div>
+            );
+          })}
         </fieldset>
 
         <fieldset>
@@ -167,7 +198,7 @@ export default function ScheduleForm(props: {
 
         {error ? <p className="plan-warning" role="alert">{error}</p> : null}
         <div className="save-row">
-          <button disabled={busy || outside || profile.gaps.length > 0}>{busy ? "Sending…" : props.editId ? "Send change request" : "Send request"}<span>→</span></button>
+          <button disabled={busy || outside || profile.gaps.length > 0 || windows.length === 0}>{busy ? "Sending…" : props.editId ? "Send change request" : "Send request"}<span>→</span></button>
           <p>Nothing is booked yet. We&apos;ll confirm within {REQUEST_RESPONSE_HOURS} hours.</p>
         </div>
       </form>

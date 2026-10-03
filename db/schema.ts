@@ -367,3 +367,11 @@ export const sessionRequests = sqliteTable("session_requests", {
   createdAt: text("created_at").notNull(),
   updatedAt: text("updated_at").notNull(),
 });
+
+/** Days Driftline is not taking customer visits (holidays, time off, fully committed days). */
+export const blockedDates = sqliteTable("blocked_dates", {
+  date: text("date").primaryKey(),
+  note: text("note").notNull().default(""),
+  createdBy: text("created_by").notNull().default(""),
+  createdAt: text("created_at").notNull(),
+});

@@ -4,7 +4,8 @@ import { getOrCreateCustomer } from "../../../db/customers";
 import { getCookbook } from "../../../db/cookbook";
 import { getPricing } from "../../../db/pricing";
 import { getRequest } from "../../../db/requests";
-import { DEFAULT_PEOPLE, earliestDate, latestDate, planFor, profileGaps } from "../../request-core";
+import { unavailableBetween } from "../../../db/availability";
+import { DEFAULT_PEOPLE, firstBookableDate, latestDate, planFor, profileGaps } from "../../request-core";
 import ScheduleForm from "./ScheduleForm";
 import { backdropImages } from "../backdrop-images";
 import "../account.css";
@@ -33,6 +34,10 @@ export default async function SchedulePage({ searchParams }: { searchParams: Pro
     }
   }
 
+  const earliest = firstBookableDate();
+  const latest = latestDate();
+  const unavailable = await unavailableBetween(earliest, latest, editId).catch(() => []);
+
   return (
     <ScheduleForm
       recipeIds={dishes.map((d) => d.id)}
@@ -44,8 +49,9 @@ export default async function SchedulePage({ searchParams }: { searchParams: Pro
       initial={initial}
       profile={{ address: profile.streetAddress, city: profile.city, accessNotes: profile.accessNotes, kitchenNotes: profile.kitchenNotes, gaps: profileGaps(profile) }}
       backdrop={backdropImages(cookbook)}
-      earliest={earliestDate()}
-      latest={latestDate()}
+      earliest={earliest}
+      latest={latest}
+      unavailable={unavailable}
     />
   );
 }
