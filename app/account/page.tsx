@@ -10,6 +10,9 @@ import { oregonToday } from "../oregon-time";
 import { prettyTime, prettyVisitDate } from "../visit-emails";
 import { profileGaps } from "../request-core";
 import SessionCards from "./SessionCards";
+import DishBackdrop from "./DishBackdrop";
+import { backdropImages } from "./backdrop-images";
+import { getCookbook } from "../../db/cookbook";
 import "./plan/plan.css";
 import DisclosureGate from "../disclosures/DisclosureGate";
 import VisitGallery from "./VisitGallery";
@@ -36,7 +39,9 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
   // Visits Casey booked directly (not from a request) still show up.
   const direct = (await listUpcomingForCustomer(user.email, oregonToday()).catch(() => [])).filter(v => !v.requestId);
   const firstTime = requests.length === 0 && direct.length === 0;
-  return <main className="account-page">
+  const backdrop = backdropImages(await getCookbook().catch(() => []));
+  return <main className="account-page has-dishes">
+    <DishBackdrop images={backdrop} />
     <DisclosureGate scope="customer" />
     <PasskeyPrompt />
     <header className="account-nav"><Link className="account-brand" href="/"><BrandLogo/></Link><nav><Link href="/cookbook">Cookbook</Link><Link href="/meal-prep#pricing">Pricing</Link><a href={signOutPath("/")}>Sign out</a></nav></header>

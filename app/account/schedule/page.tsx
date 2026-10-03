@@ -6,6 +6,7 @@ import { getPricing } from "../../../db/pricing";
 import { getRequest } from "../../../db/requests";
 import { DEFAULT_PEOPLE, earliestDate, latestDate, planFor, profileGaps } from "../../request-core";
 import ScheduleForm from "./ScheduleForm";
+import { backdropImages } from "../backdrop-images";
 import "../account.css";
 import "../plan/plan.css";
 
@@ -42,6 +43,7 @@ export default async function SchedulePage({ searchParams }: { searchParams: Pro
       editId={editId}
       initial={initial}
       profile={{ address: profile.streetAddress, city: profile.city, accessNotes: profile.accessNotes, kitchenNotes: profile.kitchenNotes, gaps: profileGaps(profile) }}
+      backdrop={backdropImages(cookbook)}
       earliest={earliestDate()}
       latest={latestDate()}
     />

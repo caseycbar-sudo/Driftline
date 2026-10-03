@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import DishBackdrop from "../DishBackdrop";
 import { CANCELLATION_POLICY, MAX_WINDOWS, MIN_LEAD_HOURS, OUTSIDE_AREA, REQUEST_RESPONSE_HOURS, SERVICE_CITIES } from "../../request-core";
 
 type Win = { date: string; from: string; to: string };
@@ -19,6 +20,7 @@ export default function ScheduleForm(props: {
   profile: { address: string; city: string; accessNotes: string; kitchenNotes: string; gaps: string[] };
   earliest: string;
   latest: string;
+  backdrop: string[];
 }) {
   const { profile, initial } = props;
   const [windows, setWindows] = useState<Win[]>(initial?.windows.length ? initial.windows : [blank()]),
@@ -64,7 +66,8 @@ export default function ScheduleForm(props: {
   }
 
   return (
-    <main className="account-page plan-page">
+    <main className="account-page plan-page has-dishes">
+      <DishBackdrop images={props.backdrop} />
       <header className="account-nav">
         <Link className="account-brand" href="/account">
           Driftline

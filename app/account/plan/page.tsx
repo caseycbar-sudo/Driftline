@@ -6,6 +6,7 @@ import { getRequest } from "../../../db/requests";
 import { smallImage } from "../../site-config";
 import { DEFAULT_PEOPLE } from "../../request-core";
 import PlanBuilder from "./PlanBuilder";
+import { backdropImages } from "../backdrop-images";
 import "../account.css";
 import "./plan.css";
 
@@ -42,6 +43,7 @@ export default async function PlanPage({ searchParams }: { searchParams: Promise
       initialPeople={people}
       editId={editId}
       avoid={[profile.dietaryNeeds, profile.foodsToAvoid].filter(Boolean).join(" ").toLowerCase()}
+      backdrop={backdropImages(cookbook)}
       profileReady={Boolean(profile.fullName && profile.phone && profile.streetAddress && profile.city)}
     />
   );
