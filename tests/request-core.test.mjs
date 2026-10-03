@@ -10,6 +10,10 @@ import {
   parseRequestInput,
   parseWindows,
   planFor,
+  parseBlockedDate,
+  unavailableDates,
+  TIME_PRESETS,
+  firstBookableDate,
   profileGaps,
   startTimesIn,
 } from "../app/request-core.ts";
@@ -113,4 +117,40 @@ test("the full address is held back until the day before the visit", () => {
   assert.equal(chefMaySeeAddress("2026-10-03", "2026-10-01"), false);
   assert.equal(chefMaySeeAddress("2026-10-03", "2026-10-02"), true);
   assert.equal(chefMaySeeAddress("2026-10-03", "2026-10-03"), true);
+});
+
+test("availability: blocked days and days where every chef is booked are unavailable", () => {
+  assert.deepEqual(unavailableDates(["2026-11-26"], [], 2), ["2026-11-26"]);
+  // One chef out of two booked: still open. Both booked: full.
+  assert.deepEqual(unavailableDates([], ["2026-10-20"], 2), []);
+  assert.deepEqual(unavailableDates([], ["2026-10-20", "2026-10-20"], 2), ["2026-10-20"]);
+  // Blocked and full on the same day only appears once, sorted.
+  assert.deepEqual(unavailableDates(["2026-10-21", "2026-10-20"], ["2026-10-20", "2026-10-20"], 2), ["2026-10-20", "2026-10-21"]);
+  // With no active chefs the rule cannot say a day is full.
+  assert.deepEqual(unavailableDates([], ["2026-10-20"], 0), []);
+});
+
+test("availability: a window on an unavailable day is refused, and every preset is a valid window", () => {
+  const w = [{ date: "2026-10-20", from: "09:00", to: "13:00" }];
+  assert.equal(parseWindows(w, NOW, []).ok, true);
+  const refused = parseWindows(w, NOW, ["2026-10-20"]);
+  assert.equal(refused.ok, false);
+  assert.match(refused.error, /741-9630/);
+  for (const p of TIME_PRESETS) {
+    assert.equal(parseWindows([{ date: "2026-10-20", from: p.from, to: p.to }], NOW).ok, true);
+  }
+});
+
+test("blocked dates: the owner needs a real day that is not in the past", () => {
+  assert.equal(parseBlockedDate({ date: "2026-11-26", note: " Thanksgiving " }, "2026-10-03").note, "Thanksgiving");
+  assert.equal(parseBlockedDate({ date: "2026-10-02" }, "2026-10-03").ok, false);
+  assert.equal(parseBlockedDate({ date: "nope" }, "2026-10-03").ok, false);
+  assert.equal(parseBlockedDate({ date: "2026-02-30" }, "2026-10-03").ok, false);
+});
+
+test("calendar starts on the first day the Morning block still has 48 hours of notice", () => {
+  // Wed 11:00 PDT now: 48 hours out is Fri 11:00, so Friday morning is too soon and Saturday is first.
+  assert.equal(firstBookableDate(NOW), "2026-10-03");
+  // Wed 05:00 PDT now: Friday 05:00 is before the 8am Morning start, so Friday works.
+  assert.equal(firstBookableDate(Date.UTC(2026, 8, 30, 12, 0)), "2026-10-02");
 });

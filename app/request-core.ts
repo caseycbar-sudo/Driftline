@@ -85,6 +85,40 @@ export function planFor(items: number, people: number, pricing: Pricing): Plan |
   return pkg ? { package: pkg, portionsNeeded } : null;
 }
 
+export const BUSINESS_PHONE = "(503) 741-9630";
+
+/* ------------------------------------------------------- availability */
+
+/** Preset time blocks customers can tap instead of typing times. Each is at least the 3 hour minimum. */
+export const TIME_PRESETS = [
+  { key: "morning", label: "Morning", sub: "8 to 12", from: "08:00", to: "12:00" },
+  { key: "afternoon", label: "Afternoon", sub: "12 to 4", from: "12:00", to: "16:00" },
+  { key: "evening", label: "Evening", sub: "4 to 8", from: "16:00", to: "20:00" },
+] as const;
+
+/**
+ * Days a customer cannot pick: ones the owner blocked, plus any day where every active chef
+ * already has a visit. `visitDates` holds one entry per visit (repeat a date once per visit).
+ */
+export function unavailableDates(blocked: readonly string[], visitDates: readonly string[], activeChefs: number): string[] {
+  const out = new Set(blocked);
+  if (activeChefs > 0) {
+    const count = new Map<string, number>();
+    for (const d of visitDates) count.set(d, (count.get(d) ?? 0) + 1);
+    for (const [d, n] of count) if (n >= activeChefs) out.add(d);
+  }
+  return [...out].sort();
+}
+
+/** The owner blocks one day. */
+export function parseBlockedDate(body: Record<string, unknown>, today: string): { ok: true; date: string; note: string } | { ok: false; error: string } {
+  const date = String(body.date ?? "").trim();
+  if (!isRealDate(date)) return { ok: false, error: "Pick a day on the calendar." };
+  if (date < today) return { ok: false, error: "That day has already passed." };
+  const note = String(body.note ?? "").replace(/\s+/g, " ").trim().slice(0, 80);
+  return { ok: true, date, note };
+}
+
 /* ---------------------------------------------------------------- time */
 
 function zoneOffsetMinutes(utcMs: number): number {
@@ -124,6 +158,13 @@ export const earliestDate = (now = Date.now()) => oregonDate(now + MIN_LEAD_HOUR
 /** The last date a visit can be requested for. */
 export const latestDate = (now = Date.now()) => oregonDate(now + MAX_LEAD_DAYS * 86_400_000);
 
+/** First day on the booking calendar: the first one where the Morning block still gives the required notice. */
+export function firstBookableDate(now = Date.now()): string {
+  const soonest = earliestDate(now);
+  if (oregonInstant(soonest, TIME_PRESETS[0].from) >= now + MIN_LEAD_HOURS * 3_600_000) return soonest;
+  return new Date(new Date(`${soonest}T12:00:00Z`).getTime() + 86_400_000).toISOString().slice(0, 10);
+}
+
 export const hoursUntil = (date: string, time: string, now = Date.now()) => (oregonInstant(date, time || "00:00") - now) / 3_600_000;
 
 export function addMinutes(time: string, plus: number): string {
@@ -139,7 +180,7 @@ const text = (value: unknown, max: number) =>
     .trim()
     .slice(0, max);
 
-export function parseWindows(input: unknown, now = Date.now()): { ok: true; windows: TimeWindow[] } | { ok: false; error: string } {
+export function parseWindows(input: unknown, now = Date.now(), unavailable: readonly string[] = []): { ok: true; windows: TimeWindow[] } | { ok: false; error: string } {
   const raw = Array.isArray(input) ? input : [];
   if (raw.length < 1) return { ok: false, error: "Pick at least one day and time that works for you." };
   if (raw.length > MAX_WINDOWS) return { ok: false, error: `Offer up to ${MAX_WINDOWS} date ranges.` };
@@ -155,6 +196,7 @@ export function parseWindows(input: unknown, now = Date.now()): { ok: true; wind
       return { ok: false, error: `We need at least 48 hours' notice. The earliest date is ${earliestDate(now)}.` };
     }
     if (date > latestDate(now)) return { ok: false, error: `We're booking up to ${MAX_LEAD_DAYS} days ahead. The latest date is ${latestDate(now)}.` };
+    if (unavailable.includes(date)) return { ok: false, error: `We aren't taking visits on ${date}. Please pick another day, or call or text us at ${BUSINESS_PHONE}.` };
     if (windows.some((w) => w.date === date && w.from < to && from < w.to)) return { ok: false, error: "Two of your ranges overlap." };
     windows.push({ date, from, to });
   }
@@ -175,7 +217,7 @@ export type RequestInput = {
 };
 
 /** Validate what a customer sends when they request (or change) a session. */
-export function parseRequestInput(body: Record<string, unknown>, pricing: Pricing, now = Date.now()): { ok: true; input: RequestInput } | { ok: false; error: string; field?: string } {
+export function parseRequestInput(body: Record<string, unknown>, pricing: Pricing, now = Date.now(), unavailable: readonly string[] = []): { ok: true; input: RequestInput } | { ok: false; error: string; field?: string } {
   const ids = Array.isArray(body.recipeIds) ? body.recipeIds.map((v) => Math.round(Number(v))).filter((n) => Number.isInteger(n) && n > 0) : [];
   const recipeIds = [...new Set(ids)];
   if (recipeIds.length < MIN_ITEMS) return { ok: false, error: `Pick at least ${MIN_ITEMS} dishes for your plan.`, field: "menu" };
@@ -186,7 +228,7 @@ export function parseRequestInput(body: Record<string, unknown>, pricing: Pricin
   if (city && !inServiceArea(city)) {
     return { ok: false, error: "We don't cook in that area yet. Email us and we'll tell you when that changes.", field: "city" };
   }
-  const windows = parseWindows(body.windows, now);
+  const windows = parseWindows(body.windows, now, unavailable);
   if (!windows.ok) return { ok: false, error: windows.error, field: "windows" };
   if (body.acceptedPolicy !== true) return { ok: false, error: "Please read and accept the cancellation policy.", field: "policy" };
   return {
