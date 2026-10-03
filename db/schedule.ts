@@ -6,9 +6,15 @@ export type ScheduleEvent = VisitInput & {
   seriesId: string;
   groceryCents: number;
   receiptKey: string;
+  /** accepted | pending | declined: whether the assigned chef has said yes. Visits made by hand default to accepted. */
+  chefResponse: ChefResponse;
+  /** The customer request this visit came from, or 0. */
+  requestId: number;
   createdAt: string;
   updatedAt: string;
 };
+
+export type ChefResponse = "accepted" | "pending" | "declined";
 
 function database() {
   if (!env.DB) throw new Error("Schedule database unavailable");
@@ -181,6 +187,31 @@ export async function setGroceries(id: number, groceryCents: number, receiptKey:
     .run();
 }
 
+/** Tie a visit to the customer request it came from, and set whether the chef still has to accept it. */
+export async function linkRequest(id: number, requestId: number, chefResponse: ChefResponse) {
+  await database()
+    .prepare("UPDATE schedule_events SET request_id = ?, chef_response = ?, updated_at = ? WHERE id = ?")
+    .bind(requestId, chefResponse, new Date().toISOString(), id)
+    .run();
+  return getEvent(id);
+}
+
+export async function setChefResponse(id: number, chefResponse: ChefResponse) {
+  await database()
+    .prepare("UPDATE schedule_events SET chef_response = ?, updated_at = ? WHERE id = ?")
+    .bind(chefResponse, new Date().toISOString(), id)
+    .run();
+  return getEvent(id);
+}
+
+/** Visits that came from a customer request and still need a chef to accept or a new chef. */
+export async function listAwaitingChef() {
+  const result = await database()
+    .prepare("SELECT * FROM schedule_events WHERE request_id > 0 AND chef_response IN ('pending','declined') AND status NOT IN ('cancelled','completed') ORDER BY service_date, start_time")
+    .all<Record<string, unknown>>();
+  return result.results.map(map);
+}
+
 /** Visits happening on a given date (for day-before reminders). */
 export async function listForDate(date: string) {
   const result = await database()
@@ -232,6 +263,8 @@ function map(row: Record<string, unknown>): ScheduleEvent {
     seriesId: String(row.series_id ?? ""),
     groceryCents: Number(row.grocery_cents ?? 0),
     receiptKey: String(row.receipt_key ?? ""),
+    chefResponse: String(row.chef_response ?? "accepted") as ChefResponse,
+    requestId: Number(row.request_id ?? 0),
     createdAt: String(row.created_at ?? ""),
     updatedAt: String(row.updated_at ?? ""),
   };

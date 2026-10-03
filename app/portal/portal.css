@@ -2810,3 +2810,28 @@ td {
 .calendar-warning { margin: 0 0 14px; padding: 12px 14px; background: #fbf3df; border-left: 3px solid #b58a2e; color: #3f3413; }
 .calendar-warning.error { background: #fbe9e4; border-left-color: #b05f3e; color: #8a2f18; }
 .calendar-warning button { margin-left: 10px; background: none; border: 0; text-decoration: underline; cursor: pointer; color: inherit; }
+
+/* New customer requests inbox (top of Dispatch) */
+.request-inbox{background:#fff;border:1px solid #d9d2c3;border-radius:12px;padding:16px;margin-bottom:20px}
+.request-inbox>header h2{margin:2px 0 10px;font-size:20px}
+.request-card{border:1px solid #e5dfd2;border-radius:10px;margin-top:10px;background:#fbf9f4}
+.request-summary{display:flex;justify-content:space-between;gap:12px;align-items:center;width:100%;padding:12px 14px;background:none;border:0;text-align:left;cursor:pointer;font:inherit}
+.request-summary span:first-child{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.request-tag{background:#f3e3b8;border-radius:999px;padding:2px 8px;font-size:12px}
+.request-body{padding:0 14px 14px;display:grid;gap:14px}
+.request-body small,.request-wait small,.request-waiting small{letter-spacing:.06em;color:#6b6553;font-weight:600}
+.request-body p{margin:4px 0}
+.request-alert{background:#fde8e4;border-radius:6px;padding:6px 8px;font-weight:600}
+.request-block{margin:6px 0}
+.request-block>div,.request-actions,.request-chefs{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.request-block button,.request-actions button,.request-form button,.request-wait-row button{border:1px solid #c9c0ad;background:#fff;border-radius:8px;padding:6px 10px;cursor:pointer;font:inherit}
+.request-block button.on{background:#1f3a34;color:#fff;border-color:#1f3a34}
+.request-chefs{flex-direction:column}
+.request-chefs label.busy{color:#8a5a00}
+.request-form{display:grid;gap:8px;margin-top:8px}
+.request-form>div{display:flex;gap:6px;flex-wrap:wrap}
+.request-form textarea{width:100%;font:inherit;padding:8px;border:1px solid #c9c0ad;border-radius:8px}
+.request-hint{color:#6b6553;font-size:13px}
+.request-waiting{margin-top:16px;display:grid;gap:8px}
+.request-wait-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.request-body .primary-action{margin-top:10px;font-size:14px;padding:10px 16px}

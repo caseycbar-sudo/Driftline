@@ -1,7 +1,10 @@
 import { NextResponse } from "next/server";
 import { requireStaffRole } from "../../../staff-auth";
 import { isCrossSiteRequest } from "../../../auth-core";
-import { getEvent, listEvents, setChefEventStatus } from "../../../../db/schedule";
+import { getEvent, listEvents, patchEvent, setChefEventStatus, setChefResponse } from "../../../../db/schedule";
+import { getRequestForEvent, patchRequest } from "../../../../db/requests";
+import { notifyChefDeclined, notifyConfirmed } from "../../../request-emails";
+import { chefMaySeeAddress } from "../../../request-core";
 import { addMileage, listTimeEntries, toggleTimeEntry } from "../../../../db/timecards";
 import { getCustomer } from "../../../../db/customers";
 import { getMealPlan } from "../../../../db/meals";
@@ -88,9 +91,12 @@ export async function GET(request: Request) {
         };
       });
 
-      const address = event.address || customer?.streetAddress || event.location;
+      // A visit from a customer request shows only the city until the day before, so the full address
+      // and door codes aren't sitting in a chef's phone for a visit they might still decline.
+      const addressHeld = event.requestId > 0 && (event.chefResponse !== "accepted" || !chefMaySeeAddress(event.serviceDate, today));
+      const address = addressHeld ? event.location : event.address || customer?.streetAddress || event.location;
       // Door codes and phone numbers only while the visit is still ahead.
-      const active = event.status !== "completed" && event.serviceDate >= addDays(today, -1);
+      const active = !addressHeld && event.status !== "completed" && event.serviceDate >= addDays(today, -1);
       const phone = active ? customer?.phone || event.contactPhone : "";
       // Chefs see what they need to cook and get in, never the customer's price or account email.
       const { priceCents: _p, customerEmail: _e, receiptKey: _r, inquiryId: _i, accessNotes: _a, contactPhone: _c, ...shown } = event;
@@ -99,9 +105,10 @@ export async function GET(request: Request) {
         dishDetails,
         portionsPerDish,
         packagePortions: pkg?.portions ?? 0,
+        addressHeld,
         visit: {
           address,
-          mapUrl: mapsLink(address),
+          mapUrl: addressHeld ? "" : mapsLink(address),
           contactName: event.contactName || customer?.fullName || event.household,
           phone,
           telUrl: telLink(phone),
@@ -138,6 +145,29 @@ export async function POST(request: Request) {
     return NextResponse.json(
       await addMileage(user.email, label, miles, Number.isNaN(occurred.getTime()) ? new Date().toISOString() : occurred.toISOString()),
     );
+  }
+  if (action === "respond") {
+    const v = await getEvent(Math.max(0, Number(body.eventId) || 0));
+    if (!v || v.chefEmail.toLowerCase() !== user.email.toLowerCase()) return NextResponse.json({ error: "This job is not assigned to you" }, { status: 403 });
+    if (v.chefResponse !== "pending" || v.status === "cancelled" || v.status === "completed") return NextResponse.json({ error: "There's nothing to answer on this visit." }, { status: 409 });
+    const r = await getRequestForEvent(v.id);
+    const c = r ? await getCustomer(r.customerEmail) : null;
+    if (body.response === "accept") {
+      await setChefResponse(v.id, "accepted");
+      if (r) {
+        await patchRequest(r.id, { status: "scheduled" });
+        await notifyConfirmed(v, r, { name: c?.fullName || r.customerEmail, email: r.customerEmail, phone: c?.phone ?? "" });
+      }
+      return NextResponse.json({ ok: true, response: "accepted" });
+    }
+    if (body.response === "decline") {
+      // Email first, while the chef's name is still on the visit; then free their calendar.
+      await notifyChefDeclined(v);
+      await setChefResponse(v.id, "declined");
+      await patchEvent(v.id, { chef: "Unassigned", chefEmail: "" });
+      return NextResponse.json({ ok: true, response: "declined" });
+    }
+    return NextResponse.json({ error: "Accept or decline." }, { status: 400 });
   }
   const activityType = String(body.activityType || ""),
     eventId = Math.max(0, Number(body.scheduleEventId) || 0);

@@ -25,6 +25,7 @@ export async function PUT(request: Request) {
     dietaryNeeds: clean("dietaryNeeds"), favoriteFoods: clean("favoriteFoods"), foodsToAvoid: clean("foodsToAvoid"),
     preferredPackage: clean("preferredPackage", 30) || "Weekly",
     streetAddress: clean("streetAddress", 240), accessNotes: clean("accessNotes", 1000), kitchenNotes: clean("kitchenNotes", 1000),
+    noAllergies: body.noAllergies === true,
   });
   return NextResponse.json(profile);
 }
