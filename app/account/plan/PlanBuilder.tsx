@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import DishBackdrop from "../DishBackdrop";
 import { MAX_ITEMS, MIN_ITEMS, PRICE_COVERS } from "../../request-core";
 
 type Dish = { id: number; title: string; category: string; description: string; image: string; allergens: string[]; dietary: string[] };
@@ -17,6 +18,7 @@ export default function PlanBuilder({
   editId,
   avoid,
   profileReady,
+  backdrop,
 }: {
   dishes: Dish[];
   packages: Pkg[];
@@ -25,6 +27,7 @@ export default function PlanBuilder({
   editId: number;
   avoid: string;
   profileReady: boolean;
+  backdrop: string[];
 }) {
   const [items, setItems] = useState<number[]>(initialItems),
     [people, setPeople] = useState(initialPeople),
@@ -58,7 +61,8 @@ export default function PlanBuilder({
   );
 
   return (
-    <main className="account-page plan-page">
+    <main className="account-page plan-page has-dishes">
+      <DishBackdrop images={backdrop} />
       <header className="account-nav">
         <Link className="account-brand" href="/account">
           Driftline
