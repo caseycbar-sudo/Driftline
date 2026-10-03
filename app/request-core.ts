@@ -57,22 +57,30 @@ export const inServiceArea = (city: string) => SERVICE_CITIES.some((c) => c.toLo
 
 /* ---------------------------------------------------------------- plans */
 
+/** Each dish makes this many portions per person, so every extra person adds to the plan and the price. */
+export const PORTIONS_PER_DISH_PER_PERSON = 2;
+
+/** Total portions a visit needs: dishes x people x portions per dish per person. */
+export function portionsFor(items: number, people: number): number {
+  return items * people * PORTIONS_PER_DISH_PER_PERSON;
+}
+
 /** The most people a customer can pick for this many dishes, so the portions stay inside the largest package. */
 export function maxPeopleFor(items: number, pricing: Pricing): number {
   const cap = Math.max(...pricing.mealPrep.map((p) => p.portions));
-  return Math.max(1, Math.min(MAX_PEOPLE, Math.floor(cap / Math.max(1, items))));
+  return Math.max(1, Math.min(MAX_PEOPLE, Math.floor(cap / (Math.max(1, items) * PORTIONS_PER_DISH_PER_PERSON))));
 }
 
 export type Plan = { package: MealPrepPackage; portionsNeeded: number };
 
 /**
- * The plan for a menu: one portion of each dish per person, in the smallest
+ * The plan for a menu: the portions it needs (see PORTIONS_PER_DISH_PER_PERSON), in the smallest
  * package that holds them. Null until there are enough dishes.
  */
 export function planFor(items: number, people: number, pricing: Pricing): Plan | null {
   if (!Number.isInteger(items) || items < MIN_ITEMS || items > MAX_ITEMS) return null;
   if (!Number.isInteger(people) || people < 1 || people > maxPeopleFor(items, pricing)) return null;
-  const portionsNeeded = items * people;
+  const portionsNeeded = portionsFor(items, people);
   const pkg = [...pricing.mealPrep].sort((a, b) => a.portions - b.portions).find((p) => p.portions >= portionsNeeded);
   return pkg ? { package: pkg, portionsNeeded } : null;
 }

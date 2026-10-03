@@ -27,7 +27,6 @@ export default function ProfileForm({ initialProfile }: { initialProfile: Custom
       <label>City<select value={profile.city} onChange={(e) => update("city", e.target.value)}><option value="">Choose your city</option><option>Astoria</option><option>Warrenton</option><option>Gearhart</option><option>Seaside</option><option>Cannon Beach</option><option>Outside current area</option></select></label>
       <label>Household size<input type="number" min="1" max="20" value={profile.householdSize} onChange={(e) => update("householdSize", Number(e.target.value))} /></label>
       <label>Who is service for?<select value={profile.serviceFor} onChange={(e) => update("serviceFor", e.target.value)}><option>My household</option><option>A parent or loved one</option><option>A client I care for</option></select></label>
-      <label>Preferred package<select value={profile.preferredPackage} onChange={(e) => update("preferredPackage", e.target.value)}><option>Essential</option><option>Classic</option><option>Weekly</option><option>Couples</option><option>Household</option><option>Family</option></select></label>
     </div>
     <div className="visit-grid">
       <label className="wide">Street address for visits<input value={profile.streetAddress} onChange={(e) => update("streetAddress", e.target.value)} autoComplete="street-address" placeholder="123 Marine Dr, Astoria, OR 97103" /></label>
