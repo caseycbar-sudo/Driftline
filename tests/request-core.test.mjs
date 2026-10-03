@@ -24,6 +24,9 @@ test("plans: each dish makes 2 portions per person, so every added person raises
   assert.equal(name(3, 2), "Weekly"); // 12
   assert.equal(name(3, 3), "Household"); // 18 -> 20
   assert.equal(name(3, 4), "Family"); // 24
+  assert.equal(name(3, 5), "Large Family"); // 30 -> 32
+  assert.equal(name(4, 4), "Large Family"); // 32: a family of 4 with 4 dishes
+  assert.equal(name(5, 3), "Large Family"); // 30 -> 32
   assert.equal(name(4, 1), "Classic"); // 8
   assert.equal(name(5, 1), "Weekly"); // 10 -> 12
   assert.equal(name(5, 2), "Household"); // 20
@@ -41,9 +44,10 @@ test("plans: each dish makes 2 portions per person, so every added person raises
 test("plans: nothing under 3 or over 5 dishes, and people are capped by the largest package", () => {
   assert.equal(planFor(2, 2, DEFAULT_PRICING), null);
   assert.equal(planFor(6, 1, DEFAULT_PRICING), null);
-  assert.equal(planFor(5, 3, DEFAULT_PRICING), null); // 30 portions > 24
-  assert.equal(maxPeopleFor(5, DEFAULT_PRICING), 2);
-  assert.equal(maxPeopleFor(3, DEFAULT_PRICING), 4);
+  assert.equal(planFor(5, 4, DEFAULT_PRICING), null); // 40 portions > 32
+  assert.equal(maxPeopleFor(5, DEFAULT_PRICING), 3);
+  assert.equal(maxPeopleFor(4, DEFAULT_PRICING), 4);
+  assert.equal(maxPeopleFor(3, DEFAULT_PRICING), 5);
 });
 
 test("Oregon clock: DST and standard time both land on the right instant", () => {

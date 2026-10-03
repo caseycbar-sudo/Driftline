@@ -15,7 +15,7 @@ export const INQUIRY_LABELS: Record<InquiryType, string> = {
 
 export const CONTACT_TOPICS = ["Private chef dinner", "Catering", "Weekly meal prep", "Sunday Market", "Something else"];
 
-export const MEAL_PREP_PACKAGES = ["Essential", "Classic", "Weekly", "Couples", "Household", "Family"];
+export const MEAL_PREP_PACKAGES = ["Essential", "Classic", "Weekly", "Couples", "Household", "Family", "Large Family"];
 export const SERVICE_FOR_OPTIONS = ["My household", "A parent or loved one", "A client I care for"];
 
 export type CleanInquiry = {
