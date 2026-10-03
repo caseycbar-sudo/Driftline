@@ -6,6 +6,8 @@
 export type MealPrepPackage = { name: string; portions: number; priceCents: number; note: string; featured: boolean };
 export type Pricing = {
   mealPrep: MealPrepPackage[];
+  /** Flat charge per meal prep visit for the chef's own spices, oil, salt and pepper. */
+  pantryKitCents: number;
   privateChef: { perGuestCents: number; minGuests: number; smallTableMinCents: number };
 };
 
@@ -18,6 +20,7 @@ export const DEFAULT_PRICING: Pricing = {
     { name: "Household", portions: 20, priceCents: 32500, note: "Reliable family coverage", featured: false },
     { name: "Family", portions: 24, priceCents: 36500, note: "The most meals per visit", featured: false },
   ],
+  pantryKitCents: 900,
   privateChef: { perGuestCents: 17500, minGuests: 6, smallTableMinCents: 105000 },
 };
 
@@ -48,7 +51,9 @@ export function parsePricing(input: unknown): { ok: true; pricing: Pricing } | {
   if (!Number.isFinite(perGuestCents) || perGuestCents < 1000 || perGuestCents > 200000) return { ok: false, error: "Private chef price per guest must be $10 to $2,000." };
   if (!Number.isInteger(minGuests) || minGuests < 1 || minGuests > 50) return { ok: false, error: "Minimum guests must be 1 to 50." };
   if (!Number.isFinite(smallTableMinCents) || smallTableMinCents < 0 || smallTableMinCents > 2000000) return { ok: false, error: "Small-table minimum must be $0 to $20,000." };
-  return { ok: true, pricing: { mealPrep, privateChef: { perGuestCents, minGuests, smallTableMinCents } } };
+  const pantryKitCents = b.pantryKit === undefined || b.pantryKit === "" ? DEFAULT_PRICING.pantryKitCents : dollarsToCents(b.pantryKit);
+  if (!Number.isFinite(pantryKitCents) || pantryKitCents < 0 || pantryKitCents > 10000) return { ok: false, error: "Pantry kit must be $0 to $100." };
+  return { ok: true, pricing: { mealPrep, pantryKitCents, privateChef: { perGuestCents, minGuests, smallTableMinCents } } };
 }
 
 /** Stored JSON back to Pricing, falling back to defaults for anything missing or broken. */
@@ -57,7 +62,8 @@ export function readPricing(json: string | null | undefined): Pricing {
   try {
     const v = JSON.parse(json) as Pricing;
     if (!Array.isArray(v.mealPrep) || !v.mealPrep.length || !v.privateChef) return DEFAULT_PRICING;
-    return v;
+    // Prices saved before the pantry kit existed don't have it.
+    return { ...v, pantryKitCents: typeof v.pantryKitCents === "number" ? v.pantryKitCents : DEFAULT_PRICING.pantryKitCents };
   } catch {
     return DEFAULT_PRICING;
   }

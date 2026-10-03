@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { env } from "cloudflare:workers";
+import { savePantry } from "../../../../db/pantry";
 import { requireStaffRole } from "../../../staff-auth";
 import { isCrossSiteRequest } from "../../../auth-core";
 import { completeVisit, getEvent } from "../../../../db/schedule";
@@ -99,6 +100,17 @@ export async function POST(request: Request) {
     notes: String(form.get("notes") || "").trim().slice(0, 1000),
     photos: stored,
   });
+
+  // What the chef says is still in the kitchen, so the next shopping list skips it.
+  if (event.customerEmail) {
+    try {
+      const raw = JSON.parse(String(form.get("leftovers") || "[]")) as { itemKey?: string; name?: string }[];
+      const items = (Array.isArray(raw) ? raw : []).map((i) => ({ itemKey: String(i.itemKey ?? ""), name: String(i.name ?? "") })).filter((i) => i.itemKey && i.name);
+      await savePantry(event.customerEmail, items);
+    } catch (error) {
+      console.error("[pantry] could not save leftovers", error);
+    }
+  }
 
   // Charging never blocks the chef: a failed or skipped charge shows up in Casey's Billing tab.
   const billing = await chargeCompletedVisit(eventId).catch((error) => {

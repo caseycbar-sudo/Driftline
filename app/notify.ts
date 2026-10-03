@@ -161,11 +161,11 @@ export async function notifyNewInquiry(q: CleanInquiry): Promise<boolean> {
  * Email a one-time sign-in link. Returns false if email isn't configured or the send failed.
  * In local development without email configured, the link is printed to the server console instead.
  */
-export async function sendSignInLink(email: string, link: string): Promise<boolean> {
+export async function sendSignInLink(email: string, link: string, code = ""): Promise<boolean> {
   const config = mailConfig();
   if (!config) {
     if (import.meta.env.DEV) {
-      console.warn(`[auth] email not configured; development sign-in link for ${email}: ${link}`);
+      console.warn(`[auth] email not configured; development sign-in for ${email}: code ${code} · ${link}`);
       return true;
     }
     console.error("[auth] cannot send sign-in link: email is not configured");
@@ -175,13 +175,15 @@ export async function sendSignInLink(email: string, link: string): Promise<boole
     await send(config.endpoint, config.apiKey, {
       from: config.from,
       to: [email],
-      subject: "Your Driftline sign-in link",
-      text: `Sign in to Driftline Provisions:\n\n${link}\n\nThis link works once and expires in 15 minutes. If you didn't ask to sign in, you can ignore this email.`,
+      subject: code ? `${code} is your Driftline sign-in code` : "Your Driftline sign-in link",
+      text: `${code ? `Your Driftline sign-in code: ${code}\n\nType it on the sign-in screen, or use this link:\n` : "Sign in to Driftline Provisions:\n\n"}${link}\n\nIt works once and expires in 15 minutes. If you didn't ask to sign in, you can ignore this email.`,
       html: `<div style="font-family:Arial,sans-serif;font-size:15px;max-width:520px;color:#16232f">
 <h2 style="font-family:Georgia,serif;font-weight:400;margin:0 0 12px">Sign in to Driftline</h2>
-<p>Tap the button below to sign in. It works once and expires in 15 minutes.</p>
+${code ? `<p>Type this code on the sign-in screen:</p>
+<p style="margin:18px 0;font-size:34px;letter-spacing:8px;font-weight:bold;font-family:Menlo,Consolas,monospace;color:#16232f">${escapeHtml(code)}</p>
+<p>Or tap the button to sign in on this device.</p>` : `<p>Tap the button below to sign in.</p>`}
 <p style="margin:24px 0"><a href="${escapeHtml(link)}" style="background:#9c7b40;color:#fff;padding:12px 20px;text-decoration:none;font-weight:bold;display:inline-block">Sign in to Driftline</a></p>
-<p style="color:#6b7680;font-size:13px">If you didn't ask to sign in, you can ignore this email; nothing changes until the link is used.</p>
+<p style="color:#6b7680;font-size:13px">The code and link work once and expire in 15 minutes. If you didn't ask to sign in, you can ignore this email.</p>
 <p style="color:#6b7680;font-size:13px">Driftline Provisions · Astoria, Oregon</p></div>`,
     });
     return true;

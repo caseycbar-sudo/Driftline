@@ -13,5 +13,5 @@ export default async function MealPrepPage() {
     note: p.note,
     featured: p.featured,
   }));
-  return <MealPrepClient packages={packages} />;
+  return <MealPrepClient packages={packages} pantryKit={pricing.pantryKitCents / 100} />;
 }

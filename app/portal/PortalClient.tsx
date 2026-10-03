@@ -172,7 +172,7 @@ function AdminPortal({
               className={tab === item ? "active" : ""}
               onClick={() => setTab(item)}
             >
-              <Icon>{({ Market: "◎", Reviews: "★", Requests: "✉", Billing: "$", Cookbook: "❧" } as Record<string, string>)[item] ?? (["⌂", "♨", "□", "◎", "$", "◷", "↗"][i] || "·")}</Icon>
+              <Icon>{({ Market: "◎", Reviews: "★", Requests: "✉", Billing: "$", Cookbook: "❧", People: "☺" } as Record<string, string>)[item] ?? (["⌂", "♨", "□", "◎", "$", "◷", "↗"][i] || "·")}</Icon>
               {item}
               {item === "Safety" ? <b>2</b> : null}
             </button>

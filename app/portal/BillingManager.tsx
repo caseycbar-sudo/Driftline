@@ -24,7 +24,7 @@ type Unbilled = { id: number; serviceDate: string; household: string; customerEm
 type Data = { configured: boolean; environment: string; payments: Payment[]; unbilled: Unbilled[]; customers: CustomerCard[] };
 type Action = "retry" | "check" | "cancel" | "mark_paid" | "mark_failed";
 type Pkg = { name: string; portions: number; price: string; note: string; featured: boolean };
-type PricesForm = { mealPrep: Pkg[]; privateChef: { perGuest: string; minGuests: string; smallTableMin: string } };
+type PricesForm = { mealPrep: Pkg[]; pantryKit: string; privateChef: { perGuest: string; minGuests: string; smallTableMin: string } };
 
 const money = (cents: number) => `$${(cents / 100).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const day = (iso: string) => (iso ? new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric" }) : "");
@@ -62,10 +62,12 @@ export default function BillingManager() {
       .then(
         (p: {
           mealPrep: { name: string; portions: number; priceCents: number; note: string; featured: boolean }[];
+          pantryKitCents?: number;
           privateChef: { perGuestCents: number; minGuests: number; smallTableMinCents: number };
         }) =>
           setPrices({
             mealPrep: p.mealPrep.map((m) => ({ ...m, price: String(m.priceCents / 100) })),
+            pantryKit: String((p.pantryKitCents ?? 900) / 100),
             privateChef: {
               perGuest: String(p.privateChef.perGuestCents / 100),
               minGuests: String(p.privateChef.minGuests),
@@ -444,6 +446,16 @@ export default function BillingManager() {
                 + Add a package
               </button>
             ) : null}
+            <div className="price-row pc">
+              <label>
+                Chef pantry kit, per meal prep visit
+                <span className="money-field">
+                  <b>$</b>
+                  <input inputMode="decimal" value={prices.pantryKit} onChange={(e) => setPrices({ ...prices, pantryKit: e.target.value })} />
+                </span>
+                <small>Covers the spices, oil, salt and pepper your chef brings, instead of buying jars for every house. Set $0 to turn it off.</small>
+              </label>
+            </div>
             <h3>Private chef dinners</h3>
             <div className="price-row pc">
               <label>
