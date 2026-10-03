@@ -55,3 +55,7 @@
 .account-page.has-dishes:not(.plan-page) .dish-backdrop::after {
   background: linear-gradient(180deg, #0a293b73 0 470px, #efe7d8f2 640px, #efe7d8fa 100%);
 }
+
+.plan-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.plan-chips button{border:1px solid #c9c0ad;background:#fff;border-radius:999px;padding:6px 12px;font:inherit;cursor:pointer}
+.plan-chips button.on{background:#1f3a34;border-color:#1f3a34;color:#fff}

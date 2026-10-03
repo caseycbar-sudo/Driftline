@@ -18,20 +18,32 @@ import { DEFAULT_PRICING } from "../app/pricing-core.ts";
 // Wed 2026-09-30 11:00 in Oregon (PDT, UTC-7).
 const NOW = Date.UTC(2026, 8, 30, 18, 0);
 
-test("plans: portions are dishes times people, in the smallest package that holds them", () => {
-  assert.equal(planFor(3, 2, DEFAULT_PRICING).package.name, "Essential"); // 6 portions
-  assert.equal(planFor(4, 2, DEFAULT_PRICING).package.name, "Classic"); // 8
-  assert.equal(planFor(5, 2, DEFAULT_PRICING).package.name, "Weekly"); // 10 -> 12
-  assert.equal(planFor(3, 4, DEFAULT_PRICING).package.name, "Weekly"); // 12
-  assert.equal(planFor(5, 4, DEFAULT_PRICING).package.name, "Household"); // 20
+test("plans: each dish makes 2 portions per person, so every added person raises the plan", () => {
+  const name = (items, people) => planFor(items, people, DEFAULT_PRICING).package.name;
+  assert.equal(name(3, 1), "Essential"); // 6 portions
+  assert.equal(name(3, 2), "Weekly"); // 12
+  assert.equal(name(3, 3), "Household"); // 18 -> 20
+  assert.equal(name(3, 4), "Family"); // 24
+  assert.equal(name(4, 1), "Classic"); // 8
+  assert.equal(name(5, 1), "Weekly"); // 10 -> 12
+  assert.equal(name(5, 2), "Household"); // 20
+  // Price never stays flat as people are added.
+  for (const items of [3, 4, 5]) {
+    let last = 0;
+    for (let people = 1; people <= maxPeopleFor(items, DEFAULT_PRICING); people++) {
+      const price = planFor(items, people, DEFAULT_PRICING).package.priceCents;
+      assert.ok(price > last);
+      last = price;
+    }
+  }
 });
 
 test("plans: nothing under 3 or over 5 dishes, and people are capped by the largest package", () => {
   assert.equal(planFor(2, 2, DEFAULT_PRICING), null);
   assert.equal(planFor(6, 1, DEFAULT_PRICING), null);
-  assert.equal(planFor(5, 5, DEFAULT_PRICING), null); // 25 portions > 24
-  assert.equal(maxPeopleFor(5, DEFAULT_PRICING), 4);
-  assert.equal(maxPeopleFor(3, DEFAULT_PRICING), 8);
+  assert.equal(planFor(5, 3, DEFAULT_PRICING), null); // 30 portions > 24
+  assert.equal(maxPeopleFor(5, DEFAULT_PRICING), 2);
+  assert.equal(maxPeopleFor(3, DEFAULT_PRICING), 4);
 });
 
 test("Oregon clock: DST and standard time both land on the right instant", () => {
