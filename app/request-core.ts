@@ -22,7 +22,7 @@ export const SERVICE_CITIES = ["Astoria", "Warrenton", "Gearhart", "Seaside", "C
 export const OUTSIDE_AREA = "Outside current area";
 
 export const CANCELLATION_POLICY =
-  "Cancel or reschedule at least 48 hours before your visit at no charge. For changes closer than that, contact Driftline and we'll work it out together.";
+  "Cancel or reschedule at least 48 hours before your visit at no charge. For changes closer than that, call or text Driftline at (503) 741-9630 and we'll work it out together. Groceries already bought for your visit are billed at cost.";
 
 export const PRICE_COVERS =
   "The price is for the chef's time and skill. Groceries are billed separately at actual cost, with the receipt.";
