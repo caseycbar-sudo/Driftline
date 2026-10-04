@@ -34,7 +34,7 @@ export default function ChefFieldApp({staff}:{staff:{email:string;fullName:strin
   const firstName=staff.fullName.split(" ")[0]||"Chef";
   return <main className="field-app">
     <DisclosureGate scope="chef"/>
-    <header className="field-top"><Link href="/" aria-label="Driftline home"><BrandLogo/></Link><div><strong>{staff.fullName}</strong><small>Driftline chef</small></div></header>
+    <header className="field-top"><Link href="/" aria-label="Driftline home"><BrandLogo/></Link><div><strong>{staff.fullName}</strong><small>Driftline chef</small></div><a className="staff-signout" href="/signout?return_to=%2Fchef">Sign out</a></header>
     {selected?<JobWorkspace job={selected} entries={entries} checks={checks} setCheck={setCheck} busy={busy} error={error} back={()=>setSelectedId(null)} action={action} reload={load}/>:<>
       <section className="field-content">
         {tab==="day"?<DayView firstName={firstName} jobs={todayJobs} next={upcoming[0]} loading={loading} error={error} dayActive={Boolean(openEntry("day"))} breakActive={Boolean(openEntry("break"))} busy={busy} onAction={action} openJob={setSelectedId}/>:null}

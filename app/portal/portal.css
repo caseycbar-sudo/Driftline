@@ -2857,3 +2857,5 @@ td {
 .blocked-days li{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:6px 10px;background:#fbf9f4;border:1px solid #e5dfd2;border-radius:8px}
 .blocked-days li em{color:#6b6553;font-style:normal}
 .blocked-note{color:#6b6553;font-size:13px;margin:10px 0 0}
+
+.staff-signout{border:1px solid #c9a48f;background:#fff;color:#8a4a2f;padding:8px 14px;font-size:12px;font-weight:800;text-decoration:none;border-radius:6px;white-space:nowrap}.staff-signout:hover{background:#a95739;color:#fff;border-color:#a95739}.portal-user .staff-signout{margin-left:14px}
