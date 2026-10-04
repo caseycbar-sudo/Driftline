@@ -167,6 +167,9 @@ export function firstBookableDate(now = Date.now()): string {
 
 export const hoursUntil = (date: string, time: string, now = Date.now()) => (oregonInstant(date, time || "00:00") - now) / 3_600_000;
 
+/** True when a visit starts inside the free-cancellation window, so changes must go through a phone call. */
+export const insideCancelWindow = (date: string, time: string, now = Date.now()) => hoursUntil(date, time, now) < MIN_LEAD_HOURS;
+
 export function addMinutes(time: string, plus: number): string {
   const total = minutes(time) + plus;
   return `${String(Math.floor(total / 60)).padStart(2, "0")}:${String(total % 60).padStart(2, "0")}`;

@@ -4,6 +4,7 @@ import {
   chefMaySeeAddress,
   earliestDate,
   hoursUntil,
+  insideCancelWindow,
   maxPeopleFor,
   oregonInstant,
   parseApproval,
@@ -153,4 +154,10 @@ test("calendar starts on the first day the Morning block still has 48 hours of n
   assert.equal(firstBookableDate(NOW), "2026-10-03");
   // Wed 05:00 PDT now: Friday 05:00 is before the 8am Morning start, so Friday works.
   assert.equal(firstBookableDate(Date.UTC(2026, 8, 30, 12, 0)), "2026-10-02");
+});
+
+test("a visit less than 48 hours away is inside the cancel window", () => {
+  assert.equal(insideCancelWindow("2026-10-02", "10:59", NOW), true);
+  assert.equal(insideCancelWindow("2026-10-02", "11:00", NOW), false);
+  assert.equal(insideCancelWindow("2026-10-05", "09:00", NOW), false);
 });

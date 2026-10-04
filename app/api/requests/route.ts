@@ -8,8 +8,10 @@ import { createRequest, getRequest, listForCustomer, patchRequest, type SessionR
 import { getEvent, patchEvent } from "../../../db/schedule";
 import { squareConfig } from "../../square";
 import { getBillingProfile } from "../../../db/payments";
+import { createInquiry } from "../../../db/private-chef";
+import { notifyNewInquiry } from "../../notify";
 import { unavailableBetween } from "../../../db/availability";
-import { earliestDate, isOpenForCustomerChange, latestDate, parseRequestInput, planFor, profileGaps } from "../../request-core";
+import { BUSINESS_PHONE, earliestDate, insideCancelWindow, isOpenForCustomerChange, latestDate, parseRequestInput, planFor, profileGaps } from "../../request-core";
 import { notifyCustomerCancelled, notifyRequestSubmitted } from "../../request-emails";
 import { customerView } from "../../request-view";
 
@@ -38,6 +40,9 @@ export async function POST(request: Request) {
     if (!existing || existing.customerEmail !== user.email.toLowerCase()) return fail("We couldn't find that request.", 404);
     if (!isOpenForCustomerChange(existing.status)) return fail("That request is already closed.", 409);
     const event = existing.scheduleEventId ? await getEvent(existing.scheduleEventId) : null;
+    if (event && event.status !== "cancelled" && event.serviceDate && insideCancelWindow(event.serviceDate, event.startTime)) {
+      return fail(`This visit is less than 48 hours away. Please call or text Driftline at ${BUSINESS_PHONE} so we can work it out together.`, 409);
+    }
     if (event && event.status !== "cancelled") {
       const cancelled = await patchEvent(event.id, { status: "cancelled" });
       // A chef who hasn't accepted yet still knows about the visit, so they hear about this too.
@@ -45,6 +50,28 @@ export async function POST(request: Request) {
     }
     await patchRequest(existing.id, { status: "cancelled" });
     return NextResponse.json({ ok: true });
+  }
+
+  if (action === "waitlist") {
+    const city = String(body.city || profile.city || "").replace(/\s+/g, " ").trim().slice(0, 80);
+    if (!city) return fail("Tell us which city you are in.", 400, "city");
+    const lead = {
+      inquiryType: "general" as const,
+      fullName: who.name || user.email,
+      email: user.email.toLowerCase(),
+      phone: who.phone || "",
+      preferredDate: "",
+      guestCount: 0,
+      location: "",
+      occasion: "Weekly meal prep",
+      details: `Area waitlist: please tell me when you serve ${city}.`,
+      zip: "",
+      packageName: "",
+      serviceFor: "",
+    };
+    const saved = await createInquiry(lead, `waitlist:${lead.email}`);
+    await notifyNewInquiry(lead).catch(() => false);
+    return NextResponse.json({ ok: true, id: saved.id });
   }
 
   if (action !== "create" && action !== "change") return fail("Unknown action.");
@@ -97,6 +124,12 @@ export async function POST(request: Request) {
   if (!isOpenForCustomerChange(existing.status)) return fail("That request is already closed.", 409);
   let status: SessionRequest["status"] = "requested";
   let scheduleEventId = 0;
+  if ((existing.status === "scheduled" || existing.status === "change_requested") && existing.scheduleEventId) {
+    const booked = await getEvent(existing.scheduleEventId);
+    if (booked && booked.status !== "cancelled" && booked.serviceDate && insideCancelWindow(booked.serviceDate, booked.startTime)) {
+      return fail(`This visit is less than 48 hours away. Please call or text Driftline at ${BUSINESS_PHONE} so we can work it out together.`, 409);
+    }
+  }
   if (existing.status === "scheduled" || existing.status === "change_requested") {
     // A chef is already booked: keep the visit until the admin approves the new time.
     status = "change_requested";

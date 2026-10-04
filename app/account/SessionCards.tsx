@@ -120,7 +120,11 @@ function Card({ r, cancel }: { r: Req; cancel: (r: Req) => void }) {
           <Link href={resched}>{r.status === "needs_new_time" ? "Choose new times" : "Reschedule"}</Link>
           <button onClick={() => cancel(r)}>Cancel</button>
         </footer>
-      ) : null}
+      ) : (
+        <footer>
+          <Link href={`/account/schedule?items=${r.recipeIds.join(",")}&people=${r.people}`}>Book this menu again</Link>
+        </footer>
+      )}
     </article>
   );
 }
