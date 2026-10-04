@@ -50,3 +50,9 @@
 .late-options { display: flex; flex-wrap: wrap; gap: 8px; }
 .late-options button { flex: 1 1 70px; }
 .late-options .late-cancel { border-color: #c9c2b4; font-weight: 400; }
+
+.cant-make { margin-top: 0; }
+.cant-form { display: grid; gap: 10px; }
+.cant-form label { display: grid; gap: 4px; font-size: 14px; }
+.cant-form textarea { min-height: 70px; padding: 8px 10px; border: 1px solid #c9c2b4; border-radius: 8px; font: inherit; }
+.running-late .cant-confirm { background: #7a2e22; border-color: #7a2e22; color: #fff; }

@@ -6,10 +6,11 @@
 import { eq } from "drizzle-orm";
 import { getDb } from "../../db/index";
 import { siteSettings } from "../../db/schema";
-import { listForDate } from "../../db/schedule";
+import { listAwaitingChef, listForDate } from "../../db/schedule";
+import { getRequestForEvent } from "../../db/requests";
 import { getCustomer } from "../../db/customers";
 import { listNeedingReminder, patchRequest } from "../../db/requests";
-import { sendRequestReminder } from "../request-emails";
+import { notifyOwnerChefWaiting, notifyStillFindingChef, nudgeChefToAnswer, sendRequestReminder } from "../request-emails";
 import { oregonTomorrow, sendDayBeforeReminders } from "../visit-emails";
 
 export async function runDailyJobs(now = new Date()) {
@@ -29,6 +30,35 @@ export async function runDailyJobs(now = new Date()) {
   const overdue = await listNeedingReminder(new Date(now.getTime() - 24 * 3_600_000).toISOString()).catch(() => []);
   const named = await Promise.all(overdue.map(async (request) => ({ request, name: (await getCustomer(request.customerEmail))?.fullName || request.customerEmail })));
   if (await sendRequestReminder(named)) for (const { request } of named) await patchRequest(request.id, { remindedAt: now.toISOString() });
+  // Visits where no chef has said yes after a day: nudge the chef, tell the customer once, and list them for the owner.
+  await chaseChefAnswers(now, date).catch((error) => console.error("[daily] chef follow-up failed", error));
   await db.update(siteSettings).set({ value: `sent ${sent}` }).where(eq(siteSettings.key, key));
   return { date, sent, skipped: false };
+}
+
+/** Insert-once guard so each follow-up is sent a single time per visit. */
+async function claimOnce(key: string, now: Date) {
+  const claimed = await getDb()
+    .insert(siteSettings)
+    .values({ key, value: "claimed", updatedAt: now.toISOString(), updatedBy: "cron" })
+    .onConflictDoNothing()
+    .returning({ key: siteSettings.key });
+  return claimed.length > 0;
+}
+
+async function chaseChefAnswers(now: Date, tomorrow: string) {
+  const cutoff = now.getTime() - 24 * 3_600_000;
+  const waiting = (await listAwaitingChef()).filter((v) => Date.parse(v.updatedAt) < cutoff);
+  if (!waiting.length) return;
+  for (const v of waiting) {
+    if (v.chefResponse === "pending" && v.chefEmail && (await claimOnce(`chef_nudged:${v.id}:${v.chefEmail}`, now))) await nudgeChefToAnswer(v);
+    if (await claimOnce(`customer_still_finding:${v.id}`, now)) {
+      const request = await getRequestForEvent(v.id);
+      if (request) {
+        const customer = await getCustomer(request.customerEmail);
+        await notifyStillFindingChef(v, { name: customer?.fullName || request.customerEmail, email: request.customerEmail, phone: customer?.phone ?? "" });
+      }
+    }
+  }
+  await notifyOwnerChefWaiting(waiting.map((v) => ({ v, tomorrow: v.serviceDate === tomorrow })));
 }
