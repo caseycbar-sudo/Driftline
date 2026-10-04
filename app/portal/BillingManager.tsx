@@ -225,7 +225,7 @@ export default function BillingManager() {
                 </div>
                 <div className="billing-row-actions">
                   {p.kind === "visit_charge" && p.groceryCents ? (
-                    <a href={`/api/admin/receipt?visit=${p.scheduleEventId}`} target="_blank" rel="noreferrer">
+                    <a href={`/api/receipt?visit=${p.scheduleEventId}`} target="_blank" rel="noreferrer">
                       Receipt photo
                     </a>
                   ) : null}
