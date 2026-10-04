@@ -7,9 +7,12 @@
 .label-meta b{font-size:5.3pt}
 .meal-label p{font-size:6.2pt;line-height:1.12;margin:2px 0;overflow:hidden}
 .meal-label p b,.meal-label footer b{font-size:5.7pt}
-.label-storage,.label-allergens{flex:0 0 auto;white-space:nowrap;text-overflow:ellipsis}
-.label-reheat{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;flex:0 1 auto}
-.meal-label footer{margin-top:2px;padding-top:2px;font-size:5.3pt;line-height:1.08;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;flex:0 1 auto}
+.label-storage{flex:0 0 auto;white-space:nowrap}
+.label-allergens{flex:0 0 auto;font-weight:700}
+.label-allergens b{font-weight:800}
+.label-reheat{flex:1 1 auto;min-height:0;overflow:hidden}
+.meal-label footer{margin-top:2px;padding-top:2px;font-size:5.2pt;line-height:1.1;border-top:1px solid #777;flex:0 0 auto}
+.label-hint{font-size:8px;font-style:normal;color:#748388;font-weight:400}.label-hint.warn{color:#a95739;font-weight:800}
 @media(max-width:560px){.label-preview{overflow-x:auto}.label-preview>.meal-label{max-width:none}}
 @media print{.print-label-sheet .meal-label{min-height:0}}
 .label-dishes details.previewing{box-shadow:inset 4px 0 #a95739;background:#fffaf5}
@@ -18,3 +21,12 @@
 .label-actions button{border:1px solid #9eb2aa;background:#fff;color:#17323e;padding:8px 10px;font-size:8px;font-weight:800;cursor:pointer}
 .label-actions button:last-child{background:#486863;color:#fff;border-color:#486863}
 @media(max-width:700px){.label-dishes summary{grid-template-columns:1fr auto}.label-actions{grid-column:1/-1}.label-actions button{flex:1}.label-dishes summary>i{grid-column:1/-1}}
+.label-top{display:grid;grid-template-columns:minmax(220px,300px) 1fr;border-bottom:1px solid #dce1dc}
+.label-top .label-dates{grid-template-columns:1fr;align-content:start;gap:10px}
+.label-top .label-dates h3{margin:0;font-size:11px;color:#123349}
+.label-top .label-dates p{margin:0;font-size:9px;color:#748388;line-height:1.35}
+.label-quick{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:9px;font-weight:800;color:#385664}
+.label-quick button{border:1px solid #9eb2aa;background:#fff;color:#17323e;padding:6px 9px;font-size:9px;font-weight:800;cursor:pointer}
+.label-quick button.on{background:#486863;color:#fff;border-color:#486863}
+.label-top .label-preview{border-top:0;border-left:1px solid #dce1dc;overflow-x:auto}
+@media(max-width:700px){.label-top{grid-template-columns:1fr}.label-top .label-preview{border-left:0;border-top:1px solid #dce1dc}}
