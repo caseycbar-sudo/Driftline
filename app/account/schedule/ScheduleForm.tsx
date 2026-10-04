@@ -36,7 +36,8 @@ export default function ScheduleForm(props: {
     [policy, setPolicy] = useState(false),
     [error, setError] = useState(""),
     [busy, setBusy] = useState(false),
-    [waitlisted, setWaitlisted] = useState(false);
+    [waitlisted, setWaitlisted] = useState(false),
+    [hint, setHint] = useState("");
   const outside = city === OUTSIDE_AREA || (Boolean(city) && !SERVICE_CITIES.some((c) => c === city));
   const set = (i: number, patch: Partial<Win>) => setWindows((w) => w.map((x, j) => (j === i ? { ...x, ...patch } : x)));
   const toggleDate = (date: string) =>
@@ -47,6 +48,14 @@ export default function ScheduleForm(props: {
           ? w
           : [...w, { date, from: TIME_PRESETS[0].from, to: TIME_PRESETS[0].to }].sort(byDate),
     );
+  const pickDay = (date: string) => {
+    if (windows.length >= MAX_WINDOWS && !windows.some((x) => x.date === date)) {
+      setHint(`You have picked ${MAX_WINDOWS} days. Tap one of your dark days to remove it, then pick another.`);
+      return;
+    }
+    setHint("");
+    toggleDate(date);
+  };
 
   async function joinWaitlist() {
     const response = await fetch("/api/requests", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "waitlist", city: city === OUTSIDE_AREA ? address || "another area" : city }) });
@@ -127,18 +136,50 @@ export default function ScheduleForm(props: {
           <strong>This is a request, not a booking yet.</strong> Tell us when you could be home. We will match you with a chef and confirm within {REQUEST_RESPONSE_HOURS} hours. Sending this does not charge you.
         </p>
 
-        <fieldset>
-          <legend>Days that work for you</legend>
+        <fieldset className="step-block">
+          <legend>
+            <b>1</b> Pick the days you could be home
+          </legend>
           <p className="plan-note">
-            Tap up to {MAX_WINDOWS} days. The more options you give us, the faster we can book you. We need at least {MIN_LEAD_HOURS} hours of notice. Greyed out days are not available. If you need one of those, call or text us at {BUSINESS_PHONE}.
+            Tap up to {MAX_WINDOWS} days. The more options you give us, the faster we can book you. We need at least {MIN_LEAD_HOURS} hours of notice. Need a day that is crossed out? Call or text us at {BUSINESS_PHONE}.
           </p>
-          <DayPicker earliest={props.earliest} latest={props.latest} unavailable={props.unavailable} selected={windows.map((w) => w.date)} full={windows.length >= MAX_WINDOWS} onToggle={toggleDate} />
-          {windows.length ? <h3 className="schedule-sub">What part of each day?</h3> : null}
+          <p className="day-count" aria-live="polite">
+            <strong>
+              {windows.length} of {MAX_WINDOWS} days picked
+            </strong>
+            {windows.length ? (
+              <span className="day-chips">
+                {windows.map((w) => (
+                  <button type="button" key={w.date} onClick={() => pickDay(w.date)} aria-label={`Remove ${dayLabel(w.date)}`}>
+                    {new Date(`${w.date}T12:00:00`).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })} <i aria-hidden="true">×</i>
+                  </button>
+                ))}
+              </span>
+            ) : null}
+          </p>
+          <DayPicker earliest={props.earliest} latest={props.latest} unavailable={props.unavailable} selected={windows.map((w) => w.date)} full={windows.length >= MAX_WINDOWS} onToggle={pickDay} />
+          {hint ? (
+            <p className="plan-warning" role="status">
+              {hint}
+            </p>
+          ) : null}
+        </fieldset>
+
+        <fieldset className="step-block">
+          <legend>
+            <b>2</b> Choose a time of day for each day
+          </legend>
+          {windows.length ? null : <p className="plan-note step-wait">Pick a day above first. Your days will show up here.</p>}
           {windows.map((w, i) => {
             const preset = TIME_PRESETS.find((p) => p.from === w.from && p.to === w.to);
             return (
               <div className="schedule-window" key={w.date + i}>
-                <strong>{dayLabel(w.date)}</strong>
+                <div className="schedule-window-head">
+                  <strong>{dayLabel(w.date)}</strong>
+                  <button type="button" className="schedule-remove" onClick={() => toggleDate(w.date)}>
+                    Remove
+                  </button>
+                </div>
                 <div className="schedule-presets" role="group" aria-label={`Time of day on ${dayLabel(w.date)}`}>
                   {TIME_PRESETS.map((p) => (
                     <button type="button" key={p.key} className={preset?.key === p.key ? "on" : ""} aria-pressed={preset?.key === p.key} onClick={() => set(i, { from: p.from, to: p.to })}>
@@ -148,7 +189,7 @@ export default function ScheduleForm(props: {
                   ))}
                 </div>
                 <details open={!preset}>
-                  <summary>Set exact times</summary>
+                  <summary>Need different hours? Set exact times</summary>
                   <div className="schedule-exact">
                     <input type="time" step={1800} value={w.from} onChange={(e) => set(i, { from: e.target.value })} required aria-label="From" />
                     <span>to</span>
@@ -156,16 +197,15 @@ export default function ScheduleForm(props: {
                     <small>At least 3 hours, so your chef has room to cook.</small>
                   </div>
                 </details>
-                <button type="button" className="schedule-remove" onClick={() => toggleDate(w.date)}>
-                  Remove this day
-                </button>
               </div>
             );
           })}
         </fieldset>
 
         <fieldset>
-          <legend>Where</legend>
+          <legend>
+            <b>3</b> Where are we cooking?
+          </legend>
           <p>{profile.address ? `Your home address: ${profile.address}, ${profile.city}` : "No home address on file yet."}</p>
           <label className="check">
             <input type="checkbox" checked={other} onChange={(e) => setOther(e.target.checked)} /> Use a different address for this visit

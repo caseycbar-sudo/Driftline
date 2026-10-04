@@ -60,15 +60,15 @@ export default function DayPicker({
           const out = date < earliest || date > latest;
           const off = unavailable.includes(date);
           const on = selected.includes(date);
-          const disabled = out || off || (!on && full);
+          const disabled = out || off;
           return (
             <button
               type="button"
               key={date}
-              className={`${on ? "on" : ""} ${off ? "off" : ""}`}
+              className={`${on ? "on" : ""} ${off ? "off" : ""} ${!on && full ? "locked" : ""}`}
               disabled={disabled}
               aria-pressed={on}
-              aria-label={`${date}${off ? ", not available" : ""}`}
+              aria-label={`${date}${off ? ", not available" : ""}${on ? ", picked, tap to remove" : ""}`}
               onClick={() => onToggle(date)}
             >
               {d}
@@ -76,6 +76,12 @@ export default function DayPicker({
           );
         })}
       </div>
+      <ul className="day-picker-legend" aria-label="What the colors mean">
+        <li><i className="open" /> Open</li>
+        <li><i className="mine" /> Your pick</li>
+        <li><i className="closed" /> We are not taking visits</li>
+        <li><i className="soon" /> Too soon or too far out</li>
+      </ul>
     </div>
   );
 }
