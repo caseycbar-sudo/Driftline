@@ -35,7 +35,8 @@ export default function ScheduleForm(props: {
     [kitchen, setKitchen] = useState(initial?.kitchenNotes ?? profile.kitchenNotes),
     [policy, setPolicy] = useState(false),
     [error, setError] = useState(""),
-    [busy, setBusy] = useState(false);
+    [busy, setBusy] = useState(false),
+    [waitlisted, setWaitlisted] = useState(false);
   const outside = city === OUTSIDE_AREA || (Boolean(city) && !SERVICE_CITIES.some((c) => c === city));
   const set = (i: number, patch: Partial<Win>) => setWindows((w) => w.map((x, j) => (j === i ? { ...x, ...patch } : x)));
   const toggleDate = (date: string) =>
@@ -46,6 +47,12 @@ export default function ScheduleForm(props: {
           ? w
           : [...w, { date, from: TIME_PRESETS[0].from, to: TIME_PRESETS[0].to }].sort(byDate),
     );
+
+  async function joinWaitlist() {
+    const response = await fetch("/api/requests", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "waitlist", city: city === OUTSIDE_AREA ? address || "another area" : city }) });
+    if (response.ok) setWaitlisted(true);
+    else setError("We couldn't save that. Please try again.");
+  }
 
   async function submit(event: React.FormEvent) {
     event.preventDefault();
@@ -183,7 +190,14 @@ export default function ScheduleForm(props: {
           ) : null}
           {outside ? (
             <p className="plan-warning">
-              We don&apos;t serve that area yet. We cover {SERVICE_CITIES.join(", ")}. Email us and we&apos;ll let you know when that changes.
+              We don&apos;t serve that area yet. We cover {SERVICE_CITIES.join(", ")}. We can let you know when that changes.{" "}
+              {waitlisted ? (
+                <strong>Thank you, we have your email and will be in touch.</strong>
+              ) : (
+                <button type="button" className="link" onClick={joinWaitlist}>
+                  Tell me when you serve my area
+                </button>
+              )}
             </p>
           ) : null}
         </fieldset>
