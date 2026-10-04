@@ -20,8 +20,7 @@ type Session = { signedIn: boolean; role: "admin" | "chef" | null; firstName: st
 /** Where the signed-in person's own area lives, and what to call it. */
 function homeFor(session: Session | null) {
   if (!session?.signedIn) return { href: "/account", label: "Sign in" };
-  if (session.role === "admin") return { href: "/portal", label: "Owner dashboard" };
-  if (session.role === "chef") return { href: "/chef/workspace", label: "Chef workspace" };
+  // Staff links are deliberately not shown on the public site. The team uses /staff.
   return { href: "/account", label: "My account" };
 }
 
@@ -63,11 +62,6 @@ export default function SiteHeader({ current }: { current?: string }) {
             <a href={home.href} onClick={close}>
               {home.label} →
             </a>
-            {session.role ? (
-              <a href="/account" onClick={close}>
-                My customer account
-              </a>
-            ) : null}
             <a href="/signout?return_to=%2F" onClick={close}>
               Sign out
             </a>
