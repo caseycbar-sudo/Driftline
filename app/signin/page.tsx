@@ -23,7 +23,7 @@ export default async function SignInPage({ searchParams }: { searchParams: Searc
   const expired = params.expired === "1";
   const googleFailed = params.google === "failed";
   const googleEnabled = Boolean(googleConfig());
-  const forStaff = returnTo.startsWith("/chef") || returnTo.startsWith("/portal");
+  const forStaff = returnTo.startsWith("/chef") || returnTo.startsWith("/portal") || returnTo.startsWith("/staff");
 
   return (
     <main className="dp">
