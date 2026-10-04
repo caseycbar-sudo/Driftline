@@ -1,5 +1,6 @@
 "use client";
 
+import { averagePackLb } from "../kroger-core";
 import { useEffect, useMemo, useState } from "react";
 import type { GroceryItem } from "./grocery-list";
 import "./FredMeyerOrder.css";
@@ -161,7 +162,7 @@ export default function FredMeyerOrder({ items, allItems, title = "Order at Fred
                     {row.product?.priceCents ? (row.product.promoCents ? <><s>{money(row.product.priceCents)}</s> <b>{money(row.product.promoCents)}</b></> : money(row.product.priceCents)) : ""}
                     {row.product && !row.product.inStock ? " · may be out of stock" : ""}
                     {row.product?.aisle ? ` · ${row.product.aisle}` : ""}
-                    {row.product?.soldBy?.toUpperCase() === "WEIGHT" ? " · sold by weight, each pack averages about 3 lb" : ""}
+                    {row.product?.soldBy?.toUpperCase() === "WEIGHT" ? ` · sold by weight, each one averages about ${averagePackLb(row.need.category)} lb` : ""}
                   </span>
                   <button type="button" className="fm-link" onClick={() => { setSwapping(swapping === row.key ? null : row.key); setQuery(""); setResults([]); }}>
                     {swapping === row.key ? "Close" : "Change product"}

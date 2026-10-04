@@ -167,15 +167,20 @@ function packageOunces(size: string): number | null {
  * size; counted items are rounded up; spices, oils and anything by the spoon or cup
  * start at 1 (the chef adjusts).
  */
-export const AVERAGE_WEIGHT_PACK_LB = 3;
+/** Rough weight of one "each" of something Fred Meyer sells by the pound: a tray of chicken is about 3 lb, a loose onion or pepper about half a pound. */
+export function averagePackLb(category = ""): number {
+  if (category === "Meat & seafood") return 3;
+  if (category === "Produce") return 0.5;
+  return 1;
+}
 
-export function suggestQuantity(need: { quantity: number | null; unit: string }, productSize: string, soldBy = ""): number {
+export function suggestQuantity(need: { quantity: number | null; unit: string; category?: string }, productSize: string, soldBy = ""): number {
   const q = need.quantity;
   if (q === null || q <= 0) return 1;
-  // Sold by the pound ("$3.99/lb"): the cart quantity is a number of packages, each averaging about 3 lb, not a number of pounds.
+  // Sold by the pound ("$3.99/lb"): the cart quantity is a number of packages, each averaging a few pounds for meat and about half a pound for loose produce, not a number of pounds.
   if (soldBy.toUpperCase() === "WEIGHT" && (need.unit === "lb" || need.unit === "oz")) {
     const needLb = need.unit === "lb" ? q : q / 16;
-    return Math.min(20, Math.max(1, Math.ceil(needLb / AVERAGE_WEIGHT_PACK_LB - 0.1)));
+    return Math.min(30, Math.max(1, Math.ceil(needLb / averagePackLb(need.category) - 0.1)));
   }
   if (need.unit === "lb" || need.unit === "oz") {
     const needOz = need.unit === "lb" ? q * 16 : q;
