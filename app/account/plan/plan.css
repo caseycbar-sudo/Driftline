@@ -112,3 +112,6 @@
 .schedule-presets button{flex:1;min-width:96px;text-align:center;padding:12px 10px;font-weight:700}
 .schedule-presets button small{font-weight:400}
 @media(max-width:560px){.day-picker{max-width:none}.schedule-presets{display:grid;grid-template-columns:repeat(3,1fr)}.schedule-presets button{min-width:0;padding:10px 4px}}
+
+.send-blockers ul { margin: 6px 0 0; padding-left: 20px; }
+.send-blockers li { margin: 2px 0; }
