@@ -42,3 +42,11 @@
 .response-error p{margin:0;font-size:13px;line-height:1.45;color:#7a3f27}
 .response-error a{display:inline-block;margin-top:10px;font-size:13px;font-weight:800;color:#a95739}
 @media(max-width:560px){.response-actions{flex-direction:column}}
+
+.running-late { display: grid; gap: 10px; margin: 14px 0; padding: 14px 16px; border: 1px solid #d9cfbe; border-radius: 12px; background: #fbf7ef; }
+.running-late small { letter-spacing: .12em; font-size: 11px; color: #7a6a4a; }
+.running-late p { margin: 4px 0 0; }
+.running-late button { min-height: 44px; padding: 0 16px; border-radius: 10px; border: 1px solid #1c2a3a; background: #fff; font: inherit; font-weight: 600; }
+.late-options { display: flex; flex-wrap: wrap; gap: 8px; }
+.late-options button { flex: 1 1 70px; }
+.late-options .late-cancel { border-color: #c9c2b4; font-weight: 400; }
