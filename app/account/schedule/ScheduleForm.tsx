@@ -258,6 +258,21 @@ export default function ScheduleForm(props: {
         </label>
 
         {error ? <p className="plan-warning" role="alert">{error}</p> : null}
+        {profile.gaps.length > 0 || props.needsCard || outside || windows.length === 0 ? (
+          <div className="plan-warning send-blockers" role="status">
+            <strong>To send this request:</strong>
+            <ul>
+              {windows.length === 0 ? <li>Pick at least one day and time above.</li> : null}
+              {outside ? <li>Choose a city we serve.</li> : null}
+              {profile.gaps.length > 0 ? (
+                <li>Add {profile.gaps.join(", ")} to <Link href="/account#profile">your profile</Link>.</li>
+              ) : null}
+              {props.needsCard ? (
+                <li>Save a card under <Link href="/account#billing">Card &amp; receipts</Link>.</li>
+              ) : null}
+            </ul>
+          </div>
+        ) : null}
         <div className="save-row">
           <button disabled={busy || outside || profile.gaps.length > 0 || props.needsCard || windows.length === 0}>{busy ? "Sending…" : props.editId ? "Send change request" : "Send request"}<span>→</span></button>
           <p>Nothing is booked yet. We&apos;ll confirm within {REQUEST_RESPONSE_HOURS} hours.</p>
