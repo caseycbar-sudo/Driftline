@@ -23,6 +23,7 @@ export default function ScheduleForm(props: {
   earliest: string;
   latest: string;
   unavailable: string[];
+  needsCard: boolean;
   backdrop: string[];
 }) {
   const { profile, initial } = props;
@@ -106,6 +107,12 @@ export default function ScheduleForm(props: {
         {profile.gaps.length ? (
           <p className="plan-warning">
             Add {profile.gaps.join(", ")} to <Link href="/account#profile">your profile</Link> before sending a request.
+          </p>
+        ) : null}
+
+        {props.needsCard ? (
+          <p className="plan-warning">
+            Save a card under <Link href="/account#billing">Card &amp; receipts</Link> before sending a request. It is only charged after your visit is done, for the package price plus groceries.
           </p>
         ) : null}
 
@@ -198,7 +205,7 @@ export default function ScheduleForm(props: {
 
         {error ? <p className="plan-warning" role="alert">{error}</p> : null}
         <div className="save-row">
-          <button disabled={busy || outside || profile.gaps.length > 0 || windows.length === 0}>{busy ? "Sending…" : props.editId ? "Send change request" : "Send request"}<span>→</span></button>
+          <button disabled={busy || outside || profile.gaps.length > 0 || props.needsCard || windows.length === 0}>{busy ? "Sending…" : props.editId ? "Send change request" : "Send request"}<span>→</span></button>
           <p>Nothing is booked yet. We&apos;ll confirm within {REQUEST_RESPONSE_HOURS} hours.</p>
         </div>
       </form>

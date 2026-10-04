@@ -6,6 +6,8 @@ import { getPricing } from "../../../db/pricing";
 import { getCookbook } from "../../../db/cookbook";
 import { createRequest, getRequest, listForCustomer, patchRequest, type SessionRequest } from "../../../db/requests";
 import { getEvent, patchEvent } from "../../../db/schedule";
+import { squareConfig } from "../../square";
+import { getBillingProfile } from "../../../db/payments";
 import { unavailableBetween } from "../../../db/availability";
 import { earliestDate, isOpenForCustomerChange, latestDate, parseRequestInput, planFor, profileGaps } from "../../request-core";
 import { notifyCustomerCancelled, notifyRequestSubmitted } from "../../request-emails";
@@ -50,6 +52,12 @@ export async function POST(request: Request) {
   // The profile has to be complete enough for a chef to show up: name, phone, address, city, allergies.
   const gaps = profileGaps(profile);
   if (gaps.length) return fail(`Before you send a request, add ${gaps.join(", ")} to your profile.`, 400, "profile");
+
+  // Once online payments are switched on, a new visit needs a saved card with permission to charge it, so every visit gets paid.
+  if (action === "create" && squareConfig()) {
+    const billing = await getBillingProfile(user.email);
+    if (!billing?.cardId || !billing.autopayConsentAt) return fail("Before you send a request, save a card under Card & receipts on your account page.", 400, "card");
+  }
 
   const pricing = await getPricing();
   const unavailable = await unavailableBetween(earliestDate(), latestDate(), Number(body.id) || 0).catch(() => []);
