@@ -162,3 +162,25 @@ export async function sendRequestReminder(waiting: { request: SessionRequest; na
   return ok ? waiting.length : 0;
 }
 
+
+/** The chef tapped "Running late": tell the customer and the owner right away. */
+export async function notifyChefRunningLate(v: ScheduleEvent, who: Who | null, minutes: number) {
+  const site = publicSiteUrl();
+  const delay = `about ${minutes} minutes`;
+  if (who) {
+    await toCustomer(
+      who,
+      "Your chef is running a little late",
+      "Your chef is running late",
+      [["Your chef", firstName(v.chef)], ["Delay", delay], ["Scheduled", when(v)]],
+      "Thank you for your patience. Call or text (503) 741-9630 if you need to reach us.",
+    );
+  }
+  const lines: [string, string][] = [["Chef", v.chef], ["Client", v.household], ["Scheduled", when(v)], ["Delay", delay]];
+  await sendEmail({
+    to: ownerEmails(),
+    subject: `${v.chef} is running late: ${v.household}`,
+    text: asText("A chef is running late", lines, who ? "The customer has been told." : "No customer email is on this visit, so nobody was notified.", `${site}/portal`),
+    html: layout("A chef is running late", lines, who ? "The customer has been told." : "No customer email is on this visit, so nobody was notified.", { href: `${site}/portal`, label: "Open the dashboard" }),
+  }).catch(() => false);
+}

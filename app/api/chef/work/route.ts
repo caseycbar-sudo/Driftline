@@ -3,7 +3,7 @@ import { getStaffUser, requireStaffRole } from "../../../staff-auth";
 import { isCrossSiteRequest } from "../../../auth-core";
 import { getEvent, listEvents, patchEvent, setChefEventStatus, setChefResponse } from "../../../../db/schedule";
 import { getRequestForEvent, patchRequest } from "../../../../db/requests";
-import { notifyChefDeclined, notifyConfirmed } from "../../../request-emails";
+import { notifyChefDeclined, notifyChefRunningLate, notifyConfirmed } from "../../../request-emails";
 import { chefMaySeeAddress } from "../../../request-core";
 import { addMileage, listTimeEntries, toggleTimeEntry } from "../../../../db/timecards";
 import { getCustomer } from "../../../../db/customers";
@@ -155,6 +155,18 @@ export async function POST(request: Request) {
     return NextResponse.json(
       await addMileage(user.email, label, miles, Number.isNaN(occurred.getTime()) ? new Date().toISOString() : occurred.toISOString()),
     );
+  }
+  if (action === "late") {
+    const v = await getEvent(Math.max(0, Number(body.eventId) || 0));
+    if (!v || v.chefEmail.toLowerCase() !== user.email.toLowerCase()) return NextResponse.json({ error: "This job is not assigned to you" }, { status: 403 });
+    if (v.status === "cancelled" || v.status === "completed" || v.chefResponse === "pending") return NextResponse.json({ error: "You can only send this for a visit you have accepted that is not finished." }, { status: 409 });
+    const minutes = [15, 30, 45, 60].includes(Number(body.minutes)) ? Number(body.minutes) : 0;
+    if (!minutes) return NextResponse.json({ error: "Choose how late you will be." }, { status: 400 });
+    const r = await getRequestForEvent(v.id);
+    const c = r ? await getCustomer(r.customerEmail) : v.customerEmail ? await getCustomer(v.customerEmail) : null;
+    const email = r?.customerEmail || v.customerEmail;
+    await notifyChefRunningLate(v, email ? { name: c?.fullName || email, email, phone: c?.phone ?? "" } : null, minutes);
+    return NextResponse.json({ ok: true, minutes });
   }
   if (action === "respond") {
     const v = await getEvent(Math.max(0, Number(body.eventId) || 0));
