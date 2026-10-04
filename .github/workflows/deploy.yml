@@ -1,8 +1,9 @@
 name: Deploy to Cloudflare
 
 # Deploys automatically every time something is merged to main, and can still be run by hand
-# from the Actions tab. It deploys to the address in deploy/cloudflare.json (the test address
-# until launch day). Before launch, remove the "push" trigger below so merges stop going live.
+# from the Actions tab. This is the LIVE site: the Worker serves www.driftlineprovisions.com,
+# the bare domain and the test address (see deploy/cloudflare.json), and migrations run against
+# the production database. Remove the "push" trigger below to go back to deploying by hand only.
 on:
   push:
     branches: [main]
