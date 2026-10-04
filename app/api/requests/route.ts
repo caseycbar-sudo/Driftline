@@ -12,7 +12,7 @@ import { createInquiry } from "../../../db/private-chef";
 import { notifyNewInquiry } from "../../notify";
 import { unavailableBetween } from "../../../db/availability";
 import { BUSINESS_PHONE, earliestDate, insideCancelWindow, isOpenForCustomerChange, latestDate, parseRequestInput, planFor, profileGaps } from "../../request-core";
-import { notifyCustomerCancelled, notifyRequestSubmitted } from "../../request-emails";
+import { notifyCustomerCancelled, notifyOwnerLateChangeAttempt, notifyRequestSubmitted } from "../../request-emails";
 import { customerView } from "../../request-view";
 
 export const dynamic = "force-dynamic";
@@ -41,6 +41,7 @@ export async function POST(request: Request) {
     if (!isOpenForCustomerChange(existing.status)) return fail("That request is already closed.", 409);
     const event = existing.scheduleEventId ? await getEvent(existing.scheduleEventId) : null;
     if (event && event.status !== "cancelled" && event.serviceDate && insideCancelWindow(event.serviceDate, event.startTime)) {
+      await notifyOwnerLateChangeAttempt(event, who, "cancel");
       return fail(`This visit is less than 48 hours away. Please call or text Driftline at ${BUSINESS_PHONE} so we can work it out together.`, 409);
     }
     if (event && event.status !== "cancelled") {
@@ -127,6 +128,7 @@ export async function POST(request: Request) {
   if ((existing.status === "scheduled" || existing.status === "change_requested") && existing.scheduleEventId) {
     const booked = await getEvent(existing.scheduleEventId);
     if (booked && booked.status !== "cancelled" && booked.serviceDate && insideCancelWindow(booked.serviceDate, booked.startTime)) {
+      await notifyOwnerLateChangeAttempt(booked, who, "change");
       return fail(`This visit is less than 48 hours away. Please call or text Driftline at ${BUSINESS_PHONE} so we can work it out together.`, 409);
     }
   }

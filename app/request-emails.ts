@@ -184,3 +184,73 @@ export async function notifyChefRunningLate(v: ScheduleEvent, who: Who | null, m
     html: layout("A chef is running late", lines, who ? "The customer has been told." : "No customer email is on this visit, so nobody was notified.", { href: `${site}/portal`, label: "Open the dashboard" }),
   }).catch(() => false);
 }
+
+/** A customer tried to cancel or change a visit inside 48 hours and was told to call: the owner hears about it too. */
+export async function notifyOwnerLateChangeAttempt(v: ScheduleEvent, who: Who, kind: "cancel" | "change") {
+  const site = publicSiteUrl();
+  const title = kind === "cancel" ? "A customer tried to cancel inside 48 hours" : "A customer tried to change a visit inside 48 hours";
+  const lines: [string, string][] = [["Customer", `${who.name} (${who.email})`], ["Phone", who.phone ?? ""], ["Visit", when(v)], ["Chef", v.chef || "Unassigned"]];
+  const note = "They were told to call or text (503) 741-9630. Nothing was changed. Open the schedule if you want to cancel or move it for them.";
+  await sendEmail({
+    to: ownerEmails(),
+    subject: `${title}: ${who.name}`,
+    text: asText(title, lines, note, `${site}/portal`),
+    html: layout(title, lines, note, { href: `${site}/portal`, label: "Open the dashboard" }),
+    replyTo: who.email,
+  }).catch(() => false);
+}
+
+/** A chef who already accepted a visit says they cannot make it: the owner needs to act now. */
+export async function notifyChefCantMakeIt(v: ScheduleEvent, reason: string) {
+  const site = publicSiteUrl();
+  const lines: [string, string][] = [["Chef", v.chef], ["Client", v.household], ["Visit", when(v)], ["Reason", reason || "No reason given"]];
+  const note = "The visit is now unassigned. Pick another chef from the dashboard. The customer has not been told yet.";
+  await sendEmail({
+    to: ownerEmails(),
+    subject: `${v.chef} can't make it: ${v.household}, ${prettyVisitDate(v.serviceDate)}`,
+    text: asText("A chef cannot make a visit", lines, note, `${site}/portal`),
+    html: layout("A chef cannot make a visit", lines, note, { href: `${site}/portal`, label: "Reassign the visit" }),
+  }).catch(() => false);
+}
+
+/** Owner digest: visits where no chef has said yes, oldest first. */
+export async function notifyOwnerChefWaiting(rows: { v: ScheduleEvent; tomorrow: boolean }[]) {
+  if (!rows.length) return false;
+  const site = publicSiteUrl();
+  const lines: [string, string][] = rows.map(({ v, tomorrow }) => [
+    `${v.household}${tomorrow ? " (TOMORROW)" : ""}`,
+    `${when(v)}. ${v.chefResponse === "pending" && v.chef && v.chef !== "Unassigned" ? `Waiting on ${v.chef}` : "No chef assigned"}`,
+  ]);
+  const note = "These visits have gone more than a day without a chef saying yes. Assign or reassign a chef from the dashboard.";
+  return sendEmail({
+    to: ownerEmails(),
+    subject: `${rows.length} visit${rows.length === 1 ? "" : "s"} still need a chef`,
+    text: asText("Visits still need a chef", lines, note, `${site}/portal`),
+    html: layout("Visits still need a chef", lines, note, { href: `${site}/portal`, label: "Open the dashboard" }),
+  }).catch(() => false);
+}
+
+/** A day with no chef answer: the customer hears we are still on it. */
+export async function notifyStillFindingChef(v: ScheduleEvent, who: Who) {
+  await toCustomer(
+    who,
+    "We're still finding your chef",
+    "We're still lining up your chef",
+    [["Visit", when(v)]],
+    "Your request is still active and we are working on it. We will email you as soon as a chef confirms. Nothing is charged until the visit is done.",
+  );
+}
+
+/** A chef has had a visit waiting a day without answering. */
+export async function nudgeChefToAnswer(v: ScheduleEvent) {
+  if (!v.chefEmail) return false;
+  const site = publicSiteUrl();
+  const lines: [string, string][] = [["Client", v.household], ["Visit", when(v)]];
+  const note = "Open the chef app and tap Accept or Decline so we can confirm the customer or find someone else.";
+  return sendEmail({
+    to: v.chefEmail,
+    subject: `Please answer: ${v.household}, ${prettyVisitDate(v.serviceDate)}`,
+    text: asText("A visit is waiting for your answer", lines, note, `${site}/chef`),
+    html: layout("A visit is waiting for your answer", lines, note, { href: `${site}/chef`, label: "Answer in the chef app" }),
+  }).catch(() => false);
+}

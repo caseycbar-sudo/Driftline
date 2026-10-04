@@ -3,7 +3,7 @@ import { getStaffUser, requireStaffRole } from "../../../staff-auth";
 import { isCrossSiteRequest } from "../../../auth-core";
 import { getEvent, listEvents, patchEvent, setChefEventStatus, setChefResponse } from "../../../../db/schedule";
 import { getRequestForEvent, patchRequest } from "../../../../db/requests";
-import { notifyChefDeclined, notifyChefRunningLate, notifyConfirmed } from "../../../request-emails";
+import { notifyChefCantMakeIt, notifyChefDeclined, notifyChefRunningLate, notifyConfirmed } from "../../../request-emails";
 import { chefMaySeeAddress } from "../../../request-core";
 import { addMileage, listTimeEntries, toggleTimeEntry } from "../../../../db/timecards";
 import { getCustomer } from "../../../../db/customers";
@@ -167,6 +167,21 @@ export async function POST(request: Request) {
     const email = r?.customerEmail || v.customerEmail;
     await notifyChefRunningLate(v, email ? { name: c?.fullName || email, email, phone: c?.phone ?? "" } : null, minutes);
     return NextResponse.json({ ok: true, minutes });
+  }
+  if (action === "cantmake") {
+    const v = await getEvent(Math.max(0, Number(body.eventId) || 0));
+    if (!v || v.chefEmail.toLowerCase() !== user.email.toLowerCase()) return NextResponse.json({ error: "This job is not assigned to you" }, { status: 403 });
+    if (v.chefResponse !== "accepted" || !["scheduled", "confirmed"].includes(v.status)) {
+      return NextResponse.json({ error: "You can only drop a visit you accepted that has not started. If you are already at the house, call Casey." }, { status: 409 });
+    }
+    const reason = String(body.reason || "").trim().slice(0, 300);
+    // Email first, while the chef's name is still on the visit; then free their calendar.
+    await notifyChefCantMakeIt(v, reason);
+    await setChefResponse(v.id, "declined");
+    await patchEvent(v.id, { chef: "Unassigned", chefEmail: "" });
+    const r = await getRequestForEvent(v.id);
+    if (r && r.status === "scheduled") await patchRequest(r.id, { status: "awaiting_chef" });
+    return NextResponse.json({ ok: true });
   }
   if (action === "respond") {
     const v = await getEvent(Math.max(0, Number(body.eventId) || 0));

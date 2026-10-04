@@ -215,7 +215,7 @@ export async function listAwaitingChef() {
 /** Visits happening on a given date (for day-before reminders). */
 export async function listForDate(date: string) {
   const result = await database()
-    .prepare("SELECT * FROM schedule_events WHERE service_date = ? AND status IN ('scheduled','confirmed') ORDER BY start_time")
+    .prepare("SELECT * FROM schedule_events WHERE service_date = ? AND status IN ('scheduled','confirmed') AND (chef_response IS NULL OR chef_response IN ('', 'accepted')) ORDER BY start_time")
     .bind(date)
     .all<Record<string, unknown>>();
   return result.results.map(map);

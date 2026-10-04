@@ -319,3 +319,27 @@ async function emailOwnerPaid(p: PaymentRow, afterCancel = false) {
     html: box("Invoice paid", [["For", p.description], ["Amount", money(p.amountCents)], ["Customer", p.customerEmail]], "It's marked paid in your Billing tab."),
   });
 }
+
+/**
+ * A finished visit that did not get charged and will not fix itself without
+ * someone acting: tell the owner right away instead of waiting for them to
+ * notice it in the Billing tab. Failed and unknown charges already email the owner.
+ */
+export async function alertOwnerNotCharged(eventId: number, reason: string): Promise<void> {
+  const event = await getEvent(eventId).catch(() => null);
+  if (!event) return;
+  const site = publicSiteUrl();
+  const lines: [string, string][] = [
+    ["Client", event.household],
+    ["Customer", event.customerEmail || "No account on this visit"],
+    ["Visit", `${prettyVisitDate(event.serviceDate)}${event.packageName ? `, ${event.packageName}` : ""}`],
+    ["Why", reason],
+  ];
+  const note = "The visit is finished but nothing has been charged. Open Billing to send a pay link or retry once the card is saved.";
+  await sendEmail({
+    to: ownerEmails(),
+    subject: `Not charged yet: ${event.household}, ${prettyVisitDate(event.serviceDate)}`,
+    text: plain("A finished visit was not charged", lines, note, `${site}/portal`),
+    html: box("A finished visit was not charged", lines, note, { href: `${site}/portal`, label: "Open Billing" }),
+  }).catch(() => false);
+}

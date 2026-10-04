@@ -5,7 +5,7 @@ import { requireStaffRole } from "../../../staff-auth";
 import { isCrossSiteRequest } from "../../../auth-core";
 import { completeVisit, getEvent } from "../../../../db/schedule";
 import { saveVisitCompletion } from "../../../../db/visits";
-import { chargeCompletedVisit } from "../../../billing";
+import { alertOwnerNotCharged, chargeCompletedVisit } from "../../../billing";
 
 export const dynamic = "force-dynamic";
 const MAX_FILE = 8 * 1024 * 1024,
@@ -117,5 +117,9 @@ export async function POST(request: Request) {
     console.error("[billing] charge after completion failed", error);
     return { outcome: "error" as const, message: "Casey will handle billing for this visit." };
   });
+  // Cases that stay uncharged without any other email: tell the owner now.
+  if (billing.outcome === "awaiting-card" || billing.outcome === "not-autopay" || billing.outcome === "error") {
+    await alertOwnerNotCharged(eventId, billing.message).catch(() => undefined);
+  }
   return NextResponse.json({ ok: true, status: "completed", billing });
 }
