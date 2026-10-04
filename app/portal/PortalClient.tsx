@@ -158,6 +158,9 @@ function AdminPortal({
             <strong>{staff.fullName}</strong>
             <small>{role === "chef" ? "Approved chef" : "Administrator"}</small>
           </div>
+          <a className="staff-signout" href="/signout?return_to=%2Fchef">
+            Sign out
+          </a>
         </div>
       </header>
       <aside className="portal-side">
