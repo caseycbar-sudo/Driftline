@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { requireStaffRole } from "../../../staff-auth";
+import { getStaffUser, requireStaffRole } from "../../../staff-auth";
 import { isCrossSiteRequest } from "../../../auth-core";
 import { getEvent, listEvents, patchEvent, setChefEventStatus, setChefResponse } from "../../../../db/schedule";
 import { getRequestForEvent, patchRequest } from "../../../../db/requests";
@@ -138,7 +138,14 @@ export async function POST(request: Request) {
   const body = (await request.json().catch(() => ({}))) as Record<string, unknown>;
   if (isCrossSiteRequest(request)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   const user = await requireStaffRole("chef");
-  if (!user) return NextResponse.json({ error: "Chef access required" }, { status: 403 });
+  if (!user) {
+    // Most often a second tab signed in as someone else (the owner, say) while this page stayed open.
+    const other = await getStaffUser();
+    const error = other
+      ? `You're signed in as ${other.email}, which is not the chef account. Sign out, then sign in with the chef account to answer this visit.`
+      : "Your sign-in has ended. Sign in again to answer this visit.";
+    return NextResponse.json({ error, signOut: Boolean(other) }, { status: 403 });
+  }
   const action = String(body.action || "");
   if (action === "mileage") {
     const miles = Number(body.miles),

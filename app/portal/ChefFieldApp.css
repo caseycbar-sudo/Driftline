@@ -26,3 +26,19 @@
 .shopping-off{display:block;margin-top:6px;font-style:normal;font-size:12px;color:#7b8a8e}
 
 .field-top>.staff-signout{margin-left:16px;background:transparent;color:#fff;border-color:#7f9aa6;padding:9px 13px}.field-top>.staff-signout:hover{background:#fff;color:#102f40;border-color:#fff}
+
+.response-bar{padding:22px 24px;border-left:5px solid #d2a75b}
+.response-bar small{font-size:9px;letter-spacing:.15em;color:#a95739;font-weight:800}
+.response-bar h2{font:26px Georgia;margin:6px 0 8px;color:#123349}
+.response-bar>p{font-size:13px;line-height:1.5;margin:0 0 16px;color:#665f4d}
+.response-actions{display:flex;gap:12px}
+.response-actions button{flex:1;min-height:54px;font-size:16px;font-weight:800;cursor:pointer;border-radius:8px}
+.response-accept{background:#486863;color:#fff;border:2px solid #486863}
+.response-accept:hover:not(:disabled){background:#38534f}
+.response-decline{background:#fff;color:#8a4a2f;border:2px solid #c9a48f}
+.response-decline:hover:not(:disabled){background:#fbeee7}
+.response-actions button:disabled{opacity:.55;cursor:default}
+.response-error{background:#fdeee6;border-left:4px solid #a95739;padding:12px 14px;margin:0 0 16px}
+.response-error p{margin:0;font-size:13px;line-height:1.45;color:#7a3f27}
+.response-error a{display:inline-block;margin-top:10px;font-size:13px;font-weight:800;color:#a95739}
+@media(max-width:560px){.response-actions{flex-direction:column}}
