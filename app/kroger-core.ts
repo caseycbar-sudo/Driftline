@@ -67,7 +67,7 @@ export function packageUnits(size: string): { count: number | null; ounces: numb
 
 /** What it costs to cover this line with a given product, and how much is left over. */
 export function costToCover(need: { quantity: number | null; unit?: string }, product: StoreProduct) {
-  const packs = suggestQuantity({ quantity: need.quantity, unit: need.unit ?? "" }, product.size);
+  const packs = suggestQuantity({ quantity: need.quantity, unit: need.unit ?? "" }, product.size, product.soldBy);
   const price = product.promoCents ?? product.priceCents;
   const { count, ounces } = packageUnits(product.size);
   const per = need.unit === "lb" || need.unit === "oz" ? ounces : count;
@@ -114,6 +114,8 @@ export type StoreProduct = {
   image: string;
   inStock: boolean;
   aisle: string;
+  /** "WEIGHT" when the store sells it by the pound (fresh meat, deli): the cart then counts packages, not pounds. */
+  soldBy?: string;
 };
 
 type RawProduct = {
@@ -122,7 +124,7 @@ type RawProduct = {
   brand?: string;
   categories?: string[];
   images?: { perspective?: string; featured?: boolean; sizes?: { size?: string; url?: string }[] }[];
-  items?: { size?: string; price?: { regular?: number; promo?: number }; inventory?: { stockLevel?: string }; fulfillment?: { curbside?: boolean; inStore?: boolean } }[];
+  items?: { size?: string; soldBy?: string; price?: { regular?: number; promo?: number }; inventory?: { stockLevel?: string }; fulfillment?: { curbside?: boolean; inStore?: boolean } }[];
   aisleLocations?: { description?: string; number?: string }[];
 };
 
@@ -146,6 +148,7 @@ export function toStoreProduct(raw: RawProduct): StoreProduct | null {
     promoCents: cents(item.price?.promo),
     image,
     inStock: stock !== "TEMPORARILY_OUT_OF_STOCK",
+    soldBy: item.soldBy ?? "",
     aisle: aisle?.description ? `${aisle.description}${aisle.number ? ` · aisle ${aisle.number}` : ""}` : "",
   };
 }
@@ -164,9 +167,16 @@ function packageOunces(size: string): number | null {
  * size; counted items are rounded up; spices, oils and anything by the spoon or cup
  * start at 1 (the chef adjusts).
  */
-export function suggestQuantity(need: { quantity: number | null; unit: string }, productSize: string): number {
+export const AVERAGE_WEIGHT_PACK_LB = 3;
+
+export function suggestQuantity(need: { quantity: number | null; unit: string }, productSize: string, soldBy = ""): number {
   const q = need.quantity;
   if (q === null || q <= 0) return 1;
+  // Sold by the pound ("$3.99/lb"): the cart quantity is a number of packages, each averaging about 3 lb, not a number of pounds.
+  if (soldBy.toUpperCase() === "WEIGHT" && (need.unit === "lb" || need.unit === "oz")) {
+    const needLb = need.unit === "lb" ? q : q / 16;
+    return Math.min(20, Math.max(1, Math.ceil(needLb / AVERAGE_WEIGHT_PACK_LB - 0.1)));
+  }
   if (need.unit === "lb" || need.unit === "oz") {
     const needOz = need.unit === "lb" ? q * 16 : q;
     const pack = packageOunces(productSize);

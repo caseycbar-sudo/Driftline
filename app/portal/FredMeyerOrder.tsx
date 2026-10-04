@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { GroceryItem } from "./grocery-list";
 import "./FredMeyerOrder.css";
 
-type Product = { upc: string; categories?: string[]; description: string; brand: string; size: string; priceCents: number | null; promoCents: number | null; image: string; inStock: boolean; aisle: string };
+type Product = { soldBy?: string; upc: string; categories?: string[]; description: string; brand: string; size: string; priceCents: number | null; promoCents: number | null; image: string; inStock: boolean; aisle: string };
 type Row = { key: string; need: GroceryItem; product: Product | null; options: Product[]; quantity: number; include: boolean; remembered: boolean };
 
 const money = (c: number) => `$${(c / 100).toFixed(2)}`;
@@ -161,6 +161,7 @@ export default function FredMeyerOrder({ items, allItems, title = "Order at Fred
                     {row.product?.priceCents ? (row.product.promoCents ? <><s>{money(row.product.priceCents)}</s> <b>{money(row.product.promoCents)}</b></> : money(row.product.priceCents)) : ""}
                     {row.product && !row.product.inStock ? " · may be out of stock" : ""}
                     {row.product?.aisle ? ` · ${row.product.aisle}` : ""}
+                    {row.product?.soldBy?.toUpperCase() === "WEIGHT" ? " · sold by weight, each pack averages about 3 lb" : ""}
                   </span>
                   <button type="button" className="fm-link" onClick={() => { setSwapping(swapping === row.key ? null : row.key); setQuery(""); setResults([]); }}>
                     {swapping === row.key ? "Close" : "Change product"}
