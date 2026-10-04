@@ -18,6 +18,9 @@ test("package counts come from the package size", () => {
   assert.equal(suggestQuantity({ quantity: 24, unit: "oz" }, "16 oz"), 2);
   assert.equal(suggestQuantity({ quantity: 10, unit: "" }, "12 ct"), 1, "10 eggs is one dozen");
   assert.equal(suggestQuantity({ quantity: 6, unit: "" }, "1 each"), 6, "six peppers");
+  assert.equal(suggestQuantity({ quantity: 6, unit: "lb" }, "1 lb", "WEIGHT"), 2, "6 lb of chicken sold by the pound is about two packs, not six");
+  assert.equal(suggestQuantity({ quantity: 1, unit: "lb" }, "1 lb", "WEIGHT"), 1);
+  assert.equal(suggestQuantity({ quantity: 3, unit: "lb" }, "1 lb", "UNIT"), 3, "a counted 1 lb item is still one per pound");
   assert.equal(suggestQuantity({ quantity: 2, unit: "" }, "2 lb"), 1, "two lemons is one bag");
   assert.equal(suggestQuantity({ quantity: 2, unit: "tbsp" }, "2.6 oz"), 1, "spices start at one jar");
   assert.equal(suggestQuantity({ quantity: null, unit: "" }, ""), 1);

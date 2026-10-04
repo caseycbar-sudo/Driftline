@@ -43,7 +43,7 @@ export async function POST(request: Request) {
         const product: StoreProduct | null = saved
           ? options.find((o) => o.upc === saved.upc) ?? { upc: saved.upc, categories: [], description: saved.description, brand: "", size: saved.size, priceCents: null, promoCents: null, image: saved.image, inStock: true, aisle: "" }
           : pickBest(need, options);
-        return { key: need.key, product, options, quantity: product ? suggestQuantity(need, product.size) : 1, remembered: Boolean(saved) };
+        return { key: need.key, product, options, quantity: product ? suggestQuantity(need, product.size, product.soldBy) : 1, remembered: Boolean(saved) };
       }),
     );
     results.push(...found);
