@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SITE_ORIGIN } from "./site-config";
 import "./globals.css";
 import "./brand-refresh.css";
+import OwnerShortcut from "./OwnerShortcut";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_ORIGIN),
@@ -13,5 +14,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body>{children}</body></html>;
+  return <html lang="en"><body>{children}<OwnerShortcut /></body></html>;
 }
