@@ -442,11 +442,11 @@ export const recipes: Recipe[] = [
       "Wheat"
     ],
     "dietary": [],
-    "image": "/cookbook/mp/turkey-meatballs-in-marinara-with-penne-and-zucchini-photo.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Mahmoud Salem",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/delicious-spaghetti-with-meatballs-and-basil-garnish-31284951/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "1½ cups panko bread crumbs",
@@ -675,11 +675,11 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Gluten-free"
     ],
-    "image": "/cookbook/mp/braised-beef-rag-over-creamy-polenta-photo.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Costin Cerednicenco",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/delicious-romanian-cuisine-with-polenta-and-beef-29716501/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "7 lb boneless beef chuck roast, trimmed and cut into 3-inch chunks",
@@ -1152,11 +1152,11 @@ export const recipes: Recipe[] = [
       "Milk"
     ],
     "dietary": [],
-    "image": "/cookbook/mp/coastal-salmon-cakes-with-lemon-dill-sauce-and-brown-rice-photo.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Nadin Sh",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/top-view-of-a-dish-with-mashed-potato-and-meat-25315521/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "4½ lb skinless salmon fillets, pin bones removed, cut into 1-inch pieces",
@@ -1236,11 +1236,11 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Dairy-free"
     ],
-    "image": "/cookbook/mp/miso-glazed-salmon-with-sesame-greens-and-rice-photo.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Valeria Boltneva",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/glazed-salmon-with-spinach-and-edamame-39641634/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "12 skinless salmon fillets (5 oz each)",
@@ -1293,11 +1293,11 @@ export const recipes: Recipe[] = [
   {
     "side": "meal-prep",
     "servings": 12,
-    "image": "/cookbook/mp/salmon-in-tomato-olive-and-caper-sauce-with-quinoa-photo.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Ella Olsson",
-      "source": "Unsplash",
-      "page": "https://unsplash.com/photos/salmon-dinner-with-quinoa-and-broccoli-mmnKI8kMxpc"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "makeAhead": "",
     "id": 17,
@@ -1372,11 +1372,11 @@ export const recipes: Recipe[] = [
   {
     "side": "meal-prep",
     "servings": 12,
-    "image": "/cookbook/mp/blackened-salmon-taco-bowls-photo.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Laura Oliveira",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/delicious-salmon-tacos-with-fresh-ingredients-34429487/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "makeAhead": "",
     "id": 18,
@@ -1691,11 +1691,11 @@ export const recipes: Recipe[] = [
       "Gluten-free",
       "Dairy-free"
     ],
-    "image": "/cookbook/mp/thai-red-curry-with-chicken-and-vegetables-over-jasmine-rice.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Captured by Augustine",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/curry-meat-with-rice-and-salad-17748116/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "4 cups jasmine rice",
@@ -1930,11 +1930,11 @@ export const recipes: Recipe[] = [
       "Gluten-free",
       "Vegetarian"
     ],
-    "image": "/cookbook/mp/black-bean-and-sweet-potato-enchiladas-photo.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Allan González",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/authentic-mexican-enchiladas-with-salsa-31823007/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "3 lb sweet potatoes, peeled and cut into ½-inch dice",
@@ -3322,11 +3322,11 @@ export const recipes: Recipe[] = [
       "Wheat"
     ],
     "dietary": [],
-    "image": "/cookbook/mp/beef-and-italian-sausage-meatballs-with-spaghetti-marinara.webp",
+    "image": "/cookbook/mp/beef-and-italian-sausage-meatballs-with-spaghetti-marinara-mp.webp",
     "photoCredit": {
-      "author": "Cree Payton",
+      "author": "Christian Moises Pahati",
       "source": "Pexels",
-      "page": "https://www.pexels.com/photo/spaghetti-with-meatballs-on-ceramic-plate-9617397/"
+      "page": "https://www.pexels.com/photo/spaghetti-with-meatballs-on-aluminum-tray-5724553/"
     },
     "ingredients": [
       "3 lb 85% lean ground beef",
@@ -4113,11 +4113,11 @@ export const recipes: Recipe[] = [
       "Soy"
     ],
     "dietary": [],
-    "image": "/cookbook/mp/salisbury-steak-with-mushroom-gravy-and-egg-noodles.webp",
+    "image": "",
     "photoCredit": {
-      "author": "Allan González",
-      "source": "Pexels",
-      "page": "https://www.pexels.com/photo/gourmet-dish-with-steak-and-fresh-salad-on-wooden-table-31843915/"
+      "author": "",
+      "source": "",
+      "page": ""
     },
     "ingredients": [
       "4½ lb 85% lean ground beef",
