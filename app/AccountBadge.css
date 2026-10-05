@@ -1,0 +1,22 @@
+.account-badge {
+  position: fixed;
+  left: 12px;
+  bottom: 12px;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: calc(100vw - 24px);
+  padding: 7px 12px;
+  border-radius: 999px;
+  font: 600 12px/1.2 system-ui, sans-serif;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+.account-badge strong { text-transform: uppercase; letter-spacing: 0.08em; font-size: 11px; padding: 3px 8px; border-radius: 999px; background: rgba(255, 255, 255, 0.2); }
+.account-badge span { font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.account-badge a { color: #fff; text-decoration: underline; white-space: nowrap; font-weight: 500; }
+.account-badge-admin { background: #1c2a3a; }
+.account-badge-chef { background: #2f6b3f; }
+.account-badge-customer { background: #8a4b1f; }
+@media print { .account-badge { display: none; } }
