@@ -49,6 +49,7 @@ export default async function SchedulePage({ searchParams }: { searchParams: Pro
     <ScheduleForm
       recipeIds={dishes.map((d) => d.id)}
       dishes={dishes.map((d) => d.title)}
+      dessert={dishes.find((d) => isDessertCategory(d.category))?.title ?? ""}
       people={people}
       planName={plan.package.name}
       priceCents={plan.package.priceCents}

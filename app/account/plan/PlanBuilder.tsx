@@ -33,7 +33,8 @@ export default function PlanBuilder({
     [people, setPeople] = useState(initialPeople),
     [query, setQuery] = useState(""),
     [category, setCategory] = useState(""),
-    [openId, setOpenId] = useState(0);
+    [openId, setOpenId] = useState(0),
+    [step, setStep] = useState<"entrees" | "dessert">("entrees");
   const detailRef = useRef<HTMLDialogElement>(null);
   const opened = dishes.find((d) => d.id === openId) ?? null;
   useEffect(() => {
@@ -54,9 +55,17 @@ export default function PlanBuilder({
     const need = portionsFor(entrees, shownPeople);
     return [...packages].sort((a, b) => a.portions - b.portions).find((p) => p.portions >= need) ?? null;
   }, [entrees, shownPeople, packages]);
-  const categories = useMemo(() => [...new Set(dishes.map((d) => d.category).filter(Boolean))], [dishes]);
+  const onDessertStep = step === "dessert";
+  const stepDishes = useMemo(() => dishes.filter((d) => dessertIds.has(d.id) === onDessertStep), [dishes, dessertIds, onDessertStep]);
+  const categories = useMemo(() => [...new Set(stepDishes.map((d) => d.category).filter(Boolean))], [stepDishes]);
+  const goTo = (next: "entrees" | "dessert") => {
+    setStep(next);
+    setQuery("");
+    setCategory("");
+    if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
+  };
   const q = query.trim().toLowerCase();
-  const visible = [...dishes].sort((a, b) => Number(Boolean(b.image)) - Number(Boolean(a.image))).filter((d) => (!category || d.category === category) && (!q || `${d.title} ${d.category} ${d.description}`.toLowerCase().includes(q)));
+  const visible = [...stepDishes].sort((a, b) => Number(Boolean(b.image)) - Number(Boolean(a.image))).filter((d) => (!category || d.category === category) && (!q || `${d.title} ${d.category} ${d.description}`.toLowerCase().includes(q)));
   const atLimit = shownPeople >= maxPeople;
 
   const entreesFull = entrees >= MAX_ENTREES;
@@ -72,14 +81,18 @@ export default function PlanBuilder({
   const conflict = (d: Dish) => d.allergens.filter((a) => avoid.includes(a.toLowerCase()));
   const href = `/account/schedule?items=${items.join(",")}&people=${shownPeople}${editId ? `&edit=${editId}` : ""}`;
   const ready = Boolean(plan);
-  const scheduleButton = ready ? (
+  const scheduleButton = !ready ? (
+    <span className="plan-schedule disabled" aria-disabled="true">
+      Pick {MIN_ENTREES - entrees} more {MIN_ENTREES - entrees === 1 ? "entrée" : "entrées"} to continue
+    </span>
+  ) : onDessertStep ? (
     <Link className="plan-schedule" href={href}>
-      Schedule →
+      {dessert ? "Schedule →" : "Skip dessert and schedule →"}
     </Link>
   ) : (
-    <span className="plan-schedule disabled" aria-disabled="true">
-      Pick {MIN_ENTREES - entrees} more {MIN_ENTREES - entrees === 1 ? "entrée" : "entrées"} to schedule
-    </span>
+    <button type="button" className="plan-schedule" onClick={() => goTo("dessert")}>
+      Next: pick a dessert →
+    </button>
   );
 
   return (
@@ -101,7 +114,7 @@ export default function PlanBuilder({
             {plan ? `${plan.name} · ${money(plan.priceCents)}` : `${entrees} of ${MIN_ENTREES} entrées to start`}
           </strong>
           <span>
-            {entrees} {entrees === 1 ? "entrée" : "entrées"} (3 or 4) · {dessert ? `Dessert: ${dessert.title}` : "Add 1 dessert"}
+            {entrees} {entrees === 1 ? "entrée" : "entrées"} (3 or 4) · {dessert ? `Dessert: ${dessert.title}` : "No dessert yet"}
             {plan ? ` · ${portionsFor(entrees, shownPeople)} portions` : ""}
           </span>
         </div>
@@ -118,7 +131,9 @@ export default function PlanBuilder({
         {scheduleButton}
       </section>
       <p className="plan-note">
-        Pick 3 or 4 entrées, plus 1 dessert, and how many people you are cooking for. Each entrée makes {PORTIONS_PER_DISH_PER_PERSON} portions per person, so more people means more food and a larger plan. The dessert is included with every plan. {PRICE_COVERS}
+        {onDessertStep
+          ? "Step 2 of 2. Pick 1 dessert. It is included with your plan and does not change the price. You can also skip it."
+          : `Step 1 of 2. Pick 3 or 4 entrées and how many people you are cooking for. Each entrée makes ${PORTIONS_PER_DISH_PER_PERSON} portions per person, so more people means more food and a larger plan. Next you can choose 1 dessert, included with every plan. ${PRICE_COVERS}`}
       </p>
       {atLimit ? (
         <p className="plan-note">
@@ -133,19 +148,26 @@ export default function PlanBuilder({
 
       <section className="plan-menu">
         <div className="plan-head">
-          <h1>Pick 3 or 4 entrées, plus 1 dessert</h1>
+          <h1>{onDessertStep ? "Pick 1 dessert" : "Pick 3 or 4 entrées"}</h1>
           <input type="search" placeholder="Search dishes" value={query} onChange={(e) => setQuery(e.target.value)} aria-label="Search dishes" />
         </div>
-        <div className="plan-chips" role="group" aria-label="Filter by type">
-          <button className={category ? "" : "on"} onClick={() => setCategory("")} aria-pressed={!category}>
-            All
-          </button>
-          {categories.map((c) => (
-            <button key={c} className={category === c ? "on" : ""} onClick={() => setCategory(c)} aria-pressed={category === c}>
-              {c}
+        {onDessertStep ? null : (
+          <div className="plan-chips" role="group" aria-label="Filter by type">
+            <button className={category ? "" : "on"} onClick={() => setCategory("")} aria-pressed={!category}>
+              All
             </button>
-          ))}
-        </div>
+            {categories.map((c) => (
+              <button key={c} className={category === c ? "on" : ""} onClick={() => setCategory(c)} aria-pressed={category === c}>
+                {c}
+              </button>
+            ))}
+          </div>
+        )}
+        {onDessertStep ? (
+          <button type="button" className="plan-back" onClick={() => goTo("entrees")}>
+            ← Back to entrées
+          </button>
+        ) : null}
         <div className="plan-grid">
           {visible.map((d) => {
             const on = items.includes(d.id),
@@ -202,6 +224,11 @@ export default function PlanBuilder({
       </dialog>
 
       <section className="plan-bottom">
+        {onDessertStep ? (
+          <button type="button" className="plan-back" onClick={() => goTo("entrees")}>
+            ← Back to entrées
+          </button>
+        ) : null}
         {scheduleButton}
       </section>
     </main>
