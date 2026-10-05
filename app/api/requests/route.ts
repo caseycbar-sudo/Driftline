@@ -11,7 +11,7 @@ import { getBillingProfile } from "../../../db/payments";
 import { createInquiry } from "../../../db/private-chef";
 import { notifyNewInquiry } from "../../notify";
 import { unavailableBetween } from "../../../db/availability";
-import { BUSINESS_PHONE, earliestDate, insideCancelWindow, isOpenForCustomerChange, latestDate, parseRequestInput, planFor, profileGaps } from "../../request-core";
+import { BUSINESS_PHONE, earliestDate, insideCancelWindow, isDessertCategory, isOpenForCustomerChange, latestDate, parseRequestInput, planFor, profileGaps } from "../../request-core";
 import { notifyCustomerCancelled, notifyOwnerLateChangeAttempt, notifyRequestSubmitted } from "../../request-emails";
 import { customerView } from "../../request-view";
 
@@ -89,18 +89,19 @@ export async function POST(request: Request) {
 
   const pricing = await getPricing();
   const unavailable = await unavailableBetween(earliestDate(), latestDate(), Number(body.id) || 0).catch(() => []);
-  const parsed = parseRequestInput({ ...body, city: body.city || profile.city }, pricing, Date.now(), unavailable);
+  const cookbook = await getCookbook();
+  const dessertIds = new Set(cookbook.filter((r) => r.side === "meal-prep" && isDessertCategory(r.category)).map((r) => r.id));
+  const parsed = parseRequestInput({ ...body, city: body.city || profile.city }, pricing, Date.now(), unavailable, dessertIds);
   if (!parsed.ok) return fail(parsed.error, 400, parsed.field);
   const input = parsed.input;
 
-  const cookbook = await getCookbook();
   const dishes: string[] = [];
   for (const id of input.recipeIds) {
     const recipe = cookbook.find((r) => r.id === id && r.side === "meal-prep");
     if (!recipe) return fail("One of those dishes isn't on the meal prep menu any more.", 400, "menu");
     dishes.push(recipe.title);
   }
-  const plan = planFor(input.recipeIds.length, input.people, pricing)!;
+  const plan = planFor(input.entrees, input.people, pricing)!;
   const data = {
     recipeIds: input.recipeIds,
     dishes,

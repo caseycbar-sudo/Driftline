@@ -262,7 +262,7 @@ export default function CookbookClient({ recipes }: { recipes: Recipe[] }) {
                 <small>{r.category}</small>
                 <h2>{r.title}</h2>
                 <p>
-                  {r.side === "meal-prep" ? (isDessert(r) ? "Dessert add-on · " : `${effortOf(r)} · `) : ""}
+                  {r.side === "meal-prep" ? (isDessert(r) ? "Dessert · " : `${effortOf(r)} · `) : ""}
                   {r.active} min active · {r.total} min total
                 </p>
                 <span>
@@ -337,7 +337,7 @@ export default function CookbookClient({ recipes }: { recipes: Recipe[] }) {
             <p className={`effort-note effort-${isDessert(selected) ? "dessert" : effortOf(selected).split(" ")[0].toLowerCase()}`}>
               {isDessert(selected) ? (
                 <>
-                  <b>Dessert add-on.</b> Add one dessert to any visit; it doesn&apos;t use one of your entrée choices.
+                  <b>Dessert.</b> Every plan includes one dessert; it doesn&apos;t use one of your entrée choices.
                 </>
               ) : (
                 <>
@@ -345,7 +345,7 @@ export default function CookbookClient({ recipes }: { recipes: Recipe[] }) {
                   {effortOf(selected) === "Big project"
                     ? "A longer cook, so a visit can include one big project. Pair it with easier dishes."
                     : "Fits easily into a visit alongside your other picks."}{" "}
-                  Packages include 2 entrées for 6–8 portions, 3 for 12, and 4 for 16 or more.
+                  Every plan is 3 or 4 entrées, plus 1 dessert.
                 </>
               )}
             </p>

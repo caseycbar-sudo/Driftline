@@ -7,7 +7,7 @@ import { getRequest } from "../../../db/requests";
 import { squareConfig } from "../../square";
 import { getBillingProfile } from "../../../db/payments";
 import { unavailableBetween } from "../../../db/availability";
-import { DEFAULT_PEOPLE, firstBookableDate, latestDate, planFor, profileGaps } from "../../request-core";
+import { DEFAULT_PEOPLE, firstBookableDate, isDessertCategory, latestDate, menuProblem, planFor, profileGaps } from "../../request-core";
 import ScheduleForm from "./ScheduleForm";
 import { backdropImages } from "../backdrop-images";
 import "../account.css";
@@ -22,7 +22,9 @@ export default async function SchedulePage({ searchParams }: { searchParams: Pro
   const ids = (params.items ?? "").split(",").map(Number).filter((n) => Number.isInteger(n) && n > 0);
   const dishes = ids.map((id) => cookbook.find((r) => r.id === id && r.side === "meal-prep")).filter((r): r is NonNullable<typeof r> => Boolean(r));
   const people = Number(params.people) || DEFAULT_PEOPLE;
-  const plan = planFor(dishes.length, people, pricing);
+  const desserts = dishes.filter((d) => isDessertCategory(d.category)).length;
+  const entrees = dishes.length - desserts;
+  const plan = menuProblem(entrees, desserts) ? null : planFor(entrees, people, pricing);
   if (!plan) redirect(`/account/plan${params.edit ? `?edit=${params.edit}` : ""}`);
 
   let editId = 0;

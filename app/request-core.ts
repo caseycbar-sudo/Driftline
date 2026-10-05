@@ -5,8 +5,12 @@
  */
 import type { MealPrepPackage, Pricing } from "./pricing-core";
 
-export const MIN_ITEMS = 3;
-export const MAX_ITEMS = 5;
+/** Every meal prep plan is 3 or 4 entrées, plus 1 dessert (optional, and it doesn't change the price). */
+export const MIN_ENTREES = 3;
+export const MAX_ENTREES = 4;
+export const MAX_DESSERTS = 1;
+/** Most dishes in one request: the entrées plus the dessert. */
+export const MAX_ITEMS = MAX_ENTREES + MAX_DESSERTS;
 export const DEFAULT_PEOPLE = 2;
 /** The most people the plan picker offers, however many portions a package holds. */
 export const MAX_PEOPLE = 8;
@@ -60,12 +64,22 @@ export const inServiceArea = (city: string) => SERVICE_CITIES.some((c) => c.toLo
 /** Each dish makes this many portions per person, so every extra person adds to the plan and the price. */
 export const PORTIONS_PER_DISH_PER_PERSON = 2;
 
-/** Total portions a visit needs: dishes x people x portions per dish per person. */
+export const isDessertCategory = (category: string | undefined) => (category ?? "").trim().toLowerCase() === "desserts";
+
+/** Why a menu can't be booked yet, in the customer's words, or null when it is fine. */
+export function menuProblem(entrees: number, desserts: number): string | null {
+  if (entrees < MIN_ENTREES) return `Pick at least ${MIN_ENTREES} entrées for your plan.`;
+  if (entrees > MAX_ENTREES) return `A visit has up to ${MAX_ENTREES} entrées.`;
+  if (desserts > MAX_DESSERTS) return `A visit has ${MAX_DESSERTS} dessert.`;
+  return null;
+}
+
+/** Total portions a visit needs: entrées x people x portions per dish per person. The dessert is extra. */
 export function portionsFor(items: number, people: number): number {
   return items * people * PORTIONS_PER_DISH_PER_PERSON;
 }
 
-/** The most people a customer can pick for this many dishes, so the portions stay inside the largest package. */
+/** The most people a customer can pick for this many entrées, so the portions stay inside the largest package. */
 export function maxPeopleFor(items: number, pricing: Pricing): number {
   const cap = Math.max(...pricing.mealPrep.map((p) => p.portions));
   return Math.max(1, Math.min(MAX_PEOPLE, Math.floor(cap / (Math.max(1, items) * PORTIONS_PER_DISH_PER_PERSON))));
@@ -74,11 +88,11 @@ export function maxPeopleFor(items: number, pricing: Pricing): number {
 export type Plan = { package: MealPrepPackage; portionsNeeded: number };
 
 /**
- * The plan for a menu: the portions it needs (see PORTIONS_PER_DISH_PER_PERSON), in the smallest
+ * The plan for a menu of `items` entrées: the portions it needs (see PORTIONS_PER_DISH_PER_PERSON), in the smallest
  * package that holds them. Null until there are enough dishes.
  */
 export function planFor(items: number, people: number, pricing: Pricing): Plan | null {
-  if (!Number.isInteger(items) || items < MIN_ITEMS || items > MAX_ITEMS) return null;
+  if (!Number.isInteger(items) || items < MIN_ENTREES || items > MAX_ENTREES) return null;
   if (!Number.isInteger(people) || people < 1 || people > maxPeopleFor(items, pricing)) return null;
   const portionsNeeded = portionsFor(items, people);
   const pkg = [...pricing.mealPrep].sort((a, b) => a.portions - b.portions).find((p) => p.portions >= portionsNeeded);
@@ -209,6 +223,8 @@ export function parseWindows(input: unknown, now = Date.now(), unavailable: read
 
 export type RequestInput = {
   recipeIds: number[];
+  /** How many of recipeIds are entrées (the rest is the dessert). Sets the portions and price. */
+  entrees: number;
   people: number;
   windows: TimeWindow[];
   /** Where the visit happens. Empty means the profile address. */
@@ -219,14 +235,19 @@ export type RequestInput = {
   acceptedPolicy: boolean;
 };
 
-/** Validate what a customer sends when they request (or change) a session. */
-export function parseRequestInput(body: Record<string, unknown>, pricing: Pricing, now = Date.now(), unavailable: readonly string[] = []): { ok: true; input: RequestInput } | { ok: false; error: string; field?: string } {
+/**
+ * Validate what a customer sends when they request (or change) a session.
+ * `dessertIds` are the cookbook's dessert recipes, so the menu can be split into entrées and a dessert.
+ */
+export function parseRequestInput(body: Record<string, unknown>, pricing: Pricing, now = Date.now(), unavailable: readonly string[] = [], dessertIds: ReadonlySet<number> = new Set()): { ok: true; input: RequestInput } | { ok: false; error: string; field?: string } {
   const ids = Array.isArray(body.recipeIds) ? body.recipeIds.map((v) => Math.round(Number(v))).filter((n) => Number.isInteger(n) && n > 0) : [];
   const recipeIds = [...new Set(ids)];
-  if (recipeIds.length < MIN_ITEMS) return { ok: false, error: `Pick at least ${MIN_ITEMS} dishes for your plan.`, field: "menu" };
-  if (recipeIds.length > MAX_ITEMS) return { ok: false, error: `A visit has up to ${MAX_ITEMS} dishes.`, field: "menu" };
+  const desserts = recipeIds.filter((id) => dessertIds.has(id)).length;
+  const entrees = recipeIds.length - desserts;
+  const problem = menuProblem(entrees, desserts);
+  if (problem) return { ok: false, error: problem, field: "menu" };
   const people = Math.round(Number(body.people) || DEFAULT_PEOPLE);
-  if (!planFor(recipeIds.length, people, pricing)) return { ok: false, error: "That many people is more than one visit can cook for. Try fewer dishes or people.", field: "people" };
+  if (!planFor(entrees, people, pricing)) return { ok: false, error: "That many people is more than one visit can cook for. Try fewer dishes or people.", field: "people" };
   const city = text(body.city, 40);
   if (city && !inServiceArea(city)) {
     return { ok: false, error: "We don't cook in that area yet. Email us and we'll tell you when that changes.", field: "city" };
@@ -238,6 +259,7 @@ export function parseRequestInput(body: Record<string, unknown>, pricing: Pricin
     ok: true,
     input: {
       recipeIds,
+      entrees,
       people,
       windows: windows.windows,
       address: text(body.address, 240),
