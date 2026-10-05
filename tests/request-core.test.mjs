@@ -44,12 +44,14 @@ test("plans: each entrée makes 2 portions per person, so every added person rai
   }
 });
 
-test("plans: 3 or 4 entrées only, and people are capped by the largest package", () => {
+test("plans: 3 to 5 entrées only, and people are capped by the largest package", () => {
   assert.equal(planFor(2, 2, DEFAULT_PRICING), null);
-  assert.equal(planFor(5, 1, DEFAULT_PRICING), null);
+  assert.equal(planFor(6, 1, DEFAULT_PRICING), null);
   assert.equal(planFor(4, 5, DEFAULT_PRICING), null); // 40 portions > 32
+  assert.equal(planFor(5, 3, DEFAULT_PRICING).portionsNeeded, 30);
   assert.equal(maxPeopleFor(4, DEFAULT_PRICING), 4);
   assert.equal(maxPeopleFor(3, DEFAULT_PRICING), 5);
+  assert.equal(maxPeopleFor(5, DEFAULT_PRICING), 3);
 });
 
 test("Oregon clock: DST and standard time both land on the right instant", () => {
@@ -82,17 +84,17 @@ const body = {
   city: "Astoria",
 };
 
-test("request: needs 3 or 4 entrées plus up to 1 dessert, a plan that fits, an area we serve and the policy", () => {
+test("request: needs 3 to 5 entrées plus up to 1 dessert, a plan that fits, an area we serve and the policy", () => {
   assert.equal(parseRequestInput(body, DEFAULT_PRICING, NOW).ok, true);
   assert.equal(parseRequestInput({ ...body, recipeIds: [1, 2] }, DEFAULT_PRICING, NOW).ok, false);
-  assert.equal(parseRequestInput({ ...body, recipeIds: [1, 2, 3, 4, 5] }, DEFAULT_PRICING, NOW).ok, false, "5 entrées");
+  assert.equal(parseRequestInput({ ...body, recipeIds: [1, 2, 3, 4, 5] }, DEFAULT_PRICING, NOW).ok, true, "5 entrées");
   const desserts = new Set([90, 91]);
   const withDessert = parseRequestInput({ ...body, recipeIds: [1, 2, 3, 4, 90] }, DEFAULT_PRICING, NOW, [], desserts);
   assert.equal(withDessert.ok, true);
   assert.equal(withDessert.input.entrees, 4, "the dessert doesn't count toward portions or price");
   assert.equal(parseRequestInput({ ...body, recipeIds: [1, 2, 90] }, DEFAULT_PRICING, NOW, [], desserts).ok, false, "2 entrées + dessert");
   assert.equal(parseRequestInput({ ...body, recipeIds: [1, 2, 3, 90, 91] }, DEFAULT_PRICING, NOW, [], desserts).ok, false, "2 desserts");
-  assert.equal(parseRequestInput({ ...body, recipeIds: [1, 2, 3, 4, 5, 6] }, DEFAULT_PRICING, NOW).ok, false);
+  assert.equal(parseRequestInput({ ...body, recipeIds: [1, 2, 3, 4, 5, 6] }, DEFAULT_PRICING, NOW).ok, false, "6 entrées");
   assert.equal(parseRequestInput({ ...body, recipeIds: [1, 1, 1] }, DEFAULT_PRICING, NOW).ok, false);
   assert.equal(parseRequestInput({ ...body, people: 9 }, DEFAULT_PRICING, NOW).ok, false);
   assert.equal(parseRequestInput({ ...body, city: "Portland" }, DEFAULT_PRICING, NOW).ok, false);

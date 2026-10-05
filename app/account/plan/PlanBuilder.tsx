@@ -114,7 +114,7 @@ export default function PlanBuilder({
             {plan ? `${plan.name} · ${money(plan.priceCents)}` : `${entrees} of ${MIN_ENTREES} entrées to start`}
           </strong>
           <span>
-            {entrees} {entrees === 1 ? "entrée" : "entrées"} (3 or 4) · {dessert ? `Dessert: ${dessert.title}` : "No dessert yet"}
+            {entrees} {entrees === 1 ? "entrée" : "entrées"} (3 to 5) · {dessert ? `Dessert: ${dessert.title}` : "No dessert yet"}
             {plan ? ` · ${portionsFor(entrees, shownPeople)} portions` : ""}
           </span>
         </div>
@@ -133,7 +133,7 @@ export default function PlanBuilder({
       <p className="plan-note">
         {onDessertStep
           ? "Step 2 of 2. Pick 1 dessert. It is included with your plan and does not change the price. You can also skip it."
-          : `Step 1 of 2. Pick 3 or 4 entrées and how many people you are cooking for. Each entrée makes ${PORTIONS_PER_DISH_PER_PERSON} portions per person, so more people means more food and a larger plan. Next you can choose 1 dessert, included with every plan. ${PRICE_COVERS}`}
+          : `Step 1 of 2. Pick 3 to 5 entrées and how many people you are cooking for. Each entrée makes ${PORTIONS_PER_DISH_PER_PERSON} portions per person, so more people means more food and a larger plan. Next you can choose 1 dessert, included with every plan. ${PRICE_COVERS}`}
       </p>
       {atLimit ? (
         <p className="plan-note">
@@ -148,7 +148,7 @@ export default function PlanBuilder({
 
       <section className="plan-menu">
         <div className="plan-head">
-          <h1>{onDessertStep ? "Pick 1 dessert" : "Pick 3 or 4 entrées"}</h1>
+          <h1>{onDessertStep ? "Pick 1 dessert" : "Pick 3 to 5 entrées"}</h1>
           <input type="search" placeholder="Search dishes" value={query} onChange={(e) => setQuery(e.target.value)} aria-label="Search dishes" />
         </div>
         {onDessertStep ? null : (

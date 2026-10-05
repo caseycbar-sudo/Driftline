@@ -65,7 +65,7 @@ export default function SessionCards({ sent }: { sent: boolean }) {
         {next ? <Card r={next} cancel={cancel} /> : (
           <div className="empty-meals">
             <b>Nothing scheduled yet.</b>
-            <p>Pick 3 or 4 entrées plus a dessert, and tell us when you&apos;re free.</p>
+            <p>Pick 3 to 5 entrées plus a dessert, and tell us when you&apos;re free.</p>
             <Link href="/account/plan">Plan a session →</Link>
           </div>
         )}

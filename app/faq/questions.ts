@@ -67,7 +67,7 @@ export const QUESTION_GROUPS: QuestionGroup[] = [
       },
       {
         q: "How many different dishes can I pick?",
-        a: "Every plan is 3 or 4 entrées, plus 1 dessert. The dessert is included, so it doesn't use an entrée choice or change the price. Your portions are split across your entrées. A visit can include one big-project dish (like lasagna or meatballs) so your chef can finish in about three hours and your kitchen isn't taken over all day.",
+        a: "Every plan is 3 to 5 entrées, plus 1 dessert. The dessert is included, so it doesn't use an entrée choice or change the price. Your portions are split across your entrées. A visit can include one big-project dish (like lasagna or meatballs) so your chef can finish in about three hours and your kitchen isn't taken over all day.",
         link: { href: "/cookbook", label: "Browse the cookbook" },
       },
       {

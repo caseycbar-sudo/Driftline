@@ -5,10 +5,10 @@ import { recipes } from "../app/cookbook/recipes.ts";
 
 const byId = (id) => recipes.find((r) => r.id === id);
 
-test("every package is 3 or 4 entrées plus 1 dessert", () => {
+test("every package is 3 to 5 entrées plus 1 dessert", () => {
   for (const portions of [6, 8, 12, 16, 20, 24, 32]) {
-    assert.equal(entreeLimit(portions), 4);
-    assert.equal(packageAllowance(portions), "3 or 4 entrées + 1 dessert");
+    assert.equal(entreeLimit(portions), 5);
+    assert.equal(packageAllowance(portions), "3 to 5 entrées + 1 dessert");
   }
 });
 
@@ -35,13 +35,15 @@ test("three big projects are flagged", () => {
   assert.notEqual(plan.level, "good");
 });
 
-test("more than 4 entrées is flagged, desserts don't count as entrées", () => {
+test("more than 5 entrées is flagged, desserts don't count as entrées", () => {
   const plan = planVisit([byId(31), byId(39), byId(36), byId(46)], 8);
   assert.equal(plan.entrees, 3);
   assert.equal(plan.desserts, 1);
   assert.ok(!plan.warnings.some((w) => /entrées:/.test(w)), plan.warnings.join(" "));
-  const tooMany = planVisit([byId(31), byId(39), byId(33), byId(36), byId(32)], 16);
-  assert.ok(tooMany.warnings.some((w) => /5 entrées/.test(w)));
+  const five = planVisit([byId(31), byId(39), byId(33), byId(36), byId(32)], 16);
+  assert.ok(!five.warnings.some((w) => /entrées:/.test(w)), "5 entrées is allowed");
+  const tooMany = planVisit([byId(31), byId(39), byId(33), byId(36), byId(32), byId(34)], 16);
+  assert.ok(tooMany.warnings.some((w) => /6 entrées/.test(w)));
   const twoDesserts = planVisit([byId(31), byId(46), byId(47)], 12);
   assert.ok(twoDesserts.warnings.some((w) => /desserts/.test(w)));
 });
