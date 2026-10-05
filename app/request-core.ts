@@ -5,9 +5,9 @@
  */
 import type { MealPrepPackage, Pricing } from "./pricing-core";
 
-/** Every meal prep plan is 3 or 4 entrées, plus 1 dessert (optional, and it doesn't change the price). */
+/** Every meal prep plan is 3 to 5 entrées, plus 1 dessert (optional, and it doesn't change the price). */
 export const MIN_ENTREES = 3;
-export const MAX_ENTREES = 4;
+export const MAX_ENTREES = 5;
 export const MAX_DESSERTS = 1;
 /** Most dishes in one request: the entrées plus the dessert. */
 export const MAX_ITEMS = MAX_ENTREES + MAX_DESSERTS;

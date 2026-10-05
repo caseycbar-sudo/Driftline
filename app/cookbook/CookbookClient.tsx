@@ -345,7 +345,7 @@ export default function CookbookClient({ recipes }: { recipes: Recipe[] }) {
                   {effortOf(selected) === "Big project"
                     ? "A longer cook, so a visit can include one big project. Pair it with easier dishes."
                     : "Fits easily into a visit alongside your other picks."}{" "}
-                  Every plan is 3 or 4 entrées, plus 1 dessert.
+                  Every plan is 3 to 5 entrées, plus 1 dessert.
                 </>
               )}
             </p>
