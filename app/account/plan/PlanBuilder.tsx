@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import DishBackdrop from "../DishBackdrop";
 import { MAX_ITEMS, MIN_ITEMS, PORTIONS_PER_DISH_PER_PERSON, PRICE_COVERS, portionsFor } from "../../request-core";
 
-type Dish = { id: number; title: string; category: string; description: string; image: string; allergens: string[]; dietary: string[] };
+type Dish = { id: number; title: string; category: string; description: string; image: string; allergens: string[]; dietary: string[]; bigImage: string; ingredients: string[]; reheating: string };
 type Pkg = { name: string; portions: number; priceCents: number };
 
 const money = (cents: number) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(cents / 100);
@@ -32,7 +32,16 @@ export default function PlanBuilder({
   const [items, setItems] = useState<number[]>(initialItems),
     [people, setPeople] = useState(initialPeople),
     [query, setQuery] = useState(""),
-    [category, setCategory] = useState("");
+    [category, setCategory] = useState(""),
+    [openId, setOpenId] = useState(0);
+  const detailRef = useRef<HTMLDialogElement>(null);
+  const opened = dishes.find((d) => d.id === openId) ?? null;
+  useEffect(() => {
+    const dialog = detailRef.current;
+    if (!dialog) return;
+    if (opened && !dialog.open) dialog.showModal();
+    if (!opened && dialog.open) dialog.close();
+  }, [opened]);
   const cap = Math.max(...packages.map((p) => p.portions));
   const maxPeople = Math.max(1, Math.min(8, Math.floor(cap / (Math.max(MIN_ITEMS, items.length) * PORTIONS_PER_DISH_PER_PERSON))));
   const shownPeople = Math.min(people, maxPeople);
@@ -136,9 +145,14 @@ export default function PlanBuilder({
                   <small>{d.category}</small>
                   <h3>{d.title}</h3>
                   {clash.length ? <p className="plan-clash">Heads up: contains {clash.join(", ")}, which is in your notes.</p> : null}
-                  <button onClick={() => toggle(d.id)} disabled={!on && items.length >= MAX_ITEMS} aria-pressed={on}>
-                    {on ? "✓ Added" : items.length >= MAX_ITEMS ? "Plan is full" : "Add"}
-                  </button>
+                  <div className="plan-dish-actions">
+                    <button type="button" className="plan-details" onClick={() => setOpenId(d.id)}>
+                      Details
+                    </button>
+                    <button onClick={() => toggle(d.id)} disabled={!on && items.length >= MAX_ITEMS} aria-pressed={on}>
+                      {on ? "✓ Added" : items.length >= MAX_ITEMS ? "Plan is full" : "Add"}
+                    </button>
+                  </div>
                 </div>
               </article>
             );
@@ -146,6 +160,34 @@ export default function PlanBuilder({
           {!visible.length ? <p>No dishes match that search.</p> : null}
         </div>
       </section>
+
+      <dialog ref={detailRef} className="plan-modal" onClose={() => setOpenId(0)} onClick={(e) => { if (e.target === e.currentTarget) setOpenId(0); }} aria-label={opened?.title ?? "Dish details"}>
+        {opened ? (
+          <div className="plan-modal-body">
+            <button type="button" className="plan-modal-close" onClick={() => setOpenId(0)} aria-label="Close">
+              ×
+            </button>
+            {opened.bigImage ? <img src={opened.bigImage} alt={opened.title} /> : null}
+            <small>{opened.category}</small>
+            <h2>{opened.title}</h2>
+            <p>{opened.description}</p>
+            <h3>What is in it</h3>
+            <p className="plan-modal-list">{opened.ingredients.join(", ")}.</p>
+            <h3>Allergens</h3>
+            <p>{opened.allergens.length ? `Contains ${opened.allergens.join(", ").toLowerCase()}.` : "No major allergens listed."}{opened.dietary.length ? ` ${opened.dietary.join(", ")}.` : ""}</p>
+            {opened.reheating ? (
+              <>
+                <h3>How to reheat</h3>
+                <p>{opened.reheating}</p>
+              </>
+            ) : null}
+            {conflict(opened).length ? <p className="plan-clash">Heads up: contains {conflict(opened).join(", ")}, which is in your notes.</p> : null}
+            <button type="button" className="plan-modal-add" onClick={() => toggle(opened.id)} disabled={!items.includes(opened.id) && items.length >= MAX_ITEMS} aria-pressed={items.includes(opened.id)}>
+              {items.includes(opened.id) ? "✓ Added (tap to remove)" : items.length >= MAX_ITEMS ? "Plan is full" : "Add to my plan"}
+            </button>
+          </div>
+        ) : null}
+      </dialog>
 
       <section className="plan-bottom">
         {scheduleButton}
