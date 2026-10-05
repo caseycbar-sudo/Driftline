@@ -8,8 +8,8 @@
  *   - how many different entrées the package includes,
  *   - how many "big project" dishes can be in one visit,
  *   - an estimate of total kitchen time, shown green / amber / red.
- * Desserts are an add-on (one per visit) and don't use an entrée slot, but their
- * time still counts. Pure module so it can be tested and used on any screen.
+ * Every plan is 3 or 4 entrées plus 1 dessert. The dessert doesn't use an entrée
+ * slot, but its time still counts. Pure module so it can be tested and used on any screen.
  */
 
 export type Effort = "Easy" | "Medium" | "Big project";
@@ -21,10 +21,13 @@ export const VISIT_OVERHEAD_MIN = 45;
 export const TARGET_MIN = 180;
 export const LIMIT_MIN = 240;
 export const DESSERT_LIMIT = 1;
+/** Every plan is 3 or 4 entrées (keep in step with MIN_ENTREES / MAX_ENTREES in request-core). */
+const MIN_ENTREES = 3;
+const MAX_ENTREES = 4;
 /** What we assume for a dish typed in by hand (not in the cookbook). */
 const UNKNOWN = { active: 60, total: 90 };
 
-export const isDessert = (dish: PlanDish) => (dish.category ?? "").toLowerCase() === "desserts";
+export const isDessert = (dish: PlanDish) => (dish.category ?? "").trim().toLowerCase() === "desserts";
 
 /** Easy / Medium / Big project, from the recipe's hands-on and total time. */
 export function effortOf(dish: { active?: number; total?: number }): Effort {
@@ -35,11 +38,10 @@ export function effortOf(dish: { active?: number; total?: number }): Effort {
   return "Medium";
 }
 
-/** Different entrées a package covers: 2 up to 8 portions, 3 up to 12, then 4. */
+/** Different entrées a visit covers. The same for every package: 3 or 4, plus 1 dessert. */
 export function entreeLimit(portions: number): number {
-  if (portions <= 8) return 2;
-  if (portions <= 12) return 3;
-  return 4;
+  void portions;
+  return MAX_ENTREES;
 }
 
 /** Big-project dishes allowed in one visit. */
@@ -47,10 +49,10 @@ export function bigProjectLimit(portions: number): number {
   return portions >= 20 ? 2 : 1;
 }
 
-/** Package line for customers, e.g. "Up to 3 entrées + 1 dessert". */
+/** Package line for customers: the same on every package. */
 export function packageAllowance(portions: number): string {
-  const n = entreeLimit(portions);
-  return `Up to ${n} entrées + ${DESSERT_LIMIT} dessert`;
+  void portions;
+  return `${MIN_ENTREES} or ${MAX_ENTREES} entrées + ${DESSERT_LIMIT} dessert`;
 }
 
 export function formatMinutes(minutes: number): string {

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import DishBackdrop from "../DishBackdrop";
-import { MAX_ITEMS, MIN_ITEMS, PORTIONS_PER_DISH_PER_PERSON, PRICE_COVERS, portionsFor } from "../../request-core";
+import { MAX_ENTREES, MIN_ENTREES, PORTIONS_PER_DISH_PER_PERSON, PRICE_COVERS, isDessertCategory, portionsFor } from "../../request-core";
 
 type Dish = { id: number; title: string; category: string; description: string; image: string; allergens: string[]; dietary: string[]; bigImage: string; ingredients: string[]; reheating: string };
 type Pkg = { name: string; portions: number; priceCents: number };
@@ -42,21 +42,33 @@ export default function PlanBuilder({
     if (opened && !dialog.open) dialog.showModal();
     if (!opened && dialog.open) dialog.close();
   }, [opened]);
+  const dessertIds = useMemo(() => new Set(dishes.filter((d) => isDessertCategory(d.category)).map((d) => d.id)), [dishes]);
+  const isDessert = (id: number) => dessertIds.has(id);
+  const entrees = items.filter((id) => !isDessert(id)).length;
+  const dessert = dishes.find((d) => items.includes(d.id) && isDessert(d.id)) ?? null;
   const cap = Math.max(...packages.map((p) => p.portions));
-  const maxPeople = Math.max(1, Math.min(8, Math.floor(cap / (Math.max(MIN_ITEMS, items.length) * PORTIONS_PER_DISH_PER_PERSON))));
+  const maxPeople = Math.max(1, Math.min(8, Math.floor(cap / (Math.max(MIN_ENTREES, entrees) * PORTIONS_PER_DISH_PER_PERSON))));
   const shownPeople = Math.min(people, maxPeople);
   const plan = useMemo(() => {
-    if (items.length < MIN_ITEMS) return null;
-    const need = portionsFor(items.length, shownPeople);
+    if (entrees < MIN_ENTREES) return null;
+    const need = portionsFor(entrees, shownPeople);
     return [...packages].sort((a, b) => a.portions - b.portions).find((p) => p.portions >= need) ?? null;
-  }, [items.length, shownPeople, packages]);
+  }, [entrees, shownPeople, packages]);
   const categories = useMemo(() => [...new Set(dishes.map((d) => d.category).filter(Boolean))], [dishes]);
   const q = query.trim().toLowerCase();
   const visible = [...dishes].sort((a, b) => Number(Boolean(b.image)) - Number(Boolean(a.image))).filter((d) => (!category || d.category === category) && (!q || `${d.title} ${d.category} ${d.description}`.toLowerCase().includes(q)));
   const atLimit = shownPeople >= maxPeople;
 
+  const entreesFull = entrees >= MAX_ENTREES;
+  /** Can't add: the entrées are full. A dessert never blocks; picking another one swaps it in. */
+  const blocked = (id: number) => !items.includes(id) && !isDessert(id) && entreesFull;
+  const addLabel = (id: number, add: string) => (blocked(id) ? "Entrées are full" : isDessert(id) && dessert ? "Swap in this dessert" : add);
   const toggle = (id: number) =>
-    setItems((current) => (current.includes(id) ? current.filter((x) => x !== id) : current.length >= MAX_ITEMS ? current : [...current, id]));
+    setItems((current) => {
+      if (current.includes(id)) return current.filter((x) => x !== id);
+      if (isDessert(id)) return [...current.filter((x) => !isDessert(x)), id];
+      return current.filter((x) => !isDessert(x)).length >= MAX_ENTREES ? current : [...current, id];
+    });
   const conflict = (d: Dish) => d.allergens.filter((a) => avoid.includes(a.toLowerCase()));
   const href = `/account/schedule?items=${items.join(",")}&people=${shownPeople}${editId ? `&edit=${editId}` : ""}`;
   const ready = Boolean(plan);
@@ -66,7 +78,7 @@ export default function PlanBuilder({
     </Link>
   ) : (
     <span className="plan-schedule disabled" aria-disabled="true">
-      Pick {MIN_ITEMS - items.length} more to schedule
+      Pick {MIN_ENTREES - entrees} more {MIN_ENTREES - entrees === 1 ? "entrée" : "entrées"} to schedule
     </span>
   );
 
@@ -86,11 +98,11 @@ export default function PlanBuilder({
         <div>
           <small>{editId ? "EDITING YOUR MENU" : "YOUR PLAN"}</small>
           <strong>
-            {plan ? `${plan.name} · ${money(plan.priceCents)}` : `${items.length} of ${MIN_ITEMS} dishes to start`}
+            {plan ? `${plan.name} · ${money(plan.priceCents)}` : `${entrees} of ${MIN_ENTREES} entrées to start`}
           </strong>
           <span>
-            {items.length} {items.length === 1 ? "dish" : "dishes"} (up to {MAX_ITEMS})
-            {plan ? ` · ${portionsFor(items.length, shownPeople)} portions` : ""}
+            {entrees} {entrees === 1 ? "entrée" : "entrées"} (3 or 4) · {dessert ? `Dessert: ${dessert.title}` : "Add 1 dessert"}
+            {plan ? ` · ${portionsFor(entrees, shownPeople)} portions` : ""}
           </span>
         </div>
         <label>
@@ -106,7 +118,7 @@ export default function PlanBuilder({
         {scheduleButton}
       </section>
       <p className="plan-note">
-        Pick 3 to 5 dishes and how many people you are cooking for. Each dish makes {PORTIONS_PER_DISH_PER_PERSON} portions per person, so more people means more food and a larger plan. {PRICE_COVERS}
+        Pick 3 or 4 entrées, plus 1 dessert, and how many people you are cooking for. Each entrée makes {PORTIONS_PER_DISH_PER_PERSON} portions per person, so more people means more food and a larger plan. The dessert is included with every plan. {PRICE_COVERS}
       </p>
       {atLimit ? (
         <p className="plan-note">
@@ -121,7 +133,7 @@ export default function PlanBuilder({
 
       <section className="plan-menu">
         <div className="plan-head">
-          <h1>Pick 3 to 5 dishes</h1>
+          <h1>Pick 3 or 4 entrées, plus 1 dessert</h1>
           <input type="search" placeholder="Search dishes" value={query} onChange={(e) => setQuery(e.target.value)} aria-label="Search dishes" />
         </div>
         <div className="plan-chips" role="group" aria-label="Filter by type">
@@ -149,8 +161,8 @@ export default function PlanBuilder({
                     <button type="button" className="plan-details" onClick={() => setOpenId(d.id)}>
                       Details
                     </button>
-                    <button onClick={() => toggle(d.id)} disabled={!on && items.length >= MAX_ITEMS} aria-pressed={on}>
-                      {on ? "✓ Added" : items.length >= MAX_ITEMS ? "Plan is full" : "Add"}
+                    <button onClick={() => toggle(d.id)} disabled={blocked(d.id)} aria-pressed={on}>
+                      {on ? "✓ Added" : addLabel(d.id, "Add")}
                     </button>
                   </div>
                 </div>
@@ -182,8 +194,8 @@ export default function PlanBuilder({
               </>
             ) : null}
             {conflict(opened).length ? <p className="plan-clash">Heads up: contains {conflict(opened).join(", ")}, which is in your notes.</p> : null}
-            <button type="button" className="plan-modal-add" onClick={() => toggle(opened.id)} disabled={!items.includes(opened.id) && items.length >= MAX_ITEMS} aria-pressed={items.includes(opened.id)}>
-              {items.includes(opened.id) ? "✓ Added (tap to remove)" : items.length >= MAX_ITEMS ? "Plan is full" : "Add to my plan"}
+            <button type="button" className="plan-modal-add" onClick={() => toggle(opened.id)} disabled={blocked(opened.id)} aria-pressed={items.includes(opened.id)}>
+              {items.includes(opened.id) ? "✓ Added (tap to remove)" : addLabel(opened.id, "Add to my plan")}
             </button>
           </div>
         ) : null}
