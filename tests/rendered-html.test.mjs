@@ -175,3 +175,25 @@ test("questions page answers without JavaScript and is marked up for search", as
     await worker.dispose();
   }
 });
+
+test("the message APIs refuse visitors who are not signed in", async () => {
+  const worker = await startBuiltWorker();
+  try {
+    const checks = [
+      ["GET", "/api/requests/messages?id=1", 401],
+      ["POST", "/api/requests/messages", 401],
+      ["GET", "/api/admin/messages", 403],
+      ["POST", "/api/admin/messages", 403],
+    ];
+    for (const [method, path, status] of checks) {
+      const response = await worker.fetch(path, { method, headers: { "content-type": "application/json" }, ...(method === "POST" ? { body: JSON.stringify({ id: 1, body: "hi" }) } : {}) });
+      await response.arrayBuffer();
+      assert.equal(response.status, status, `${method} ${path}`);
+    }
+    const cross = await worker.fetch("/api/requests/messages", { method: "POST", headers: { "content-type": "application/json", origin: "https://evil.example", "sec-fetch-site": "cross-site" }, body: JSON.stringify({ id: 1, body: "hi" }) });
+    await cross.arrayBuffer();
+    assert.equal(cross.status, 403);
+  } finally {
+    await worker.dispose();
+  }
+});

@@ -1,4 +1,4 @@
-import { integer, primaryKey, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { index, integer, primaryKey, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const customerProfiles = sqliteTable("customer_profiles", {
   email: text("email").primaryKey(),
@@ -375,3 +375,19 @@ export const blockedDates = sqliteTable("blocked_dates", {
   createdBy: text("created_by").notNull().default(""),
   createdAt: text("created_at").notNull(),
 });
+
+/** The back-and-forth between a customer and Driftline about one session request. */
+export const requestMessages = sqliteTable(
+  "request_messages",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    requestId: integer("request_id").notNull(),
+    /** customer | owner */
+    sender: text("sender").notNull(),
+    body: text("body").notNull(),
+    createdAt: text("created_at").notNull(),
+    /** When the other side opened it. Empty means unread. */
+    readAt: text("read_at").notNull().default(""),
+  },
+  (table) => [index("request_messages_request_idx").on(table.requestId)],
+);

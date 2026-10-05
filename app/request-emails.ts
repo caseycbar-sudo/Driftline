@@ -27,7 +27,7 @@ async function toCustomer(who: Who, subject: string, title: string, lines: [stri
 }
 
 /** After Submit: the customer gets a receipt, the admin gets an alert. */
-export async function notifyRequestSubmitted(r: SessionRequest, who: Who, change = false) {
+export async function notifyRequestSubmitted(r: SessionRequest, who: Who, change = false, answering?: SessionRequest) {
   const lines: [string, string][] = [
     ["Menu", r.dishes.join(", ")],
     ["Plan", `${r.packageName} for ${r.people} ${r.people === 1 ? "person" : "people"}`],
@@ -41,8 +41,16 @@ export async function notifyRequestSubmitted(r: SessionRequest, who: Who, change
     `We'll review it and get back to you within ${REQUEST_RESPONSE_HOURS} hours. Nothing is booked until we confirm a time and a chef.`,
   );
   const site = publicSiteUrl();
-  const adminLines: [string, string][] = [["Customer", `${who.name} (${who.email})`], ["Phone", who.phone ?? ""], ...lines, ["Where", where(r)]];
-  const title = change ? "Change request from a customer" : "New meal prep request";
+  // When the customer is answering "we need a different time", say so, and show what they were answering.
+  const replied = change && answering?.status === "needs_new_time";
+  const adminLines: [string, string][] = [
+    ["Customer", `${who.name} (${who.email})`],
+    ["Phone", who.phone ?? ""],
+    ...(replied ? ([["You offered", answering.suggestedTimes.length ? windowsText(answering.suggestedTimes) : ""], ["Your note", answering.adminNote]] as [string, string][]) : []),
+    ...lines,
+    ["Where", where(r)],
+  ];
+  const title = replied ? "A customer sent new times" : change ? "Change request from a customer" : "New meal prep request";
   await sendEmail({
     to: ownerEmails(),
     subject: `${title}: ${who.name}`,
@@ -253,4 +261,23 @@ export async function nudgeChefToAnswer(v: ScheduleEvent) {
     text: asText("A visit is waiting for your answer", lines, note, `${site}/chef`),
     html: layout("A visit is waiting for your answer", lines, note, { href: `${site}/chef`, label: "Answer in the chef app" }),
   }).catch(() => false);
+}
+
+/** The customer wrote in the thread: Driftline hears about it, and can reply to the email or in the portal. */
+export async function notifyOwnerOfMessage(r: SessionRequest, who: Who, body: string) {
+  const site = publicSiteUrl();
+  const lines: [string, string][] = [["From", `${who.name} (${who.email})`], ["Phone", who.phone ?? ""], ["Session", r.dishes.join(", ")], ["Message", body]];
+  const title = "New message from a customer";
+  await sendEmail({
+    to: ownerEmails(),
+    subject: `${title}: ${who.name}`,
+    text: asText(title, lines, "Reply in the owner portal under Messages so it stays with their request.", `${site}/portal`),
+    html: layout(title, lines, "Reply in the owner portal under Messages so it stays with their request.", { href: `${site}/portal`, label: "Open Messages" }),
+    replyTo: who.email,
+  }).catch(() => false);
+}
+
+/** Driftline wrote in the thread: the customer is told to check their account. */
+export async function notifyCustomerOfMessage(r: SessionRequest, who: Who, body: string) {
+  await toCustomer(who, "A message from Driftline", "You have a new message", [["Session", r.dishes.join(", ")], ["Message", body]], "Open your account to read the whole conversation and write back.", "Read and reply");
 }
