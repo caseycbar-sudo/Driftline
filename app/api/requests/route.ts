@@ -14,6 +14,7 @@ import { unavailableBetween } from "../../../db/availability";
 import { BUSINESS_PHONE, earliestDate, insideCancelWindow, isDessertCategory, isOpenForCustomerChange, latestDate, parseRequestInput, planFor, profileGaps } from "../../request-core";
 import { notifyCustomerCancelled, notifyOwnerLateChangeAttempt, notifyRequestSubmitted } from "../../request-emails";
 import { customerView } from "../../request-view";
+import { unreadByRequest } from "../../../db/messages";
 
 export const dynamic = "force-dynamic";
 
@@ -23,7 +24,9 @@ export async function GET() {
   const user = await getUser();
   if (!user) return fail("Sign in required", 401);
   const requests = await listForCustomer(user.email);
-  return NextResponse.json(await Promise.all(requests.map(customerView)), { headers: { "cache-control": "private, no-store" } });
+  const unread = await unreadByRequest("customer", requests.map((r) => r.id)).catch(() => ({}) as Record<number, number>);
+  const views = await Promise.all(requests.map(customerView));
+  return NextResponse.json(views.map((v) => ({ ...v, unread: unread[v.id] ?? 0 })), { headers: { "cache-control": "private, no-store" } });
 }
 
 export async function POST(request: Request) {
@@ -146,6 +149,6 @@ export async function POST(request: Request) {
     }
   }
   const updated = await patchRequest(existing.id, { ...data, status, scheduleEventId, suggestedTimes: [], adminNote: "", remindedAt: "" });
-  if (updated) await notifyRequestSubmitted(updated, who, true);
+  if (updated) await notifyRequestSubmitted(updated, who, true, existing);
   return NextResponse.json(updated ? await customerView(updated) : { ok: true });
 }

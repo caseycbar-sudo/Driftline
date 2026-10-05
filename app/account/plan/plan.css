@@ -131,3 +131,4 @@
 
 button.plan-schedule{border:0;font:inherit;cursor:pointer}
 .plan-back{border:1px solid #1f3a34;background:#fff;color:#1f3a34;border-radius:8px;padding:8px 12px;font:inherit;cursor:pointer;justify-self:start}
+.session-card button.session-messages{justify-self:start;border:1px solid #7a6032;background:#fff;color:#7a6032;border-radius:8px;padding:8px 12px;cursor:pointer;font:inherit;font-weight:600;min-height:40px}

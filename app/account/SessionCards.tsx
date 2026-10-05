@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import MessageThread from "../MessageThread";
 import { STATUS_LABELS, isOpenForCustomerChange, type RequestStatus } from "../request-core";
 
 type Win = { date: string; from: string; to: string };
@@ -15,6 +16,7 @@ type Req = {
   windows: Win[];
   adminNote: string;
   suggestedTimes: Win[];
+  unread?: number;
   visit?: { id: number; serviceDate: string; startTime: string; endTime: string; chefFirstName: string; status: string } | null;
 };
 
@@ -89,6 +91,9 @@ export default function SessionCards({ sent }: { sent: boolean }) {
 
 function Card({ r, cancel }: { r: Req; cancel: (r: Req) => void }) {
   const open = isOpenForCustomerChange(r.status);
+  const [chat, setChat] = useState(false),
+    [seen, setSeen] = useState(false);
+  const unread = seen ? 0 : (r.unread ?? 0);
   const resched = `/account/schedule?items=${r.recipeIds.join(",")}&people=${r.people}&edit=${r.id}`;
   return (
     <article className={`session-card status-${r.status}`}>
@@ -114,6 +119,10 @@ function Card({ r, cancel }: { r: Req; cancel: (r: Req) => void }) {
         {r.dishes.join(", ")} · {r.packageName} for {r.people} {r.people === 1 ? "person" : "people"}
       </p>
       {!r.visit && r.windows.length ? <small>You offered: {r.windows.map(span).join("; ")}</small> : null}
+      <button type="button" className="session-messages" aria-expanded={chat} onClick={() => setChat(!chat)}>
+        {chat ? "Hide messages" : unread ? `Messages (${unread} new)` : "Message Driftline"}
+      </button>
+      {chat ? <MessageThread endpoint="/api/requests/messages" requestId={r.id} me="customer" onRead={() => setSeen(true)} /> : null}
       {open ? (
         <footer>
           <Link href={`/account/plan?edit=${r.id}`}>Edit menu</Link>
