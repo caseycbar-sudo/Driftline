@@ -115,3 +115,16 @@
 
 .send-blockers ul { margin: 6px 0 0; padding-left: 20px; }
 .send-blockers li { margin: 2px 0; }
+
+.plan-dish-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.plan-dish .plan-details{background:#fff;color:#1f3a34}
+.plan-modal{border:0;border-radius:14px;padding:0;width:min(560px,calc(100vw - 32px));max-height:calc(100vh - 48px);overflow:auto}
+.plan-modal::backdrop{background:rgba(20,20,20,.55)}
+.plan-modal-body{position:relative;padding:0 18px 18px;display:grid;gap:6px}
+.plan-modal-body img{width:calc(100% + 36px);margin:0 -18px 6px;aspect-ratio:3/2;object-fit:cover}
+.plan-modal-body h2{margin:0;font-size:22px}
+.plan-modal-body h3{margin:10px 0 0;font-size:14px;text-transform:uppercase;letter-spacing:.04em;color:#6b6553}
+.plan-modal-body p{margin:0;line-height:1.5}
+.plan-modal-close{position:absolute;top:8px;right:8px;width:36px;height:36px;border-radius:50%;border:0;background:rgba(255,255,255,.92);font-size:22px;cursor:pointer}
+.plan-modal-add{margin-top:12px;border:1px solid #1f3a34;background:#1f3a34;color:#fff;border-radius:8px;padding:12px;font:inherit;cursor:pointer}
+.plan-modal-add[aria-pressed="true"]{background:#fff;color:#1f3a34}

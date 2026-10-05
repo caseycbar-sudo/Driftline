@@ -6,6 +6,7 @@ import { getRequest } from "../../../db/requests";
 import { smallImage } from "../../site-config";
 import { DEFAULT_PEOPLE } from "../../request-core";
 import PlanBuilder from "./PlanBuilder";
+import { ingredientNames } from "./dish-info";
 import { backdropImages } from "../backdrop-images";
 import "../account.css";
 import "./plan.css";
@@ -18,7 +19,7 @@ export default async function PlanPage({ searchParams }: { searchParams: Promise
   const [profile, pricing, cookbook] = await Promise.all([getOrCreateCustomer(user.email, user.displayName), getPricing(), getCookbook()]);
   const dishes = cookbook
     .filter((r) => r.side === "meal-prep")
-    .map((r) => ({ id: r.id, title: r.title, category: r.category, description: r.description, image: r.image ? smallImage(r.image) : "", allergens: r.allergens.map(String), dietary: r.dietary }));
+    .map((r) => ({ id: r.id, title: r.title, category: r.category, description: r.description, image: r.image ? smallImage(r.image) : "", allergens: r.allergens.map(String), dietary: r.dietary, bigImage: r.image, ingredients: ingredientNames(r.ingredients), reheating: r.reheating }));
 
   // Editing a request starts from its menu; otherwise from any dishes carried over in the link.
   let editId = 0;
