@@ -442,11 +442,11 @@ export const recipes: Recipe[] = [
       "Wheat"
     ],
     "dietary": [],
-    "image": "",
+    "image": "/cookbook/mp/turkey-meatballs-in-marinara-with-penne-and-zucchini-v3.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Anh Nguyen",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/cozy-italian-dinner-with-pasta-and-meatballs-30323136/"
     },
     "ingredients": [
       "1½ cups panko bread crumbs",
@@ -3612,11 +3612,11 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Vegetarian"
     ],
-    "image": "",
+    "image": "/cookbook/mp/apple-crisp-with-oat-topping-v3.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Jessica Johnston",
+      "source": "Unsplash",
+      "page": "https://unsplash.com/photos/a-casserole-dish-filled-with-food-on-a-counter-q0TnVPELBnI"
     },
     "ingredients": [
       "5 lb baking apples (about 10, a mix of Honeycrisp and Granny Smith), peeled, cored and sliced ½ inch thick",
@@ -4166,6 +4166,337 @@ export const recipes: Recipe[] = [
     "makeAhead": "The patties can be shaped and the gravy made a day ahead. Refrigerate separately, then sear, assemble and bake.",
     "safety": "Ground beef must reach 160°F in the center of the patty. Cool to 70°F within 2 hours and to 41°F or below within the next 4 hours. Reheat to 165°F. Contains milk, egg, wheat and soy.",
     "chefNotes": "Soaking breadcrumbs in milk keeps the patties tender instead of dense. Searing first builds the browned flavor, and finishing in the gravy keeps the patties moist. Salt amounts assume Diamond Crystal kosher salt and low-sodium broth; with Morton, use a little over half."
+  },
+  {
+    "id": 55,
+    "slug": "oatmeal-raisin-cookies",
+    "side": "meal-prep",
+    "title": "Oatmeal Raisin Cookies",
+    "category": "Desserts",
+    "description": "Big, soft and chewy old-fashioned oatmeal cookies with plump raisins and warm cinnamon, baked two to a portion for the week.",
+    "servings": 12,
+    "yieldNote": "12 portions (2 large cookies each, 24 cookies)",
+    "active": 30,
+    "total": 60,
+    "tags": [
+      "Kid-friendly",
+      "Make-ahead",
+      "Freezer-friendly"
+    ],
+    "allergens": [
+      "Milk",
+      "Egg",
+      "Wheat"
+    ],
+    "dietary": [
+      "Vegetarian"
+    ],
+    "image": "/cookbook/mp/oatmeal-raisin-cookies-v3.webp",
+    "photoCredit": {
+      "author": "Terrance Barksdale",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/close-up-photo-of-an-oatmeal-cookie-with-raisins-8837035/"
+    },
+    "ingredients": [
+      "1 cup (2 sticks) unsalted butter, softened",
+      "¾ cup packed light brown sugar",
+      "½ cup granulated sugar",
+      "2 large eggs, at room temperature",
+      "2 tsp vanilla extract",
+      "1½ cups all-purpose flour",
+      "1 tsp baking soda",
+      "1½ tsp ground cinnamon",
+      "½ tsp kosher salt",
+      "3 cups old-fashioned rolled oats",
+      "1½ cups raisins"
+    ],
+    "directions": [
+      "Heat the oven to 350°F with racks in the upper and lower thirds. Line two half sheet pans with parchment.",
+      "Beat the softened butter with both sugars on medium speed 3 minutes, until pale and fluffy. Scrape the bowl.",
+      "Beat in the eggs one at a time, then the vanilla, until smooth.",
+      "Whisk the flour, baking soda, cinnamon and salt together. Add to the butter mixture on low speed just until a few streaks of flour remain.",
+      "Stir in the oats and raisins by hand until evenly distributed. The dough will be thick and sticky. Chill it 20 minutes so the cookies hold their shape.",
+      "Scoop 24 balls of dough, about 3 tablespoons (2 oz) each, onto the pans, 6 per half sheet at a time, spaced 2½ inches apart. Press each one down gently to about ¾ inch thick.",
+      "Bake 12 to 14 minutes, rotating the pans halfway, until the edges are golden brown and the centers still look slightly soft. Bake the remaining cookies the same way.",
+      "Cool 5 minutes on the pan so they set, then move to a wire rack and cool completely before packing.",
+      "Pack 2 cookies per portion in 12 small bags or containers."
+    ],
+    "equipment": [
+      "2 half sheet pans",
+      "Parchment paper",
+      "Stand mixer or hand mixer",
+      "Large mixing bowl",
+      "3 tablespoon scoop",
+      "Wire rack",
+      "12 small bags or containers"
+    ],
+    "storage": "Keep in an airtight container at room temperature up to 5 days. Freezes up to 3 months, either baked or as scooped dough balls.",
+    "reheating": "Good at room temperature. For a warm, soft cookie, microwave 8 to 10 seconds. Frozen cookies thaw on the counter in about 30 minutes.",
+    "makeAhead": "The dough can be scooped and refrigerated up to 3 days or frozen up to 3 months. Bake frozen dough balls 1 to 2 minutes longer.",
+    "safety": "Bake at 350°F until the edges are golden so the eggs are fully cooked. Do not taste raw dough, which contains raw egg and uncooked flour. Contains milk, egg and wheat.",
+    "chefNotes": "Chilling the dough keeps the cookies thick and chewy instead of flat. Soak the raisins in hot water 10 minutes and drain them if they feel dry. A familiar, old-fashioned favorite for older clients who want something simple."
+  },
+  {
+    "id": 56,
+    "slug": "classic-lemon-bars",
+    "side": "meal-prep",
+    "title": "Classic Lemon Bars",
+    "category": "Desserts",
+    "description": "A buttery shortbread crust under a tart, silky lemon filling, dusted with powdered sugar and cut into 12 bars.",
+    "servings": 12,
+    "yieldNote": "12 bars (one 9x13 pan)",
+    "active": 30,
+    "total": 150,
+    "tags": [
+      "Make-ahead",
+      "Freezer-friendly",
+      "Seasonal: spring"
+    ],
+    "allergens": [
+      "Milk",
+      "Egg",
+      "Wheat"
+    ],
+    "dietary": [
+      "Vegetarian"
+    ],
+    "image": "/cookbook/mp/classic-lemon-bars-v3.webp",
+    "photoCredit": {
+      "author": "Skyler Ewing",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/yellow-sliced-bread-on-white-ceramic-plate-9569400/"
+    },
+    "ingredients": [
+      "2 cups all-purpose flour (for the crust)",
+      "½ cup powdered sugar, plus more for dusting",
+      "¼ tsp kosher salt",
+      "1 cup (2 sticks) cold unsalted butter, cubed",
+      "6 large eggs",
+      "2 cups granulated sugar",
+      "⅓ cup all-purpose flour (for the filling)",
+      "¾ cup fresh lemon juice (about 4 large lemons)",
+      "Zest of 2 lemons"
+    ],
+    "directions": [
+      "Heat the oven to 350°F. Line a 9x13 pan with parchment, leaving an overhang on the long sides.",
+      "Pulse the 2 cups flour, ½ cup powdered sugar and salt with the cold butter in a food processor until the mixture looks like coarse crumbs and just starts to clump. Or rub the butter in by hand.",
+      "Press the dough firmly and evenly into the bottom of the pan, and about ½ inch up the sides. Prick it all over with a fork.",
+      "Bake the crust 18 to 22 minutes, until lightly golden. Leave the oven on.",
+      "While the crust bakes, whisk the eggs and granulated sugar until smooth. Whisk in the ⅓ cup flour, then the lemon juice and zest.",
+      "Pour the filling over the hot crust. Bake 20 to 25 minutes, until the center is just set and does not jiggle when the pan is nudged.",
+      "Cool in the pan on a rack 1 hour, then chill at least 2 hours until fully firm.",
+      "Lift out by the parchment and cut into 12 bars with a hot, dry knife, wiping it clean between cuts.",
+      "Dust with powdered sugar just before serving or packing, then pack 1 bar per portion in small containers."
+    ],
+    "equipment": [
+      "9x13 baking pan",
+      "Parchment paper",
+      "Food processor",
+      "Large mixing bowl",
+      "Whisk",
+      "Wire rack",
+      "12 small containers"
+    ],
+    "storage": "Refrigerate covered at 40°F or below up to 4 days, without the powdered sugar if possible. Freezes up to 2 months, wrapped individually.",
+    "reheating": "Serve chilled or at cool room temperature. Do not reheat. Dust with fresh powdered sugar before eating, and thaw frozen bars in the refrigerator overnight.",
+    "makeAhead": "Bake the whole pan up to 2 days ahead and keep it chilled, then cut and dust the day of the visit.",
+    "safety": "Bake at 350°F until the filling is set so the eggs are fully cooked. Refrigerate within 2 hours of baking and keep at 40°F or below, since the filling is egg-based. Contains milk, egg and wheat.",
+    "chefNotes": "Fresh lemon juice tastes brighter than bottled. A hot, wiped knife gives clean edges. The sweet-tart balance suits those who like a classic bakery treat."
+  },
+  {
+    "id": 57,
+    "slug": "peach-cobbler",
+    "side": "meal-prep",
+    "title": "Peach Cobbler",
+    "category": "Desserts",
+    "description": "Juicy cinnamon peaches under a golden, tender milk biscuit topping, made year-round with frozen peaches.",
+    "servings": 12,
+    "yieldNote": "12 portions (about 1 cup each, from one 9x13 pan)",
+    "active": 25,
+    "total": 95,
+    "tags": [
+      "Kid-friendly",
+      "Make-ahead"
+    ],
+    "allergens": [
+      "Milk",
+      "Wheat"
+    ],
+    "dietary": [
+      "Vegetarian"
+    ],
+    "image": "",
+    "photoCredit": {
+      "author": "",
+      "source": "",
+      "page": ""
+    },
+    "ingredients": [
+      "3 lb frozen sliced peaches (no need to thaw)",
+      "¾ cup granulated sugar",
+      "3 tbsp cornstarch",
+      "2 tbsp fresh lemon juice",
+      "1½ tsp ground cinnamon",
+      "2½ cups all-purpose flour",
+      "⅓ cup granulated sugar (for the biscuits)",
+      "1 tbsp baking powder",
+      "½ tsp kosher salt",
+      "¾ cup (1½ sticks) cold unsalted butter, cubed",
+      "1 cup cold whole milk",
+      "1 tbsp coarse sugar or turbinado, for the top"
+    ],
+    "directions": [
+      "Heat the oven to 400°F with a rack in the middle. Butter a 9x13 baking dish and set it on a sheet pan to catch drips.",
+      "Toss the frozen peaches with the ¾ cup sugar, cornstarch, lemon juice and cinnamon. Spread them in the dish.",
+      "Bake the peaches 15 minutes while you make the topping, so they start to heat through.",
+      "Whisk the flour, ⅓ cup sugar, baking powder and salt. Rub in the cold butter with your fingertips until it looks like coarse crumbs with some pea-size pieces.",
+      "Stir in the cold milk with a fork just until a shaggy dough forms. Do not overmix.",
+      "Remove the peaches and stir them gently. Drop the dough in 12 large spoonfuls over the hot fruit, leaving gaps so steam can escape. Sprinkle with the coarse sugar.",
+      "Lower the oven to 375°F and bake 35 to 40 minutes, until the biscuits are deep golden and the peach juices bubble thickly around the edges. Tent with foil if the tops brown too fast.",
+      "Cool on a rack 30 minutes so the juices thicken, then cool until it drops to 70°F within 2 hours.",
+      "Spoon 1 biscuit with fruit and juice into each of 12 small containers."
+    ],
+    "equipment": [
+      "9x13 baking dish",
+      "Sheet pan",
+      "Large mixing bowl",
+      "Wire rack",
+      "12 small containers"
+    ],
+    "storage": "Refrigerate covered at 40°F or below up to 4 days. Freezes up to 2 months, though the biscuits soften slightly.",
+    "reheating": "Microwave 45 to 60 seconds until hot in the center, or warm in a 350°F oven or air fryer 8 to 10 minutes to re-crisp the biscuit. Delicious with a scoop of vanilla ice cream.",
+    "makeAhead": "Make the whole cobbler the day before and refrigerate. Bake the biscuit dough only just before it goes on the fruit.",
+    "safety": "Bake at 375°F until the fruit bubbles thickly. Refrigerate within 2 hours of baking and reheat leftovers until steaming hot. Contains milk and wheat.",
+    "chefNotes": "Frozen peaches are consistent and affordable from Costco or Fred Meyer. Canned peaches in juice, well drained, also work: use 4 cans (29 oz each) and reduce the sugar to ½ cup. In summer, ripe Oregon peaches are wonderful."
+  },
+  {
+    "id": 58,
+    "slug": "old-fashioned-rice-pudding-with-cinnamon",
+    "side": "meal-prep",
+    "title": "Old-Fashioned Rice Pudding with Cinnamon",
+    "category": "Desserts",
+    "description": "Creamy stovetop rice pudding simmered slowly with milk and vanilla, finished with a dusting of cinnamon. Comforting served warm or cold.",
+    "servings": 12,
+    "yieldNote": "12 portions (about ¾ cup each)",
+    "active": 20,
+    "total": 90,
+    "tags": [
+      "Kid-friendly",
+      "Make-ahead",
+      "Gluten-free"
+    ],
+    "allergens": [
+      "Milk"
+    ],
+    "dietary": [
+      "Vegetarian"
+    ],
+    "image": "/cookbook/mp/old-fashioned-rice-pudding-with-cinnamon-v3.webp",
+    "photoCredit": {
+      "author": "Samet Kaplan",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/traditional-turkish-sutlac-in-glass-bowl-37825038/"
+    },
+    "ingredients": [
+      "1½ cups long-grain white rice",
+      "3 cups water",
+      "½ gallon (8 cups) whole milk",
+      "1 can (12 oz) evaporated milk",
+      "¾ cup granulated sugar",
+      "½ tsp kosher salt",
+      "2 tbsp unsalted butter",
+      "1 tbsp vanilla extract",
+      "1 cup raisins (optional)",
+      "Ground cinnamon, for dusting (about 2 tsp)"
+    ],
+    "directions": [
+      "Bring the rice, water and salt to a boil in a large, heavy 6 to 8 quart pot. Cover, reduce to low and cook 12 minutes, until the water is absorbed.",
+      "Stir in the whole milk and sugar. Bring to a gentle simmer over medium heat, stirring often, scraping the bottom.",
+      "Reduce the heat to medium-low and cook uncovered 35 to 45 minutes, stirring every few minutes so it does not stick or scorch, until the rice is very tender and the pudding is thick and creamy.",
+      "Stir in the evaporated milk and raisins if using. Simmer 5 more minutes. The pudding will thicken more as it cools, so stop while it is still a little loose.",
+      "Take off the heat and stir in the butter and vanilla until melted and smooth.",
+      "Spread the pudding in a shallow pan or divide among 12 small containers so it cools quickly. Cool until it drops to 70°F within 2 hours.",
+      "Dust each portion lightly with cinnamon, cover and refrigerate. Add the cinnamon after chilling if you prefer it to stay dry on top."
+    ],
+    "equipment": [
+      "6 to 8 quart heavy pot",
+      "Wooden spoon",
+      "Shallow pan (optional)",
+      "12 small containers"
+    ],
+    "storage": "Refrigerate covered at 40°F or below up to 4 days. Not recommended for freezing, since the texture turns grainy.",
+    "reheating": "Serve cold, or microwave 45 to 60 seconds, stirring halfway. Stir in 1 to 2 teaspoons of milk to loosen the pudding, since it thickens in the refrigerator. Dust with fresh cinnamon.",
+    "makeAhead": "Make it up to 3 days before the visit. Keep covered and refrigerated, and add cinnamon before serving.",
+    "safety": "Cool to 70°F within 2 hours, then to 41°F or below within 4 more hours, since cooked rice and milk can grow bacteria if left warm. Keep at 40°F or below and reheat until steaming hot. If served warm, hold it at 135°F or hotter. Contains milk. Egg free.",
+    "chefNotes": "Stirring often is the secret to a creamy pudding. Long-grain rice stays tender and holds its shape. A plain, nostalgic dessert that is easy to chew and a favorite with older clients."
+  },
+  {
+    "id": 59,
+    "slug": "chocolate-chip-cookies",
+    "side": "meal-prep",
+    "title": "Chocolate Chip Cookies",
+    "category": "Desserts",
+    "description": "Classic bakery-style cookies with crisp golden edges, chewy centers and plenty of melty chocolate, baked two to a portion.",
+    "servings": 12,
+    "yieldNote": "12 portions (2 large cookies each, 24 cookies)",
+    "active": 30,
+    "total": 60,
+    "tags": [
+      "Kid-friendly",
+      "Make-ahead",
+      "Freezer-friendly"
+    ],
+    "allergens": [
+      "Milk",
+      "Egg",
+      "Wheat",
+      "Soy"
+    ],
+    "dietary": [
+      "Vegetarian"
+    ],
+    "image": "/cookbook/mp/chocolate-chip-cookies-v3.webp",
+    "photoCredit": {
+      "author": "Maurício Mascaro",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/chocolate-chip-cookies-on-a-plate-8081574/"
+    },
+    "ingredients": [
+      "1 cup (2 sticks) unsalted butter, softened",
+      "¾ cup granulated sugar",
+      "¾ cup packed light brown sugar",
+      "2 large eggs, at room temperature",
+      "2 tsp vanilla extract",
+      "2¼ cups all-purpose flour",
+      "1 tsp baking soda",
+      "1 tsp kosher salt",
+      "2 cups (12 oz) semisweet chocolate chips"
+    ],
+    "directions": [
+      "Heat the oven to 350°F with racks in the upper and lower thirds. Line two half sheet pans with parchment.",
+      "Beat the softened butter with both sugars on medium speed 3 minutes, until pale and fluffy. Scrape the bowl.",
+      "Beat in the eggs one at a time, then the vanilla, until smooth and glossy.",
+      "Whisk the flour, baking soda and salt together. Add to the butter mixture on low speed just until a few streaks remain.",
+      "Fold in the chocolate chips by hand. Chill the dough 20 minutes for thicker cookies with better flavor.",
+      "Scoop 24 balls of dough, about 3 tablespoons (2 oz) each, and place 6 per half sheet pan at a time, 2½ inches apart.",
+      "Bake 11 to 13 minutes, rotating the pans halfway, until the edges are golden brown and the centers look just set but still soft.",
+      "Cool 5 minutes on the pan, then move to a wire rack and cool completely before packing.",
+      "Pack 2 cookies per portion in 12 small bags or containers."
+    ],
+    "equipment": [
+      "2 half sheet pans",
+      "Parchment paper",
+      "Stand mixer or hand mixer",
+      "Large mixing bowl",
+      "3 tablespoon scoop",
+      "Wire rack",
+      "12 small bags or containers"
+    ],
+    "storage": "Keep in an airtight container at room temperature up to 5 days. Freezes up to 3 months, baked or as scooped dough balls.",
+    "reheating": "Good at room temperature. For a warm, gooey cookie, microwave 8 to 10 seconds. Frozen cookies thaw on the counter in about 30 minutes.",
+    "makeAhead": "The dough can be scooped and refrigerated up to 3 days or frozen up to 3 months. Bake frozen dough balls 1 to 2 minutes longer.",
+    "safety": "Bake at 350°F until the edges are golden so the eggs are fully cooked. Do not taste raw dough, which contains raw egg and uncooked flour. Contains milk, egg, wheat and soy (chocolate chips often contain soy lecithin).",
+    "chefNotes": "Pull the pans out while the centers still look slightly underdone; they finish setting as they cool. Check the chip bag label for soy and milk. Always a crowd pleaser for families."
   },
   {
     "id": 101,
