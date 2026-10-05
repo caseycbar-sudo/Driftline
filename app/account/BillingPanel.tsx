@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 
 type Card = { brand: string; last4: string; expMonth: number; expYear: number; autopay: boolean };
 type Payment = {
@@ -57,6 +58,7 @@ function loadScript(src: string) {
 
 /** Saved card for weekly meal prep, open invoices, and payment history. */
 export default function BillingPanel() {
+  const router = useRouter();
   const [billing, setBilling] = useState<Billing | null>(null);
   const [adding, setAdding] = useState(false);
   const [consent, setConsent] = useState(false);
@@ -123,6 +125,8 @@ export default function BillingPanel() {
       setConsent(false);
       setMessage(data.charged ? `Card saved. ${data.charged} waiting visit${data.charged === 1 ? " was" : "s were"} paid.` : "Card saved. You're all set.");
       load();
+      // The summary at the top of the page is rendered on the server; refresh it too.
+      router.refresh();
     } finally {
       setBusy(false);
     }
@@ -133,6 +137,7 @@ export default function BillingPanel() {
     await fetch("/api/billing/card", { method: "DELETE" });
     setMessage("Card removed.");
     load();
+    router.refresh();
   }
 
   if (!billing) return null;
