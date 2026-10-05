@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { Component, useEffect, useRef, useState, type ReactNode } from "react";
 import "./MessageThread.css";
 import { MAX_MESSAGE_CHARS, type Message, type Sender } from "./message-core";
 
 const stamp = (iso: string) => new Date(iso).toLocaleString("en-US", { weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
 
 /** A simple chat for one request. `me` is whose screen this is; `endpoint` is the matching API. */
-export default function MessageThread({ endpoint, requestId, me, onRead }: { endpoint: string; requestId: number; me: Sender; onRead?: () => void }) {
+function Thread({ endpoint, requestId, me, onRead }: { endpoint: string; requestId: number; me: Sender; onRead?: () => void }) {
   const [messages, setMessages] = useState<Message[] | null>(null),
     [text, setText] = useState(""),
     [error, setError] = useState(""),
@@ -81,5 +81,34 @@ export default function MessageThread({ endpoint, requestId, me, onRead }: { end
         </button>
       </form>
     </div>
+  );
+}
+
+/** If anything in the thread breaks, show a short note instead of taking the whole page down with it. */
+class Safe extends Component<{ children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  componentDidCatch(error: unknown) {
+    console.error("[messages] thread failed", error);
+  }
+  render() {
+    if (this.state.failed) {
+      return (
+        <p className="msg-error">
+          Messages aren&apos;t working right now. Please refresh the page, or call or text Driftline at (503) 741-9630.
+        </p>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+export default function MessageThread(props: { endpoint: string; requestId: number; me: Sender; onRead?: () => void }) {
+  return (
+    <Safe>
+      <Thread {...props} />
+    </Safe>
   );
 }
