@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SITE_ORIGIN } from "./site-config";
+import AccountBadge from "./AccountBadge";
 import "./globals.css";
 import "./brand-refresh.css";
 
@@ -13,5 +14,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body>{children}</body></html>;
+  return <html lang="en"><body>{children}<AccountBadge /></body></html>;
 }
