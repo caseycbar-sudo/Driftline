@@ -58,11 +58,11 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Dairy-free"
     ],
-    "image": "",
+    "image": "/cookbook/mp/lemon-herb-chicken-thighs-with-orzo-and-green-beans-photo.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Babs Gorniak",
+      "source": "Unsplash",
+      "page": "https://unsplash.com/photos/two-bowls-of-food-with-lemons-meat-and-vegetables-xgDsiUC5p-w"
     },
     "ingredients": [
       "6 lb boneless skinless chicken thighs, trimmed",
@@ -366,11 +366,11 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Gluten-free"
     ],
-    "image": "",
+    "image": "/cookbook/mp/green-chile-chicken-enchiladas-photo.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Willians Huerta",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/delicious-green-enchiladas-with-creamy-garnish-36429905/"
     },
     "ingredients": [
       "5 lb boneless skinless chicken thighs, trimmed",
@@ -442,11 +442,11 @@ export const recipes: Recipe[] = [
       "Wheat"
     ],
     "dietary": [],
-    "image": "",
+    "image": "/cookbook/mp/turkey-meatballs-in-marinara-with-penne-and-zucchini-photo.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Mahmoud Salem",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/delicious-spaghetti-with-meatballs-and-basil-garnish-31284951/"
     },
     "ingredients": [
       "1½ cups panko bread crumbs",
@@ -512,8 +512,8 @@ export const recipes: Recipe[] = [
     "description": "Oregano-lemon chicken over lemony rice, packed with cool garlicky tzatziki and a crunchy cucumber, tomato, olive and feta salad.",
     "servings": 12,
     "yieldNote": "12 portions (about 5½ oz chicken, 1 cup rice, ⅓ cup tzatziki and ¾ cup salad each)",
-    "active": 60,
-    "total": 120,
+    "active": 50,
+    "total": 110,
     "tags": [
       "High protein",
       "Gluten-free",
@@ -525,53 +525,40 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Gluten-free"
     ],
-    "image": "",
+    "image": "/cookbook/mp/greek-chicken-bowls-with-tzatziki-and-cucumber-tomato-salad-photo.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Alesia Kozik",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/sliced-vegetables-on-a-wooden-board-6065913/"
     },
     "ingredients": [
       "6 lb boneless skinless chicken thighs, trimmed",
-      "½ cup olive oil (for the marinade)",
-      "⅓ cup fresh lemon juice (for the marinade)",
-      "1 tbsp grated lemon zest",
-      "10 cloves garlic, minced (for the marinade)",
-      "2 tbsp dried oregano (for the marinade)",
+      "1 cup olive oil, divided",
+      "4 large lemons, zested then juiced",
+      "12 cloves garlic, divided",
+      "3 tbsp dried oregano, divided",
       "2 tsp sweet paprika",
-      "2 tbsp kosher salt (for the chicken)",
+      "3½ tbsp kosher salt, divided",
       "2 tsp black pepper, freshly ground",
       "4 cups long-grain white rice",
-      "3 tbsp olive oil (for the rice)",
       "6 cups low-sodium chicken stock (gluten-free)",
-      "2 tsp kosher salt (for the rice)",
-      "2 tbsp fresh lemon juice (for the rice)",
       "4 cups whole-milk Greek yogurt",
-      "2 medium English cucumbers, coarsely grated (for the tzatziki)",
-      "1½ tsp kosher salt (for the tzatziki)",
-      "4 cloves garlic, grated (for the tzatziki)",
-      "3 tbsp fresh lemon juice (for the tzatziki)",
-      "2 tbsp olive oil (for the tzatziki)",
+      "4 medium English cucumbers, divided",
       "¼ cup fresh dill, chopped",
-      "2 medium English cucumbers, cut into ½-inch dice (for the salad)",
       "2 lb cherry tomatoes, halved",
       "1 medium red onion, finely diced",
       "¾ cup pitted Kalamata olives, halved",
       "8 oz feta cheese, crumbled",
       "½ cup flat-leaf parsley, chopped",
-      "½ cup olive oil (for the vinaigrette)",
-      "6 tbsp red wine vinegar",
-      "2 tsp dried oregano (for the vinaigrette)",
-      "1 tsp kosher salt (for the vinaigrette)"
+      "⅓ cup red wine vinegar"
     ],
     "directions": [
-      "Whisk ½ cup oil, ⅓ cup lemon juice, zest, minced garlic, 2 tbsp oregano, paprika, 2 tbsp salt and pepper in a large bowl. Add the chicken, turn to coat and refrigerate 30 minutes to 4 hours.",
-      "For the tzatziki, toss the grated cucumber with 1½ tsp salt in a strainer set over a bowl and drain 15 minutes. Squeeze it hard in a clean towel until very dry, then stir into the yogurt with the grated garlic, 3 tbsp lemon juice, 2 tbsp oil and dill. Refrigerate.",
-      "Heat the oven to 425°F with racks in the upper and lower thirds. Arrange the chicken in a single layer on two foil-lined 18 x 13-inch rimmed sheet pans fitted with wire racks.",
-      "Roast 20 to 25 minutes, swapping pans halfway, until browned and the thickest pieces read 165°F (175°F is ideal for thighs). Broil each pan 2 to 3 minutes for char, rest 5 minutes and slice ½ inch thick.",
-      "While the chicken roasts, rinse the rice until the water runs mostly clear. Heat 3 tbsp oil in a 5-quart pot over medium heat, add the rice and stir 3 minutes until the edges turn translucent. Add the stock and 2 tsp salt, bring to a boil, cover and cook on the lowest heat 18 minutes.",
-      "Rest the rice off heat, covered, 10 minutes, then fluff with 2 tbsp lemon juice and spread on a sheet pan to cool.",
-      "For the salad, combine the diced cucumbers, tomatoes, red onion, olives, feta and parsley. Shake the ½ cup oil, vinegar, 2 tsp oregano and 1 tsp salt in a jar; keep the vinaigrette separate so the salad stays crisp.",
+      "For the marinade, whisk 6 tbsp of the oil, ⅓ cup of the lemon juice, 1 tbsp lemon zest, 8 minced garlic cloves, 2 tbsp of the oregano, the paprika, 2 tbsp of the salt and the pepper in a large bowl. Add the chicken, turn to coat and refrigerate 30 minutes to 4 hours.",
+      "For the tzatziki, coarsely grate 2 of the cucumbers and toss with 1½ tsp of the salt in a strainer set over a bowl. Drain 15 minutes, then squeeze very dry in a clean towel. Stir into the yogurt with the remaining 4 grated garlic cloves, 3 tbsp lemon juice, 1 tbsp oil and the dill. Refrigerate.",
+      "Heat the oven to 425°F with racks in the upper and lower thirds. Arrange the chicken in a single layer on two foil-lined 18 x 13-inch rimmed sheet pans fitted with wire racks. Roast 20 to 25 minutes, swapping pans halfway, until browned and the thickest pieces read 165°F (175°F is ideal for thighs). Broil each pan 2 to 3 minutes for char, rest 5 minutes and slice ½ inch thick.",
+      "While the chicken roasts, rinse the rice until the water runs mostly clear. Heat 2 tbsp of the oil in a 5-quart pot over medium heat, add the rice and stir 3 minutes until the edges turn translucent. Add the stock and 2 tsp of the salt, bring to a boil, cover and cook on the lowest heat 18 minutes.",
+      "Rest the rice off the heat, covered, 10 minutes, then fluff with 2 tbsp lemon juice and spread on a sheet pan to cool.",
+      "For the salad, dice the remaining 2 cucumbers and combine with the tomatoes, red onion, olives, feta and parsley. Shake the remaining 7 tbsp oil, the vinegar, the remaining 1 tbsp oregano and the remaining 1 tsp salt in a jar. Keep this vinaigrette separate so the salad stays crisp.",
       "When the chicken and rice are cool, portion 1 cup rice and about 5½ oz chicken into the main compartment of each of 12 containers. Pack ¾ cup salad in a second compartment and ⅓ cup tzatziki plus 1 tbsp vinaigrette in small lidded cups."
     ],
     "equipment": [
@@ -586,7 +573,7 @@ export const recipes: Recipe[] = [
     "reheating": "Remove the salad and tzatziki cups first; they are served cold. Microwave: sprinkle 1 tbsp water over the rice, cover loosely and heat at 70% power 2 to 2½ minutes until the chicken reaches 165°F. Oven: transfer chicken and rice to an oven-safe dish, add 2 tbsp water, cover with foil and heat at 350°F for 15 minutes to 165°F. Dress the salad and add tzatziki after heating.",
     "makeAhead": "",
     "safety": "Cook chicken to 165°F. Cool to 70°F within 2 hours and to 41°F or below within the next 4 hours. Keep tzatziki refrigerated and do not reheat it.",
-    "chefNotes": "Salt amounts assume Diamond Crystal kosher salt. Wringing the salted cucumber until almost dry is what keeps the tzatziki thick for four days instead of weeping into a puddle."
+    "chefNotes": "Salt amounts assume Diamond Crystal kosher salt. Wringing the salted cucumber until almost dry is what keeps the tzatziki thick for four days instead of weeping into a puddle. One shared marinade, one shared vinaigrette and one pot of oregano keep the shopping list short without losing the dish."
   },
   {
     "id": 8,
@@ -688,11 +675,11 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Gluten-free"
     ],
-    "image": "",
+    "image": "/cookbook/mp/braised-beef-rag-over-creamy-polenta-photo.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Costin Cerednicenco",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/delicious-romanian-cuisine-with-polenta-and-beef-29716501/"
     },
     "ingredients": [
       "7 lb boneless beef chuck roast, trimmed and cut into 3-inch chunks",
@@ -704,7 +691,7 @@ export const recipes: Recipe[] = [
       "2 ribs celery, finely chopped",
       "10 cloves garlic, minced",
       "¼ cup tomato paste",
-      "2 cups Pinot Noir",
+      "2 cups dry red wine, such as Pinot Noir (or extra low-sodium beef stock)",
       "2 cans (28 oz each) whole peeled tomatoes, crushed by hand",
       "2 cups low-sodium beef stock (gluten-free)",
       "2 fresh rosemary sprigs",
@@ -724,7 +711,7 @@ export const recipes: Recipe[] = [
       "Season the beef all over with 2 tbsp salt and the pepper; if time allows, refrigerate uncovered up to 24 hours. Heat the oven to 300°F with a rack in the lower third.",
       "Heat the oil in a 9-quart Dutch oven over medium-high heat until shimmering. Brown the beef in 3 or 4 batches without crowding, 8 to 10 minutes per batch, until deeply browned on at least two sides. Transfer to a sheet pan.",
       "Lower the heat to medium, add the onions, carrots and celery and cook, scraping up the browned bits, until soft, about 8 minutes. Add the garlic and tomato paste and cook 2 minutes, until the paste darkens.",
-      "Pour in the Pinot Noir and simmer until reduced by half, about 5 minutes. Add the tomatoes, stock, rosemary, bay leaves and pepper flakes, then return the beef and its juices; the liquid should come about three-quarters of the way up the meat.",
+      "Pour in the wine (or the extra stock) and simmer until reduced by half, about 5 minutes. Add the tomatoes, stock, rosemary, bay leaves and pepper flakes, then return the beef and its juices; the liquid should come about three-quarters of the way up the meat.",
       "Bring to a simmer, cover and braise in the oven 3 to 3½ hours, turning the beef once, until a fork slides in and the meat shreds with no resistance.",
       "Transfer the beef to a board, discard the herbs, and skim the fat from the surface of the sauce. Simmer the sauce on the stovetop 10 to 15 minutes until thick enough to coat a spoon. Shred the beef into bite-size pieces, return it to the pot, stir in the balsamic and taste for salt.",
       "For the polenta, bring the water, milk and 2 tbsp salt to a boil in an 8-quart heavy pot, stir in the baking soda, then pour in the cornmeal in a slow stream while whisking constantly. Return to a simmer, stirring, about 1 minute.",
@@ -848,11 +835,11 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Dairy-free"
     ],
-    "image": "",
+    "image": "/cookbook/mp/beef-bulgogi-bowls-with-rice-and-quick-pickles-photo.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Luis Becerra Fotógrafo",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/top-view-of-a-bulgogi-beef-bowl-5774000/"
     },
     "ingredients": [
       "5 lb boneless top sirloin or chuck eye, trimmed of excess fat",
@@ -1067,13 +1054,20 @@ export const recipes: Recipe[] = [
     "chefNotes": "Replaces the maple-Dijon tenderloin: shoulder costs a fraction as much at Costco and Fred Meyer, and a braise gets better as it sits, which is exactly what meal prep needs. \"Pork butt\" and \"pork shoulder\" are the same cut. Salt amounts assume Diamond Crystal kosher salt; with Morton, use a little over half."
   },
   {
-    "id": 14,
-    "slug": "lamb-shepherd-s-pie",
     "side": "meal-prep",
-    "title": "Lamb Shepherd's Pie",
-    "category": "Beef, Pork & Lamb",
-    "description": "Ground lamb simmered with carrots, peas, rosemary and red wine gravy under a buttery Yukon Gold mash, baked until the peaks turn golden.",
     "servings": 12,
+    "image": "/cookbook/mp/beef-cottage-pie-photo.webp",
+    "photoCredit": {
+      "author": "The Fry Family Food Co.",
+      "source": "Unsplash",
+      "page": "https://unsplash.com/photos/a-casserole-dish-on-a-plate-with-a-fork-next-to-it-LHr6EN-B8NQ"
+    },
+    "makeAhead": "",
+    "id": 14,
+    "slug": "beef-cottage-pie",
+    "title": "Beef Cottage Pie",
+    "category": "Beef, Pork & Lamb",
+    "description": "Ground beef simmered with carrots, peas, thyme and a rich beef gravy under a buttery Yukon Gold mash, baked until the peaks turn golden.",
     "yieldNote": "12 portions (two 9-by-13-inch pans, 6 squares each)",
     "active": 75,
     "total": 150,
@@ -1087,14 +1081,8 @@ export const recipes: Recipe[] = [
       "Wheat"
     ],
     "dietary": [],
-    "image": "",
-    "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
-    },
     "ingredients": [
-      "5 lb ground lamb",
+      "5 lb ground beef (80/20 or 85/15)",
       "2 tbsp olive oil",
       "2 large yellow onions, finely diced",
       "4 medium carrots, cut into ¼-inch dice",
@@ -1102,28 +1090,25 @@ export const recipes: Recipe[] = [
       "8 cloves garlic, minced",
       "⅓ cup tomato paste",
       "⅓ cup all-purpose flour",
-      "1 cup dry red wine",
+      "1 cup dry red wine (or extra beef broth)",
       "3 cups low-sodium beef broth",
-      "2 tbsp fresh rosemary, finely chopped",
-      "2 tbsp fresh thyme leaves",
+      "2 tbsp fresh thyme leaves and 1 tbsp finely chopped fresh rosemary",
       "2 bay leaves",
-      "1½ tbsp kosher salt (for the filling)",
-      "2 tsp black pepper (for the filling)",
+      "1½ tbsp kosher salt and 2 tsp black pepper (for the filling)",
       "3 cups frozen peas",
       "¼ cup flat-leaf parsley, chopped",
       "7 lb Yukon Gold potatoes, peeled and cut into 2-inch chunks",
       "2 tbsp kosher salt (for the cooking water)",
       "1½ cups whole milk, warmed",
       "12 tbsp unsalted butter, divided",
-      "2 tsp kosher salt (for the mash)",
-      "½ tsp black pepper (for the mash)"
+      "2 tsp kosher salt and ½ tsp black pepper (for the mash)"
     ],
     "directions": [
       "Put the potatoes in a large stockpot, cover with cold water by 1 inch and add the salt. Bring to a boil, then simmer 15 to 20 minutes, until a paring knife slides through with no resistance.",
-      "Meanwhile, heat a 7-quart Dutch oven over medium-high heat. Brown the lamb in two batches, breaking it into small pieces, 8 to 10 minutes per batch, until well browned and no pink remains. Drain in a colander over a bowl and keep 3 tbsp of the fat.",
+      "Meanwhile, heat a 7-quart Dutch oven over medium-high heat. Brown the beef in two batches, breaking it into small pieces, 8 to 10 minutes per batch, until well browned and no pink remains. Drain in a colander over a bowl and keep 3 tbsp of the fat.",
       "Return the reserved fat and the olive oil to the pot over medium heat. Add the onions, carrots and celery and cook, stirring often, 8 to 10 minutes, until softened and lightly browned.",
       "Stir in the garlic and tomato paste and cook 2 minutes, until the paste darkens to brick red. Sprinkle in the flour and stir 1 minute to cook out the raw taste.",
-      "Pour in the wine, scraping up the browned bits, and boil until reduced by half, 2 to 3 minutes. Add the broth, rosemary, thyme, bay leaves, browned lamb, salt and pepper.",
+      "Pour in the wine, scraping up the browned bits, and boil until reduced by half, 2 to 3 minutes. If skipping the wine, add the extra broth and simmer 2 minutes. Add the broth, thyme, rosemary, bay leaves, browned beef, salt and pepper.",
       "Simmer uncovered, stirring now and then, 15 to 20 minutes, until the gravy is thick enough to coat a spoon. Discard the bay leaves and stir in the frozen peas and parsley. The filling should be thicker than you want to eat it, because it loosens when reheated. Taste and adjust the salt.",
       "Drain the potatoes, return them to the hot pot and steam-dry over low heat 2 minutes. Pass through a ricer or mash until smooth, then stir in the warm milk, 8 tbsp of the butter, the salt and the pepper. Aim for a mash that holds its shape.",
       "Heat the oven to 400°F. Divide the filling between two 9-by-13-inch baking dishes. Spoon the mash around the edges first to seal, fill in the center and spread evenly, then drag a fork across the top to make ridges. Melt the remaining 4 tbsp butter and brush it over the top.",
@@ -1141,9 +1126,8 @@ export const recipes: Recipe[] = [
     ],
     "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Keeps 4 days. Freezes well for up to 3 months; wrap portions tightly and thaw overnight in the refrigerator.",
     "reheating": "Microwave: cover loosely and heat at 70% power for 3 to 4 minutes, then rest 1 minute, until the center reaches 165°F. Oven: place in an oven-safe dish, cover with foil and bake at 375°F for 25 to 30 minutes, uncovering for the last 10 minutes to crisp the top, until 165°F.",
-    "makeAhead": "",
-    "safety": "Ground lamb must reach 160°F; it is fully browned before assembly, and the baked pie should read 165°F in the center. Reheat leftovers to 165°F.",
-    "chefNotes": "Drain the lamb well; its fat carries a strong flavor and will pool on top of the portions if left in. Salt amounts assume Diamond Crystal kosher salt; with Morton, use about two-thirds as much."
+    "safety": "Ground beef must reach 160°F; it is fully browned before assembly, and the baked pie should read 165°F in the center. Reheat leftovers to 165°F.",
+    "chefNotes": "Use 85/15 beef if you want a leaner pie, or 80/20 for more flavor, and drain it well either way so fat does not pool on top of the portions. Wine is optional: the extra broth plus the browned tomato paste keeps the gravy deep. Salt amounts assume Diamond Crystal kosher salt; with Morton, use about two-thirds as much."
   },
   {
     "id": 15,
@@ -1168,11 +1152,11 @@ export const recipes: Recipe[] = [
       "Milk"
     ],
     "dietary": [],
-    "image": "",
+    "image": "/cookbook/mp/coastal-salmon-cakes-with-lemon-dill-sauce-and-brown-rice-photo.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Nadin Sh",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/top-view-of-a-dish-with-mashed-potato-and-meat-25315521/"
     },
     "ingredients": [
       "4½ lb skinless salmon fillets, pin bones removed, cut into 1-inch pieces",
@@ -1252,11 +1236,11 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Dairy-free"
     ],
-    "image": "",
+    "image": "/cookbook/mp/miso-glazed-salmon-with-sesame-greens-and-rice-photo.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Valeria Boltneva",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/glazed-salmon-with-spinach-and-edamame-39641634/"
     },
     "ingredients": [
       "12 skinless salmon fillets (5 oz each)",
@@ -1307,20 +1291,28 @@ export const recipes: Recipe[] = [
     "chefNotes": "The sugar in the glaze goes from blistered to burnt in under a minute under the broiler, so stay at the oven. The glaze is already salty, so the fish needs no extra salt. Blanching and shocking the greens keeps them green for three days instead of turning olive."
   },
   {
-    "id": 17,
-    "slug": "pacific-cod-in-tomato-olive-and-caper-sauce-with-quinoa",
     "side": "meal-prep",
-    "title": "Pacific Cod in Tomato, Olive and Caper Sauce with Quinoa",
-    "category": "Seafood",
-    "description": "Flaky Pacific cod baked in a garlicky tomato sauce with Kalamata olives, capers and white wine, served with lemony herbed quinoa.",
     "servings": 12,
-    "yieldNote": "12 portions (one 6½-oz cod portion, ½ cup sauce and 1 cup quinoa each)",
+    "image": "/cookbook/mp/salmon-in-tomato-olive-and-caper-sauce-with-quinoa-photo.webp",
+    "photoCredit": {
+      "author": "Ella Olsson",
+      "source": "Unsplash",
+      "page": "https://unsplash.com/photos/salmon-dinner-with-quinoa-and-broccoli-mmnKI8kMxpc"
+    },
+    "makeAhead": "",
+    "id": 17,
+    "slug": "salmon-in-tomato-olive-and-caper-sauce-with-quinoa",
+    "title": "Salmon in Tomato, Olive and Caper Sauce with Quinoa",
+    "category": "Seafood",
+    "description": "Rich salmon fillets baked in a garlicky tomato sauce with Kalamata olives, capers and a splash of white wine, served with lemony herbed quinoa.",
+    "yieldNote": "12 portions (one 6½-oz salmon portion, ½ cup sauce and 1 cup quinoa each)",
     "active": 45,
     "total": 90,
     "tags": [
       "High protein",
       "Gluten-free",
-      "Dairy-free"
+      "Dairy-free",
+      "Eat within 3 days"
     ],
     "allergens": [
       "Fish"
@@ -1329,22 +1321,15 @@ export const recipes: Recipe[] = [
       "Gluten-free",
       "Dairy-free"
     ],
-    "image": "",
-    "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
-    },
     "ingredients": [
-      "5 lb skinless Pacific cod fillets, cut into 12 portions",
-      "2 tsp kosher salt (for the fish)",
-      "½ tsp black pepper",
+      "5 lb skinless salmon fillets, pin bones removed, cut into 12 portions",
+      "2 tsp kosher salt and ½ tsp black pepper (for the fish)",
       "¼ cup extra-virgin olive oil (for the sauce)",
       "1 large yellow onion, finely diced",
       "8 cloves garlic, thinly sliced",
       "½ tsp red pepper flakes",
       "2 tbsp tomato paste",
-      "¾ cup dry white wine",
+      "¾ cup dry white wine (or low-sodium chicken or vegetable broth)",
       "2 cans (28 oz) crushed tomatoes",
       "1 cup pitted Kalamata olives, halved",
       "⅓ cup capers, rinsed",
@@ -1364,12 +1349,12 @@ export const recipes: Recipe[] = [
       "Heat 1 tbsp of the quinoa oil in a heavy 5-quart pot over medium heat, add the quinoa and toast, stirring, about 3 minutes, until dry and nutty-smelling. Add the water and salt, bring to a boil, cover and simmer on low 18 to 20 minutes, until the water is absorbed. Rest off the heat, covered, 10 minutes.",
       "Fluff the quinoa with a fork, toss with the remaining oil, the lemon juice and half the parsley, and spread on a sheet pan to cool.",
       "For the sauce, heat the olive oil in a 12-inch deep sauté pan over medium heat. Cook the onion 6 to 8 minutes, until soft and just golden, then add the garlic and pepper flakes and cook 1 minute.",
-      "Stir in the tomato paste for 2 minutes, until it darkens. Add the wine and boil until reduced by half, about 2 minutes. Add the crushed tomatoes, olives, capers, oregano, sugar and salt and simmer 15 minutes, until slightly thickened but still loose enough to spoon. Stir in the lemon zest.",
-      "Heat the oven to 400°F. Pat the cod dry, tuck any thin tail ends underneath so each portion is an even thickness, and season with the salt and pepper.",
-      "Spread half the sauce in two 9-by-13-inch baking dishes. Nestle 6 cod portions in each dish, then spoon the remaining sauce over and around the fish, leaving the tops partly exposed.",
-      "Bake 15 to 20 minutes, depending on thickness, rotating the dishes halfway, until the thickest piece reads 145°F and the fish just begins to flake. Scatter the remaining parsley over the top.",
+      "Stir in the tomato paste for 2 minutes, until it darkens. Add the wine (or broth) and boil until reduced by half, about 2 minutes. Add the crushed tomatoes, olives, capers, oregano, sugar and salt and simmer 15 minutes, until slightly thickened but still loose enough to spoon. Stir in the lemon zest.",
+      "Heat the oven to 400°F. Pat the salmon dry, tuck any thin tail ends underneath so each portion is an even thickness, and season with the salt and pepper.",
+      "Spread half the sauce in two 9-by-13-inch baking dishes. Nestle 6 salmon portions in each dish, then spoon the remaining sauce over and around the fish, leaving the tops partly exposed.",
+      "Bake 12 to 15 minutes, depending on thickness, rotating the dishes halfway, until the thickest piece reads 145°F and the fish just begins to flake. Scatter the remaining parsley over the top.",
       "Let the dishes cool on a rack until they drop to 70°F, within 2 hours.",
-      "Portion 1 cup quinoa and 1 cod portion with about ½ cup sauce spooned over the fish into each of 12 containers. The sauce protects the fish from drying out on reheating."
+      "Portion 1 cup quinoa and 1 salmon portion with about ½ cup sauce spooned over the fish into each of 12 containers. The sauce protects the fish from drying out on reheating."
     ],
     "equipment": [
       "12-inch deep sauté pan",
@@ -1379,27 +1364,33 @@ export const recipes: Recipe[] = [
       "Instant-read thermometer",
       "12 meal-prep containers"
     ],
-    "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Eat within 3 days. The tomato sauce can be made up to 3 days ahead, and the quinoa freezes well for 2 months, but don't freeze the cooked cod.",
-    "reheating": "Reheat gently: fish overcooks quickly, so use reduced power or a low oven with a cover, but still bring it to 165°F. Microwave: cover loosely and heat at 50% power for 3 to 4 minutes, rotating halfway, until the cod reaches 165°F. Oven: transfer to an oven-safe dish, cover with foil and heat at 300°F for 18 to 22 minutes, until 165°F.",
-    "makeAhead": "",
-    "safety": "Cook fish to 145°F or until opaque and it flakes easily. Cool promptly and reheat leftovers to 165°F.",
-    "chefNotes": "Buy thick loin portions when you can; thin tail pieces overcook, so fold them under. Rinse capers and taste the sauce before salting, because olives and capers bring plenty. Salt amounts assume Diamond Crystal kosher salt."
+    "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Eat within 3 days. The tomato sauce can be made up to 3 days ahead, and the quinoa freezes well for 2 months, but do not freeze the cooked salmon.",
+    "reheating": "Reheat gently: salmon dries out quickly, so use reduced power or a low oven with a cover, but still bring it to 165°F. Microwave: cover loosely and heat at 50% power for 3 to 4 minutes, rotating halfway, until the salmon reaches 165°F. Oven: transfer to an oven-safe dish, cover with foil and heat at 300°F for 18 to 22 minutes, until 165°F.",
+    "safety": "Cook fish to 145°F or until opaque and it flakes easily. Cool promptly and reheat leftovers to 165°F. Contains fish.",
+    "chefNotes": "Buy thick center-cut fillets when you can and fold thin tail pieces under so every portion cooks evenly. Salmon is richer than white fish and stands up to the briny sauce, but it still turns chalky if overbaked, so pull it at 145°F. Rinse capers and taste the sauce before salting, because olives and capers bring plenty. Wine is optional; broth plus the lemon zest keeps the sauce bright. Salt amounts assume Diamond Crystal kosher salt."
   },
   {
-    "id": 18,
-    "slug": "blackened-rockfish-taco-bowls-with-slaw-and-lime-crema",
     "side": "meal-prep",
-    "title": "Blackened Rockfish Taco Bowls with Slaw and Lime Crema",
-    "category": "Seafood",
-    "description": "Spice-crusted Oregon rockfish seared in cast iron over rice, charred corn and black beans, with crunchy cabbage slaw and lime crema packed separately.",
     "servings": 12,
-    "yieldNote": "12 portions (about 5 oz fish, 1 cup rice and ½ cup corn and beans each, plus slaw and crema)",
-    "active": 70,
-    "total": 100,
+    "image": "/cookbook/mp/blackened-salmon-taco-bowls-photo.webp",
+    "photoCredit": {
+      "author": "Laura Oliveira",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/delicious-salmon-tacos-with-fresh-ingredients-34429487/"
+    },
+    "makeAhead": "",
+    "id": 18,
+    "slug": "blackened-salmon-taco-bowls",
+    "title": "Blackened Salmon Taco Bowls",
+    "category": "Seafood",
+    "description": "Spice-crusted salmon seared in cast iron over rice, charred corn and black beans, with a quick lime slaw and lime crema packed separately.",
+    "yieldNote": "12 portions (about 5 oz salmon, 1 cup rice and ½ cup corn and beans each, plus slaw and crema)",
+    "active": 60,
+    "total": 90,
     "tags": [
       "High protein",
       "Gluten-free",
-      "Local seafood"
+      "Eat within 3 days"
     ],
     "allergens": [
       "Fish",
@@ -1408,56 +1399,33 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Gluten-free"
     ],
-    "image": "",
-    "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
-    },
     "ingredients": [
-      "5 lb skinless rockfish fillets, cut into 12 portions",
-      "2 tbsp sweet paprika",
-      "1 tbsp smoked paprika",
-      "2 tsp garlic powder",
-      "2 tsp onion powder",
-      "2 tsp dried oregano",
-      "2 tsp dried thyme",
-      "2 tsp ground cumin",
-      "1 tsp cayenne pepper",
-      "1 tsp black pepper",
-      "1 tbsp kosher salt (for the spice rub)",
+      "5 lb skinless salmon fillets, pin bones removed, cut into 12 portions",
+      "Blackening blend: 3 tbsp smoked paprika, 2 tsp each garlic powder, onion powder, ground cumin and dried oregano, 1 tsp cayenne pepper, 1 tbsp kosher salt",
       "½ cup neutral oil, divided",
       "4 cups long-grain white rice, rinsed",
       "6 cups water (for the rice)",
       "2 tsp kosher salt (for the rice)",
       "4 cups frozen corn kernels, thawed and patted dry",
       "2 cans (15 oz) black beans, rinsed and drained",
-      "2 lb green cabbage, cored and thinly sliced",
-      "1 lb red cabbage, cored and thinly sliced",
-      "3 medium carrots, shredded",
-      "2 medium jalapeños, seeded and minced",
-      "2 tsp kosher salt (for the slaw)",
-      "1 tsp sugar",
-      "½ cup lime juice (for the slaw)",
-      "3 tbsp olive oil (for the slaw)",
-      "1 bunch cilantro, chopped",
+      "2 bags (14 oz each) coleslaw mix",
+      "1 bunch cilantro, chopped, divided",
+      "6 limes, zested and juiced (about ¾ cup juice), divided",
+      "2 tbsp olive oil (for the slaw)",
+      "2 tsp kosher salt (for the slaw and crema, divided)",
       "2 cups sour cream",
-      "1 tbsp lime zest",
-      "¼ cup lime juice (for the crema)",
-      "1 clove garlic, finely grated",
-      "1 tsp kosher salt (for the crema)",
-      "2 tbsp water (for the crema)"
+      "1 clove garlic, finely grated (for the crema)"
     ],
     "directions": [
       "Combine the rice, water, salt and 1 tbsp of the oil in a heavy 5-quart pot and bring to a boil. Cover, cook on low 18 minutes, then rest off the heat, covered, 10 minutes. Fluff and spread on a parchment-lined sheet pan to cool.",
       "Heat a 12-inch cast-iron skillet over high heat, add 1 tbsp oil and char the corn in two batches, undisturbed for 2 minutes and then stirring, 5 to 6 minutes per batch, until spotty brown. Toss with the black beans and spread out to cool.",
-      "For the slaw, toss both cabbages, the carrots and the jalapeños with the salt and sugar in a large bowl and let stand 10 minutes to soften slightly. Add the lime juice, olive oil and half the cilantro and toss. Pack into 12 separate 8-oz containers.",
-      "Whisk the sour cream, lime zest, lime juice, garlic, salt and water until smooth and pourable. Pack into 12 lidded 2-oz cups and refrigerate.",
-      "Mix all the spices and the salt for the rub. Pat the rockfish very dry, fold thin tail ends under, brush all over with 3 tbsp oil and coat every side evenly with the spice mixture, about 2 tsp per portion, using all of it.",
+      "For the slaw, toss the coleslaw mix with 1 tsp of the salt and let stand 10 minutes. Add ½ cup of the lime juice, the olive oil and half the cilantro and toss. Pack into 12 separate 8-oz containers.",
+      "Whisk the sour cream, lime zest, the remaining lime juice, garlic, the remaining 1 tsp salt and 2 tbsp water until smooth and pourable. Pack into 12 lidded 2-oz cups and refrigerate.",
+      "Mix the blackening blend. Pat the salmon very dry, fold thin tail ends under, brush all over with 3 tbsp oil and coat every side evenly with the spice mixture, about 2 tsp per portion, using all of it.",
       "Turn the hood fan to high and open a window. Wipe out the skillet and heat it over medium-high heat for 5 minutes, until very hot.",
-      "Add 1 tbsp oil and cook 3 or 4 portions at a time, 2 to 3 minutes, until the crust is dark mahogany. Flip and cook 1 to 2 minutes more, until the thickest part reaches 145°F and flakes. Wipe the skillet between batches if the spices start to smoke hard, and add fresh oil.",
-      "Transfer the fish to a wire rack and let it cool, along with the rice and corn, until everything drops to 70°F, within 2 hours.",
-      "Portion 1 cup rice and ½ cup corn and beans into each of 12 containers and top with a rockfish portion and the remaining cilantro. Keep the slaw and crema containers separate so they stay cold and crunchy."
+      "Add 1 tbsp oil and cook 3 or 4 portions at a time, 3 minutes, until the crust is dark mahogany. Flip and cook 2 to 3 minutes more, until the thickest part reaches 145°F and flakes. Wipe the skillet between batches if the spices start to smoke hard, and add fresh oil.",
+      "Transfer the salmon to a wire rack and let it cool, along with the rice and corn, until everything drops to 70°F, within 2 hours.",
+      "Portion 1 cup rice and ½ cup corn and beans into each of 12 containers and top with a salmon portion and the remaining cilantro. Keep the slaw and crema containers separate so they stay cold and crunchy."
     ],
     "equipment": [
       "12-inch cast-iron skillet",
@@ -1467,21 +1435,20 @@ export const recipes: Recipe[] = [
       "Instant-read thermometer",
       "12 meal-prep containers plus 8-oz and 2-oz side containers"
     ],
-    "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Eat the fish bowls within 3 days. The slaw keeps 4 days (it softens a little each day) and the crema keeps 5 days, both refrigerated. Do not freeze.",
-    "reheating": "Take out the slaw and crema and serve them cold. Fish overcooks quickly, so reheat gently and bring it to 165°F. Microwave: sprinkle 1 tbsp water over the rice, cover loosely and heat at 50% power 2½ to 3½ minutes, until the fish reaches 165°F. Oven: oven-safe dish, add 1 tbsp water, cover with foil, 300°F for 15 to 20 minutes, until 165°F. Top with the slaw and a drizzle of crema.",
-    "makeAhead": "",
-    "safety": "Cook fish to 145°F or until opaque and it flakes easily. Keep the sour cream crema refrigerated. Cool cooked rice promptly. Reheat leftovers to 165°F.",
-    "chefNotes": "Rockfish fillets are thin and cook in minutes. Blacken over medium-high, not your hottest flame, so the paprika toasts without turning bitter. Salting the cabbage for 10 minutes before dressing keeps the slaw from going watery in the container. Salt amounts assume Diamond Crystal kosher salt."
+    "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Eat the salmon bowls within 3 days. The slaw keeps 4 days (it softens a little each day) and the crema keeps 5 days, both refrigerated. Do not freeze.",
+    "reheating": "Remove the slaw and crema and keep them cold. Microwave: sprinkle 1 tbsp water over the rice, cover loosely and heat at 50% power 2½ to 3½ minutes until 165°F. Oven: add 1 tbsp water, cover with foil, 300°F for 15 to 20 minutes until 165°F. Top with the slaw and crema.",
+    "safety": "Cook fish to 145°F or until opaque and it flakes easily. Keep the sour cream crema refrigerated. Cool cooked rice promptly. Reheat leftovers to 165°F. Contains fish and milk.",
+    "chefNotes": "Salmon blackens beautifully because its natural fat helps the crust darken, but keep the heat at medium-high, not your hottest flame, so the paprika toasts without turning bitter. Bagged coleslaw mix saves a lot of knife time; salting it for 10 minutes before dressing keeps the slaw from going watery in the container. Salt amounts assume Diamond Crystal kosher salt."
   },
   {
     "id": 19,
-    "slug": "shrimp-fried-rice-with-peas-carrots-and-egg",
+    "slug": "chicken-fried-rice-with-peas-carrots-and-egg",
     "side": "meal-prep",
-    "title": "Shrimp Fried Rice with Peas, Carrots and Egg",
-    "category": "Seafood",
-    "description": "Day-old jasmine rice stir-fried hot with shrimp, scrambled egg, peas, carrots and green onion, seasoned with soy, sesame oil and white pepper. Fried rice is made for reheating.",
+    "title": "Chicken Fried Rice with Peas, Carrots and Egg",
+    "category": "Poultry",
+    "description": "Day-old jasmine rice stir-fried hot with browned chicken thigh, scrambled egg, peas, carrots and green onion, seasoned with soy, hoisin, sesame oil and white pepper. Fried rice is made for reheating.",
     "servings": 12,
-    "yieldNote": "12 portions (about 1¾ cups each, with about 3 oz shrimp)",
+    "yieldNote": "12 portions (about 1¾ cups each, with about 3 oz chicken)",
     "active": 60,
     "total": 85,
     "tags": [
@@ -1491,7 +1458,6 @@ export const recipes: Recipe[] = [
       "Eat within 3 days"
     ],
     "allergens": [
-      "Shellfish",
       "Egg",
       "Soy",
       "Wheat",
@@ -1500,37 +1466,37 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Dairy-free"
     ],
-    "image": "",
+    "image": "/cookbook/mp/chicken-fried-rice-with-peas-carrots-and-egg.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Undo Kim",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/delicious-chicken-fried-rice-with-fresh-vegetables-34668501/"
     },
     "ingredients": [
       "5 cups jasmine rice, cooked the day before (about 15 cups cooked) and chilled",
-      "3 lb raw shrimp (26/30 count), peeled, deveined and tails off, thawed and patted dry",
-      "½ tsp kosher salt (for the shrimp)",
-      "½ tsp ground white pepper (for the shrimp)",
+      "3 lb boneless skinless chicken thighs, trimmed and cut into ½-inch pieces",
+      "1 tsp kosher salt (for the chicken)",
+      "½ tsp ground white pepper (for the chicken)",
       "10 large eggs",
       "½ tsp kosher salt (for the eggs)",
-      "¾ cup neutral oil, divided",
+      "1 cup neutral oil, divided",
       "2 medium yellow onions, diced",
       "8 cloves garlic, minced",
       "2 lb frozen peas and carrots (no need to thaw)",
       "2 bunches green onions, thinly sliced, whites and greens kept separate",
       "¾ cup low-sodium soy sauce",
-      "3 tbsp oyster sauce",
+      "3 tbsp hoisin sauce",
       "2 tbsp toasted sesame oil",
       "1½ tsp ground white pepper",
       "2 tsp sugar"
     ],
     "directions": [
       "The day before, cook the rice with a little less water than usual (about 1¼ cups water per cup of rice). Spread it on sheet pans, cool it until it drops to 70°F within 2 hours, then refrigerate uncovered overnight. Cold, dry rice is what keeps fried rice from turning mushy.",
-      "Stir the soy sauce, oyster sauce, sesame oil, white pepper and sugar together. Break up the cold rice with your hands so there are no clumps.",
-      "Season the shrimp. Heat 2 tbsp oil in a wok or 14-inch skillet over high heat until just smoking and sear the shrimp in two batches in a single layer, about 1 minute per side, until pink and opaque. Move them to a sheet pan and cut any large ones in half.",
-      "Beat the eggs with the salt. Heat 2 tbsp oil over medium-high heat and scramble them in two batches into large, just-set curds. Move them to the sheet pan and chop roughly.",
+      "Stir the soy sauce, hoisin, sesame oil, white pepper and sugar together. Break up the cold rice with your hands so there are no clumps.",
+      "Season the chicken with 1 tsp salt and ½ tsp white pepper. Heat 2 tbsp oil in a wok or 14-inch skillet over high heat until just smoking and sear the chicken in two batches in a single layer, 5 to 6 minutes per batch, until browned and cooked through (165°F). Move it to a sheet pan.",
+      "Beat the eggs with ½ tsp salt. Heat 2 tbsp oil over medium-high heat and scramble them in two batches into large, just-set curds. Move them to the sheet pan and chop roughly.",
       "Cook the rest in three batches, using a third of everything each time. Heat 3 tbsp oil until smoking, stir-fry the onion 2 minutes, then the garlic and green onion whites 30 seconds. Add the peas and carrots for 2 minutes. Add the rice, spread it out and let it sit 1 minute to toast, then toss for 4 to 5 minutes until hot and lightly crisp.",
-      "Drizzle a third of the sauce around the edge of the pan and toss. Return a third of the shrimp and egg and toss 1 minute, until everything is steaming hot. Stir in a third of the green onion tops and spread the batch on sheet pans.",
+      "Drizzle a third of the sauce around the edge of the pan and toss. Return a third of the chicken and egg and toss 1 minute, until everything is steaming hot. Stir in a third of the green onion tops and spread the batch on sheet pans.",
       "Cool the fried rice in thin layers until it drops to 70°F, within 2 hours.",
       "Pack about 1¾ cups into each of 12 containers."
     ],
@@ -1540,20 +1506,27 @@ export const recipes: Recipe[] = [
       "Large pot for the rice",
       "12 meal-prep containers"
     ],
-    "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Keeps 3 days; as a seafood dish it goes on the eat-first list for days 1 and 2. Freezes up to 2 months.",
+    "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Keeps 3 days because of the rice. Freezes up to 2 months.",
     "reheating": "Sprinkle about 1 tbsp water over the rice, vent the lid and microwave 2½ to 3 minutes, stirring halfway, until steaming hot throughout (165°F). Or stir-fry in a hot skillet with a little oil for 3 to 4 minutes.",
     "makeAhead": "",
-    "safety": "Cooked rice can grow Bacillus cereus if it sits warm, so cool the rice within 2 hours of cooking and never leave fried rice out. Cook shrimp until opaque (145°F). Contains shellfish, egg, soy, wheat and sesame. Reheat to 165°F.",
-    "chefNotes": "Replaces the shrimp and broccoli stir-fry: steamed broccoli goes limp and plain stir-fried shrimp turns rubbery by day 3, while fried rice is built to be reheated. Costco's frozen raw shrimp keeps the cost down. Don't skip the batches; a crowded pan steams the rice instead of frying it. For a gluten-free version, use tamari and a gluten-free oyster sauce."
+    "safety": "Cooked rice can grow Bacillus cereus if it sits warm, so cool the rice within 2 hours of cooking and never leave fried rice out. Cook chicken to 165°F. Contains egg, soy, wheat and sesame. Reheat to 165°F.",
+    "chefNotes": "Replaces the shrimp version with browned chicken thigh, which stays juicy through reheating and costs less at Costco. Hoisin takes the place of oyster sauce so the dish contains no shellfish; check the label if a client avoids wheat or sesame. Don't skip the batches; a crowded pan steams the rice instead of frying it. For a gluten-free version, use tamari and a gluten-free hoisin."
   },
   {
-    "id": 20,
-    "slug": "coconut-rockfish-curry-with-green-beans-and-basmati-rice",
     "side": "meal-prep",
-    "title": "Coconut Rockfish Curry with Green Beans and Basmati Rice",
-    "category": "Seafood",
-    "description": "Chunks of local rockfish gently poached in a coconut, tomato and turmeric curry with ginger, mustard seed and green beans, packed with fluffy basmati rice. The sauce keeps the fish moist through reheating.",
     "servings": 12,
+    "image": "/cookbook/mp/coconut-salmon-curry-with-green-beans-and-basmati-rice.webp",
+    "photoCredit": {
+      "author": "khloe arledge",
+      "source": "Unsplash",
+      "page": "https://unsplash.com/photos/salmon-in-creamy-sauce-dinner-ND3edEmzcdQ"
+    },
+    "makeAhead": "",
+    "id": 20,
+    "slug": "coconut-salmon-curry-with-green-beans-and-basmati-rice",
+    "title": "Coconut Salmon Curry with Green Beans and Basmati Rice",
+    "category": "Seafood",
+    "description": "Chunks of salmon gently poached in a coconut, tomato and turmeric curry with ginger, mustard seed and green beans, packed with fluffy basmati rice. The sauce keeps the fish moist through reheating.",
     "yieldNote": "12 portions (about 5 oz fish, 1 cup curry with green beans and ¾ cup rice each)",
     "active": 50,
     "total": 80,
@@ -1561,7 +1534,6 @@ export const recipes: Recipe[] = [
       "High protein",
       "Gluten-free",
       "Dairy-free",
-      "Local seafood",
       "Contains coconut",
       "Eat within 3 days"
     ],
@@ -1572,16 +1544,9 @@ export const recipes: Recipe[] = [
       "Gluten-free",
       "Dairy-free"
     ],
-    "image": "",
-    "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
-    },
     "ingredients": [
-      "4½ lb skinless rockfish fillets, pin bones removed, cut into 2-inch pieces",
-      "1 tsp ground turmeric (for the fish)",
-      "1½ tsp kosher salt (for the fish)",
+      "4½ lb skinless salmon fillets, pin bones removed, cut into 2-inch pieces",
+      "1 tsp ground turmeric and 1½ tsp kosher salt (for the fish)",
       "¼ cup coconut oil or neutral oil",
       "2 tsp brown or black mustard seeds",
       "3 medium yellow onions, thinly sliced",
@@ -1605,13 +1570,13 @@ export const recipes: Recipe[] = [
       "1 tbsp neutral oil (for the rice)"
     ],
     "directions": [
-      "Toss the fish with the turmeric and salt and refrigerate while you make the sauce.",
+      "Toss the salmon with the turmeric and salt and refrigerate while you make the sauce.",
       "Rinse the rice until the water runs clear, soak it 20 minutes and drain. Bring it to a boil with the water, salt and oil, cover and cook on low 12 to 15 minutes. Rest 10 minutes off the heat, fluff and spread on a sheet pan to cool.",
       "Heat the oil in a wide 7-quart Dutch oven or braiser over medium heat. Add the mustard seeds and cover until they pop, 30 to 60 seconds. Add the onions and cook 12 to 15 minutes, until soft and golden.",
       "Add the ginger, garlic and chiles for 2 minutes, then the coriander, chili powder, turmeric and cumin for 30 seconds.",
       "Add the tomatoes with their juices and cook 8 to 10 minutes, until thick and jammy. Stir in the coconut milk, water and salt and simmer 10 minutes.",
       "Add the green beans and simmer 5 to 6 minutes, until just tender-crisp; they soften more when reheated.",
-      "Nestle the fish into the sauce in a single layer (use two pans if it won't fit), spoon sauce over the top, cover and keep at a bare simmer 5 to 7 minutes without stirring, until the fish is opaque, flakes easily and reads 145°F. Gently fold in the lemon juice and cilantro, trying not to break up the fish.",
+      "Add the salmon last so it does not overcook. Nestle the pieces into the sauce in a single layer (use two pans if it won't fit), spoon sauce over the top, cover and keep at a bare simmer 4 to 6 minutes without stirring, until the salmon is opaque, flakes easily and reads 145°F. Gently fold in the lemon juice and cilantro, trying not to break up the fish.",
       "Carefully move the curry into shallow pans and cool it uncovered until it drops to 70°F, within 2 hours.",
       "Pack ¾ cup rice on one side of each of 12 leak-proof containers and about 5 oz fish with 1 cup curry and green beans on the other."
     ],
@@ -1625,135 +1590,131 @@ export const recipes: Recipe[] = [
     ],
     "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Keeps 3 days; as a seafood dish, label it to eat first, on days 1 and 2. Freezes up to 2 months (the fish softens a little).",
     "reheating": "Microwave: vent the lid and heat at 50% power for 3 to 4 minutes, gently turning the fish once, until it reaches 165°F. Lower power keeps the fish from breaking apart and turning rubbery.",
-    "makeAhead": "",
     "safety": "Cook the fish to 145°F, until opaque. Cool in shallow pans and reheat to 165°F. Contains fish. Some people with tree nut allergies also avoid coconut, so mention it to nut-allergic customers.",
-    "chefNotes": "Replaces the plain lemon-pepper rockfish: a lean white fillet on its own dries out and smells fishy by day 3, but poached in coconut curry it stays moist. Buy rockfish fresh off the boats in Astoria when you can; Pacific cod works the same. Once the fish goes in, shake the pan instead of stirring."
+    "chefNotes": "Salmon holds up in curry far better than lean white fish, and its richness plays well with the coconut and tomato. Add it at the very end and shake the pan instead of stirring, because the pieces finish cooking in the hot sauce and again on reheating. Pull the pan off the heat the moment the thickest piece reads 145°F."
   },
   {
-    "id": 21,
-    "slug": "northwest-seafood-stew-with-cod-shrimp-and-clams",
     "side": "meal-prep",
-    "title": "Northwest Seafood Stew with Cod, Shrimp and Clams",
-    "category": "Seafood",
-    "description": "A cioppino-style tomato and white wine broth loaded with flaky cod, sweet shrimp and tender clams, built to reheat gently all week.",
     "servings": 12,
+    "image": "/cookbook/mp/chicken-and-vegetable-stew.webp",
+    "photoCredit": {
+      "author": "Dr. Mkhawa Nazir",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/delicious-chicken-stew-with-potatoes-and-herbs-35156472/"
+    },
+    "makeAhead": "",
+    "id": 21,
+    "slug": "chicken-and-vegetable-stew",
+    "title": "Chicken and Vegetable Stew",
+    "category": "Poultry",
+    "description": "Tender chicken thighs simmered with potatoes, carrots, celery and mushrooms in a thyme-scented golden broth, hearty Pacific Northwest comfort that reheats beautifully all week.",
     "yieldNote": "12 portions (about 2 cups each)",
-    "active": 55,
-    "total": 95,
+    "active": 45,
+    "total": 90,
     "tags": [
       "High protein",
+      "Dairy-free",
       "Pacific Northwest",
-      "Eat within 3 days"
+      "Freezer-friendly",
+      "Seasonal: fall"
     ],
     "allergens": [
-      "Fish",
-      "Shellfish"
+      "Wheat"
     ],
     "dietary": [
-      "Gluten-free",
       "Dairy-free"
     ],
-    "image": "",
-    "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
-    },
     "ingredients": [
-      "⅓ cup extra-virgin olive oil",
+      "5 lb boneless, skinless chicken thighs, trimmed and cut into 1½-inch pieces",
+      "2 tsp kosher salt and 1 tsp black pepper (for the chicken)",
+      "¼ cup neutral oil, divided",
       "2 large yellow onions, diced",
-      "1 large fennel bulb, cored and diced",
-      "2 medium red bell peppers, diced",
-      "10 cloves garlic, thinly sliced",
+      "4 medium carrots, cut into ½-inch slices",
+      "4 celery stalks, cut into ½-inch slices",
+      "1 lb cremini mushrooms, quartered",
+      "8 cloves garlic, minced",
       "3 tbsp tomato paste",
-      "1 tsp red pepper flakes",
-      "2 tsp dried oregano",
+      "⅓ cup all-purpose flour",
+      "10 cups low-sodium chicken broth",
+      "2 tbsp fresh thyme leaves (or 2 tsp dried)",
       "3 bay leaves",
-      "2½ cups dry white wine, divided",
-      "2 cans (28 oz each) whole peeled tomatoes, crushed by hand",
-      "6 cups seafood stock (gluten-free)",
-      "1 tbsp kosher salt, plus more as needed",
-      "1 tsp black pepper",
-      "4 lb littleneck clams, scrubbed",
-      "3 lb skinless cod fillets, cut into 1½-inch chunks",
-      "2 lb large shrimp (21/25), peeled and deveined",
-      "2 tbsp lemon juice",
-      "1 bunch flat-leaf parsley, chopped"
+      "3 lb Yukon Gold potatoes, unpeeled, cut into ¾-inch cubes",
+      "1 tbsp kosher salt (for the stew), plus more to taste",
+      "3 cups frozen peas",
+      "1 tbsp apple cider vinegar or lemon juice",
+      "½ cup flat-leaf parsley, chopped"
     ],
     "directions": [
-      "Heat the olive oil in a heavy 10- to 12-quart pot over medium heat. Add the onions, fennel, bell peppers and 1 tsp of the salt and cook, stirring often, until soft and translucent but not browned, 10 to 12 minutes.",
-      "Add the garlic, tomato paste, red pepper flakes and oregano and cook, stirring, until the paste darkens to brick red and the garlic smells sweet, about 3 minutes.",
-      "Pour in 1½ cups of the wine and simmer, scraping the bottom, until reduced by about half, 5 minutes. Add the tomatoes with their juices, the seafood stock, bay leaves, remaining salt and the pepper. Bring to a boil, then simmer gently, partially covered, for 25 minutes so the broth tastes rounded and slightly thickened.",
-      "Meanwhile, put the clams and the remaining 1 cup wine in a separate wide pot, cover and steam over high heat, shaking the pot now and then, until the shells open, 5 to 8 minutes. Transfer opened clams to a sheet pan as they pop; discard any that stay shut after 10 minutes.",
-      "When the clams are cool enough to handle, pull the meat from the shells and refrigerate it. Pour the clam liquor through a coffee filter or damp paper towel into the broth, leaving any grit behind.",
-      "Taste the broth and adjust with salt; it should be well seasoned because the fish will absorb it. Fish out the bay leaves. Keep the broth at a bare simmer, with only an occasional bubble.",
-      "Season the cod lightly with salt, slide it into the broth and poach without stirring for 3 minutes. Add the shrimp, nudge everything under the surface and cook until the shrimp are pink and just opaque and the cod flakes at the thickest point and reads 145°F, 2 to 3 minutes more.",
-      "Immediately lift the cod and shrimp out with a slotted spoon onto a rimmed sheet pan in a single layer and refrigerate uncovered. Stir the lemon juice into the broth, then set the pot in an ice bath (or divide into shallow pans) and stir until the broth drops below 70°F.",
-      "Portion the seafood and clam meat evenly into 12 containers, ladle about 1¼ cups broth over each, sprinkle with parsley, cover and refrigerate."
+      "Pat the chicken dry and toss with the salt and pepper. Heat a heavy 10- to 12-quart pot over medium-high heat and add 2 tbsp of the oil.",
+      "Brown the chicken in two batches, 4 to 5 minutes per batch, turning once, until golden on the outside but not cooked through. Transfer to a bowl.",
+      "Add the remaining oil, the onions, carrots, celery and mushrooms to the pot and cook over medium heat, scraping up the browned bits, 8 to 10 minutes, until the onions are soft and the mushrooms have released their liquid and begun to brown.",
+      "Stir in the garlic and tomato paste and cook 2 minutes, until the paste darkens to brick red. Sprinkle in the flour and stir 1 minute to cook out the raw taste.",
+      "Slowly pour in the broth, stirring to prevent lumps. Add the thyme, bay leaves, potatoes, salt and the browned chicken with any juices. Bring to a boil, then reduce to a steady simmer.",
+      "Simmer partially covered, stirring now and then, 25 to 30 minutes, until the potatoes are tender, the broth is lightly thickened and the chicken reads 165°F.",
+      "Stir in the peas and cook 2 minutes. Discard the bay leaves, then stir in the vinegar and parsley. Taste and adjust the salt; it should be well seasoned.",
+      "Set the pot in an ice bath (or divide into shallow pans) and stir until the stew drops to 70°F, within 2 hours.",
+      "Ladle about 2 cups of stew into each of 12 containers, cover and refrigerate."
     ],
     "equipment": [
-      "10- to 12-quart heavy pot",
-      "Wide lidded pot for steaming clams",
-      "Rimmed sheet pans",
-      "Slotted spoon",
-      "Fine strainer or coffee filter",
+      "Heavy 10- to 12-quart pot",
+      "Large bowl",
+      "Ladle",
+      "Shallow pans or ice bath for cooling",
       "Instant-read thermometer",
       "12 microwave-safe containers (32 oz)"
     ],
-    "storage": "Cool broth in an ice bath and seafood on sheet pans, then portion and refrigerate. Eat within 3 days; seafood quality drops fast after that. The broth alone freezes well for 3 months, but do not freeze the cooked seafood.",
-    "reheating": "Reheat gently so the seafood stays tender. Microwave: vent the lid and heat at 50% power for 4 to 5 minutes, stirring halfway, until the broth is steaming and the center reaches 165°F. Oven: transfer to a covered oven-safe dish and heat at 325°F for 20 to 25 minutes to 165°F. Do not boil.",
-    "makeAhead": "",
-    "safety": "Cook cod to 145°F or until opaque and flaking; cook shrimp until pink and opaque; steam clams until the shells open and discard any that do not. Reheat leftovers to 165°F. Cool from 135°F to 70°F within 2 hours and to 41°F or below within the next 4 hours; refrigerate at 40°F or below.",
-    "chefNotes": "Pulling the clams from their shells keeps containers compact and prevents gritty broth; save a few in-shell clams for the top if the client likes the look. Under-season nothing here: a flat broth is the most common failure, so taste after the clam liquor goes in."
+    "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Keeps 4 days. Freezes up to 3 months; the potatoes soften slightly after freezing. Thaw overnight in the refrigerator.",
+    "reheating": "Microwave: vent the lid and heat 4 to 5 minutes, stirring halfway, until steaming and the center reaches 165°F. Stovetop: simmer gently in a covered pot 8 to 10 minutes, stirring now and then, until 165°F. Add a splash of broth or water if it has thickened.",
+    "safety": "Chicken must reach 165°F in the stew. Cool from 135°F to 70°F within 2 hours and to 41°F or below within the next 4 hours; refrigerate at 40°F or below. Reheat leftovers to 165°F.",
+    "chefNotes": "Chicken thighs stay juicy through a week of reheating where breasts turn dry. Browning the chicken and the mushrooms builds most of the flavor, so do not crowd the pot. Cutting the potatoes slightly larger than the carrots keeps them from going to mush. A splash of vinegar at the end wakes up the broth. Salt amounts assume Diamond Crystal kosher salt."
   },
   {
     "id": 22,
-    "slug": "thai-red-curry-with-shrimp-and-vegetables-over-jasmine-rice",
+    "slug": "thai-red-curry-with-chicken-and-vegetables-over-jasmine-rice",
     "side": "meal-prep",
-    "title": "Thai Red Curry with Shrimp and Vegetables over Jasmine Rice",
-    "category": "Seafood",
-    "description": "Plump shrimp, bell peppers and green beans in a fragrant coconut red curry, packed beside fluffy jasmine rice for easy weekday lunches.",
+    "title": "Thai Red Curry with Chicken and Vegetables over Jasmine Rice",
+    "category": "Poultry",
+    "description": "Tender chicken thigh, bell peppers and green beans in a fragrant coconut red curry, packed beside fluffy jasmine rice for easy weekday lunches.",
     "servings": 12,
     "yieldNote": "12 portions (about 1¼ cups curry and 1 cup rice each)",
     "active": 50,
-    "total": 70,
+    "total": 80,
     "tags": [
       "Contains coconut",
       "High protein",
       "Spicy"
     ],
     "allergens": [
-      "Shellfish",
       "Fish"
     ],
     "dietary": [
       "Gluten-free",
       "Dairy-free"
     ],
-    "image": "",
+    "image": "/cookbook/mp/thai-red-curry-with-chicken-and-vegetables-over-jasmine-rice.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Captured by Augustine",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/curry-meat-with-rice-and-salad-17748116/"
     },
     "ingredients": [
       "4 cups jasmine rice",
       "5 cups water (for the rice)",
       "1½ tsp kosher salt (for the rice)",
       "4 cans (13.5 oz each) full-fat coconut milk, unshaken",
-      "⅔ cup Thai red curry paste (shrimp-paste-free)",
+      "⅔ cup Thai red curry paste",
       "2 tbsp neutral oil",
       "2 medium yellow onions, halved and sliced",
       "2 tbsp fresh ginger, grated",
       "6 cloves garlic, minced",
-      "2 cups low-sodium vegetable broth (gluten-free)",
+      "2 cups low-sodium chicken or vegetable broth (gluten-free)",
       "¼ cup fish sauce",
       "3 tbsp light brown sugar",
       "8 makrut lime leaves, torn (optional)",
+      "4 lb boneless skinless chicken thighs, cut into 1-inch pieces",
       "3 medium red bell peppers, sliced ½ inch thick",
       "1 lb green beans, trimmed and cut into 2-inch pieces",
       "2 cans (8 oz each) sliced bamboo shoots, drained",
-      "4½ lb large shrimp (21/25), peeled and deveined",
       "¼ cup lime juice",
       "1 bunch Thai basil, leaves picked",
       "1 bunch cilantro, chopped"
@@ -1763,9 +1724,8 @@ export const recipes: Recipe[] = [
       "Open the coconut milk without shaking and spoon the thick cream from the tops of the cans into a 7- to 8-quart Dutch oven; reserve the thin milk.",
       "Add the oil to the cream and cook over medium-high heat, stirring, until it bubbles hard and the fat starts to separate, 4 to 6 minutes. Add the curry paste and fry, stirring constantly, until deep red and very fragrant, about 3 minutes.",
       "Add the onions, ginger and garlic and cook until the onions just soften, 4 minutes.",
-      "Stir in the reserved thin coconut milk, broth, fish sauce, brown sugar and lime leaves. Bring to a simmer and cook 10 minutes to marry the flavors; the sauce should coat a spoon.",
-      "Add the green beans and cook 3 minutes, then add the bell peppers and bamboo shoots and cook 2 minutes more. The vegetables should stay crisp-tender because they will soften when reheated.",
-      "Add the shrimp, submerge them and simmer gently, stirring once or twice, just until pink and opaque throughout, 3 to 4 minutes. Take the pot off the heat right away.",
+      "Stir in the reserved thin coconut milk, broth, fish sauce, brown sugar and lime leaves and bring to a simmer. Add the chicken, stir to submerge and simmer gently, stirring occasionally, 12 to 15 minutes, until the chicken is cooked through (165°F) and the sauce coats a spoon.",
+      "Add the green beans and cook 3 minutes, then add the bell peppers and bamboo shoots and cook 2 minutes more. The vegetables should stay crisp-tender because they will soften when reheated. Take the pot off the heat.",
       "Stir in the lime juice and taste: it should be salty, slightly sweet and sour. Adjust with up to 1 tbsp more fish sauce or a pinch of sugar. Fold in the basil and cilantro.",
       "Transfer the curry to shallow pans and cool to below 70°F within 2 hours, stirring occasionally. Pack 1 cup rice and about 1¼ cups curry into each of 12 divided containers and refrigerate."
     ],
@@ -1777,11 +1737,11 @@ export const recipes: Recipe[] = [
       "Instant-read thermometer",
       "12 divided meal-prep containers"
     ],
-    "storage": "Keep curry and rice in separate compartments so the rice doesn't turn soggy. Refrigerate up to 3 days. The curry sauce (without shrimp) freezes for 2 months; cooked shrimp turns rubbery if frozen and reheated.",
+    "storage": "Keep curry and rice in separate compartments so the rice doesn't turn soggy. Refrigerate up to 3 days. The curry freezes for 2 months, though the coconut sauce may look slightly separated until it is stirred during reheating.",
     "reheating": "Microwave: sprinkle the rice with 1 tbsp water, vent the lid and heat the curry at 50% power for 3 to 4 minutes, stirring halfway, then heat everything on full power in 30-second bursts until the center reaches 165°F. Oven: combine curry and rice in a covered oven-safe dish with 2 tbsp water and heat at 325°F for 20 to 25 minutes to 165°F.",
     "makeAhead": "",
-    "safety": "Cook shrimp until pink and opaque throughout (145°F). Cool rice quickly and refrigerate within 2 hours to prevent Bacillus cereus growth. Reheat to 165°F. Many red curry pastes contain shrimp paste; this recipe already contains shellfish and fish sauce (fish). Cool from 135°F to 70°F within 2 hours and to 41°F or below within the next 4 hours; refrigerate at 40°F or below.",
-    "chefNotes": "Frying the paste in cracked coconut cream is what gives the curry depth; do not rush it. Curry pastes vary widely in heat and salt, so start with ⅔ cup and add more only after tasting."
+    "safety": "Cook chicken to 165°F. Cool rice quickly and refrigerate within 2 hours to prevent Bacillus cereus growth. Reheat to 165°F. Many red curry pastes contain shrimp paste, so use a shrimp-paste-free paste and read the label. Fish sauce contains fish and must be labeled. Cool from 135°F to 70°F within 2 hours and to 41°F or below within the next 4 hours; refrigerate at 40°F or below.",
+    "chefNotes": "Frying the paste in cracked coconut cream is what gives the curry depth; do not rush it. Curry pastes vary widely in heat and salt, so start with ⅔ cup and add more only after tasting. Thighs stay tender through reheating where breast dries out. For a fish-free client, replace the fish sauce with 3 tbsp soy sauce or tamari and update the allergen label to soy instead of fish."
   },
   {
     "id": 23,
@@ -1806,11 +1766,11 @@ export const recipes: Recipe[] = [
       "Vegetarian",
       "Vegan"
     ],
-    "image": "",
+    "image": "/cookbook/mp/red-lentil-coconut-dal-with-spinach-and-basmati-rice-photo.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "I Own My Food Art",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/meal-with-rice-on-plate-8996219/"
     },
     "ingredients": [
       "4 cups basmati rice",
@@ -1911,7 +1871,7 @@ export const recipes: Recipe[] = [
       "8 cloves garlic, minced",
       "¼ cup tomato paste",
       "⅓ cup all-purpose flour",
-      "1 cup dry red wine",
+      "1 cup dry red wine (or extra vegetable broth)",
       "4 cups low-sodium vegetable broth",
       "3 tbsp soy sauce",
       "1 tbsp fresh thyme leaves, chopped",
@@ -1926,7 +1886,7 @@ export const recipes: Recipe[] = [
       "Rice or mash the potatoes, then beat in 8 tbsp of the butter, the warm milk, 2 tsp salt and the white pepper until smooth. The mash should be stiff enough to hold a peak so it doesn't sink into the filling.",
       "Heat 2 tbsp of the oil in a large Dutch oven over high heat. Add half the mushrooms and cook, stirring only occasionally, until their liquid evaporates and they are deeply browned, 10 to 12 minutes. Transfer to a bowl and repeat with the remaining oil and mushrooms.",
       "Reduce the heat to medium, add 2 tbsp of the butter, the onions, carrots and celery and cook until softened, 8 to 10 minutes. Add the garlic and tomato paste and cook, stirring, until the paste darkens, 2 minutes. Sprinkle in the flour and stir for 1 minute.",
-      "Pour in the wine, scraping up the browned bits, and simmer until nearly evaporated, 2 minutes. Whisk in the broth and soy sauce, add the thyme, rosemary, 2 tsp salt and the pepper and simmer until the gravy coats a spoon, about 8 minutes.",
+      "Pour in the wine (or 1 cup extra broth), scraping up the browned bits, and simmer until nearly evaporated, 2 minutes (3 to 4 minutes with broth). Whisk in the broth and soy sauce, add the thyme, rosemary, 2 tsp salt and the pepper and simmer until the gravy coats a spoon, about 8 minutes.",
       "Stir in the mushrooms and cooked lentils and simmer together 5 minutes so the lentils absorb the gravy. Off the heat, fold in the frozen peas. Taste and adjust seasoning. Heat the oven to 400°F.",
       "Divide the filling between two 9x13-inch baking dishes. Spoon the mash over the top, spread it to the edges to seal, and rake the surface with a fork. Melt the remaining 2 tbsp butter and brush it over the top.",
       "Set the dishes on rimmed sheet pans and bake until the filling bubbles at the edges and the peaks are golden, 25 to 30 minutes; broil 2 to 3 minutes for more color if needed. The center should read 165°F.",
@@ -1970,11 +1930,11 @@ export const recipes: Recipe[] = [
       "Gluten-free",
       "Vegetarian"
     ],
-    "image": "",
+    "image": "/cookbook/mp/black-bean-and-sweet-potato-enchiladas-photo.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Allan González",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/authentic-mexican-enchiladas-with-salsa-31823007/"
     },
     "ingredients": [
       "3 lb sweet potatoes, peeled and cut into ½-inch dice",
@@ -2038,7 +1998,7 @@ export const recipes: Recipe[] = [
     "side": "meal-prep",
     "title": "Chickpea and Vegetable Tagine with Couscous",
     "category": "Vegetarian",
-    "description": "A warmly spiced Moroccan stew of chickpeas, butternut squash, carrots and apricots in a harissa-tomato broth, served with fluffy lemon couscous.",
+    "description": "A warmly spiced Moroccan stew of chickpeas, butternut squash, carrots and apricots in a smoky, gently hot tomato broth, served with fluffy lemon couscous.",
     "servings": 12,
     "yieldNote": "12 portions (about 1½ cups tagine and ¾ cup couscous each)",
     "active": 45,
@@ -2056,25 +2016,24 @@ export const recipes: Recipe[] = [
       "Vegetarian",
       "Vegan"
     ],
-    "image": "",
+    "image": "/cookbook/mp/chickpea-and-vegetable-tagine-with-couscous-photo.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "abdellatif jellab",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/traditional-moroccan-vegetable-tagine-36984667/"
     },
     "ingredients": [
       "¼ cup olive oil",
       "2 large yellow onions, diced",
       "8 cloves garlic, minced",
       "2 tbsp fresh ginger, grated",
-      "1 tbsp ground cumin",
+      "4 tsp ground cumin",
       "1 tbsp ground coriander",
-      "2 tsp sweet paprika",
+      "1 tbsp smoked paprika",
       "1 tsp ground turmeric",
       "1 tsp ground cinnamon",
-      "¼ tsp cayenne pepper",
+      "¾ tsp cayenne pepper",
       "2 tbsp tomato paste",
-      "2 tbsp harissa paste",
       "1 can (28 oz) diced tomatoes",
       "6 cups low-sodium vegetable broth",
       "2 lb butternut squash, peeled and cut into 1-inch cubes",
@@ -2094,11 +2053,11 @@ export const recipes: Recipe[] = [
     ],
     "directions": [
       "Heat ¼ cup oil in a 7- to 8-quart Dutch oven over medium heat. Cook the onions until soft and lightly golden, 8 to 10 minutes.",
-      "Add the garlic and ginger and cook 1 minute. Add the cumin, coriander, paprika, turmeric, cinnamon and cayenne and stir 30 seconds until fragrant, then stir in the tomato paste and 1 tbsp harissa and cook until brick red, 2 minutes.",
+      "Add the garlic and ginger and cook 1 minute. Add the cumin, coriander, smoked paprika, turmeric, cinnamon and cayenne and stir 30 seconds until fragrant, then stir in the tomato paste and cook until brick red, 2 minutes.",
       "Add the tomatoes and broth, scraping the bottom of the pot, then add the squash, carrots, chickpeas, apricots and 1 tbsp salt. Bring to a boil.",
       "Reduce to a gentle simmer, cover with the lid slightly ajar and cook until the carrots are just tender and the squash yields to a knife but still holds its shape, 20 to 25 minutes.",
       "Add the zucchini and olives and simmer uncovered until the zucchini is barely tender and the broth has thickened slightly, 8 to 10 minutes. Undercook the zucchini a little; it softens on reheating.",
-      "Stir in the lemon juice, taste and adjust with salt and up to 1 tbsp more harissa. The broth should taste bright, sweet-spiced and savory.",
+      "Stir in the lemon juice, taste and adjust with salt and up to ¼ tsp more cayenne. The broth should taste bright, sweet-spiced, smoky and savory.",
       "For the couscous, bring the 5 cups water, 2 tbsp oil, 2 tsp salt and the lemon zest to a boil. Put the couscous in a large heatproof bowl or hotel pan, pour the boiling water over, stir once, cover tightly and let stand 10 minutes. Fluff thoroughly with a fork and spread out to cool.",
       "Cool the tagine in shallow pans to below 70°F within 2 hours. Pack ¾ cup couscous and about 1½ cups tagine into each of 12 divided containers and top with cilantro."
     ],
@@ -2114,7 +2073,7 @@ export const recipes: Recipe[] = [
     "reheating": "Microwave: sprinkle the couscous with 1 tbsp water, vent the lid and heat 3 to 4 minutes, stirring the tagine halfway, until 165°F throughout. Oven: combine in a covered oven-safe dish with 2 tbsp water and heat at 325°F for 20 to 25 minutes to 165°F.",
     "makeAhead": "",
     "safety": "Reheat to 165°F. Cool from 135°F to 70°F within 2 hours and to 41°F or below within the next 4 hours; refrigerate at 40°F or below.",
-    "chefNotes": "Cut the squash and carrots to the sizes given so they finish together; small squash cubes turn to mush by day three. Harissa heat varies by brand, so add the second tablespoon only after tasting."
+    "chefNotes": "Cut the squash and carrots to the sizes given so they finish together; small squash cubes turn to mush by day three. The spice blend comes entirely from the Fred Meyer spice aisle and replaces harissa; cayenne heat varies by brand, so add more only after tasting."
   },
   {
     "id": 27,
@@ -2140,11 +2099,11 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Vegetarian"
     ],
-    "image": "",
+    "image": "/cookbook/mp/baked-ziti-with-ricotta-and-spinach-photo.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Hilal Diken",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/baked-cheesy-pasta-with-fresh-parsley-38103947/"
     },
     "ingredients": [
       "¼ cup extra-virgin olive oil",
@@ -2301,11 +2260,11 @@ export const recipes: Recipe[] = [
       "Vegetarian",
       "Vegan"
     ],
-    "image": "",
+    "image": "/cookbook/mp/tofu-and-vegetable-stir-fry-with-peanut-sauce-photo.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Nadin Sh",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/close-up-of-noodles-with-tofu-and-vegetables-on-a-plate-23645813/"
     },
     "ingredients": [
       "5 packages (14 oz each) extra-firm tofu, drained",
@@ -2383,11 +2342,11 @@ export const recipes: Recipe[] = [
       "Gluten-free",
       "Vegetarian"
     ],
-    "image": "",
+    "image": "/cookbook/mp/stuffed-peppers-with-quinoa-black-beans-and-corn-photo.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Lena Ti",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/delicious-stuffed-bell-peppers-in-white-bowl-39206896/"
     },
     "ingredients": [
       "12 large bell peppers, mixed colors",
@@ -2744,11 +2703,11 @@ export const recipes: Recipe[] = [
     "side": "meal-prep",
     "title": "Baked Falafel Bowls with Herbed Rice and Roasted Vegetables",
     "category": "Vegetarian",
-    "description": "Herb-packed baked falafel over rice flecked with wild rice and parsley, with roasted potatoes and carrots, chickpeas, crunchy bell peppers and kale, and a tahini-lemon sauce on the side.",
+    "description": "Herb-packed baked falafel over herbed rice with roasted potatoes and carrots, chickpeas, crunchy bell peppers and kale, and a tahini-lemon sauce on the side.",
     "servings": 12,
     "yieldNote": "12 portions (3 falafel, ¾ cup rice, 1 cup roasted vegetables, ⅓ cup chickpeas and ½ cup peppers and kale each, with 2 tbsp sauce)",
-    "active": 75,
-    "total": 120,
+    "active": 65,
+    "total": 130,
     "tags": [
       "Vegan",
       "Vegetarian",
@@ -2772,53 +2731,42 @@ export const recipes: Recipe[] = [
       "page": "https://www.pexels.com/photo/variety-of-dishes-1640771/"
     },
     "ingredients": [
-      "1½ lb dried chickpeas (for the falafel), soaked overnight in cold water; not canned",
-      "1 medium yellow onion, roughly chopped (for the falafel)",
-      "6 cloves garlic (for the falafel)",
-      "2 packed cups fresh parsley, leaves and tender stems (for the falafel)",
-      "1 packed cup fresh cilantro (for the falafel)",
-      "1 tbsp ground cumin (for the falafel)",
-      "1 tbsp ground coriander (for the falafel)",
-      "2 tsp kosher salt (for the falafel)",
-      "1 tsp black pepper (for the falafel)",
-      "½ tsp cayenne (for the falafel)",
-      "1½ tsp baking powder (for the falafel)",
-      "3 tbsp chickpea flour (for the falafel)",
-      "⅓ cup olive oil (for the falafel pans and brushing)",
-      "3 cups long-grain white rice, rinsed (for the rice)",
-      "½ cup wild rice (for the rice)",
-      "2 tsp kosher salt (for the rice)",
-      "½ cup chopped fresh parsley (for the rice)",
+      "6 cans (15 oz each) chickpeas, rinsed and drained, divided",
+      "1 medium yellow onion, roughly chopped",
+      "7 cloves garlic, divided",
+      "2½ packed cups fresh parsley, leaves and tender stems, divided",
+      "1 packed cup fresh cilantro",
+      "4 tsp ground cumin, divided",
+      "1 tbsp ground coriander",
+      "½ tsp cayenne",
+      "1½ tsp baking powder",
+      "½ cup chickpea flour",
+      "⅔ cup olive oil, divided",
+      "2 tbsp kosher salt, divided",
+      "1 tsp black pepper",
+      "3 cups long-grain white rice, rinsed",
       "3 lb Yukon Gold potatoes, cut into ¾-inch cubes",
       "2 lb carrots, cut into ¼-inch coins",
-      "¼ cup olive oil (for the vegetables)",
-      "2 tsp kosher salt (for the vegetables)",
-      "1 tsp ground cumin (for the vegetables)",
-      "2 cans (15 oz each) chickpeas, drained and rinsed (for the bowls)",
-      "2 red bell peppers, cut into 1-inch pieces",
-      "1 yellow bell pepper, cut into 1-inch pieces",
-      "1 orange bell pepper, cut into 1-inch pieces",
+      "4 bell peppers (2 red, 1 yellow, 1 orange), cut into 1-inch pieces",
       "1 bunch curly kale, stems removed, chopped",
-      "¾ cup tahini (for the sauce)",
-      "½ cup fresh lemon juice (for the sauce)",
-      "½ to ¾ cup cold water (for the sauce)",
-      "1 clove garlic, grated (for the sauce)",
-      "1 tsp kosher salt (for the sauce)"
+      "¾ cup tahini",
+      "½ cup fresh lemon juice"
     ],
     "directions": [
-      "The night before, cover the dried chickpeas with at least 3 inches of cold water and soak them in the fridge; they will double in size.",
-      "Heat the oven to 425°F with racks in the upper-middle and lower-middle positions. Toss the potatoes and carrots with the olive oil, salt and cumin and spread on two rimmed sheet pans. Roast 30 to 35 minutes, flipping halfway, until browned and tender. Lower the oven to 400°F.",
-      "Simmer the wild rice in 2 cups salted water, covered, for 45 to 50 minutes, until the grains split, then drain. Meanwhile cook the white rice with 4½ cups water and the rest of the salt: boil, cover, simmer on low 18 minutes, then rest 10 minutes. Fold the two together with the parsley and spread on a sheet pan to cool.",
-      "Drain the soaked chickpeas very well and pat them dry. Pulse them in a food processor in two batches with the onion, garlic, parsley and cilantro until finely chopped like coarse sand, not a paste. Add the spices, salt, baking powder and chickpea flour and pulse just to combine. Chill the mix 30 minutes.",
-      "Brush two rimmed sheet pans generously with oil. Scoop 3-tablespoon portions (you'll get about 36), roll them into balls and set them on the pans. Brush the tops with oil and bake at 400°F for 25 to 30 minutes, turning once halfway, until firm, well browned and at least 165°F in the center.",
-      "Whisk the tahini, lemon juice, garlic and salt; it will tighten up, then loosen as you whisk in the water a little at a time until it pours.",
+      "Heat the oven to 425°F with racks in the upper-middle and lower-middle positions. Toss the potatoes and carrots with ¼ cup of the oil, 2 tsp of the salt and 1 tsp of the cumin and spread on two rimmed sheet pans. Roast 30 to 35 minutes, flipping halfway, until browned and tender. Lower the oven to 400°F.",
+      "Meanwhile, drain 4 cans of chickpeas very well, rinse and spread them on a towel-lined sheet pan. Pat them completely dry; wet chickpeas are what make baked falafel mushy. Set the other 2 cans aside for the bowls.",
+      "Cook the rice with 4½ cups water and 1½ tsp of the salt: boil, cover, simmer on low 18 minutes, then rest 10 minutes. Fold in ½ cup of the chopped parsley and spread on a sheet pan to cool.",
+      "Once the vegetables come out, move the dried chickpeas onto a dry rimmed sheet pan and bake at 400°F for 10 minutes to drive off the last moisture. Cool 5 minutes.",
+      "Pulse the chickpeas in a food processor in two batches with the onion, 6 garlic cloves, the remaining 2 packed cups parsley and the cilantro until finely chopped like coarse sand, not a paste. Add the remaining 1 tbsp cumin, the coriander, 1½ tsp salt, the pepper, cayenne, baking powder and chickpea flour and pulse just to combine. The mix should hold together when squeezed; if it is crumbly, pulse in 1 tbsp water. Chill 30 minutes.",
+      "Brush two rimmed sheet pans generously with 3 tbsp of the oil. Scoop 3-tablespoon portions (you'll get about 36), roll them into balls and set them on the pans. Brush the tops with the remaining 3 tbsp oil and bake at 400°F for 25 to 30 minutes, turning once halfway, until firm, well browned and at least 165°F in the center.",
+      "Whisk the tahini, lemon juice, the remaining garlic clove and the remaining 1 tsp salt; it will tighten up, then loosen as you whisk in ½ to ¾ cup cold water a little at a time until it pours.",
       "Cool the falafel, rice and roasted vegetables uncovered in shallow layers until they drop to 70°F, within 2 hours.",
-      "In each of 12 containers, lay rice along one side and set 3 falafel in the middle with the potatoes and carrots around them. Fill the other end with chickpeas, bell peppers and kale. Pack 2 tbsp tahini sauce in a lidded cup."
+      "In each of 12 containers, lay rice along one side and set 3 falafel in the middle with the potatoes and carrots around them. Fill the other end with the reserved chickpeas, bell peppers and kale. Pack 2 tbsp tahini sauce in a lidded cup."
     ],
     "equipment": [
       "4 rimmed sheet pans",
       "Food processor",
-      "Two pots with lids",
+      "Pot with lid",
       "Fine-mesh strainer",
       "Instant-read thermometer",
       "12 meal-prep containers with 2-oz sauce cups"
@@ -2826,8 +2774,8 @@ export const recipes: Recipe[] = [
     "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Keeps 4 days. The falafel and rice freeze up to 3 months on their own; the peppers and kale don't freeze well.",
     "reheating": "Set the sauce cup aside. Microwave with the lid vented for 2 to 2½ minutes, until the falafel and rice are steaming (165°F); the peppers and kale warm through but stay crisp. For crunchier falafel, reheat them in an air fryer at 375°F for 4 to 5 minutes. Drizzle on the sauce to serve.",
     "makeAhead": "",
-    "safety": "Falafel is made from raw soaked chickpeas, so bake it until the centers reach 165°F. Cool the rice quickly and refrigerate within 2 hours. The tahini sauce contains sesame; label it.",
-    "chefNotes": "Baked instead of fried so the falafel reheats without going greasy. Canned chickpeas make falafel fall apart; soaked dried chickpeas are the only way. Dried chickpeas and tahini are cheap at Costco. Salt amounts assume Diamond Crystal kosher salt; with Morton, use a little over half."
+    "safety": "Bake the falafel until the centers reach 165°F. Cool the rice quickly and refrigerate within 2 hours. The tahini sauce contains sesame; label it.",
+    "chefNotes": "Baked instead of fried so the falafel reheats without going greasy. Canned chickpeas work here because the dish is baked, not fried: drying them on a towel and in the oven removes the water that otherwise makes the mix fall apart, and the chickpea flour binds it. Dried soaked chickpeas are not practical for a 12 portion prep day, so this skips the overnight soak. Canned chickpeas and tahini are good value at Costco. Salt amounts assume Diamond Crystal kosher salt; with Morton, use a little over half."
   },
   {
     "id": 36,
@@ -3198,15 +3146,15 @@ export const recipes: Recipe[] = [
   },
   {
     "id": 41,
-    "slug": "black-rice-lentil-and-rainbow-veggie-bowls",
+    "slug": "brown-rice-lentil-and-rainbow-veggie-bowls",
     "side": "meal-prep",
-    "title": "Black Rice, Lentil and Rainbow Veggie Bowls",
+    "title": "Brown Rice, Lentil and Rainbow Veggie Bowls",
     "category": "Vegetarian",
-    "description": "Striped bowls of nutty black rice, golden corn, crisp cucumber, black olives, red and orange cherry tomatoes and green onion over herby lentils, with a lemon-oregano vinaigrette on the side.",
+    "description": "Striped bowls of nutty brown rice, golden corn, crisp cucumber, black olives, red and orange cherry tomatoes and green onion over herby lentils, with a lemon-oregano vinaigrette on the side.",
     "servings": 12,
-    "yieldNote": "12 portions (about ½ cup black rice, ½ cup lentils, ⅓ cup corn and 1 cup vegetables each, with 2 tbsp dressing)",
+    "yieldNote": "12 portions (about ½ cup brown rice, ½ cup lentils, ⅓ cup corn and 1 cup vegetables each, with 2 tbsp dressing)",
     "active": 40,
-    "total": 60,
+    "total": 70,
     "tags": [
       "Vegan",
       "Vegetarian",
@@ -3221,15 +3169,15 @@ export const recipes: Recipe[] = [
       "Gluten-free",
       "Dairy-free"
     ],
-    "image": "/cookbook/mp/black-rice-lentil-and-rainbow-veggie-bowls.webp",
+    "image": "/cookbook/mp/brown-rice-lentil-and-rainbow-veggie-bowls.webp",
     "photoCredit": {
-      "author": "Ella Olsson",
+      "author": "Heather Brock",
       "source": "Pexels",
-      "page": "https://www.pexels.com/photo/flat-lay-photography-of-three-tray-of-foods-1640775/"
+      "page": "https://www.pexels.com/photo/mouthwatering-buddha-bowl-6978234/"
     },
     "ingredients": [
-      "2½ cups black (forbidden) rice, rinsed",
-      "4½ cups water (for the rice)",
+      "2½ cups long-grain brown rice, rinsed",
+      "5 cups water (for the rice)",
       "1 tsp kosher salt (for the rice)",
       "2 cups dried brown or green lentils, rinsed and picked over",
       "6 cups water (for the lentils)",
@@ -3250,7 +3198,7 @@ export const recipes: Recipe[] = [
       "½ tsp black pepper (for the dressing)"
     ],
     "directions": [
-      "Bring the water and salt to a boil, stir in the black rice, cover and simmer on low 30 to 35 minutes, until tender and chewy. Rest 10 minutes, fluff and spread on a sheet pan to cool.",
+      "Bring the water and salt to a boil, stir in the brown rice, cover and simmer on low 40 to 45 minutes, until tender and chewy and the water is absorbed. Rest 10 minutes, fluff and spread on a sheet pan to cool.",
       "Cover the lentils with the water in a pot, bring to a boil, add the salt and simmer 20 to 25 minutes, until tender but still holding their shape. Drain well and spread out to cool.",
       "Shake the dressing ingredients together in a jar until creamy.",
       "Toss the cooled lentils with 3 tbsp of the dressing and half the parsley.",
@@ -3270,7 +3218,7 @@ export const recipes: Recipe[] = [
     "reheating": "Made to eat cold: shake the dressing, pour it on and stir. To warm the grains, lift out the tomatoes and cucumber and microwave the rest 1 minute.",
     "makeAhead": "",
     "safety": "Cool the cooked rice and lentils to 70°F within 2 hours and refrigerate at 40°F or below. Wash the vegetables well since they are eaten raw.",
-    "chefNotes": "Black rice holds its chew for days and makes the bowl look stunning. Pack it stripe by stripe in glass containers; it sells itself in the fridge. Costco carries black rice and big bags of frozen corn. Salt amounts assume Diamond Crystal kosher salt; with Morton, use a little over half."
+    "chefNotes": "Brown rice holds its chew for days and keeps the bowl hearty. Pack it stripe by stripe in glass containers; the colors sell it in the fridge. Costco carries big bags of brown rice and frozen corn. Salt amounts assume Diamond Crystal kosher salt; with Morton, use a little over half."
   },
   {
     "id": 42,
@@ -3295,11 +3243,11 @@ export const recipes: Recipe[] = [
       "Wheat"
     ],
     "dietary": [],
-    "image": "",
+    "image": "/cookbook/mp/classic-glazed-meatloaf-with-mashed-potatoes-and-green-beans.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Igreja Preta",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/close-up-photo-of-mashed-potato-and-steak-2397401/"
     },
     "ingredients": [
       "5 lb 85% lean ground beef",
@@ -3374,11 +3322,11 @@ export const recipes: Recipe[] = [
       "Wheat"
     ],
     "dietary": [],
-    "image": "",
+    "image": "/cookbook/mp/beef-and-italian-sausage-meatballs-with-spaghetti-marinara.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Cree Payton",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/spaghetti-with-meatballs-on-ceramic-plate-9617397/"
     },
     "ingredients": [
       "3 lb 85% lean ground beef",
@@ -3452,11 +3400,11 @@ export const recipes: Recipe[] = [
       "Wheat"
     ],
     "dietary": [],
-    "image": "",
+    "image": "/cookbook/mp/spaghetti-with-beef-and-sausage-meat-sauce.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Theodore Nguyen",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/a-plate-of-spaghetti-with-sauce-and-a-spoon-28314074/"
     },
     "ingredients": [
       "3 lb 85% lean ground beef",
@@ -3481,7 +3429,7 @@ export const recipes: Recipe[] = [
     "directions": [
       "Heat the olive oil in a large, heavy pot over medium-high heat. Brown the beef and sausage in two batches, breaking it into small pieces, 8 to 10 minutes per batch, until no pink remains. Spoon off all but 2 tbsp of the fat.",
       "Lower the heat to medium, add the onions and carrots and cook 8 minutes until soft. Add the garlic for 1 minute.",
-      "Stir in the tomato paste and cook 2 minutes until it darkens. Pour in the wine and scrape up the browned bits, simmering until it's mostly gone.",
+      "Stir in the tomato paste and cook 2 minutes until it darkens. Pour in the wine (or the beef broth) and scrape up the browned bits, simmering until it's mostly gone.",
       "Add the crushed tomatoes, tomato sauce, Italian seasoning, bay leaves, salt, pepper and sugar. Simmer uncovered 40 to 45 minutes, stirring now and then, until thick. Remove the bay leaves and taste for salt.",
       "Cook the spaghetti in well-salted boiling water 1 to 2 minutes short of the package time. Drain, toss with the olive oil and spread on sheet pans to cool.",
       "Divide the sauce among shallow pans and cool uncovered until it drops to 70°F, within 2 hours.",
@@ -3524,11 +3472,11 @@ export const recipes: Recipe[] = [
       "Wheat"
     ],
     "dietary": [],
-    "image": "",
+    "image": "/cookbook/mp/classic-beef-and-sausage-lasagna.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "alleksana",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/close-up-photo-of-cheesy-lasagna-5949900/"
     },
     "ingredients": [
       "2 lb 85% lean ground beef",
@@ -3599,11 +3547,11 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Vegetarian"
     ],
-    "image": "",
+    "image": "/cookbook/mp/fudgy-chocolate-brownies.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Karola G",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/slice-of-chocolate-brownie-on-white-ceramic-plate-5386665/"
     },
     "ingredients": [
       "1 cup (2 sticks) unsalted butter",
@@ -3729,11 +3677,11 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Vegetarian"
     ],
-    "image": "",
+    "image": "/cookbook/mp/brown-butter-banana-bread.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Wouter Supardi Salari",
+      "source": "Unsplash",
+      "page": "https://unsplash.com/photos/a-loaf-of-banana-bread-sitting-on-top-of-a-white-plate-uFlXozTlD1U"
     },
     "ingredients": [
       "1 cup (2 sticks) unsalted butter",
@@ -3771,6 +3719,455 @@ export const recipes: Recipe[] = [
     "chefNotes": "Ask customers to save their browning bananas for the visit; it's the best use for them. Brown butter is the upgrade that makes people ask what's different."
   },
   {
+    "id": 49,
+    "slug": "seasoned-ground-beef-tacos-with-spanish-rice-and-black-beans",
+    "side": "meal-prep",
+    "title": "Seasoned Ground Beef Tacos with Spanish Rice and Black Beans",
+    "category": "Beef, Pork & Lamb",
+    "description": "Old-fashioned taco night in a box: savory seasoned ground beef with tomato-y Spanish rice and warm black beans. Shells and fresh toppings are packed separately so every taco is crisp and bright.",
+    "servings": 12,
+    "yieldNote": "12 portions (about 5 oz cooked beef, 2 shells, 1 cup rice and ½ cup black beans each, plus toppings)",
+    "active": 45,
+    "total": 75,
+    "tags": [
+      "High protein",
+      "Kid-friendly",
+      "Comfort food",
+      "Freezer-friendly"
+    ],
+    "allergens": [
+      "Milk",
+      "Wheat"
+    ],
+    "dietary": [],
+    "image": "/cookbook/mp/seasoned-ground-beef-tacos-with-spanish-rice-and-black-beans.webp",
+    "photoCredit": {
+      "author": "Chitokan C.",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/close-up-photo-of-rice-and-tacos-2087748/"
+    },
+    "ingredients": [
+      "5 lb 85% lean ground beef",
+      "2 medium yellow onions, finely diced",
+      "6 cloves garlic, minced",
+      "3 tbsp chili powder",
+      "1 tbsp ground cumin",
+      "1 tbsp kosher salt (for the beef)",
+      "1 can (15 oz) tomato sauce (for the beef)",
+      "4 cups long-grain white rice",
+      "2 tbsp neutral oil (for the rice)",
+      "1 can (15 oz) tomato sauce (for the rice)",
+      "5 cups low-sodium chicken broth",
+      "2 tsp kosher salt (for the rice)",
+      "4 cans (15 oz each) black beans, drained and rinsed",
+      "1 tsp ground cumin (for the beans)",
+      "24 taco shells (hard corn shells or 8-inch flour tortillas)",
+      "1½ lb shredded cheddar cheese (toppings)",
+      "1 head iceberg lettuce, shredded (toppings)",
+      "1½ lb tomatoes, diced (toppings)",
+      "3 cups sour cream (toppings)",
+      "2 cups mild salsa (toppings)"
+    ],
+    "directions": [
+      "Heat a large Dutch oven or wide pot over medium-high heat. Brown the ground beef in two batches, breaking it up, 8 to 10 minutes per batch, until no pink remains. Drain off all but about 2 tbsp of the fat.",
+      "Return all the beef to the pot with half of the diced onions and half of the garlic. Cook 4 minutes, until the onions soften, then stir in the chili powder, 1 tbsp cumin and 1 tbsp salt for 1 minute.",
+      "Stir in one can of tomato sauce and simmer uncovered 12 to 15 minutes, stirring now and then, until thick and saucy rather than soupy. Add a splash of water if it gets dry. The beef must reach 160°F. Taste and adjust the salt.",
+      "For the rice, heat the oil in a large pot over medium heat. Cook the remaining onions 4 minutes, add the remaining garlic for 30 seconds, then stir in the rice for 2 minutes until it smells toasty.",
+      "Add the second can of tomato sauce, the chicken broth and 2 tsp salt. Bring to a boil, stir once, cover and cook on the lowest heat 18 minutes. Rest, covered, 10 minutes, then fluff with a fork.",
+      "For the beans, warm the drained black beans in a saucepan with the 1 tsp cumin and a few tablespoons of water for 5 to 8 minutes, until hot and slightly creamy.",
+      "Spread the beef, rice and beans in shallow pans and cool uncovered until they drop to 70°F, within 2 hours.",
+      "Pack 1 cup rice, ½ cup beans and about ¾ cup beef into each of 12 containers, in separate sections.",
+      "Pack 2 taco shells per portion in their own bag, and divide the cheese, lettuce, tomatoes, sour cream and salsa into small cups or bags. Keep these cold toppings separate so the shells stay crisp."
+    ],
+    "equipment": [
+      "Large Dutch oven or wide pot",
+      "Large pot with lid",
+      "Saucepan",
+      "Shallow pans for cooling",
+      "Instant-read thermometer",
+      "12 compartment meal-prep containers",
+      "Small cups or bags for toppings"
+    ],
+    "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Keeps 4 days. The beef, rice and beans freeze up to 3 months. Do not freeze the lettuce, tomatoes, sour cream or shells. Keep shells in a sealed bag at room temperature.",
+    "reheating": "Microwave the rice and beans covered with a spoonful of water 2 to 3 minutes. Heat the beef in its own container 2 minutes, stirring, until 165°F. Warm hard shells at 350°F for 5 minutes, or wrap soft tortillas in a damp paper towel and microwave 20 seconds. Add cold toppings after heating.",
+    "makeAhead": "The beef, rice and beans can be cooked and chilled a day ahead. Shred the lettuce and dice the tomatoes the day you pack.",
+    "safety": "Cook ground beef to 160°F. Cool in shallow pans, never in the pot. Reheat the beef, rice and beans to 165°F. Keep sour cream, cheese and produce at 40°F or colder. Contains milk and wheat.",
+    "chefNotes": "Draining most of the fat keeps the tacos from turning greasy once reheated. Rice cooked in broth and tomato sauce, not water, tastes seasoned all the way through. Salt amounts assume Diamond Crystal kosher salt; with Morton, use a little over half."
+  },
+  {
+    "id": 50,
+    "slug": "shredded-chicken-tacos-with-rice-and-refried-beans",
+    "side": "meal-prep",
+    "title": "Shredded Chicken Tacos with Rice and Refried Beans",
+    "category": "Poultry",
+    "description": "Tender chicken thighs simmered in salsa and spices until they shred at the touch of a fork, served with fluffy chicken-broth rice and creamy refried beans. Warm corn tortillas and fresh toppings are packed on the side.",
+    "servings": 12,
+    "yieldNote": "12 portions (about 4½ oz shredded chicken, 2 tortillas, ¾ cup rice and ½ cup refried beans each, plus toppings)",
+    "active": 40,
+    "total": 110,
+    "tags": [
+      "High protein",
+      "Gluten-free",
+      "Kid-friendly",
+      "Comfort food",
+      "Freezer-friendly"
+    ],
+    "allergens": [
+      "Milk"
+    ],
+    "dietary": [
+      "Gluten-free"
+    ],
+    "image": "/cookbook/mp/shredded-chicken-tacos-with-rice-and-refried-beans.webp",
+    "photoCredit": {
+      "author": "Jonathan Reynaga",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/homemade-tacos-on-a-table-17429140/"
+    },
+    "ingredients": [
+      "5 lb boneless skinless chicken thighs, trimmed",
+      "3 cups mild salsa (for the chicken)",
+      "2 medium yellow onions, diced",
+      "6 cloves garlic, minced",
+      "2 tbsp chili powder",
+      "1 tbsp ground cumin",
+      "1 tbsp dried oregano",
+      "1 tbsp kosher salt (for the chicken)",
+      "1 tsp black pepper",
+      "7½ cups low-sodium chicken broth, divided (1 cup for the chicken, 6½ cups for the rice)",
+      "4 cups long-grain white rice",
+      "2 tbsp neutral oil (for the rice)",
+      "2 tsp kosher salt (for the rice)",
+      "4 cans (16 oz each) refried beans",
+      "24 corn tortillas (6-inch)",
+      "1½ lb shredded Mexican-blend cheese (toppings)",
+      "1 head iceberg lettuce, shredded (toppings)",
+      "1½ lb tomatoes, diced (toppings)",
+      "3 cups sour cream (toppings)",
+      "3 limes, cut into wedges (toppings)"
+    ],
+    "directions": [
+      "Heat the oven to 325°F. In a large roasting pan or two 9 x 13-inch baking dishes, stir the salsa, 1 cup of the chicken broth, half of the onions, half of the garlic, the chili powder, cumin, oregano, 1 tbsp salt and the pepper.",
+      "Nestle the chicken thighs into the salsa mixture in a single layer and turn them to coat. Cover tightly with foil and bake 75 to 90 minutes, until the chicken is very tender and reads at least 165°F.",
+      "While the chicken bakes, make the rice. Heat the oil in a large pot over medium heat, cook the remaining onions 4 minutes, add the remaining garlic for 30 seconds, then stir in the rice for 2 minutes until toasty.",
+      "Add the remaining 6½ cups chicken broth and 2 tsp salt. Bring to a boil, stir once, cover and cook on the lowest heat 18 minutes. Rest, covered, 10 minutes, then fluff with a fork.",
+      "Shred the chicken right in the pan with two forks and stir it back into the juices. Let it sit 10 minutes to soak up the sauce, then taste and adjust the salt.",
+      "Warm the refried beans in a saucepan over medium-low heat, stirring often, with a few tablespoons of water until smooth and hot.",
+      "Spread the chicken, rice and beans in shallow pans and cool uncovered until they drop to 70°F, within 2 hours.",
+      "Pack about 4½ oz chicken with its juices, ¾ cup rice and ½ cup refried beans into each of 12 containers, in separate sections.",
+      "Wrap 2 corn tortillas per portion in foil or a bag, and divide the cheese, lettuce, tomatoes, sour cream and lime wedges into small cups or bags to add fresh."
+    ],
+    "equipment": [
+      "Large roasting pan or two 9 x 13-inch baking dishes",
+      "Foil",
+      "Large pot with lid",
+      "Saucepan",
+      "Shallow pans for cooling",
+      "Instant-read thermometer",
+      "12 compartment meal-prep containers",
+      "Small cups or bags for toppings"
+    ],
+    "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Keeps 4 days. The chicken, rice and refried beans freeze up to 3 months. Do not freeze the lettuce, tomatoes, sour cream or tortillas.",
+    "reheating": "Microwave the chicken, covered, 2 to 3 minutes, stirring halfway, until 165°F. Heat the rice and beans with a spoonful of water 2 to 3 minutes. Warm the tortillas wrapped in a damp paper towel for 20 to 30 seconds. Build tacos, then add cold toppings and a squeeze of lime.",
+    "makeAhead": "The chicken can be cooked and shredded a day ahead and stored in its juices. Cut the toppings the day you pack.",
+    "safety": "Cook chicken to 165°F. Cool in shallow pans, never in the pot. Reheat the chicken, rice and beans to 165°F. Keep sour cream, cheese and produce at 40°F or colder. Contains milk.",
+    "chefNotes": "Thighs stay juicy and shred beautifully, and they forgive reheating far better than breasts. Shredding the chicken into its own juices is what keeps it moist all week. Corn tortillas keep this gluten-free; check the labels on the salsa, broth and refried beans. Salt amounts assume Diamond Crystal kosher salt; with Morton, use a little over half."
+  },
+  {
+    "id": 51,
+    "slug": "classic-pot-roast-with-carrots-and-potatoes",
+    "side": "meal-prep",
+    "title": "Classic Pot Roast with Carrots and Potatoes",
+    "category": "Beef, Pork & Lamb",
+    "description": "Beef chuck roast seared and braised low and slow in broth until it falls apart with a fork, with sweet carrots, tender potatoes and a rich brown gravy. Sunday dinner that tastes even better the next day.",
+    "servings": 12,
+    "yieldNote": "12 portions (about 6 oz cooked beef, 1 cup carrots and potatoes and ½ cup gravy each)",
+    "active": 40,
+    "total": 285,
+    "tags": [
+      "High protein",
+      "Gluten-free",
+      "Dairy-free",
+      "Comfort food",
+      "Freezer-friendly"
+    ],
+    "allergens": [],
+    "dietary": [
+      "Gluten-free",
+      "Dairy-free"
+    ],
+    "image": "/cookbook/mp/classic-pot-roast-with-carrots-and-potatoes.webp",
+    "photoCredit": {
+      "author": "Thiago Rebouças",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/meat-and-fruit-on-plate-6545671/"
+    },
+    "ingredients": [
+      "7 lb boneless beef chuck roast, cut into 4 even pieces",
+      "3 tbsp neutral oil",
+      "2 tbsp kosher salt (for the beef)",
+      "2 tsp black pepper",
+      "3 medium yellow onions, cut into thick wedges",
+      "6 cloves garlic, smashed",
+      "3 tbsp tomato paste",
+      "8 cups low-sodium beef broth",
+      "4 bay leaves",
+      "2 tsp dried thyme",
+      "3 lb carrots, peeled and cut into 2-inch chunks",
+      "5 lb Yukon Gold potatoes, scrubbed and cut into 2-inch chunks",
+      "½ cup cornstarch (for the gravy)",
+      "½ cup cold water (for the gravy)",
+      "1 tbsp apple cider vinegar",
+      "1 tsp kosher salt (for the gravy), to taste"
+    ],
+    "directions": [
+      "Heat the oven to 325°F. Pat the beef dry and season all over with 2 tbsp salt and the pepper.",
+      "Heat the oil in a large Dutch oven or heavy roasting pan over medium-high heat. Sear the beef in batches, 4 to 5 minutes per side, until deeply browned. Move to a plate.",
+      "Add the onions to the pan and cook 5 minutes, scraping up the browned bits. Add the garlic and tomato paste and cook 2 minutes, until the paste darkens.",
+      "Pour in the broth and bring to a simmer. Return the beef, add the bay leaves and thyme, cover tightly and braise in the oven 2 hours.",
+      "Tuck the carrots and potatoes around the beef, pushing them into the liquid. Cover and braise another 60 to 75 minutes, until the beef is fork-tender and the vegetables are soft.",
+      "Lift the beef and vegetables into shallow pans and discard the bay leaves. Skim the fat from the broth, then bring it to a simmer on the stovetop.",
+      "Whisk the cornstarch and cold water, stir into the simmering broth and cook 2 minutes until glossy and thick. Stir in the vinegar and season with salt to taste.",
+      "Shred or slice the beef into big pieces. Cool everything uncovered in shallow layers until it drops to 70°F, within 2 hours.",
+      "Pack about 6 oz beef, 1 cup carrots and potatoes into each of 12 containers and ladle about ½ cup gravy over the top."
+    ],
+    "equipment": [
+      "Large Dutch oven or heavy roasting pan with lid or foil",
+      "Tongs",
+      "Shallow pans for cooling",
+      "Whisk",
+      "Instant-read thermometer",
+      "12 meal-prep containers"
+    ],
+    "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Keeps 4 days. The beef and gravy freeze up to 3 months. The potatoes turn a little soft after thawing, so stir them into the gravy when reheating.",
+    "reheating": "Vent the lid and microwave 3 to 4 minutes, stirring halfway, until the beef and gravy reach 165°F. A spoonful of water loosens the gravy. Oven: cover with foil and heat at 350°F for 25 to 30 minutes until bubbling hot.",
+    "makeAhead": "The whole roast can be braised, cooled and refrigerated in its gravy a day ahead, which makes it easier to skim off the fat. Reheat gently before portioning.",
+    "safety": "Braise the beef until fork-tender, well above the 145°F minimum for whole-muscle beef. Cool to 70°F within 2 hours and to 41°F or below within the next 4 hours. Reheat to 165°F.",
+    "chefNotes": "Chuck roast has the fat and collagen that turn silky in a long braise, so do not trim it too closely. Searing in batches builds the flavor, so do not crowd the pan. Vinegar at the end brightens the gravy without making it taste sour. Salt amounts assume Diamond Crystal kosher salt and low-sodium broth; with Morton, use a little over half."
+  },
+  {
+    "id": 52,
+    "slug": "sunday-roast-chicken-dinner-with-gravy-mashed-potatoes-and-green-beans",
+    "side": "meal-prep",
+    "title": "Sunday Roast Chicken Dinner with Gravy, Mashed Potatoes and Green Beans",
+    "category": "Poultry",
+    "description": "Golden roasted chicken leg quarters seasoned simply with paprika and thyme, served with buttery mashed potatoes, tender green beans and a smooth homemade gravy. A whole Sunday dinner in one container.",
+    "servings": 12,
+    "yieldNote": "12 portions (1 chicken leg quarter, ¾ cup mashed potatoes, ¾ cup green beans and ¼ cup gravy each)",
+    "active": 50,
+    "total": 110,
+    "tags": [
+      "High protein",
+      "Kid-friendly",
+      "Comfort food",
+      "Freezer-friendly"
+    ],
+    "allergens": [
+      "Milk",
+      "Wheat"
+    ],
+    "dietary": [],
+    "image": "/cookbook/mp/sunday-roast-chicken-dinner-with-gravy-mashed-potatoes-and-green-beans.webp",
+    "photoCredit": {
+      "author": "Furkan Fdemir",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/roasted-chicken-potatoes-and-green-beans-10821324/"
+    },
+    "ingredients": [
+      "12 bone-in, skin-on chicken leg quarters (about 10 lb)",
+      "3 tbsp olive oil",
+      "2 tbsp kosher salt (for the chicken)",
+      "1 tbsp paprika",
+      "2 tsp garlic powder",
+      "2 tsp dried thyme",
+      "2 tsp black pepper",
+      "2 medium yellow onions, quartered",
+      "8 tbsp unsalted butter (for the gravy)",
+      "¾ cup all-purpose flour",
+      "6 cups low-sodium chicken broth",
+      "5 lb Yukon Gold potatoes, peeled and cut into 2-inch chunks",
+      "1 cup whole milk, warmed",
+      "6 tbsp unsalted butter (for the potatoes)",
+      "2 tsp kosher salt (for the potatoes)",
+      "3 lb green beans, trimmed",
+      "1 tbsp kosher salt (for the bean water)"
+    ],
+    "directions": [
+      "Heat the oven to 425°F and set two racks in the upper and lower thirds. Pat the chicken very dry. Mix the salt, paprika, garlic powder, thyme and pepper, then rub the chicken with the olive oil and the seasoning.",
+      "Scatter the onions over two rimmed sheet pans and set the chicken skin-side up on top, 6 pieces per pan with space between them. Roast 45 to 55 minutes, swapping the pans halfway, until the skin is deep golden and the thickest part reads at least 165°F (about 175°F for the juiciest thighs).",
+      "While the chicken roasts, cover the potatoes with cold salted water, boil 15 to 18 minutes until very tender, drain well and mash with the warm milk, 6 tbsp butter and 2 tsp salt.",
+      "Boil the green beans in 1 tbsp salted water 4 to 5 minutes until tender but bright, then drain and spread out to cool.",
+      "For the gravy, melt 8 tbsp butter in a large saucepan over medium heat. Whisk in the flour and cook, stirring, 2 minutes until pale gold.",
+      "Slowly whisk in the chicken broth and simmer 8 to 10 minutes, whisking often, until thick enough to coat a spoon. Skim and add a few spoonfuls of the pan juices for flavor, then season to taste.",
+      "Rest the chicken 10 minutes. Cool everything uncovered in shallow layers until it drops to 70°F, within 2 hours.",
+      "Pack 1 leg quarter, ¾ cup mashed potatoes and ¾ cup green beans into each of 12 containers, and ladle ¼ cup gravy over the potatoes and chicken."
+    ],
+    "equipment": [
+      "2 rimmed sheet pans",
+      "Large pot for the potatoes",
+      "Potato masher",
+      "Large pot for the green beans",
+      "Large saucepan",
+      "Whisk",
+      "Instant-read thermometer",
+      "12 meal-prep containers"
+    ],
+    "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Keeps 4 days. The chicken, potatoes and gravy freeze up to 3 months. The green beans are best eaten within 4 days.",
+    "reheating": "Vent the lid and microwave 3 to 3½ minutes, stirring the potatoes and gravy halfway, until the chicken reaches 165°F. A spoonful of water keeps the potatoes creamy. Oven: cover with foil and heat at 350°F for 25 minutes. The skin softens in storage; crisp it a few minutes under the broiler if you like.",
+    "makeAhead": "The gravy and mashed potatoes can be made a day ahead and chilled in shallow pans. Season the chicken the night before and leave it uncovered in the fridge for crispier skin.",
+    "safety": "Cook chicken to at least 165°F in the thickest part, away from the bone. Cool to 70°F within 2 hours and to 41°F or below within the next 4 hours. Reheat to 165°F. Contains milk and wheat.",
+    "chefNotes": "Leg quarters are forgiving, inexpensive and stay juicy after reheating, unlike roasted breasts. Roasting on a bed of onions flavors the pan juices for the gravy. Salt amounts assume Diamond Crystal kosher salt and low-sodium broth; with Morton, use a little over half."
+  },
+  {
+    "id": 53,
+    "slug": "chicken-and-rice-casserole-with-broccoli",
+    "side": "meal-prep",
+    "title": "Chicken and Rice Casserole with Broccoli",
+    "category": "Poultry",
+    "description": "A creamy, cheesy baked casserole of tender chicken, rice and bright broccoli in a homemade cream sauce. Old-fashioned, filling and one of the best reheaters in the book.",
+    "servings": 12,
+    "yieldNote": "12 portions (about 2 cups casserole each)",
+    "active": 45,
+    "total": 125,
+    "tags": [
+      "High protein",
+      "Kid-friendly",
+      "Comfort food",
+      "Freezer-friendly"
+    ],
+    "allergens": [
+      "Milk",
+      "Wheat"
+    ],
+    "dietary": [],
+    "image": "",
+    "photoCredit": {
+      "author": "",
+      "source": "",
+      "page": ""
+    },
+    "ingredients": [
+      "4 lb boneless skinless chicken breasts, cut into 1-inch pieces",
+      "4 cups long-grain white rice, uncooked and not rinsed",
+      "8 tbsp unsalted butter",
+      "2 medium yellow onions, finely diced",
+      "4 cloves garlic, minced",
+      "¾ cup all-purpose flour",
+      "4 cups low-sodium chicken broth",
+      "3½ cups whole milk",
+      "1 tbsp kosher salt (for the sauce)",
+      "2 tsp black pepper",
+      "2 tsp dried thyme",
+      "1½ lb shredded sharp cheddar cheese, divided",
+      "3 lb broccoli crowns, cut into small florets",
+      "1 tbsp kosher salt (for the broccoli water)",
+      "Nonstick cooking spray"
+    ],
+    "directions": [
+      "Heat the oven to 350°F. Spray three 9 x 13-inch baking dishes. Divide the uncooked rice and the chicken pieces evenly among them.",
+      "Melt the butter in a large pot over medium heat. Cook the onions 5 minutes until soft, then add the garlic for 1 minute.",
+      "Whisk in the flour and cook 2 minutes without browning. Slowly whisk in the chicken broth, then the milk, and simmer 5 to 8 minutes, whisking, until it coats a spoon.",
+      "Off the heat, stir in 1 tbsp salt, the pepper, thyme and 4 cups of the cheese until melted. Pour the hot sauce evenly over the rice and chicken in the dishes and stir once.",
+      "Cover each dish tightly with foil and bake 60 minutes, until the rice is nearly tender and the chicken is cooked through.",
+      "Meanwhile, boil the broccoli in 1 tbsp salted water 2 minutes, drain and chill in cold water, then drain very well.",
+      "Uncover the dishes, stir in the broccoli, sprinkle with the remaining cheese and bake 15 to 20 minutes more, until bubbling, the rice is tender and the center reads 165°F. Rest 15 minutes.",
+      "Cool everything uncovered, spread in shallow layers, until it drops to 70°F, within 2 hours.",
+      "Portion about 2 cups into each of 12 containers."
+    ],
+    "equipment": [
+      "3 baking dishes (9 x 13-inch)",
+      "Large pot",
+      "Whisk",
+      "Foil",
+      "Instant-read thermometer",
+      "Shallow pans for cooling",
+      "12 meal-prep containers"
+    ],
+    "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Keeps 4 days. Freezes up to 2 months; the rice softens slightly after thawing.",
+    "reheating": "Vent the lid and stir in 1 tbsp milk or water. Microwave 3 to 3½ minutes, stirring halfway, until it reaches 165°F in the center. Oven: cover with foil and heat at 350°F for 25 minutes, uncovering for the last 5 for a golden top.",
+    "makeAhead": "Assemble the dishes with the sauce, cover and refrigerate up to 24 hours before baking. Add 10 to 15 minutes to the covered baking time.",
+    "safety": "Cook chicken to 165°F. The center of the casserole must reach 165°F before it comes out. Cool to 70°F within 2 hours and to 41°F or below within the next 4 hours. Reheat to 165°F. Contains milk and wheat.",
+    "chefNotes": "Making the cream sauce from scratch takes about 15 minutes and tastes far fresher than canned soup. Do not rinse the rice, because its starch helps thicken the sauce. If the rice is still firm at 60 minutes, add a splash of broth, re-cover and bake 10 minutes longer. Salt amounts assume Diamond Crystal kosher salt and low-sodium broth; with Morton, use a little over half."
+  },
+  {
+    "id": 54,
+    "slug": "salisbury-steak-with-mushroom-gravy-and-egg-noodles",
+    "side": "meal-prep",
+    "title": "Salisbury Steak with Mushroom Gravy and Egg Noodles",
+    "category": "Beef, Pork & Lamb",
+    "description": "Tender seasoned beef patties seared and baked in a savory mushroom and onion gravy, ladled over buttery egg noodles. A classic diner dinner that reheats beautifully.",
+    "servings": 12,
+    "yieldNote": "12 portions (1 patty, ¾ cup mushroom gravy and 1 cup egg noodles each)",
+    "active": 55,
+    "total": 100,
+    "tags": [
+      "High protein",
+      "Kid-friendly",
+      "Comfort food",
+      "Freezer-friendly"
+    ],
+    "allergens": [
+      "Milk",
+      "Egg",
+      "Wheat",
+      "Soy"
+    ],
+    "dietary": [],
+    "image": "/cookbook/mp/salisbury-steak-with-mushroom-gravy-and-egg-noodles.webp",
+    "photoCredit": {
+      "author": "Allan González",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/gourmet-dish-with-steak-and-fresh-salad-on-wooden-table-31843915/"
+    },
+    "ingredients": [
+      "4½ lb 85% lean ground beef",
+      "1 cup plain dry breadcrumbs",
+      "½ cup whole milk",
+      "2 large eggs",
+      "1 medium yellow onion, finely grated",
+      "2 tbsp ketchup",
+      "2 tbsp soy sauce",
+      "2 tsp kosher salt (for the patties)",
+      "1 tsp black pepper, plus 1 tsp garlic powder",
+      "3 tbsp neutral oil",
+      "2 lb cremini or white mushrooms, sliced",
+      "2 medium yellow onions, thinly sliced",
+      "10 tbsp unsalted butter, divided (8 for the gravy, 2 for the noodles)",
+      "¾ cup all-purpose flour",
+      "7 cups low-sodium beef broth",
+      "2 tbsp tomato paste",
+      "1 tsp dried thyme",
+      "3 lb wide egg noodles",
+      "1 tbsp kosher salt (for the noodle water and gravy)"
+    ],
+    "directions": [
+      "Heat the oven to 350°F. Stir the breadcrumbs and milk together and let them soak 5 minutes. Add the eggs, grated onion, ketchup, soy sauce, 2 tsp salt, pepper and garlic powder, then the beef, and mix gently just until even.",
+      "Shape into 12 oval patties about ¾ inch thick, about 6 oz each.",
+      "Heat 1 tbsp oil in a large skillet over medium-high heat. Sear the patties in batches, 3 minutes per side, until deeply browned (they will not be cooked through). Set them in two 9 x 13-inch baking dishes.",
+      "Add the remaining oil, mushrooms and sliced onions to the skillet and cook 10 to 12 minutes, until the liquid cooks off and they are golden. Stir in the tomato paste and thyme for 1 minute.",
+      "Move the vegetables to a large pot with 8 tbsp butter. Whisk in the flour and cook 2 minutes, then slowly whisk in the beef broth and simmer 8 to 10 minutes until thick enough to coat a spoon. Season with salt to taste.",
+      "Pour the gravy over the patties, cover with foil and bake 25 to 30 minutes, until the patties read 160°F in the center.",
+      "While the patties bake, boil the egg noodles in salted water 6 to 7 minutes until tender, drain and toss with the remaining 2 tbsp butter.",
+      "Cool everything uncovered in shallow layers until it drops to 70°F, within 2 hours.",
+      "Pack 1 cup noodles, 1 patty and ¾ cup gravy into each of 12 containers."
+    ],
+    "equipment": [
+      "Large skillet",
+      "2 baking dishes (9 x 13-inch)",
+      "Large pot for the gravy",
+      "Pot for the noodles",
+      "Foil",
+      "Instant-read thermometer",
+      "Shallow pans for cooling",
+      "12 meal-prep containers"
+    ],
+    "storage": "Cool uncovered in shallow layers so everything drops to 70°F within 2 hours and to 41°F or below within the next 4 hours, then lid and refrigerate at 40°F or colder. Keeps 4 days. The patties and gravy freeze up to 3 months. Egg noodles soften after thawing, so they are best fresh.",
+    "reheating": "Vent the lid and microwave 2½ to 3 minutes, stirring the noodles and gravy halfway, until the patty reaches 165°F. A spoonful of water loosens the gravy. Oven: cover with foil and heat at 350°F for 20 to 25 minutes until bubbling hot.",
+    "makeAhead": "The patties can be shaped and the gravy made a day ahead. Refrigerate separately, then sear, assemble and bake.",
+    "safety": "Ground beef must reach 160°F in the center of the patty. Cool to 70°F within 2 hours and to 41°F or below within the next 4 hours. Reheat to 165°F. Contains milk, egg, wheat and soy.",
+    "chefNotes": "Soaking breadcrumbs in milk keeps the patties tender instead of dense. Searing first builds the browned flavor, and finishing in the gravy keeps the patties moist. Salt amounts assume Diamond Crystal kosher salt and low-sodium broth; with Morton, use a little over half."
+  },
+  {
     "id": 101,
     "slug": "dungeness-crab-cakes-with-meyer-lemon-aioli",
     "side": "private-chef",
@@ -3793,11 +4190,11 @@ export const recipes: Recipe[] = [
       "Milk"
     ],
     "dietary": [],
-    "image": "",
+    "image": "/cookbook/pc/dungeness-crab-cakes-with-meyer-lemon-aioli-photo.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Valeria Boltneva",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/crab-cakes-on-restaurant-table-20184717/"
     },
     "ingredients": [
       "1½ lb Dungeness crab meat, picked over for shell and gently squeezed dry",
@@ -3915,7 +4312,7 @@ export const recipes: Recipe[] = [
     "storage": "Shucked oysters don't keep; discard any left on the ice after 1 hour of service. Leftover live, unshucked oysters can be held cup side down under a damp towel at 33°F to 41°F for up to 3 days. Mignonette keeps 1 week refrigerated.",
     "reheating": "",
     "makeAhead": "Day before (commissary): make the mignonette, cut lemon wedges, and chill the serving platters. Receive oysters as close to the event as possible and transport them in a cooler with ice packs (not loose ice), cup side down under a damp towel. At the client's home: scrub, then shuck to order no more than 20 minutes before the course and plate directly on ice.",
-    "safety": "Consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase your risk of foodborne illness, especially if you have certain medical conditions. Raw oysters can carry Vibrio bacteria and norovirus; people with liver disease, diabetes, a weakened immune system, or who are pregnant should eat oysters only when fully cooked. Buy from certified shippers with shellstock tags, keep oysters at 41°F or below, and never serve an oyster that was dead before shucking.",
+    "safety": "Buy oysters only from a licensed shellfish supplier (with shellstock tags) and keep them cold, at 41°F or below, from purchase through service. Consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase your risk of foodborne illness, especially if you have certain medical conditions. Raw oysters can carry Vibrio bacteria and norovirus; people with liver disease, diabetes, a weakened immune system, or who are pregnant should eat oysters only when fully cooked. Buy from certified shippers with shellstock tags, keep oysters at 41°F or below, and never serve an oyster that was dead before shucking.",
     "chefNotes": "Smaller Pacific oysters (2½ to 3½ inches) are easiest for guests and cleanest to shuck; Kumamotos are a great addition. If a hinge won't give, try the side of the shell near the adductor instead of forcing it."
   },
   {
@@ -3940,11 +4337,11 @@ export const recipes: Recipe[] = [
       "Wheat"
     ],
     "dietary": [],
-    "image": "",
+    "image": "/cookbook/pc/smoked-salmon-rillettes-with-grilled-bread-photo.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Sara Free",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/delicious-smoked-salmon-on-toast-with-cream-cheese-29849803/"
     },
     "ingredients": [
       "2 cups water",
@@ -3996,11 +4393,11 @@ export const recipes: Recipe[] = [
   },
   {
     "id": 104,
-    "slug": "wild-mushroom-toast-with-thyme-and-aged-gouda",
+    "slug": "mushroom-toast-with-thyme-and-aged-gouda",
     "side": "private-chef",
-    "title": "Wild Mushroom Toast with Thyme and Aged Gouda",
+    "title": "Mushroom Toast with Thyme and Aged Gouda",
     "category": "Starters",
-    "description": "Deeply browned wild mushrooms, chanterelles when in season, glossed with sherry and crème fraîche on garlicky toast under a veil of aged Gouda.",
+    "description": "Deeply browned cremini and shiitake mushrooms glossed with sherry and crème fraîche on garlicky toast under a veil of aged Gouda, with a wild mushroom swap when chanterelles are in season.",
     "servings": 6,
     "yieldNote": "Serves 6 (1 toast each)",
     "active": 40,
@@ -4024,7 +4421,7 @@ export const recipes: Recipe[] = [
       "page": "https://www.pexels.com/photo/a-plate-with-a-piece-of-meat-and-mushrooms-on-it-28292004/"
     },
     "ingredients": [
-      "1½ lb mixed wild mushrooms, such as chanterelles, maitake and oyster, cleaned and torn into bite-size pieces",
+      "1½ lb mixed cremini and shiitake mushrooms (about ¾ lb each), shiitake stems removed, cleaned and torn or sliced into bite-size pieces",
       "2 tbsp neutral oil, such as grapeseed",
       "4 tbsp unsalted butter, divided",
       "2 medium shallots, minced",
@@ -4043,8 +4440,8 @@ export const recipes: Recipe[] = [
       "Flaky sea salt, for finishing"
     ],
     "directions": [
-      "Clean the mushrooms with a soft brush or damp towel; chanterelles hide grit in their gills, so swish them briefly in cold water if needed and dry thoroughly. Tear or slice into roughly 1-inch pieces so they cook evenly.",
-      "Heat 1 tbsp oil in a 12-inch skillet over medium-high heat until shimmering. Add half the mushrooms in a single layer and cook without stirring for 3 minutes. Chanterelles will release water first; keep cooking until it evaporates and the mushrooms sizzle and brown, 6 to 8 minutes total. Transfer to a bowl and repeat with the remaining oil and mushrooms.",
+      "Clean the mushrooms with a soft brush or damp towel; do not soak them. Pull off and discard the tough shiitake stems (save them for stock). Tear the shiitake caps and slice the cremini into roughly 1-inch pieces so they cook evenly.",
+      "Heat 1 tbsp oil in a 12-inch skillet over medium-high heat until shimmering. Add half the mushrooms in a single layer and cook without stirring for 3 minutes. Keep cooking until their water evaporates and the mushrooms sizzle and brown, 6 to 8 minutes total. Transfer to a bowl and repeat with the remaining oil and mushrooms.",
       "Return all the mushrooms to the pan, lower the heat to medium, and add 2 tbsp butter, the shallots, garlic, thyme, salt and pepper. Cook, stirring, until the shallots soften and smell sweet, about 2 minutes.",
       "Add the sherry and scrape up the browned bits; simmer until almost dry, about 1 minute. Stir in the crème fraîche and the remaining 2 tbsp butter until the mushrooms are glossy and lightly coated. Add the lemon juice, taste, and adjust salt. Keep warm off the heat.",
       "Heat the broiler with a rack 6 inches from the element. Brush both sides of the bread with olive oil and toast on a sheet pan under the broiler until golden and crisp outside but still tender in the center, about 1½ minutes per side. Rub one side of each toast with the cut garlic.",
@@ -4062,9 +4459,9 @@ export const recipes: Recipe[] = [
     ],
     "storage": "Refrigerate leftover mushroom topping within 2 hours up to 3 days; store toast separately. Rewarm the mushrooms in a skillet until steaming (165°F) and assemble on fresh toast.",
     "reheating": "",
-    "makeAhead": "Day before (commissary): clean and tear the mushrooms, mince shallots and garlic, pick thyme, grate the Gouda, and slice the bread; store each separately (mushrooms in a paper-towel-lined container, not sealed plastic). At the client's home: brown the mushrooms up to 1 hour ahead and hold at room temperature, then rewarm with the butter and crème fraîche, toast the bread, and broil just before serving.",
-    "safety": "Only use wild mushrooms bought from a licensed, reputable forager or market; never serve foraged mushrooms that have not been positively identified. Cook mushrooms thoroughly. For strictly vegetarian guests, choose a Gouda made with microbial (non-animal) rennet.",
-    "chefNotes": "Crowding the pan steams mushrooms instead of browning them, so cook in batches even if it feels slow. Salt after browning, not before, or the mushrooms will weep and stew."
+    "makeAhead": "Day before (commissary): clean and slice the mushrooms, mince shallots and garlic, pick thyme, grate the Gouda, and slice the bread; store each separately (mushrooms in a paper-towel-lined container, not sealed plastic). At the client's home: brown the mushrooms up to 1 hour ahead and hold at room temperature, then rewarm with the butter and crème fraîche, toast the bread, and broil just before serving.",
+    "safety": "Cook mushrooms thoroughly; never serve them raw. If you swap in chanterelles or other wild mushrooms, buy them only from a licensed, reputable forager or market and never serve foraged mushrooms that have not been positively identified. For strictly vegetarian guests, choose a Gouda made with microbial (non-animal) rennet.",
+    "chefNotes": "Cremini and shiitake are available year round at Fred Meyer and Costco and brown beautifully. In fall, swap in chanterelles, maitake or oyster mushrooms for some or all of the mix; chanterelles release more water, so give them a few extra minutes in the pan and swish them briefly in cold water first if gritty. Crowding the pan steams mushrooms instead of browning them, so cook in batches even if it feels slow. Salt after browning, not before, or the mushrooms will weep and stew."
   },
   {
     "id": 105,
@@ -4158,11 +4555,11 @@ export const recipes: Recipe[] = [
       "Vegetarian",
       "Gluten-free"
     ],
-    "image": "",
+    "image": "/cookbook/pc/roasted-butternut-squash-soup-with-brown-butter-photo.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Denys Gromov",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/sliced-pumpkin-and-soup-on-white-and-yellow-surface-4663236/"
     },
     "ingredients": [
       "1 large butternut squash (about 3½ lb), peeled, seeded and cut into 1-inch chunks",
@@ -4232,11 +4629,11 @@ export const recipes: Recipe[] = [
       "Vegetarian",
       "Gluten-free"
     ],
-    "image": "",
+    "image": "/cookbook/pc/roasted-beet-and-citrus-salad-with-goat-cheese-and-hazelnuts-photo.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Vladimír Sládek",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/close-up-shot-of-vegetable-salad-on-white-ceramic-plate-10165790/"
     },
     "ingredients": [
       "1 lb small red beets, scrubbed and trimmed",
@@ -4381,11 +4778,11 @@ export const recipes: Recipe[] = [
       "Vegetarian",
       "Gluten-free"
     ],
-    "image": "",
+    "image": "/cookbook/pc/pear-arugula-and-blue-cheese-salad-with-candied-walnuts-photo.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Sylwester Ficek",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/fresh-pear-and-blue-cheese-salad-with-blackberries-39363511/"
     },
     "ingredients": [
       "1 cup walnut halves",
@@ -4587,11 +4984,11 @@ export const recipes: Recipe[] = [
   },
   {
     "id": 112,
-    "slug": "roasted-king-salmon-saffron-orzo-and-balsamic-glaze",
+    "slug": "roasted-salmon-with-lemon-herb-orzo-and-balsamic-glaze",
     "side": "private-chef",
-    "title": "Roasted King Salmon, Saffron Orzo and Balsamic Glaze",
+    "title": "Roasted Salmon with Lemon Herb Orzo and Balsamic Glaze",
     "category": "Mains",
-    "description": "Buttery roasted king salmon over creamy golden saffron orzo with roasted asparagus and broccolini, finished with dots of sweet balsamic glaze.",
+    "description": "Buttery roasted salmon (king salmon when it is in season) over creamy lemon and herb orzo with roasted asparagus and broccolini, finished with dots of sweet balsamic glaze.",
     "servings": 6,
     "yieldNote": "Serves 6",
     "active": 50,
@@ -4614,33 +5011,36 @@ export const recipes: Recipe[] = [
       "page": ""
     },
     "ingredients": [
-      "6 fillets skin-on king salmon (6 oz each), pin bones removed",
+      "6 fillets skin-on salmon (6 oz each), king salmon in season, pin bones removed",
       "1¾ tsp kosher salt, divided",
       "¾ tsp freshly ground black pepper, divided",
       "3 tbsp extra-virgin olive oil, divided",
       "1 bunch asparagus, woody ends snapped off",
       "1 bunch broccolini, stems trimmed",
       "1½ cups orzo (for the orzo)",
-      "½ tsp saffron threads (for the orzo)",
       "4 cups low-sodium chicken stock, kept hot (for the orzo)",
       "2 tbsp unsalted butter, divided (for the orzo)",
       "1 medium shallot, minced (for the orzo)",
-      "¼ cup dry white wine (for the orzo)",
+      "¼ cup dry white wine, or an extra ¼ cup stock plus 1 tsp lemon juice (for the orzo)",
       "1 oz Parmigiano-Reggiano, finely grated (for the orzo)",
-      "1 tsp lemon zest (for the orzo)",
+      "1 tbsp lemon zest (for the orzo)",
+      "1 tbsp fresh lemon juice (for the orzo)",
+      "2 tbsp finely chopped flat-leaf parsley (for the orzo)",
+      "1 tbsp finely chopped fresh dill or chives (for the orzo)",
+      "½ tsp saffron threads, optional splurge to replace the lemon and herbs (for the orzo)",
       "1 cup balsamic vinegar (for the glaze)",
       "1 tbsp honey (for the glaze)",
       "1 tbsp chopped chives, for garnish"
     ],
     "directions": [
       "Make the balsamic glaze: simmer the vinegar and honey in a small saucepan over medium-low heat until reduced to about ⅓ cup and it coats the back of a spoon, 15 to 20 minutes. Watch closely at the end; it thickens further as it cools. Transfer to a squeeze bottle.",
-      "Heat the oven to 425°F with racks in the upper and lower thirds. Crumble the saffron into ½ cup of the hot stock and let it steep at least 10 minutes.",
+      "Heat the oven to 425°F with racks in the upper and lower thirds. If making the saffron version, crumble the saffron into ½ cup of the hot stock and let it steep at least 10 minutes.",
       "Pat the salmon dry and season with 1 teaspoon kosher salt and ½ teaspoon pepper. Toss the asparagus and broccolini on a sheet pan with 1½ tablespoons olive oil and ½ teaspoon salt, spreading them in one layer.",
       "Start the orzo: melt 1 tablespoon butter in a 3-quart saucepan over medium heat. Add the orzo and toast, stirring, until it smells nutty and some grains turn golden, about 3 minutes. Add the shallot and cook 1 minute, then pour in the wine and stir until absorbed.",
-      "Add the saffron stock and 1 cup of the remaining hot stock and simmer, stirring often, adding more stock ½ cup at a time as it is absorbed, until the orzo is tender with a slight bite and loose and creamy, 10 to 12 minutes. You may not need all the stock.",
+      "Add 1 cup of the hot stock (or the saffron stock plus ½ cup more for the saffron version) and simmer, stirring often, adding more stock ½ cup at a time as it is absorbed, until the orzo is tender with a slight bite and loose and creamy, 10 to 12 minutes. You may not need all the stock.",
       "While the orzo cooks, set the salmon skin side down on a parchment-lined sheet pan, brush with the remaining 1½ tablespoons olive oil, and roast on the upper rack with the vegetables on the lower rack. Roast the vegetables until tender-crisp with browned tips, 8 to 10 minutes.",
       "Roast the salmon until the thickest part flakes under gentle pressure and registers 125°F for moist, medium flesh, 9 to 12 minutes depending on thickness; rest 3 minutes, when carryover brings it up a few degrees.",
-      "Finish the orzo off the heat with the remaining 1 tablespoon butter, the Parmesan, lemon zest, remaining ¼ teaspoon salt, and ¼ teaspoon pepper. It should slowly spread when spooned; loosen with a splash of stock if needed.",
+      "Finish the orzo off the heat with the remaining 1 tablespoon butter, the Parmesan, lemon zest, lemon juice, parsley, dill, remaining ¼ teaspoon salt, and ¼ teaspoon pepper. (For the saffron version, skip the lemon juice, parsley and dill and keep just a little zest.) It should slowly spread when spooned; loosen with a splash of stock if needed.",
       "Plate on warm plates: spoon about ⅔ cup orzo slightly off-center and let it settle, lean 3 asparagus spears and 2 broccolini stalks across one side, and set the salmon on top, skin side down. Dot 6 to 8 beads of balsamic glaze around the plate, scatter chives over the fish, and serve at once."
     ],
     "equipment": [
@@ -4653,9 +5053,9 @@ export const recipes: Recipe[] = [
     ],
     "storage": "Refrigerate leftover salmon and orzo separately within 2 hours for up to 2 days. Salmon is best eaten cold over greens rather than reheated; the orzo reheats with a splash of stock.",
     "reheating": "",
-    "makeAhead": "Day before: make the balsamic glaze (keeps a week at room temperature), trim the asparagus and broccolini, mince the shallot, and portion the salmon, then refrigerate everything covered. At the client's home: steep the saffron, roast the vegetables and salmon, and cook the orzo during the final 20 minutes so it stays loose and creamy.",
+    "makeAhead": "Day before: make the balsamic glaze (keeps a week at room temperature), trim the asparagus and broccolini, mince the shallot, chop the herbs and zest the lemon, and portion the salmon, then refrigerate everything covered. At the client's home: roast the vegetables and salmon and cook the orzo during the final 20 minutes so it stays loose and creamy.",
     "safety": "FDA recommends cooking fish to 145°F or until the flesh is opaque and flakes easily; this recipe pulls king salmon at about 125°F for a moist, medium center. Consumer advisory: consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase your risk of foodborne illness. Cook to 145°F for guests who are pregnant, elderly, or immunocompromised.",
-    "chefNotes": "King salmon is rich and forgiving; if using leaner coho or sockeye, pull it 2 to 3 minutes earlier. Salt assumes Diamond Crystal kosher salt."
+    "chefNotes": "King salmon is rich and forgiving and is at its best in spring and early summer; outside of the season, a good regular salmon fillet from the fish counter works well. If using leaner coho or sockeye, pull it 2 to 3 minutes earlier. The lemon herb orzo is bright and keeps the plate fresh; if you want a splurge, steep ½ teaspoon saffron in the hot stock for a golden, perfumed orzo and skip the herbs. Salt assumes Diamond Crystal kosher salt."
   },
   {
     "id": 113,
@@ -4663,7 +5063,7 @@ export const recipes: Recipe[] = [
     "side": "private-chef",
     "title": "Pan-Roasted Halibut with Chanterelles and Brown Butter",
     "category": "Mains",
-    "description": "Thick Pacific halibut seared golden and basted with thyme butter, served over sautéed chanterelles with a nutty lemon–brown butter sauce.",
+    "description": "Thick Pacific halibut seared golden and basted with thyme butter, served over browned cremini and shiitake mushrooms (chanterelles in season) with a nutty lemon and brown butter sauce.",
     "servings": 6,
     "yieldNote": "Serves 6",
     "active": 40,
@@ -4680,11 +5080,11 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Gluten-free"
     ],
-    "image": "",
+    "image": "/cookbook/pc/pan-roasted-halibut-with-chanterelles-and-brown-butter-photo.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Stephen Leonardi",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/fish-on-plate-18354018/"
     },
     "ingredients": [
       "6 fillets skinless Pacific halibut (6 oz each, about 1 inch thick)",
@@ -4694,7 +5094,7 @@ export const recipes: Recipe[] = [
       "4 tbsp unsalted butter (for basting)",
       "4 sprigs fresh thyme",
       "2 cloves garlic, smashed",
-      "1 lb fresh chanterelle mushrooms, cleaned and torn into bite-size pieces",
+      "1 lb mixed cremini and shiitake mushrooms (about ½ lb each), shiitake stems removed, cleaned and sliced or torn into bite-size pieces (or fresh chanterelles in season)",
       "1 medium shallot, minced",
       "1 tbsp fresh thyme leaves",
       "2 tbsp dry sherry",
@@ -4705,13 +5105,13 @@ export const recipes: Recipe[] = [
     ],
     "directions": [
       "Heat the oven to 400°F. Pat the halibut very dry, season all over with 1 teaspoon kosher salt and the white pepper, and let sit 15 minutes while you prep.",
-      "Cook the chanterelles: heat a 12-inch skillet over medium-high heat and add the mushrooms to the dry pan. Cook, stirring occasionally, until they release their liquid and it evaporates, 5 to 7 minutes.",
-      "Add 1 tablespoon oil, the shallot, and thyme leaves to the mushrooms and sauté until the chanterelles are golden at the edges, about 4 minutes. Deglaze with the sherry, season with ½ teaspoon kosher salt, and keep warm.",
+      "Cook the mushrooms: heat 1 tablespoon oil in a 12-inch skillet over medium-high heat until shimmering. Add the cremini and shiitake in a single layer (in two batches if needed) and cook, stirring only occasionally, until they release their liquid and it evaporates, 6 to 8 minutes. If using chanterelles, start them in the dry pan and add the oil once their liquid has cooked off, 5 to 7 minutes.",
+      "Add 1 tablespoon oil, the shallot, and thyme leaves to the mushrooms and sauté until they are golden at the edges, about 4 minutes. Deglaze with the sherry, season with ½ teaspoon kosher salt, and keep warm.",
       "Sear the fish in two 12-inch ovenproof skillets, or one at a time: heat 1 tablespoon oil per pan over medium-high until shimmering. Lay in 3 fillets, presentation side down, and cook without moving until deeply golden, 3 to 4 minutes.",
       "Flip the fillets, add 2 tablespoons basting butter, 2 thyme sprigs, and 1 garlic clove to each pan, and move to the oven for 3 to 5 minutes, until the center is opaque and a thin skewer slides in with no resistance (about 130°F to 135°F; carryover finishes it).",
       "Return the pans to medium heat briefly and spoon the foaming butter over the fish 5 or 6 times. Move the fillets to a warm plate.",
       "Make the brown butter: melt the 6 tablespoons butter in a small light-colored saucepan over medium heat, swirling, until the milk solids turn hazelnut brown and it smells toasty, 4 to 5 minutes. Immediately take it off the heat, add the lemon juice (it will sputter), ¼ teaspoon kosher salt, and the chives.",
-      "Plate in warm shallow bowls: make a bed of chanterelles in the center, set a halibut fillet golden side up on top, and spoon about 1 tablespoon brown butter over the fish and mushrooms, letting the browned solids fall onto the fillet. Finish with a few flakes of sea salt and serve right away."
+      "Plate in warm shallow bowls: make a bed of mushrooms in the center, set a halibut fillet golden side up on top, and spoon about 1 tablespoon brown butter over the fish and mushrooms, letting the browned solids fall onto the fillet. Finish with a few flakes of sea salt and serve right away."
     ],
     "equipment": [
       "Two 12-inch ovenproof skillets",
@@ -4722,21 +5122,21 @@ export const recipes: Recipe[] = [
     ],
     "storage": "Refrigerate leftover halibut and mushrooms within 2 hours and eat within 1 to 2 days; halibut dries out when reheated, so flake it cold into a salad or warm gently at 275°F.",
     "reheating": "",
-    "makeAhead": "Day before: clean and tear the chanterelles (store in a paper bag, not plastic), mince the shallot, pick thyme, and portion the halibut on a paper-towel-lined tray, tightly covered. At the client's home: sauté the chanterelles up to 1 hour ahead and rewarm, then sear and roast the fish and brown the butter in the last 15 minutes.",
-    "safety": "Cook fish to 145°F or until the flesh is opaque throughout and separates easily with a fork (FDA). The fish here is pulled when just opaque at about 130°F to 135°F and carryover heat continues cooking it; for guests who are pregnant, elderly, or immunocompromised, cook to 145°F. Consumer advisory: consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase your risk of foodborne illness.",
-    "chefNotes": "Clean chanterelles with a soft brush or damp towel; if they are very gritty, swish briefly in water and dry-sauté longer. Salt assumes Diamond Crystal kosher salt."
+    "makeAhead": "Day before: clean and slice the mushrooms (store in a paper bag, not plastic), mince the shallot, pick thyme, and portion the halibut on a paper-towel-lined tray, tightly covered. At the client's home: sauté the mushrooms up to 1 hour ahead and rewarm, then sear and roast the fish and brown the butter in the last 15 minutes.",
+    "safety": "Cook fish to 145°F or until the flesh is opaque throughout and separates easily with a fork (FDA). The fish here is pulled when just opaque at about 130°F to 135°F and carryover heat continues cooking it; for guests who are pregnant, elderly, or immunocompromised, cook to 145°F. Consumer advisory: consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase your risk of foodborne illness. If using chanterelles or other wild mushrooms, buy them only from a licensed, reputable forager or market and cook them thoroughly.",
+    "chefNotes": "Cremini and shiitake are available year round and give the dish a savory, earthy base; in fall, use fresh chanterelles instead and clean them with a soft brush or damp towel. If chanterelles are very gritty, swish briefly in water and dry-sauté longer. Buy halibut from a good fish counter and ask for center-cut fillets of even thickness. Salt assumes Diamond Crystal kosher salt."
   },
   {
     "id": 114,
-    "slug": "hazelnut-crusted-rack-of-lamb-with-pinot-noir-reduction",
+    "slug": "hazelnut-and-herb-crusted-pork-tenderloin-with-pan-sauce",
     "side": "private-chef",
-    "title": "Hazelnut-Crusted Rack of Lamb with Pinot Noir Reduction",
+    "title": "Hazelnut and Herb-Crusted Pork Tenderloin with Pan Sauce",
     "category": "Mains",
-    "description": "Rosy roasted rack of lamb in a crisp Oregon hazelnut and herb crust, carved into double chops and served with a glossy Pinot Noir sauce.",
+    "description": "Seared pork tenderloin in a crisp Oregon hazelnut and herb crust, sliced into rosy medallions and spooned with a glossy pan sauce built from the skillet drippings.",
     "servings": 6,
-    "yieldNote": "Serves 6 (4 ribs each)",
-    "active": 45,
-    "total": 75,
+    "yieldNote": "Serves 6 (about 5 oz cooked pork each)",
+    "active": 40,
+    "total": 70,
     "tags": [
       "Pacific Northwest",
       "Elegant",
@@ -4749,18 +5149,18 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Gluten-free"
     ],
-    "image": "",
+    "image": "/cookbook/pc/hazelnut-and-herb-crusted-pork-tenderloin-with-pan-sauce-photo.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Sylwester Ficek",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/gourmet-pork-tenderloin-with-berry-sauce-30488328/"
     },
     "ingredients": [
-      "3 frenched racks of lamb (8 bones each, about 1½ lb each), fat trimmed to ⅛ inch",
+      "3 pork tenderloins (about 1 lb each), silver skin removed",
       "2 tsp kosher salt, divided",
       "1 tsp freshly ground black pepper",
       "2 tbsp grapeseed oil",
-      "3 tbsp Dijon mustard",
+      "3 tbsp Dijon mustard (for the crust)",
       "1 cup hazelnuts, toasted, skinned and finely chopped (for the crust)",
       "2 tbsp chopped flat-leaf parsley (for the crust)",
       "1 tbsp minced fresh rosemary (for the crust)",
@@ -4768,22 +5168,23 @@ export const recipes: Recipe[] = [
       "1 clove garlic, grated (for the crust)",
       "2 tbsp extra-virgin olive oil (for the crust)",
       "2 medium shallots, minced (for the sauce)",
-      "2 cups Oregon Pinot Noir (for the sauce)",
-      "2 cups low-sodium beef stock (gluten-free) (for the sauce)",
+      "½ cup dry red wine, optional (for the sauce)",
+      "2 cups low-sodium chicken or beef stock, plus ½ cup more if skipping the wine (for the sauce)",
+      "1 tsp apple cider vinegar, only if skipping the wine (for the sauce)",
       "3 sprigs fresh thyme (for the sauce)",
       "1 tsp honey (for the sauce)",
+      "1 tsp Dijon mustard (for the sauce)",
       "3 tbsp cold unsalted butter, cubed (for the sauce)"
     ],
     "directions": [
-      "Season the racks all over with 1½ teaspoons kosher salt and the pepper; let them sit at room temperature for 30 minutes. Heat the oven to 425°F.",
+      "Pat the tenderloins dry and season all over with 1½ teaspoons kosher salt and the pepper. Let them sit at room temperature for 30 minutes. Heat the oven to 400°F with a rack in the center.",
       "Make the crust: mix the hazelnuts, parsley, rosemary, thyme leaves, garlic, olive oil, and remaining ½ teaspoon salt in a bowl until it clumps like damp sand when pressed.",
-      "Heat the grapeseed oil in a 12-inch skillet over medium-high heat. Sear the racks fat side down until golden, 3 to 4 minutes, then briefly sear the ends and meaty underside, about 1 minute each. Transfer to a rack set in a sheet pan, fat side up, and cool for 5 minutes. Save the skillet for the sauce.",
-      "Start the sauce: pour off all but 1 tablespoon fat from the skillet, add the shallots, and cook over medium heat until soft, 2 minutes. Add the Pinot Noir and thyme sprigs, scrape up the browned bits, and boil until reduced by about two-thirds, 10 to 12 minutes.",
-      "Add the stock and honey and continue boiling until the sauce reduces to about ¾ cup and lightly coats a spoon, 12 to 15 minutes more. Strain into a small saucepan and set aside.",
-      "Brush the fat side of each rack with a thin layer of Dijon, then press the hazelnut mixture firmly over the mustard in an even ¼-inch coat. Wrap the exposed bones in foil strips to prevent scorching.",
-      "Roast on the rack until an instant-read thermometer in the center of the eye reads 125°F for medium-rare (about 135°F for medium), 15 to 20 minutes. If the crust browns before the meat is ready, tent loosely with foil. Rest 10 minutes; the temperature will climb about 5°F.",
-      "Just before carving, rewarm the sauce to a simmer, take it off the heat, and whisk in the cold butter a few cubes at a time until glossy. Taste and season with a pinch of salt.",
-      "Plate on warm plates: carve each rack between the bones into double chops with a sharp slicing knife, keeping the crust intact. Pool 2 tablespoons of Pinot Noir sauce slightly off-center, lean two double chops against each other in the sauce with the bones crossing upward, and serve with the pink interior facing the guest."
+      "Heat the grapeseed oil in a 12-inch skillet over medium-high heat until it just begins to smoke. Sear the tenderloins on all sides until deeply golden, 6 to 8 minutes total, turning every 2 minutes. Transfer to a rack set in a rimmed sheet pan and cool for 5 minutes. Do not wash the skillet.",
+      "Brush the top and sides of each tenderloin with a thin layer of Dijon mustard, then press the hazelnut mixture firmly over the mustard in an even ¼-inch coat. Roast until an instant-read thermometer in the thickest part reads 145°F, 18 to 25 minutes depending on thickness. If the crust browns too fast, tent loosely with foil. Rest on the rack, uncovered, for 10 minutes.",
+      "Meanwhile, start the sauce: pour off all but 1 tablespoon fat from the skillet, add the shallots, and cook over medium heat until soft, 2 minutes. If using wine, add it with the thyme sprigs, scrape up the browned bits, and boil until reduced by about two-thirds, 4 to 5 minutes. If skipping the wine, add ½ cup of the stock and the cider vinegar and reduce the same way.",
+      "Add the 2 cups stock, honey, and 1 teaspoon Dijon and boil until the sauce reduces to about ¾ cup and lightly coats a spoon, 10 to 14 minutes. Strain into a small saucepan and keep warm.",
+      "Just before slicing, pour any juices that collected under the pork into the sauce and bring to a simmer. Take it off the heat and whisk in the cold butter a few cubes at a time until glossy. Taste and season with a pinch of salt.",
+      "Plate on warm plates: slice each tenderloin into ¾-inch medallions with a sharp slicing knife, keeping the crust intact. Pool 2 tablespoons of sauce slightly off-center, fan 4 to 5 medallions across it, and serve with the pink interior facing the guest."
     ],
     "equipment": [
       "12-inch skillet",
@@ -4793,19 +5194,19 @@ export const recipes: Recipe[] = [
       "Instant-read thermometer",
       "Sharp slicing knife"
     ],
-    "storage": "Refrigerate leftover lamb within 2 hours for up to 3 days. Rewarm slices gently at 275°F just until warm to avoid overcooking, or serve cold; the crust softens once chilled.",
+    "storage": "Refrigerate leftover pork within 2 hours for up to 3 days. Rewarm slices gently at 275°F just until warm to avoid drying them out, or serve cold in sandwiches; the crust softens once chilled. Sauce keeps 3 days refrigerated.",
     "reheating": "",
-    "makeAhead": "Day before: toast and skin the hazelnuts, make the crust mixture (refrigerate; bring to room temperature before using), trim and french the racks, and make the Pinot Noir reduction through the straining step. At the client's home: season and sear the racks 1 hour before dinner, apply mustard and crust, and roast so they finish resting just as the plates go out; mount the sauce with butter at the last minute.",
-    "safety": "USDA recommends whole cuts of lamb reach 145°F with a 3-minute rest; this recipe is cooked to 125°F (medium-rare) or 135°F (medium) at the chef's recommendation. Consumer advisory: consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase your risk of foodborne illness. Roast to 145°F on request.",
-    "chefNotes": "Rub the toasted hazelnuts in a kitchen towel while warm to remove most of the papery skins, then chop by hand for a crust with texture (a processor makes it pasty). Salt assumes Diamond Crystal kosher salt."
+    "makeAhead": "Day before: toast and skin the hazelnuts, make the crust mixture (refrigerate; bring to room temperature before using), and trim the silver skin from the tenderloins. At the client's home: season the pork 30 minutes ahead, sear, crust and roast so the meat finishes resting just as the plates go out; make the sauce while the pork roasts and mount it with butter at the last minute.",
+    "safety": "Cook pork to an internal temperature of 145°F as measured with a food thermometer, then rest at least 3 minutes (USDA); this recipe rests the meat for 10 minutes. A blush of pink in the center of a properly cooked tenderloin is normal at 145°F. Consumer advisory: consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase your risk of foodborne illness.",
+    "chefNotes": "Rub the toasted hazelnuts in a kitchen towel while warm to remove most of the papery skins, then chop by hand for a crust with texture (a processor makes it pasty). Pork tenderloin is lean, so pull it at 145°F and not a degree past; the rest finishes the job. If you are cooking with wine, a Pinot Noir you would happily drink is the right choice. For the best sauce, make sure the fond in the skillet is brown and not burnt. Salt assumes Diamond Crystal kosher salt."
   },
   {
     "id": 115,
-    "slug": "wild-mushroom-risotto-with-parmesan-and-thyme",
+    "slug": "mushroom-risotto-with-parmesan-and-thyme",
     "side": "private-chef",
-    "title": "Wild Mushroom Risotto with Parmesan and Thyme",
+    "title": "Mushroom Risotto with Parmesan and Thyme",
     "category": "Mains",
-    "description": "Creamy Carnaroli risotto built on porcini-enriched vegetable stock, folded with seared wild mushrooms, fresh thyme, and nutty aged Parmesan.",
+    "description": "Creamy Carnaroli risotto built on porcini-enriched vegetable stock, folded with seared cremini and shiitake mushrooms, fresh thyme, and nutty aged Parmesan, with a wild mushroom swap in season.",
     "servings": 6,
     "yieldNote": "Serves 6 as a main (about 1½ cups each)",
     "active": 50,
@@ -4822,16 +5223,16 @@ export const recipes: Recipe[] = [
       "Gluten-free",
       "Vegetarian"
     ],
-    "image": "",
+    "image": "/cookbook/pc/mushroom-risotto-with-parmesan-and-thyme.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Adriano Bragi",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/delicious-mushroom-risotto-with-parmesan-cheese-31779539/"
     },
     "ingredients": [
       "½ oz dried porcini mushrooms",
       "8 cups low-sodium vegetable stock (gluten-free)",
-      "1½ lb mixed wild mushrooms (chanterelle, maitake, oyster), cleaned and torn",
+      "1½ lb mixed cremini and shiitake mushrooms (about ¾ lb each), shiitake stems removed, cleaned and sliced or torn",
       "3 tbsp extra-virgin olive oil, divided",
       "7 tbsp unsalted butter, divided",
       "2 tsp kosher salt, divided",
@@ -4846,7 +5247,7 @@ export const recipes: Recipe[] = [
     ],
     "directions": [
       "Bring the vegetable stock and dried porcini to a simmer in a saucepan, then keep it at a bare simmer over low heat. After 15 minutes, lift out the porcini, chop them finely, and set aside; leave any grit behind in the bottom of the pot.",
-      "Sear the wild mushrooms in two batches: heat 1 tablespoon oil and 1 tablespoon butter in a 12-inch skillet over medium-high heat, add half the mushrooms in one layer, and cook without stirring for 3 minutes, then toss until browned and tender, 3 to 4 minutes more. Season each batch with ¼ teaspoon salt and set aside, reserving a few handsome pieces for garnish.",
+      "Sear the mushrooms in two batches: heat 1 tablespoon oil and 1 tablespoon butter in a 12-inch skillet over medium-high heat, add half the mushrooms in one layer, and cook without stirring for 3 minutes, then toss until browned and tender, 3 to 4 minutes more. Season each batch with ¼ teaspoon salt and set aside, reserving a few handsome pieces for garnish.",
       "In a heavy 5-quart Dutch oven or wide saucepan, heat the remaining 1 tablespoon oil and 1 tablespoon butter over medium heat. Cook the shallots with ½ teaspoon salt until soft and translucent, about 4 minutes, then add the garlic and chopped porcini for 1 minute.",
       "Add the rice and toast, stirring, until the edges of the grains turn translucent and it smells lightly nutty, 2 to 3 minutes. Pour in the wine and stir until almost completely absorbed.",
       "Add 2 ladles (about 1 cup) of hot stock and stir steadily until the liquid is nearly absorbed and a spoon drawn through leaves a clear trail. Keep adding stock about ¾ cup at a time, stirring often, at a lively simmer.",
@@ -4864,9 +5265,9 @@ export const recipes: Recipe[] = [
     ],
     "storage": "Refrigerate leftover risotto within 2 hours for up to 3 days. It will set firm; reheat with a splash of stock, or form into cakes, bread them, and pan-fry.",
     "reheating": "",
-    "makeAhead": "Day before: make the porcini-enriched stock and chill it, clean and tear the mushrooms (store in a paper bag), and dice the shallots. At the client's home: sear the mushrooms up to 2 hours ahead. For a dinner party, par-cook the risotto: take it about 12 minutes into the stock additions, spread it thin on a sheet pan and refrigerate; 10 minutes before serving, return it to the pot with hot stock and finish the last 6 to 8 minutes, then add mushrooms, butter and cheese.",
-    "safety": "Hold hot risotto at 135°F or above; if par-cooking, cool the spread rice to 70°F within 2 hours and to 41°F within 4 more. Reheated leftovers should reach 165°F.",
-    "chefNotes": "Traditional Parmigiano-Reggiano uses animal rennet; for vegetarian guests buy a Parmesan-style cheese labeled vegetarian (microbial) rennet. Carnaroli holds its shape better than Arborio; do not rinse the rice. Salt assumes Diamond Crystal kosher salt."
+    "makeAhead": "Day before: make the porcini-enriched stock and chill it, clean and slice the mushrooms (store in a paper bag), and dice the shallots. At the client's home: sear the mushrooms up to 2 hours ahead. For a dinner party, par-cook the risotto: take it about 12 minutes into the stock additions, spread it thin on a sheet pan and refrigerate; 10 minutes before serving, return it to the pot with hot stock and finish the last 6 to 8 minutes, then add mushrooms, butter and cheese.",
+    "safety": "Hold hot risotto at 135°F or above; if par-cooking, cool the spread rice to 70°F within 2 hours and to 41°F within 4 more. Reheated leftovers should reach 165°F. If you swap in chanterelles or other wild mushrooms, buy them only from a licensed, reputable forager or market, and cook them thoroughly.",
+    "chefNotes": "Cremini and shiitake give a deep, savory base year round. In fall, swap in chanterelles, maitake or oyster mushrooms for some or all of the mix, searing them the same way. Pull off and discard the tough shiitake stems. Traditional Parmigiano-Reggiano uses animal rennet; for vegetarian guests buy a Parmesan-style cheese labeled vegetarian (microbial) rennet. Carnaroli holds its shape better than Arborio; do not rinse the rice. Salt assumes Diamond Crystal kosher salt."
   },
   {
     "id": 116,
@@ -4958,11 +5359,11 @@ export const recipes: Recipe[] = [
       "Vegetarian",
       "Vegan"
     ],
-    "image": "",
+    "image": "/cookbook/pc/charred-broccolini-with-lemon-and-chili-photo.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Mi Butter SA",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/close-up-photo-of-broccoli-with-butter-6875725/"
     },
     "ingredients": [
       "3 bunches broccolini, ends trimmed and thick stems halved lengthwise",
@@ -5020,11 +5421,11 @@ export const recipes: Recipe[] = [
     "dietary": [
       "Vegetarian"
     ],
-    "image": "",
+    "image": "/cookbook/pc/marionberry-cobbler-with-vanilla-bean-whipped-cream-photo.webp",
     "photoCredit": {
-      "author": "",
-      "source": "",
-      "page": ""
+      "author": "Lara",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/bowl-of-winter-buckwheat-berry-crumble-and-a-cup-of-coffee-19816016/"
     },
     "ingredients": [
       "1½ lb marionberries, fresh or frozen (do not thaw)",
@@ -5206,6 +5607,421 @@ export const recipes: Recipe[] = [
     "makeAhead": "Make the panna cotta and compote one day ahead (panna cotta needs at least 6 hours to set), cover, and refrigerate. Transport in a cooler at 41°F or below, keeping glasses upright in a lined box. At the client's home: keep refrigerated until dessert, then top with compote and garnish, or unmold, just before serving.",
     "safety": "Contains no eggs. Keep panna cotta and compote refrigerated at 41°F or below and do not leave out more than 2 hours. Contains gelatin (animal-derived), so it is not vegetarian.",
     "chefNotes": "If Meyer lemons are out of season, use 2 regular lemons plus 1 small orange for the zest to mimic their floral sweetness. Do not boil the cream after adding gelatin; high heat weakens the set."
+  },
+  {
+    "id": 121,
+    "slug": "lemon-herb-roast-chicken-with-pan-jus",
+    "side": "private-chef",
+    "servings": 6,
+    "image": "/cookbook/pc/lemon-herb-roast-chicken-with-pan-jus.webp",
+    "photoCredit": {
+      "author": "Cleireny",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/photo-of-a-chicken-breast-meal-15532964/"
+    },
+    "title": "Lemon Herb Roast Chicken with Pan Jus",
+    "category": "Mains",
+    "description": "Two golden, crisp-skinned chickens roasted over lemon and onions with garlic herb butter under the skin, carved at the table and spooned with a savory pan jus.",
+    "yieldNote": "Serves 6 (two 4 lb chickens, about 2 pieces per guest)",
+    "active": 35,
+    "total": 120,
+    "tags": [
+      "Classic",
+      "Crowd-pleaser",
+      "Gluten-free"
+    ],
+    "allergens": [
+      "Milk"
+    ],
+    "dietary": [
+      "Gluten-free"
+    ],
+    "ingredients": [
+      "2 whole chickens (about 4 lb each), giblets removed",
+      "2 tbsp kosher salt, divided (for the dry brine)",
+      "1 tsp freshly ground black pepper",
+      "6 tbsp unsalted butter, softened (for the herb butter)",
+      "2 tbsp finely chopped flat-leaf parsley (for the herb butter)",
+      "1 tbsp fresh thyme leaves, chopped (for the herb butter)",
+      "1 tbsp minced fresh rosemary (for the herb butter)",
+      "4 cloves garlic, grated (for the herb butter)",
+      "1 tbsp lemon zest (for the herb butter)",
+      "3 lemons, 2 halved and 1 quartered",
+      "2 medium yellow onions, thickly sliced into rounds",
+      "1 head garlic, halved crosswise",
+      "6 sprigs fresh thyme",
+      "2 tbsp olive oil",
+      "2 medium shallots, minced (for the jus)",
+      "½ cup dry white wine, optional (for the jus)",
+      "2½ cups low-sodium chicken stock, plus ½ cup more if skipping the wine (for the jus)",
+      "1 tbsp fresh lemon juice (for the jus)",
+      "1 tbsp cold unsalted butter (for the jus)"
+    ],
+    "directions": [
+      "Dry-brine the chickens: pat them very dry, then season each inside and out with 1½ teaspoons kosher salt (3 teaspoons total) and half the pepper. Set on a tray and refrigerate uncovered for at least 4 hours, ideally overnight, which dries the skin for better crisping.",
+      "Heat the oven to 425°F with a rack in the lower third. Take the chickens out of the refrigerator 45 minutes before roasting.",
+      "Make the herb butter: mash the softened butter with the parsley, chopped thyme, rosemary, grated garlic, lemon zest, and the remaining 1 teaspoon kosher salt until evenly combined.",
+      "Slide your fingers between the skin and breast of each chicken to loosen it, then push about 2 tablespoons of herb butter under the skin on each side and smooth it over the meat. Rub the remaining butter over the outside of the birds.",
+      "Spread the onion rounds in a large roasting pan or two rimmed pans and set the chickens on top, breast side up. Stuff each cavity with 2 lemon halves, half the garlic head and 3 thyme sprigs. Tie the legs together with kitchen twine and tuck the wing tips under. Drizzle with the olive oil and scatter the lemon quarters around the pan.",
+      "Roast until the skin is deep golden and an instant-read thermometer reads 165°F in the thickest part of the thigh (not touching bone) and in the breast, 55 to 70 minutes. Rotate the pan once halfway. If the skin darkens too quickly, tent the breast loosely with foil.",
+      "Transfer the chickens to a carving board, tilting each so the juices run out of the cavity into the pan, and rest uncovered for 15 minutes. Squeeze the roasted lemon quarters into the pan.",
+      "Make the jus: pour the pan contents through a fine-mesh strainer into a measuring cup, pressing on the onions, and skim off the fat. Set the roasting pan across two burners over medium-high heat, add the shallots with a splash of stock, and scrape up the browned bits. If using wine, add it and boil until reduced by two-thirds, 2 to 3 minutes.",
+      "Add the strained pan juices and 2½ cups stock (plus ½ cup extra if skipping the wine) and boil until reduced to about 1½ cups, 8 to 10 minutes. Strain into a saucepan, whisk in the lemon juice and cold butter off the heat, and season with a pinch of salt.",
+      "To carve: remove each leg and separate the thigh from the drumstick, cut off each breast in one piece and slice crosswise on the bias, and cut the wings off with a bit of breast attached.",
+      "Plate on warm plates: lay 1 thigh or drumstick and several slices of breast overlapping to one side, spoon 2 to 3 tablespoons of jus over and around the chicken so the skin stays crisp, and finish with a few thyme leaves."
+    ],
+    "equipment": [
+      "Large heavy roasting pan or two rimmed sheet pans",
+      "Instant-read thermometer",
+      "Kitchen twine",
+      "Fine-mesh strainer",
+      "Carving board and sharp carving knife",
+      "Small saucepan"
+    ],
+    "storage": "Refrigerate leftover chicken within 2 hours and use within 3 days; pull the meat from the bones for sandwiches, soup or salad. Jus keeps 3 days refrigerated or freezes for 2 months.",
+    "reheating": "Rewarm carved chicken covered with a splash of stock at 300°F until it reaches 165°F, about 15 minutes. Bring the jus to a simmer.",
+    "makeAhead": "Day before: dry-brine the chickens, make the herb butter, slice the onions and zest the lemons. At the client's home: stuff the butter under the skin and roast so the chickens finish resting as the sides come together; make the jus while the birds rest.",
+    "safety": "Cook poultry to an internal temperature of 165°F in the thickest part of the thigh and the breast. Do not rinse raw chicken; wash hands, boards and knives with hot soapy water after handling it, and keep raw poultry away from ready-to-eat food. Refrigerate leftovers within 2 hours. Consumer advisory: consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase your risk of foodborne illness.",
+    "chefNotes": "A day or two of uncovered fridge time is the secret to shatteringly crisp skin. Costco's two-pack of organic chickens is perfect for this recipe. If the birds are larger than 4 pounds, add 10 to 15 minutes and rely on the thermometer. Use the carcasses for stock. Salt assumes Diamond Crystal kosher salt; use about half as much of fine table salt."
+  },
+  {
+    "id": 122,
+    "slug": "chicken-piccata-with-buttered-noodles",
+    "side": "private-chef",
+    "servings": 6,
+    "image": "/cookbook/pc/chicken-piccata-with-buttered-noodles-photo.webp",
+    "photoCredit": {
+      "author": "Megan Taylor",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/delicious-chicken-breast-with-capers-and-ratatouille-32635502/"
+    },
+    "title": "Chicken Piccata with Buttered Noodles",
+    "category": "Mains",
+    "description": "Tender golden chicken cutlets in a bright lemon and caper butter sauce, served over parsley buttered egg noodles.",
+    "yieldNote": "Serves 6 (1 cutlet and about 1 cup noodles each)",
+    "active": 40,
+    "total": 50,
+    "tags": [
+      "Classic",
+      "Crowd-pleaser",
+      "Comfort food"
+    ],
+    "allergens": [
+      "Milk",
+      "Wheat",
+      "Egg"
+    ],
+    "dietary": [],
+    "ingredients": [
+      "2½ lb boneless skinless chicken breasts (3 large), each halved horizontally into 2 cutlets",
+      "1½ tsp kosher salt, divided",
+      "½ tsp freshly ground black pepper",
+      "1 cup all-purpose flour, for dredging",
+      "4 tbsp olive oil, divided",
+      "4 tbsp unsalted butter, divided (for the sauce)",
+      "2 medium shallots, minced (for the sauce)",
+      "3 cloves garlic, minced (for the sauce)",
+      "¾ cup dry white wine, optional (for the sauce)",
+      "1½ cups low-sodium chicken stock, plus ¾ cup more if skipping the wine (for the sauce)",
+      "⅓ cup fresh lemon juice, about 2 large lemons (for the sauce)",
+      "3 tbsp capers, drained (for the sauce)",
+      "3 tbsp chopped flat-leaf parsley, divided",
+      "1 lb wide egg noodles",
+      "1 tbsp kosher salt (for the pasta water)",
+      "4 tbsp unsalted butter (for the noodles)",
+      "Lemon slices, for garnish"
+    ],
+    "directions": [
+      "Pound the cutlets: place the chicken between sheets of plastic wrap and pound to an even ½ inch thickness with a meat mallet or heavy skillet. Season both sides with 1 teaspoon kosher salt and the pepper.",
+      "Set up the sauce ingredients, then heat the oven to 200°F and set a sheet pan with a wire rack inside to hold the cooked cutlets. Bring a large pot of water to a boil for the noodles and add 1 tablespoon kosher salt.",
+      "Dredge the cutlets in the flour, shaking off the excess. Heat 2 tablespoons oil and 1 tablespoon butter in each of two 12-inch skillets over medium-high heat until the butter foams. Cook the cutlets in batches, without crowding, until golden and cooked through, 2 to 3 minutes per side. Move to the warm rack in the oven. Wipe out one skillet and keep the other with its browned bits.",
+      "Cook the noodles in the boiling water until tender, 6 to 8 minutes. Reserve ½ cup cooking water, drain, and toss with the 4 tablespoons butter, 1 tablespoon parsley, a splash of cooking water, and a pinch of salt. Keep covered and warm.",
+      "Make the sauce in the skillet with the browned bits: reduce the heat to medium, add the shallots, and cook 1 minute, then add the garlic for 30 seconds. If using wine, add it and simmer until reduced by half, 2 to 3 minutes, scraping up the bits.",
+      "Add 1½ cups stock (plus the extra ¾ cup if skipping the wine) and the lemon juice. Boil until reduced to about 1 cup and slightly syrupy, 6 to 8 minutes. Add the capers and any juices from the resting chicken.",
+      "Take the pan off the heat and whisk in the remaining 2 tablespoons butter a tablespoon at a time until glossy. Stir in 1 tablespoon parsley, taste, and adjust with the remaining ½ teaspoon salt and more lemon if needed.",
+      "Plate on warm shallow plates: nest a mound of buttered noodles slightly off-center, lean one cutlet against the noodles, and spoon the lemon caper sauce over the chicken and onto the plate. Scatter the remaining parsley, add a lemon slice, and serve at once."
+    ],
+    "equipment": [
+      "Two 12-inch skillets",
+      "Large pot for noodles",
+      "Meat mallet or heavy skillet",
+      "Plastic wrap",
+      "Sheet pan with wire rack",
+      "Instant-read thermometer",
+      "Colander"
+    ],
+    "storage": "Refrigerate leftover chicken, sauce and noodles separately within 2 hours and use within 3 days.",
+    "reheating": "Rewarm cutlets in a skillet with a splash of stock and sauce until they reach 165°F. Toss noodles with a bit of butter and water to loosen.",
+    "makeAhead": "Day before: pound and portion the cutlets, juice the lemons, mince the shallots and garlic, and chop the parsley. At the client's home: dredge and cook the cutlets and make the sauce while the noodles cook; hold cutlets on a rack in a 200°F oven for up to 20 minutes.",
+    "safety": "Cook chicken to an internal temperature of 165°F. Use a separate board and plate for raw chicken, wash hands and tools after handling it, and refrigerate leftovers within 2 hours. Consumer advisory: consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase your risk of foodborne illness. Egg noodles contain egg and wheat.",
+    "chefNotes": "Halving the breasts horizontally gives thinner, more uniform cutlets that cook in minutes and stay juicy. Rinse the capers if they are very salty. The wine is optional: the lemon and stock make a bright sauce on their own, so just use the extra stock. For a gluten-free plate, dredge in rice flour and serve over rice or polenta. Salt assumes Diamond Crystal kosher salt."
+  },
+  {
+    "id": 123,
+    "slug": "eggplant-parmesan-with-basil-marinara",
+    "side": "private-chef",
+    "servings": 6,
+    "image": "/cookbook/pc/eggplant-parmesan-with-basil-marinara.webp",
+    "photoCredit": {
+      "author": "Willians Huerta",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/delicious-italian-eggplant-parmesan-dish-34875011/"
+    },
+    "title": "Eggplant Parmesan with Basil Marinara",
+    "category": "Mains",
+    "description": "Crisp, oven-baked panko eggplant layered with a quick basil marinara, mozzarella and Parmesan, baked until bubbling and golden and served in generous squares.",
+    "yieldNote": "Serves 6 (one 9 by 13 inch pan, about 1 large square each)",
+    "active": 60,
+    "total": 120,
+    "tags": [
+      "Vegetarian main",
+      "Make-ahead",
+      "Comfort food"
+    ],
+    "allergens": [
+      "Milk",
+      "Egg",
+      "Wheat"
+    ],
+    "dietary": [
+      "Vegetarian"
+    ],
+    "ingredients": [
+      "3 large globe eggplants (about 3½ lb total), sliced into ½ inch rounds",
+      "1 tbsp plus 1 tsp kosher salt, divided",
+      "1 cup all-purpose flour",
+      "3 large eggs, beaten with 2 tbsp water",
+      "3 cups panko breadcrumbs",
+      "¾ cup finely grated vegetarian Parmesan-style cheese, divided (microbial rennet)",
+      "2 tsp dried oregano",
+      "½ tsp freshly ground black pepper",
+      "½ cup olive oil, plus more for the pan",
+      "3 tbsp olive oil (for the marinara)",
+      "4 cloves garlic, thinly sliced (for the marinara)",
+      "½ tsp red pepper flakes (for the marinara)",
+      "2 cans (28 oz each) crushed tomatoes (for the marinara)",
+      "1 tsp sugar (for the marinara)",
+      "½ cup loosely packed fresh basil leaves, torn, plus small leaves for garnish",
+      "12 oz low-moisture whole milk mozzarella, shredded (about 3 cups)"
+    ],
+    "directions": [
+      "Salt the eggplant: arrange the slices in a single layer on paper towel or kitchen towel-lined sheet pans, sprinkle with 1 tablespoon kosher salt, and let sit 30 minutes. Blot well to remove the moisture and bitterness.",
+      "Meanwhile, make the marinara: heat 3 tablespoons olive oil in a 4-quart saucepan over medium heat. Add the garlic and pepper flakes and cook until fragrant and barely golden, 1 minute. Add the tomatoes, sugar, and 1 teaspoon kosher salt and simmer, stirring occasionally, until thickened and sweet, 20 to 25 minutes. Stir in the basil.",
+      "Heat the oven to 425°F with racks in the upper and lower thirds. Brush two large rimmed sheet pans generously with olive oil and slide them into the oven to heat for 5 minutes.",
+      "Set up a breading station: flour in one shallow dish, the egg wash in a second, and a third with the panko, ½ cup of the Parmesan, oregano, and pepper mixed together.",
+      "Dredge each slice in flour, dip in egg wash, and press firmly into the panko mixture to coat both sides. Lay the slices on the hot pans in a single layer and drizzle the tops with the remaining ½ cup olive oil.",
+      "Bake until deeply golden and tender, 20 to 25 minutes, flipping once halfway and swapping the pans between racks. Lower the oven to 375°F.",
+      "Assemble: spread 1 cup of marinara over the bottom of a 9 by 13 inch baking dish. Layer a third of the eggplant in a slightly overlapping layer, top with 1 cup marinara and a third of the mozzarella. Repeat twice, finishing with sauce, the remaining mozzarella, and the remaining ¼ cup Parmesan.",
+      "Bake uncovered until bubbling at the edges and the cheese is melted and spotty golden, 25 to 30 minutes. Broil 1 to 2 minutes if you want more color. Rest 15 minutes so the layers set.",
+      "Plate on warm plates: cut into 6 large squares, lift each with a wide spatula, and set slightly off-center. Spoon a ribbon of warm marinara beside it and finish with small basil leaves."
+    ],
+    "equipment": [
+      "Two large rimmed sheet pans",
+      "9 by 13 inch baking dish",
+      "4-quart saucepan",
+      "Three shallow dishes for breading",
+      "Wide spatula",
+      "Instant-read thermometer"
+    ],
+    "storage": "Refrigerate leftovers covered within 2 hours and use within 4 days. Freezes well, assembled and unbaked, for up to 2 months.",
+    "reheating": "Rewarm covered in a 350°F oven until it reaches 165°F, 20 to 25 minutes, uncovering for the last 5 minutes to re-crisp the top.",
+    "makeAhead": "Day before: make the marinara, bread and bake the eggplant slices, assemble the entire dish, cover and refrigerate. At the client's home: bake from cold at 375°F, adding about 10 minutes, until bubbling and hot in the center (165°F), then rest 15 minutes.",
+    "safety": "Bake the assembled dish until the center reaches 165°F. Cool leftovers within 2 hours and refrigerate at 41°F or below. Traditional Parmigiano-Reggiano contains animal rennet, so use a Parmesan-style cheese labeled vegetarian (microbial rennet) for strictly vegetarian guests. Contains egg, milk and wheat.",
+    "chefNotes": "Baking the eggplant instead of frying keeps the dish lighter and the kitchen clean, and the hot, oiled pans give you crisp bottoms. Choose firm, glossy eggplants with few seeds. Low-moisture mozzarella avoids a watery casserole; add a few torn pieces of fresh mozzarella on top for a restaurant look. A good jarred marinara will do in a pinch, 6 cups. Salt assumes Diamond Crystal kosher salt."
+  },
+  {
+    "id": 124,
+    "slug": "garlic-mashed-potatoes",
+    "side": "private-chef",
+    "servings": 6,
+    "image": "/cookbook/pc/garlic-mashed-potatoes.webp",
+    "photoCredit": {
+      "author": "Iara Melo",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/delicious-creamy-mashed-potatoes-in-white-bowl-30635680/"
+    },
+    "title": "Garlic Mashed Potatoes",
+    "category": "Sides",
+    "description": "Silky Yukon Gold mashed potatoes whipped with butter and cream infused with gently simmered garlic.",
+    "yieldNote": "Serves 6 (about ¾ cup each)",
+    "active": 20,
+    "total": 45,
+    "tags": [
+      "Classic",
+      "Comfort food",
+      "Gluten-free"
+    ],
+    "allergens": [
+      "Milk"
+    ],
+    "dietary": [
+      "Gluten-free",
+      "Vegetarian"
+    ],
+    "ingredients": [
+      "3½ lb Yukon Gold potatoes, peeled and cut into 1½ inch chunks",
+      "2 tbsp kosher salt (for the cooking water)",
+      "8 cloves garlic, peeled and smashed",
+      "¾ cup heavy cream",
+      "½ cup whole milk",
+      "8 tbsp unsalted butter (1 stick), cut into pieces",
+      "1½ tsp kosher salt, plus more to taste",
+      "½ tsp freshly ground white or black pepper",
+      "1 tbsp minced chives, for garnish"
+    ],
+    "directions": [
+      "Put the potatoes in a large pot and cover with cold water by 1 inch. Add 2 tablespoons kosher salt and bring to a boil, then reduce to a steady simmer and cook until a knife slides in with no resistance, 15 to 20 minutes.",
+      "While the potatoes cook, combine the cream, milk, butter, and garlic in a small saucepan. Warm over low heat until the butter melts and the garlic is soft, about 10 minutes; do not let it boil. Mash the garlic into the liquid with a fork.",
+      "Drain the potatoes well and return them to the dry hot pot over low heat for 1 minute, shaking the pot, to steam off excess moisture.",
+      "Pass the potatoes through a ricer or food mill back into the pot, or mash with a hand masher. Do not use a food processor, which turns them gluey.",
+      "Fold in the warm garlic cream a little at a time with a spatula until smooth and creamy. Stir in 1½ teaspoons salt and the pepper, then taste and adjust.",
+      "Plate: scoop about ¾ cup onto each warm plate or serve family style in a warm bowl, make a shallow well in the center with the back of a spoon, and add a small pat of butter and a sprinkle of chives."
+    ],
+    "equipment": [
+      "Large pot",
+      "Small saucepan",
+      "Potato ricer, food mill or masher",
+      "Rubber spatula",
+      "Colander"
+    ],
+    "storage": "Refrigerate leftovers within 2 hours and use within 4 days.",
+    "reheating": "Rewarm in a covered saucepan over low heat or in a 325°F oven with a splash of milk and a pat of butter until steaming (165°F), stirring occasionally.",
+    "makeAhead": "Make up to 2 hours ahead and hold in a covered heatproof bowl set over (not touching) a pot of barely simmering water, or in a slow cooker on warm. For a day ahead, cool and refrigerate, then rewarm with extra warm cream or milk.",
+    "safety": "Hold hot mashed potatoes at 135°F or above and discard anything left out more than 2 hours. Cool leftovers quickly and reheat to 165°F.",
+    "chefNotes": "Yukon Golds have a naturally buttery texture and hold up to a ricer without turning gummy. Always start potatoes in cold water so they cook evenly, and always add warm dairy, since cold liquid makes them heavy. Salt assumes Diamond Crystal kosher salt."
+  },
+  {
+    "id": 125,
+    "slug": "roasted-green-beans-with-almonds",
+    "side": "private-chef",
+    "servings": 6,
+    "image": "/cookbook/pc/roasted-green-beans-with-almonds.webp",
+    "photoCredit": {
+      "author": "Alexbayev",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/green-beans-amandine-12077973/"
+    },
+    "title": "Roasted Green Beans with Almonds",
+    "category": "Sides",
+    "description": "Blistered, tender-crisp green beans roasted with shallot and garlic, tossed with toasted almonds and bright lemon.",
+    "yieldNote": "Serves 6 (about ¾ cup each)",
+    "active": 15,
+    "total": 30,
+    "tags": [
+      "Vegan",
+      "Gluten-free",
+      "Quick"
+    ],
+    "allergens": [
+      "Tree nuts"
+    ],
+    "dietary": [
+      "Gluten-free",
+      "Dairy-free",
+      "Vegetarian",
+      "Vegan"
+    ],
+    "ingredients": [
+      "2 lb fresh green beans, trimmed",
+      "3 tbsp extra-virgin olive oil",
+      "1 tsp kosher salt, divided",
+      "½ tsp freshly ground black pepper",
+      "1 medium shallot, thinly sliced",
+      "3 cloves garlic, thinly sliced",
+      "⅔ cup sliced almonds",
+      "1 tbsp lemon zest",
+      "1 tbsp fresh lemon juice",
+      "Flaky sea salt, for finishing"
+    ],
+    "directions": [
+      "Heat the oven to 450°F with a rack in the upper third and a large rimmed sheet pan inside to preheat.",
+      "Toss the green beans with the olive oil, ¾ teaspoon kosher salt, and the pepper in a large bowl until evenly coated and dry on the surface.",
+      "Carefully spread the beans on the hot sheet pan in a single layer, without crowding (use two pans if needed). Roast for 8 minutes.",
+      "Remove the pan, add the shallot and garlic, toss, and roast until the beans are blistered in spots and tender-crisp, 4 to 6 minutes more, watching the garlic so it does not scorch.",
+      "While the beans roast, toast the almonds on a small pan on a lower rack or in a dry skillet over medium heat, stirring, until golden and fragrant, 3 to 5 minutes. Set aside.",
+      "Toss the hot beans with the lemon zest, lemon juice, and remaining ¼ teaspoon salt. Taste and adjust.",
+      "Plate: pile the beans on a warm platter or plates, scatter the toasted almonds over the top, and finish with a pinch of flaky salt."
+    ],
+    "equipment": [
+      "Large rimmed sheet pan (or two)",
+      "Large mixing bowl",
+      "Small skillet",
+      "Microplane",
+      "Chef's knife"
+    ],
+    "storage": "Refrigerate leftovers within 2 hours and use within 3 days; store the almonds separately so they stay crisp.",
+    "reheating": "Rewarm in a hot skillet or 400°F oven for a few minutes.",
+    "makeAhead": "Day before: trim the beans, slice the shallot and garlic, toast the almonds (store airtight at room temperature), and zest and juice the lemon. At the client's home: roast the beans just before the main course comes out.",
+    "safety": "Contains tree nuts (almonds); check with guests about nut allergies and keep utensils separate if one is present. Wash the green beans well, and refrigerate cooked leftovers within 2 hours.",
+    "chefNotes": "A preheated pan and a bone-dry bean are what give you blistered beans instead of steamed ones. Toasting the almonds separately gives the best flavor and prevents burning. For a richer version, finish with a tablespoon of browned butter instead of oil, which removes the vegan label. Salt assumes Diamond Crystal kosher salt."
+  },
+  {
+    "id": 126,
+    "slug": "steamed-clams-in-garlic-white-wine-butter-with-grilled-bread",
+    "side": "private-chef",
+    "servings": 6,
+    "image": "/cookbook/pc/steamed-clams-in-garlic-white-wine-butter-with-grilled-bread.webp",
+    "photoCredit": {
+      "author": "Nadin Sh",
+      "source": "Pexels",
+      "page": "https://www.pexels.com/photo/delicious-cooked-clams-12173354/"
+    },
+    "title": "Steamed Clams in Garlic White Wine Butter with Grilled Bread",
+    "category": "Starters",
+    "description": "Sweet Manila clams steamed open in a garlicky white wine butter broth, served with grilled bread for mopping up every drop.",
+    "yieldNote": "Serves 6 as a starter (about 12 to 14 clams each); easy to add on to any menu",
+    "active": 25,
+    "total": 50,
+    "tags": [
+      "Seafood",
+      "Pacific Northwest",
+      "Quick"
+    ],
+    "allergens": [
+      "Shellfish",
+      "Milk",
+      "Wheat"
+    ],
+    "dietary": [],
+    "ingredients": [
+      "5 lb live Manila or steamer clams, scrubbed",
+      "¼ cup kosher salt (for soaking the clams)",
+      "1 baguette or ciabatta loaf, cut into 12 slices ¾ inch thick (for the grilled bread)",
+      "3 tbsp extra-virgin olive oil (for the bread)",
+      "1 clove garlic, halved (for the bread)",
+      "2 tbsp olive oil (for the broth)",
+      "2 medium shallots, minced (for the broth)",
+      "8 cloves garlic, thinly sliced (for the broth)",
+      "¼ tsp red pepper flakes (for the broth)",
+      "1 cup dry white wine, or 1 cup low-sodium chicken or vegetable stock plus 1 tbsp lemon juice (for the broth)",
+      "4 sprigs fresh thyme (for the broth)",
+      "6 tbsp cold unsalted butter, cubed (for the broth)",
+      "3 tbsp chopped flat-leaf parsley",
+      "1 lemon, cut into wedges, plus 1 tbsp juice",
+      "Flaky sea salt, for finishing"
+    ],
+    "directions": [
+      "Purge the clams: dissolve the ¼ cup salt in 1 gallon of cold water, add the clams, and soak in the refrigerator for 20 to 30 minutes so they spit out sand. Lift them out (do not pour, which returns the sand), rinse, and discard any with cracked shells or any open clams that do not close when tapped.",
+      "Heat a grill or grill pan to medium-high, or heat the broiler. Brush the bread slices on both sides with the 3 tablespoons olive oil and grill or broil until marked and crisp outside but tender in the center, about 1 to 2 minutes per side. Rub one side with the cut garlic and keep warm.",
+      "Heat 2 tablespoons olive oil in a large, wide pot or Dutch oven over medium heat. Add the shallots, sliced garlic, and pepper flakes and cook until soft and fragrant but not browned, 2 minutes.",
+      "Add the wine (or stock and lemon juice) and thyme, raise the heat to high, and boil for 1 minute to cook off the raw alcohol and slightly reduce.",
+      "Add the clams, cover tightly, and steam, shaking the pot once or twice, until the shells open, 4 to 6 minutes. Transfer opened clams to a warm bowl as they open with tongs; discard any that remain closed after 8 minutes.",
+      "Reduce the heat to low, remove the thyme, and swirl the cold butter into the broth a few cubes at a time until it is silky. Stir in the parsley and lemon juice and taste; the clams are salty, so add salt only if needed.",
+      "Plate in warm shallow bowls: divide the clams among 6 bowls, spoon the broth over, and finish with a pinch of flaky salt. Serve with 2 slices of grilled bread per guest and lemon wedges, plus an empty bowl for shells."
+    ],
+    "equipment": [
+      "Large wide pot or Dutch oven with lid",
+      "Grill or grill pan (or broiler)",
+      "Large bowl for purging",
+      "Tongs",
+      "Pastry brush",
+      "Empty bowl for shells"
+    ],
+    "storage": "Best eaten the moment they are cooked. Discard shells, and refrigerate leftover broth and shucked clams within 1 hour; use within 1 day.",
+    "reheating": "Do not reheat clams, since they turn rubbery. Reheat leftover broth gently to a simmer for pasta or rice.",
+    "makeAhead": "Day before: mince the shallots, slice the garlic, chop the parsley, slice the bread, and purge and refrigerate the clams if desired (best purged the same day). At the client's home: grill the bread up to 30 minutes ahead, and steam the clams to order, about 10 minutes before service.",
+    "safety": "Buy clams from a licensed shellfish supplier with shellstock tags, keep them cold at 41°F or below, and cook only live clams. Discard any with cracked shells or that stay open after tapping before cooking, and any that do not open after cooking. Consumer advisory: consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase your risk of foodborne illness. Contains shellfish, milk and wheat.",
+    "chefNotes": "Manila clams from the fish counter are small, sweet and quick to open; steamers need a longer purge and a gritty-water check. Fresh clams should smell like the ocean and be tightly closed. The wine is optional: stock with lemon makes a bright, clean broth. Because it is quick, this is an easy add-on starter or a second course for any private chef menu; scale the clams and broth for the guest count. Add a spoonful of chopped tomato or a splash of cream for variety. Salt assumes Diamond Crystal kosher salt."
   }
 ];
 

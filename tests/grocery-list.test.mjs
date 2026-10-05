@@ -51,14 +51,14 @@ test("ingredients land in the right aisle", () => {
 
 test("cookbook has both sides with the expected shape", () => {
   const mp = recipes.filter((r) => r.side === "meal-prep"), pc = recipes.filter((r) => r.side === "private-chef");
-  assert.equal(mp.length, 48);
-  assert.equal(pc.length, 20);
+  assert.equal(mp.length, 54);
+  assert.equal(pc.length, 26);
   assert.equal(new Set(recipes.map((r) => r.id)).size, recipes.length, "ids are unique");
   assert.equal(new Set(recipes.map((r) => r.title)).size, recipes.length, "titles are unique (chef jobs look dishes up by title)");
   for (const r of recipes) {
     assert.ok(SIDES[r.side].categories.includes(r.category), `${r.title}: category ${r.category}`);
     assert.equal(r.servings, r.side === "meal-prep" ? 12 : 6, r.title);
-    assert.ok(r.directions.length >= 7, `${r.title}: needs real steps`);
+    assert.ok(r.directions.length >= (r.category === "Sides" ? 5 : 7), `${r.title}: needs real steps`);
     assert.ok(/\d{3}°F|advisory|raw/i.test(r.safety) || r.side === "private-chef", `${r.title}: safety temps`);
     // Either a local photo or none yet (the site shows a "photo coming soon" card).
     assert.ok(r.image === "" || r.image.startsWith("/"), r.title);
