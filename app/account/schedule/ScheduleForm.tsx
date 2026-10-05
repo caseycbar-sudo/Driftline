@@ -14,6 +14,7 @@ const byDate = (a: Win, b: Win) => (a.date + a.from).localeCompare(b.date + b.fr
 export default function ScheduleForm(props: {
   recipeIds: number[];
   dishes: string[];
+  dessert: string;
   people: number;
   planName: string;
   priceCents: number;
@@ -115,7 +116,7 @@ export default function ScheduleForm(props: {
             <h2>When can we come?</h2>
           </div>
           <p>
-            {props.planName} · {money(props.priceCents)} · {props.dishes.length} dishes for {props.people} {props.people === 1 ? "person" : "people"}. <Link href={`/account/plan?items=${props.recipeIds.join(",")}&people=${props.people}${props.editId ? `&edit=${props.editId}` : ""}`}>Change menu</Link>
+            {props.planName} · {money(props.priceCents)} · {props.dishes.length - (props.dessert ? 1 : 0)} entrées{props.dessert ? " plus a dessert" : ""} for {props.people} {props.people === 1 ? "person" : "people"}. <Link href={`/account/plan?items=${props.recipeIds.join(",")}&people=${props.people}${props.editId ? `&edit=${props.editId}` : ""}`}>Change menu</Link>
           </p>
         </div>
         <p>{props.dishes.join(", ")}</p>

@@ -128,3 +128,6 @@
 .plan-modal-close{position:absolute;top:8px;right:8px;width:36px;height:36px;border-radius:50%;border:0;background:rgba(255,255,255,.92);font-size:22px;cursor:pointer}
 .plan-modal-add{margin-top:12px;border:1px solid #1f3a34;background:#1f3a34;color:#fff;border-radius:8px;padding:12px;font:inherit;cursor:pointer}
 .plan-modal-add[aria-pressed="true"]{background:#fff;color:#1f3a34}
+
+button.plan-schedule{border:0;font:inherit;cursor:pointer}
+.plan-back{border:1px solid #1f3a34;background:#fff;color:#1f3a34;border-radius:8px;padding:8px 12px;font:inherit;cursor:pointer;justify-self:start}
