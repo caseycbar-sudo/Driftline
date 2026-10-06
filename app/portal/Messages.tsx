@@ -29,6 +29,13 @@ export default function Messages() {
       live = false;
     };
   }, [tick]);
+  async function cancelSession(c: Conversation) {
+    if (!window.confirm(`Cancel ${c.customer}'s session${c.status === "scheduled" || c.status === "awaiting_chef" ? " and its visit" : ""}? They and the chef (if booked) will be emailed.`)) return;
+    setError("");
+    const response = await fetch("/api/admin/requests", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "cancel", id: c.requestId }) });
+    if (!response.ok) setError(((await response.json().catch(() => ({}))) as { error?: string }).error || "That didn't cancel.");
+    refresh();
+  }
   const unread = items.reduce((n, c) => n + c.unread, 0);
   if (!items.length && !error) return null;
   return (
@@ -52,6 +59,7 @@ export default function Messages() {
             <div className="request-body">
               <p>{c.dishes.join(", ")}</p>
               <MessageThread endpoint="/api/admin/messages" requestId={c.requestId} me="owner" onRead={refresh} />
+              {c.status === "cancelled" ? <p>This session is canceled.</p> : <button type="button" className="request-cancel" onClick={() => void cancelSession(c)}>Cancel this session</button>}
             </div>
           ) : null}
         </div>

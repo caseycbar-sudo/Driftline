@@ -7,9 +7,9 @@ import { MAX_MESSAGE_CHARS, type Message, type Sender } from "./message-core";
 const stamp = (iso: string) => new Date(iso).toLocaleString("en-US", { weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
 
 /** A simple chat for one request. `me` is whose screen this is; `endpoint` is the matching API. */
-function Thread({ endpoint, requestId, me, onRead }: { endpoint: string; requestId: number; me: Sender; onRead?: () => void }) {
+function Thread({ endpoint, requestId, me, onRead, draft = "" }: { endpoint: string; requestId: number; me: Sender; onRead?: () => void; draft?: string }) {
   const [messages, setMessages] = useState<Message[] | null>(null),
-    [text, setText] = useState(""),
+    [text, setText] = useState(draft),
     [error, setError] = useState(""),
     [busy, setBusy] = useState(false);
   const bottom = useRef<HTMLDivElement>(null);
@@ -107,7 +107,7 @@ class Safe extends Component<{ children: ReactNode }, { failed: boolean; detail:
   }
 }
 
-export default function MessageThread(props: { endpoint: string; requestId: number; me: Sender; onRead?: () => void }) {
+export default function MessageThread(props: { endpoint: string; requestId: number; me: Sender; onRead?: () => void; draft?: string }) {
   return (
     <Safe>
       <Thread {...props} />

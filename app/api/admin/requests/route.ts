@@ -7,7 +7,7 @@ import { VISIT_DEFAULTS, createEvent, getEvent, linkRequest, listAwaitingChef, l
 import { listStaff } from "../../../../db/staff";
 import { findChefConflicts, isRealDate, type VisitInput } from "../../../schedule-core";
 import { parseApproval, startTimesIn, type TimeWindow } from "../../../request-core";
-import { notifyChefAssigned, notifyChefReleased, notifyDeclined, notifyNeedsNewTime } from "../../../request-emails";
+import { notifyCancelledByDriftline, notifyChefAssigned, notifyChefReleased, notifyDeclined, notifyNeedsNewTime } from "../../../request-emails";
 import { notifyVisitChange } from "../../../visit-emails";
 
 export const dynamic = "force-dynamic";
@@ -95,8 +95,19 @@ export async function POST(request: Request) {
 
   const r = await getRequest(Math.round(Number(body.id)));
   if (!r) return fail("We couldn't find that request.", 404);
-  if (!["requested", "change_requested"].includes(r.status)) return fail("Someone already handled this request.", 409);
   const who = await whoIs(r);
+
+  // Driftline cancels a session, with its visit if one is booked. Customers ask by message.
+  if (action === "cancel") {
+    if (r.status === "cancelled") return fail("That session is already canceled.", 409);
+    const visit = r.scheduleEventId ? await getEvent(r.scheduleEventId) : null;
+    const live = visit && visit.status !== "cancelled" ? await patchEvent(visit.id, { status: "cancelled" }) : null;
+    await patchRequest(r.id, { status: "cancelled" });
+    await notifyCancelledByDriftline(r, who, live);
+    return NextResponse.json({ ok: true });
+  }
+
+  if (!["requested", "change_requested"].includes(r.status)) return fail("Someone already handled this request.", 409);
   const note = String(body.note || "").trim().slice(0, 600);
 
   if (action === "suggest") {

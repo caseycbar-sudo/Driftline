@@ -71,7 +71,7 @@ export default function Overview({
               <p className="acct-note">
                 {inside
                   ? `This visit is less than 48 hours away. To change or cancel, call or text ${BUSINESS_PHONE}.`
-                  : `Free to change or cancel until 48 hours before. After that, call or text ${BUSINESS_PHONE}.`}
+                  : `Need to change or cancel? Message us from your session card, free until 48 hours before. After that, call or text ${BUSINESS_PHONE}.`}
               </p>
             </>
           ) : shown ? (
