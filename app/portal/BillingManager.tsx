@@ -22,7 +22,7 @@ type Payment = {
 type CustomerCard = { email: string; name: string; card: string; autopay: boolean };
 type Unbilled = { id: number; serviceDate: string; household: string; customerEmail: string; packageName: string; groceryCents: number };
 type Data = { configured: boolean; environment: string; payments: Payment[]; unbilled: Unbilled[]; customers: CustomerCard[] };
-type Action = "retry" | "check" | "cancel" | "mark_paid" | "mark_failed";
+type Action = "retry" | "approve" | "check" | "cancel" | "mark_paid" | "mark_failed";
 type Pkg = { name: string; portions: number; price: string; note: string; featured: boolean };
 type PricesForm = { mealPrep: Pkg[]; pantryKit: string; privateChef: { perGuest: string; minGuests: string; smallTableMin: string } };
 
@@ -31,6 +31,7 @@ const day = (iso: string) => (iso ? new Date(iso).toLocaleDateString("en-US", { 
 const LABEL: Record<string, string> = {
   paid: "Paid",
   pending: "Waiting on card",
+  review: "Needs your OK (large grocery total)",
   processing: "Processing",
   failed: "Declined",
   unknown: "Not confirmed",
@@ -82,6 +83,7 @@ export default function BillingManager() {
     if (action === "cancel" && !window.confirm(`Cancel "${p.description}"? The customer won't be charged.`)) return;
     if (action === "mark_paid" && !window.confirm("Only do this if Square shows this payment went through. Mark it paid?")) return;
     if (action === "mark_failed" && !window.confirm("Only do this if Square shows NO payment for this. Mark it failed so you can retry?")) return;
+    if (action === "approve" && !window.confirm(`Charge ${money(p.amountCents)} to ${p.customerEmail}'s card now? Check the receipt photo first.`)) return;
     setBusy(p.id);
     setMessage("");
     const response = await fetch("/api/admin/billing", {
@@ -92,7 +94,7 @@ export default function BillingManager() {
     const body = (await response.json().catch(() => ({}))) as { error?: string; result?: { message: string }; payment?: Payment };
     setBusy(0);
     if (!response.ok) setMessage(body.error || "That didn't work. Try again.");
-    else if (action === "retry") setMessage(body.result?.message || "Retried.");
+    else if (action === "retry" || action === "approve") setMessage(body.result?.message || "Done.");
     else if (action === "check") setMessage(body.payment?.status === "paid" ? "Paid!" : "Not paid yet.");
     else if (action === "mark_paid") setMessage("Marked paid.");
     else if (action === "mark_failed") setMessage("Marked failed. You can retry it now.");
@@ -162,7 +164,7 @@ export default function BillingManager() {
   const setPkg = (i: number, patch: Partial<Pkg>) =>
     setPrices((p) => (p ? { ...p, mealPrep: p.mealPrep.map((m, j) => (j === i ? { ...m, ...patch } : patch.featured ? { ...m, featured: false } : m)) } : p));
 
-  const open = (data?.payments ?? []).filter((p) => ["failed", "unknown", "pending", "processing", "link_sent"].includes(p.status));
+  const open = (data?.payments ?? []).filter((p) => ["failed", "unknown", "pending", "review", "processing", "link_sent"].includes(p.status));
   const paid = (data?.payments ?? []).filter((p) => p.status === "paid");
   const monthKey = new Date().toISOString().slice(0, 7);
   const paidThisMonth = paid.filter((p) => p.paidAt.startsWith(monthKey)).reduce((sum, p) => sum + p.amountCents, 0);
@@ -196,7 +198,7 @@ export default function BillingManager() {
           </div>
           <div>
             <small>NEEDS ATTENTION</small>
-            <strong>{open.filter((p) => p.status === "failed" || p.status === "unknown").length + (data?.unbilled.length ?? 0)}</strong>
+            <strong>{open.filter((p) => p.status === "failed" || p.status === "unknown" || p.status === "review").length + (data?.unbilled.length ?? 0)}</strong>
           </div>
           <div>
             <small>INVOICES OUT</small>
@@ -234,7 +236,12 @@ export default function BillingManager() {
                       {p.status === "pending" ? "Charge now" : "Retry"}
                     </button>
                   ) : null}
-                  {p.kind === "visit_charge" && ["pending", "failed"].includes(p.status) ? (
+                  {p.kind === "visit_charge" && p.status === "review" ? (
+                    <button disabled={busy === p.id} onClick={() => act(p, "approve")}>
+                      Approve and charge
+                    </button>
+                  ) : null}
+                  {p.kind === "visit_charge" && ["pending", "review", "failed"].includes(p.status) ? (
                     <button disabled={busy === p.id} onClick={() => linkInstead(p)}>
                       Send pay link instead
                     </button>
@@ -259,7 +266,7 @@ export default function BillingManager() {
                       </button>
                     </>
                   ) : null}
-                  {["pending", "failed", "link_sent"].includes(p.status) ? (
+                  {["pending", "review", "failed", "link_sent"].includes(p.status) ? (
                     <button className="danger" disabled={busy === p.id} onClick={() => act(p, "cancel")}>
                       Cancel
                     </button>

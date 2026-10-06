@@ -20,6 +20,24 @@ Square account: Driftline Provisions. Developer app: "Driftline Website"
 Switch the Developer Console toggle to Production, repeat the same four values from
 the Production tab, and set SQUARE_ENVIRONMENT = production.
 
+SQUARE_ENVIRONMENT must be exactly `sandbox` or `production`. Anything else (blank,
+"Production", "live") switches card payments off rather than guessing. SQUARE_API_URL is
+ignored in production.
+
+Every saved card and payment row records which Square it belongs to. After the switch:
+- Cards saved in sandbox stop counting, so customers are asked to save a real card.
+- Sandbox payments are hidden from the Billing tab and customer receipts, and can't be charged.
+- Rows saved before this was tracked (environment blank) are checked with Square once and
+  then stamped. To retire all of them at go-live instead, run once against the live database:
+
+  ```
+  npx wrangler d1 execute DB --remote --config dist/server/wrangler.json \
+    --command "UPDATE payments SET environment = 'sandbox' WHERE environment = ''; UPDATE billing_profiles SET environment = 'sandbox' WHERE environment = '';"
+  ```
+
+  Only do this if every existing row really is a test (no real cards were saved while
+  SQUARE_ENVIRONMENT was production).
+
 ## Domain notes (from Cloudflare import, Sep 20 2026)
 Registrar/DNS before the move: Squarespace.
 Imported records: 4 A (198.49.23.144/145, 198.185.159.144/145 — Squarespace),

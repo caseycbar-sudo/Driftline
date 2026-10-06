@@ -7,7 +7,6 @@ import { getCookbook } from "../../../db/cookbook";
 import { createRequest, getRequest, listForCustomer, patchRequest, type SessionRequest } from "../../../db/requests";
 import { getEvent, patchEvent } from "../../../db/schedule";
 import { squareConfig } from "../../square";
-import { getBillingProfile } from "../../../db/payments";
 import { createInquiry } from "../../../db/private-chef";
 import { notifyNewInquiry } from "../../notify";
 import { unavailableBetween } from "../../../db/availability";
@@ -15,6 +14,7 @@ import { BUSINESS_PHONE, earliestDate, insideCancelWindow, isDessertCategory, is
 import { notifyCustomerCancelled, notifyOwnerLateChangeAttempt, notifyRequestSubmitted } from "../../request-emails";
 import { customerView } from "../../request-view";
 import { unreadByRequest } from "../../../db/messages";
+import { billingProfileFor } from "../../billing";
 
 export const dynamic = "force-dynamic";
 
@@ -71,7 +71,7 @@ export async function POST(request: Request) {
 
   // Once online payments are switched on, a new visit needs a saved card with permission to charge it, so every visit gets paid.
   if (action === "create" && squareConfig()) {
-    const billing = await getBillingProfile(user.email);
+    const billing = await billingProfileFor(user.email);
     if (!billing?.cardId || !billing.autopayConsentAt) return fail("Before you send a request, save a card under Card & receipts on your account page.", 400, "card");
   }
 
@@ -114,14 +114,15 @@ export async function POST(request: Request) {
   if (!isOpenForCustomerChange(existing.status)) return fail("That request is already closed.", 409);
   let status: SessionRequest["status"] = "requested";
   let scheduleEventId = 0;
-  if ((existing.status === "scheduled" || existing.status === "change_requested") && existing.scheduleEventId) {
-    const booked = await getEvent(existing.scheduleEventId);
-    if (booked && booked.status !== "cancelled" && booked.serviceDate && insideCancelWindow(booked.serviceDate, booked.startTime)) {
-      await notifyOwnerLateChangeAttempt(booked, who, "change");
-      return fail(`This visit is less than 48 hours away. Please call or text Driftline at ${BUSINESS_PHONE} so we can work it out together.`, 409);
-    }
+  // needs_new_time can answer a change request on a booked visit, and that visit is still live.
+  const mayHaveVisit = existing.status === "scheduled" || existing.status === "change_requested" || existing.status === "needs_new_time";
+  const booked = mayHaveVisit && existing.scheduleEventId > 0 ? await getEvent(existing.scheduleEventId) : null;
+  const liveVisit = booked && booked.status !== "cancelled" ? booked : null;
+  if (liveVisit?.serviceDate && insideCancelWindow(liveVisit.serviceDate, liveVisit.startTime)) {
+    await notifyOwnerLateChangeAttempt(liveVisit, who, "change");
+    return fail(`This visit is less than 48 hours away. Please call or text Driftline at ${BUSINESS_PHONE} so we can work it out together.`, 409);
   }
-  if (existing.status === "scheduled" || existing.status === "change_requested") {
+  if (existing.status === "scheduled" || existing.status === "change_requested" || (existing.status === "needs_new_time" && liveVisit)) {
     // A chef is already booked: keep the visit until the admin approves the new time.
     status = "change_requested";
     scheduleEventId = existing.scheduleEventId;

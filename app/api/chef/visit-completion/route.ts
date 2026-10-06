@@ -6,11 +6,12 @@ import { isCrossSiteRequest } from "../../../auth-core";
 import { completeVisit, getEvent } from "../../../../db/schedule";
 import { saveVisitCompletion } from "../../../../db/visits";
 import { alertOwnerNotCharged, chargeCompletedVisit } from "../../../billing";
+import { MAX_GROCERY_CENTS, parseMoneyCents } from "../../../billing-core";
+import { oregonToday } from "../../../oregon-time";
 
 export const dynamic = "force-dynamic";
 const MAX_FILE = 8 * 1024 * 1024,
   allowed = new Set(["image/jpeg", "image/png", "image/webp", "image/heic", "image/heif"]);
-const MAX_GROCERY_CENTS = 200_000;
 
 /**
  * The chef finishes a visit: cleanup checklist, dish photos, one clean-kitchen
@@ -30,6 +31,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "This visit is not assigned to you" }, { status: 403 });
   if (event.status === "completed") return NextResponse.json({ error: "This visit is already completed." }, { status: 409 });
   if (event.status === "cancelled") return NextResponse.json({ error: "This visit was cancelled." }, { status: 409 });
+  // Finishing a visit charges the customer, so it has to be a visit the chef took and whose day has come.
+  if (event.chefResponse === "pending" || event.chefResponse === "declined")
+    return NextResponse.json({ error: "Accept this visit before finishing it." }, { status: 409 });
+  if (event.serviceDate > oregonToday()) return NextResponse.json({ error: "This visit is on a later day. Finish it on the day of the visit." }, { status: 409 });
 
   const checks = ["countersClean", "sinkClean", "trashHandled", "appliancesOff"] as const;
   if (checks.some((key) => form.get(key) !== "true")) return NextResponse.json({ error: "Complete every cleanup confirmation" }, { status: 400 });
@@ -44,9 +49,9 @@ export async function POST(request: Request) {
   // Meal prep: the chef buys the groceries, so the receipt total is required (0 if the customer supplied them).
   let groceryCents = 0;
   if (event.serviceType === "meal_prep") {
-    const raw = String(form.get("groceryTotal") ?? "").replace(/[$,\s]/g, "");
-    groceryCents = Math.round(Number(raw) * 100);
-    if (raw === "" || !Number.isFinite(groceryCents) || groceryCents < 0 || groceryCents > MAX_GROCERY_CENTS)
+    const parsed = parseMoneyCents(String(form.get("groceryTotal") ?? ""));
+    groceryCents = parsed ?? 0;
+    if (parsed === null || groceryCents > MAX_GROCERY_CENTS)
       return NextResponse.json({ error: "Enter the grocery receipt total (0 if the customer supplied everything)." }, { status: 400 });
     if (groceryCents > 0 && receiptFiles.length !== 1)
       return NextResponse.json({ error: "Add a photo of the grocery receipt." }, { status: 400 });
@@ -117,7 +122,7 @@ export async function POST(request: Request) {
     console.error("[billing] charge after completion failed", error);
     return { outcome: "error" as const, message: "Casey will handle billing for this visit." };
   });
-  // Cases that stay uncharged without any other email: tell the owner now.
+  // Cases that stay uncharged without any other email: tell the owner now. A held charge already emailed.
   if (billing.outcome === "awaiting-card" || billing.outcome === "not-autopay" || billing.outcome === "error") {
     await alertOwnerNotCharged(eventId, billing.message).catch(() => undefined);
   }
