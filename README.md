@@ -106,7 +106,7 @@ Worker (use secrets for the key):
 | `NOTIFY_EMAIL` | `driftlineprovisions@gmail.com` | Where alerts go; comma-separate for several |
 | `FROM_EMAIL` | `Driftline Provisions <hello@driftlineprovisions.com>` | Sender; the domain must be verified in Resend |
 | `SITE_URL` | `https://www.driftlineprovisions.com` | Public address used in sign-in links and the "Open in admin" link |
-| `BOOTSTRAP_ADMIN_EMAIL` | `driftlineprovisions@gmail.com` | First owner account; remove after first sign-in |
+| `BOOTSTRAP_ADMIN_EMAIL` | (removed) | First owner account on a fresh database; not set in production |
 
 If email isn't configured, requests are still saved; the admin screen flags
 any request that didn't trigger an alert. Spam protection is a hidden
@@ -123,13 +123,12 @@ npx wrangler secret put RESEND_API_KEY --name driftline-provisions
 npm run deploy                     # builds, applies database migrations, deploys
 ```
 
-After that, `npm run deploy` is the whole release. The site first runs on its
-`*.workers.dev` address. To go live on the real domain, add
-`"driftlineprovisions.com"` and `"www.driftlineprovisions.com"` to
-`customDomains` once the domain's DNS is on Cloudflare, and deploy again.
+After that, `npm run deploy` is the whole release. The site is served only on
+the domains in `customDomains` (`workers_dev` is off in vite.config.ts).
 
 The first sign-in by `BOOTSTRAP_ADMIN_EMAIL` creates the owner account (only
-while no staff exist). Remove that variable afterwards.
+while no staff exist). The owner account exists, so the variable has been
+removed from deploy/cloudflare.json; add it back only to set up a fresh database.
 
 ## Diagnostic Commands
 

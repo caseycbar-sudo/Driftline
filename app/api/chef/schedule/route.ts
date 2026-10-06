@@ -24,7 +24,8 @@ export async function GET(){
       if(custom)return{title,source:"Customer recipe",image:"",ingredients:custom.ingredients.split(/\r?\n/).map(item=>item.trim()).filter(Boolean),allergens:[]};
       return{title,source:"Special request",image:"",ingredients:[],allergens:[]};
     });
-    return{...event,dishes};
+    // Only what the schedule shows: no customer email, address, door codes, phone, price or receipt.
+    return{id:event.id,serviceDate:event.serviceDate,startTime:event.startTime,endTime:event.endTime,household:event.household,chef:event.chef,packageName:event.packageName,location:event.location,status:event.status,notes:event.notes,dishes};
   }));
-  return NextResponse.json(enriched);
+  return NextResponse.json(enriched,{headers:{"cache-control":"private, no-store"}});
 }

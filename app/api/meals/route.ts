@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getUser } from "../../auth";
+import { isCrossSiteRequest } from "../../auth-core";
 import { findCookbookRecipe } from "../../../db/cookbook";
 import { addCustomRecipe, addSelectedMeal, getMealPlan, removeCustomRecipe, removeSelectedMeal } from "../../../db/meals";
 
@@ -7,8 +8,10 @@ export const dynamic = "force-dynamic";
 
 export async function GET(){ const user=await getUser(); if(!user)return NextResponse.json({signedIn:false,selectedRecipeIds:[],customRecipes:[]}); return NextResponse.json({signedIn:true,...await getMealPlan(user.email)}); }
 export async function POST(request:Request){
+  const body=await request.json().catch(()=>null) as Record<string,unknown>|null;
+  if(isCrossSiteRequest(request))return NextResponse.json({error:"Forbidden"},{status:403});
   const user=await getUser(); if(!user)return NextResponse.json({error:"Sign in required"},{status:401});
-  const body=await request.json() as Record<string,unknown>;
+  if(!body||typeof body!=="object")return NextResponse.json({error:"We couldn't read that. Try again."},{status:400});
   if(body.type==="selection"){ const recipeId=Number(body.recipeId)||0; if(!(await findCookbookRecipe(recipeId)))return NextResponse.json({error:"Invalid recipe"},{status:400}); await addSelectedMeal(user.email,recipeId); return NextResponse.json({ok:true}); }
   const clean=(key:string,limit=6000)=>String(body[key]??"").trim().slice(0,limit);
   const title=clean("title",120), ingredients=clean("ingredients"), directions=clean("directions");
@@ -17,6 +20,7 @@ export async function POST(request:Request){
   return NextResponse.json(recipe,{status:201});
 }
 export async function DELETE(request:Request){
+  if(isCrossSiteRequest(request))return NextResponse.json({error:"Forbidden"},{status:403});
   const user=await getUser(); if(!user)return NextResponse.json({error:"Sign in required"},{status:401});
   const url=new URL(request.url), type=url.searchParams.get("type"), id=Number(url.searchParams.get("id"));
   if(type==="custom")await removeCustomRecipe(user.email,id); else await removeSelectedMeal(user.email,id);

@@ -48,7 +48,8 @@ function productionBindingConfig() {
     name: p.workerName,
     main: "./worker/index.ts",
     compatibility_flags: ["nodejs_compat"],
-    workers_dev: true,
+    // Only the real domains serve the site; no second *.workers.dev address.
+    workers_dev: false,
     vars: p.vars,
     d1_databases: [
       { binding: d1 || "DB", database_name: p.d1.databaseName, database_id: p.d1.databaseId, migrations_dir: "../../drizzle" },
