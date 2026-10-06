@@ -99,8 +99,8 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
     [editing, setEditing] = useState<
       (EventItem | ReturnType<typeof empty>) | null
     >(null),
-    [loading, setLoading] = useState(true),
-    [error, setError] = useState(""),
+    // Which month the last load answered for, and how. Loading is "the shown month hasn't answered yet".
+    [loaded, setLoaded] = useState<{ range: string; error: string } | null>(null),
     [customerChoices, setCustomerChoices] = useState<CustomerDish[]>([]),
     [choiceMessage, setChoiceMessage] = useState(""),
     [recipeSearch, setRecipeSearch] = useState(""),
@@ -117,9 +117,11 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
   );
   const first = iso(new Date(month.getFullYear(), month.getMonth(), 1)),
     last = iso(new Date(month.getFullYear(), month.getMonth() + 1, 0));
+  const range = `${first}|${last}`,
+    loading = loaded?.range !== range,
+    error = loading ? "" : (loaded?.error ?? "");
   useEffect(() => {
-    setLoading(true);
-    setError("");
+    const answered = (error: string) => setLoaded({ range: `${first}|${last}`, error });
     fetch(`/api/schedule?start=${first}&end=${last}`)
       .then(async (response) => {
         if (response.status === 401) {
@@ -130,9 +132,11 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
         if (!response.ok) throw new Error("load");
         return response.json();
       })
-      .then(setEvents)
-      .catch((reason) => setError(reason.message))
-      .finally(() => setLoading(false));
+      .then((events) => {
+        setEvents(events);
+        answered("");
+      })
+      .catch((reason) => answered(reason.message));
   }, [first, last]);
   useEffect(() => {
     fetch("/api/schedule/accounts")
@@ -163,6 +167,8 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
     } finally {
       window.localStorage.removeItem("driftlinePrivateChefDraft");
     }
+    // Once on mount: a draft handed over from Requests. selectedDate is only the fallback day.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const days = useMemo(() => {
     const leading = new Date(month.getFullYear(), month.getMonth(), 1).getDay(),
@@ -192,14 +198,16 @@ export default function AdminCalendar({ onOpenPeople }: { onOpenPeople: () => vo
     return planVisit(dishes, portions);
   }, [editing, recipes, pricePackages]);
   // What this household already has, so the list doesn't buy it twice.
-  const [pantry, setPantry] = useState<{ itemKey: string; name: string }[]>([]);
+  // Kept with the email it was loaded for, so switching visits never reuses another household's pantry.
+  const [pantryFor, setPantryFor] = useState<{ email: string; items: { itemKey: string; name: string }[] }>({ email: "", items: [] });
   const pantryEmail = editing?.customerEmail ?? "";
+  const pantry = useMemo(() => (pantryEmail && pantryFor.email === pantryEmail ? pantryFor.items : []), [pantryEmail, pantryFor]);
   useEffect(() => {
-    if (!pantryEmail) return setPantry([]);
+    if (!pantryEmail) return;
     fetch(`/api/admin/pantry?email=${encodeURIComponent(pantryEmail)}`, { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : null))
-      .then((d: { items?: { itemKey: string; name: string }[] } | null) => setPantry(d?.items ?? []))
-      .catch(() => setPantry([]));
+      .then((d: { items?: { itemKey: string; name: string }[] } | null) => setPantryFor({ email: pantryEmail, items: d?.items ?? [] }))
+      .catch(() => setPantryFor({ email: pantryEmail, items: [] }));
   }, [pantryEmail]);
 
   // The combined shopping list for this visit, scaled the same way the chef's app does it.

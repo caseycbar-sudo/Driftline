@@ -23,7 +23,12 @@ export default function FredMeyerOrder({ items, allItems, title = "Order at Fred
   const [status, setStatus] = useState<{ configured: boolean; linked: boolean } | null>(null);
   const [rows, setRows] = useState<Row[]>([]);
   const [busy, setBusy] = useState<"" | "match" | "cart">("");
-  const [message, setMessage] = useState<{ kind: "ok" | "error"; text: string } | null>(null);
+  // Coming back from a Fred Meyer link that didn't finish. Nothing renders until status loads, so reading the URL here can't cause a hydration mismatch.
+  const [message, setMessage] = useState<{ kind: "ok" | "error"; text: string } | null>(() =>
+    typeof window !== "undefined" && new URLSearchParams(window.location.search).get("fredmeyer") === "failed"
+      ? { kind: "error", text: "Linking Fred Meyer didn't finish. Please try again." }
+      : null,
+  );
   const [swapping, setSwapping] = useState<string | null>(null);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Product[]>([]);
@@ -33,8 +38,6 @@ export default function FredMeyerOrder({ items, allItems, title = "Order at Fred
       .then((r) => (r.ok ? r.json() : null))
       .then((s) => s && setStatus(s))
       .catch(() => {});
-    if (typeof window !== "undefined" && new URLSearchParams(window.location.search).get("fredmeyer") === "failed")
-      setMessage({ kind: "error", text: "Linking Fred Meyer didn't finish. Please try again." });
   }, []);
 
   const chosen = rows.filter((r) => r.include && r.product);

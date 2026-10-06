@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { oregonToday } from "../oregon-time";
 import BlockedDays from "./BlockedDays";
 import Messages from "./Messages";
@@ -46,35 +46,20 @@ export default function AdminDispatch({
       date.setDate(date.getDate() + 30);
       return key(date);
     }, []);
-  const load = useCallback(async () => {
-    setLoading(true);
-    setError("");
-    try {
-      const [scheduleResponse, staffResponse] = await Promise.all([
-        fetch(`/api/schedule?start=${today}&end=${endDate}`, {
-          cache: "no-store",
-        }),
-        fetch("/api/staff", { cache: "no-store" }),
-      ]);
-      if (!scheduleResponse.ok || !staffResponse.ok) throw new Error();
-      setVisits(await scheduleResponse.json());
-      setChefs(
-        (await staffResponse.json()).filter(
-          (person: Chef) =>
-            person.role === "chef" && person.status === "active",
-        ),
-      );
-    } catch {
-      setError(
-        "Dispatch could not load. Refresh the page or check staff access.",
-      );
-    } finally {
-      setLoading(false);
-    }
-  }, [today, endDate]);
   useEffect(() => {
-    void load();
-  }, [load]);
+    Promise.all([
+      fetch(`/api/schedule?start=${today}&end=${endDate}`, { cache: "no-store" }),
+      fetch("/api/staff", { cache: "no-store" }),
+    ])
+      .then(async ([scheduleResponse, staffResponse]) => {
+        if (!scheduleResponse.ok || !staffResponse.ok) throw new Error();
+        const [schedule, staff] = await Promise.all([scheduleResponse.json(), staffResponse.json()]);
+        setVisits(schedule);
+        setChefs(staff.filter((person: Chef) => person.role === "chef" && person.status === "active"));
+      })
+      .catch(() => setError("Dispatch could not load. Refresh the page or check staff access."))
+      .finally(() => setLoading(false));
+  }, [today, endDate]);
   async function updateVisit(visit: Visit, changes: Partial<Visit>) {
     setBusy(visit.id);
     setError("");

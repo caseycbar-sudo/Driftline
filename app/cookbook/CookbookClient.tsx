@@ -32,27 +32,36 @@ const HERO: Record<CookbookSide, { kicker: string; title: [string, string]; lede
   },
 };
 
-function sideFromUrl(): CookbookSide {
-  if (typeof window === "undefined") return "meal-prep";
-  return new URLSearchParams(window.location.search).get("side") === "private-chef" ? "private-chef" : "meal-prep";
-}
-
-export default function CookbookClient({ recipes }: { recipes: Recipe[] }) {
-  const [side, setSide] = useState<CookbookSide>("meal-prep");
+export default function CookbookClient({
+  recipes,
+  initialRecipeId = 0,
+  initialSide = "meal-prep",
+  startAddingRecipe = false,
+}: {
+  recipes: Recipe[];
+  initialRecipeId?: number;
+  initialSide?: CookbookSide;
+  startAddingRecipe?: boolean;
+}) {
+  // ?recipe=12 opens that dish on its own side; otherwise ?side= picks the side.
+  const requested = recipes.find((r) => r.id === initialRecipeId);
+  const startSide = requested ? requested.side : initialSide;
+  const startRecipe = requested ?? recipes.find((r) => r.side === startSide) ?? recipes[0];
+  const [side, setSide] = useState<CookbookSide>(startSide);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
-  const [selected, setSelected] = useState<Recipe>(recipes[0]);
-  const [portions, setPortions] = useState(recipes[0].servings);
+  const [selected, setSelected] = useState<Recipe>(startRecipe);
+  const [portions, setPortions] = useState(startRecipe.servings);
   const [saved, setSaved] = useState<number[]>([]);
   const [signedIn, setSignedIn] = useState(false);
-  const [showOwnRecipe, setShowOwnRecipe] = useState(false);
+  const [showOwnRecipe, setShowOwnRecipe] = useState(startAddingRecipe);
   const [notice, setNotice] = useState("");
   const [customCount, setCustomCount] = useState(0);
   const [detailOpen, setDetailOpen] = useState(false);
 
   const sideInfo = SIDES[side];
   const hero = HERO[side];
-  const sideRecipes = useMemo(() => recipes.filter((r) => r.side === side), [side]);
+  const sideRecipes = useMemo(() => recipes.filter((r) => r.side === side), [recipes, side]);
 
   function open(recipe: Recipe, showDetail = true) {
     setSelected(recipe);
@@ -77,16 +86,8 @@ export default function CookbookClient({ recipes }: { recipes: Recipe[] }) {
   }
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const requested = recipes.find((r) => r.id === Number(params.get("recipe")));
-    const initialSide = requested ? requested.side : sideFromUrl();
-    switchSide(initialSide, true);
-    if (requested) {
-      setSelected(requested);
-      setPortions(requested.servings);
-      if (window.matchMedia("(max-width: 1050px)").matches) setDetailOpen(true);
-    }
-    if (params.get("add") === "recipe") setShowOwnRecipe(true);
+    // On a phone a linked dish opens full screen; that needs the screen size, so it waits a frame.
+    const frame = requested && window.matchMedia("(max-width: 1050px)").matches ? window.requestAnimationFrame(() => setDetailOpen(true)) : 0;
     fetch("/api/meals")
       .then((r) => r.json())
       .then((data) => {
@@ -95,6 +96,7 @@ export default function CookbookClient({ recipes }: { recipes: Recipe[] }) {
         setCustomCount(data.customRecipes?.length ?? 0);
       })
       .catch(() => setNotice("We couldn't load your saved dishes."));
+    return () => window.cancelAnimationFrame(frame);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
