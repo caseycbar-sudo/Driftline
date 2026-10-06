@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import MessageThread from "../MessageThread";
 import { STATUS_LABELS, isOpenForCustomerChange, type RequestStatus } from "../request-core";
 
@@ -30,8 +30,6 @@ const span = (w: Win) => `${day(w.date)}, ${clock(w.from)} to ${clock(w.to)}`;
 export default function SessionCards({ sent }: { sent: boolean }) {
   const [requests, setRequests] = useState<Req[] | null>(null),
     [error, setError] = useState("");
-  const [tick, setTick] = useState(0);
-  const load = useCallback(() => setTick((t) => t + 1), []);
   useEffect(() => {
     let live = true;
     fetch("/api/requests", { cache: "no-store" })
@@ -41,15 +39,7 @@ export default function SessionCards({ sent }: { sent: boolean }) {
     return () => {
       live = false;
     };
-  }, [tick]);
-
-  async function cancel(r: Req) {
-    if (!window.confirm("Cancel this session request?")) return;
-    setError("");
-    const response = await fetch("/api/requests", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "cancel", id: r.id }) });
-    if (!response.ok) setError(((await response.json()) as { error?: string }).error || "That didn't save.");
-    load();
-  }
+  }, []);
 
   if (!requests) return <section className="session-cards"><p>{error || "Loading your sessions…"}</p></section>;
   const active = requests.filter((r) => r.status !== "declined" || r.adminNote);
@@ -64,7 +54,7 @@ export default function SessionCards({ sent }: { sent: boolean }) {
         <span>NEXT SESSION</span>
         {sent ? <p className="plan-note">Thanks! We received your request.</p> : null}
         {error ? <p className="plan-warning">{error}</p> : null}
-        {next ? <Card r={next} cancel={cancel} /> : (
+        {next ? <Card r={next} /> : (
           <div className="empty-meals">
             <b>Nothing scheduled yet.</b>
             <p>Pick 3 to 5 entrées plus a dessert, and tell us when you&apos;re free.</p>
@@ -76,7 +66,7 @@ export default function SessionCards({ sent }: { sent: boolean }) {
         <section className="session-cards">
           <span>LATER SESSIONS</span>
           {later.map((r) => (
-            <Card key={r.id} r={r} cancel={cancel} />
+            <Card key={r.id} r={r} />
           ))}
         </section>
       ) : null}
@@ -89,10 +79,11 @@ export default function SessionCards({ sent }: { sent: boolean }) {
   );
 }
 
-function Card({ r, cancel }: { r: Req; cancel: (r: Req) => void }) {
+function Card({ r }: { r: Req }) {
   const open = isOpenForCustomerChange(r.status);
   const [chat, setChat] = useState(false),
-    [seen, setSeen] = useState(false);
+    [seen, setSeen] = useState(false),
+    [draft, setDraft] = useState("");
   const unread = seen ? 0 : (r.unread ?? 0);
   const resched = `/account/schedule?items=${r.recipeIds.join(",")}&people=${r.people}&edit=${r.id}`;
   return (
@@ -122,12 +113,20 @@ function Card({ r, cancel }: { r: Req; cancel: (r: Req) => void }) {
       <button type="button" className="session-messages" aria-expanded={chat} onClick={() => setChat(!chat)}>
         {chat ? "Hide messages" : unread ? `Messages (${unread} new)` : "Message Driftline"}
       </button>
-      {chat ? <MessageThread endpoint="/api/requests/messages" requestId={r.id} me="customer" onRead={() => setSeen(true)} /> : null}
+      {chat ? <MessageThread key={draft} endpoint="/api/requests/messages" requestId={r.id} me="customer" draft={draft} onRead={() => setSeen(true)} /> : null}
       {open ? (
         <footer>
           <Link href={`/account/plan?edit=${r.id}`}>Edit menu</Link>
           <Link href={resched}>{r.status === "needs_new_time" ? "Choose new times" : "Reschedule"}</Link>
-          <button onClick={() => cancel(r)}>Cancel</button>
+          <button
+            type="button"
+            onClick={() => {
+              setDraft("I need to cancel this session. ");
+              setChat(true);
+            }}
+          >
+            Ask to cancel
+          </button>
         </footer>
       ) : (
         <footer>

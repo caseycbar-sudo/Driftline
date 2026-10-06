@@ -38,23 +38,8 @@ export async function POST(request: Request) {
   const profile = await getOrCreateCustomer(user.email, user.displayName);
   const who = { name: profile.fullName || user.displayName, email: user.email, phone: profile.phone };
 
-  if (action === "cancel") {
-    const existing = await getRequest(Math.round(Number(body.id)));
-    if (!existing || existing.customerEmail !== user.email.toLowerCase()) return fail("We couldn't find that request.", 404);
-    if (!isOpenForCustomerChange(existing.status)) return fail("That request is already closed.", 409);
-    const event = existing.scheduleEventId ? await getEvent(existing.scheduleEventId) : null;
-    if (event && event.status !== "cancelled" && event.serviceDate && insideCancelWindow(event.serviceDate, event.startTime)) {
-      await notifyOwnerLateChangeAttempt(event, who, "cancel");
-      return fail(`This visit is less than 48 hours away. Please call or text Driftline at ${BUSINESS_PHONE} so we can work it out together.`, 409);
-    }
-    if (event && event.status !== "cancelled") {
-      const cancelled = await patchEvent(event.id, { status: "cancelled" });
-      // A chef who hasn't accepted yet still knows about the visit, so they hear about this too.
-      if (cancelled) await notifyCustomerCancelled(cancelled, who);
-    }
-    await patchRequest(existing.id, { status: "cancelled" });
-    return NextResponse.json({ ok: true });
-  }
+  // Customers ask Driftline to cancel (a message on the session); Driftline cancels from the portal.
+  if (action === "cancel") return fail("To cancel, message Driftline from your session card or call or text " + BUSINESS_PHONE + ". We'll take care of it.", 403);
 
   if (action === "waitlist") {
     const city = String(body.city || profile.city || "").replace(/\s+/g, " ").trim().slice(0, 80);

@@ -156,6 +156,20 @@ export async function notifyCustomerCancelled(v: ScheduleEvent, who: Who, chefKn
   await toCustomer(who, "Your visit was canceled", "Your visit is canceled", [["Was", when(v)]], "Whenever you're ready, you can book another visit from your account.", "Open your account");
 }
 
+/** Driftline cancelled a session (usually because the customer asked in a message). The customer is told, and so is the chef if one was booked. */
+export async function notifyCancelledByDriftline(r: SessionRequest, who: Who, v?: ScheduleEvent | null) {
+  const lines: [string, string][] = [["Session", r.dishes.join(", ")], ...(v ? ([["Was", when(v)]] as [string, string][]) : [])];
+  await toCustomer(who, "Your session was canceled", "Your session is canceled", lines, "Whenever you're ready, you can book another session from your account.", "Open your account");
+  if (v?.chefEmail) {
+    await sendEmail({
+      to: v.chefEmail,
+      subject: `Visit canceled: ${v.household}, ${prettyVisitDate(v.serviceDate)}`,
+      text: asText("Visit canceled", [["When", when(v)]], "Driftline canceled this visit. It's off your schedule."),
+      html: layout("Visit canceled", [["When", when(v)]], "Driftline canceled this visit. It's off your schedule."),
+    }).catch(() => false);
+  }
+}
+
 /** Requests that have waited a day: one reminder email listing them. Returns how many were included. */
 export async function sendRequestReminder(waiting: { request: SessionRequest; name: string }[]) {
   if (!waiting.length) return 0;
