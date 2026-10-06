@@ -38,7 +38,10 @@ function Thread({ endpoint, requestId, me, onRead, draft = "" }: { endpoint: str
     const timer = window.setInterval(() => setTick((t) => t + 1), 20000);
     return () => window.clearInterval(timer);
   }, []);
-  useEffect(() => bottom.current?.scrollIntoView({ block: "nearest" }), [messages?.length]);
+  // Braces matter: an effect must not return a value, and some browsers' scrollIntoView does.
+  useEffect(() => {
+    bottom.current?.scrollIntoView({ block: "nearest" });
+  }, [messages?.length]);
 
   async function send(event: React.FormEvent) {
     event.preventDefault();
@@ -85,11 +88,10 @@ function Thread({ endpoint, requestId, me, onRead, draft = "" }: { endpoint: str
 }
 
 /** If anything in the thread breaks, show a short note instead of taking the whole page down with it. */
-class Safe extends Component<{ children: ReactNode }, { failed: boolean; detail: string }> {
-  state = { failed: false, detail: "" };
-  static getDerivedStateFromError(error: unknown) {
-    const text = error instanceof Error ? `${error.name}: ${error.message}` : String(error);
-    return { failed: true, detail: text.slice(0, 240) };
+class Safe extends Component<{ children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
   }
   componentDidCatch(error: unknown) {
     console.error("[messages] thread failed", error);
@@ -99,7 +101,6 @@ class Safe extends Component<{ children: ReactNode }, { failed: boolean; detail:
       return (
         <p className="msg-error">
           Messages aren&apos;t working right now. Please refresh the page, or call or text Driftline at (503) 741-9630.
-          <small style={{ display: "block", opacity: 0.7 }}>Technical detail: {this.state.detail}</small>
         </p>
       );
     }
