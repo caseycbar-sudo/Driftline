@@ -62,7 +62,7 @@ jobs:
         run: |
           set -euo pipefail
           config=dist/server/wrangler.json
-          npx wrangler d1 time-travel info DB --remote --json --config "$config" | tee time-travel.json
+          npx wrangler d1 time-travel info DB --json --config "$config" | tee time-travel.json
           bookmark=$(grep -oE '"bookmark" *: *"[^"]+"' time-travel.json | head -1 | sed -E 's/.*"([^"]+)"$/\1/' || true)
           if [ -z "$bookmark" ]; then
             echo "::error::Couldn't get a D1 restore point, so nothing was migrated or deployed."
