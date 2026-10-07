@@ -3,8 +3,9 @@ import { requireStaffRole } from "../../../staff-auth";
 import { isCrossSiteRequest, normalizeEmail } from "../../../auth-core";
 import { claimPayment, getBillingProfile, getPayment, listPayments, listUnbilledVisits } from "../../../../db/payments";
 import { getCustomer, listCustomers } from "../../../../db/customers";
-import { chargeCompletedVisit, refreshPayLink, resolveByHand, runVisitCharge, sendPayLink } from "../../../billing";
+import { approveHeldCharge, chargeCompletedVisit, forCurrentSquare, refreshPayLink, resolveByHand, runVisitCharge, sendPayLink } from "../../../billing";
 import { deletePaymentLink, squareConfig } from "../../../square";
+import { parseMoneyCents } from "../../../billing-core";
 
 export const dynamic = "force-dynamic";
 const forbidden = () => NextResponse.json({ error: "Owner access required" }, { status: 403 });
@@ -14,15 +15,17 @@ export async function GET() {
   if (!(await requireStaffRole("admin"))) return forbidden();
   const since = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
   const [payments, customers, unbilled] = await Promise.all([listPayments(), listCustomers(), listUnbilledVisits(since)]);
+  const config = squareConfig();
   const cards = await Promise.all(
     customers.map(async (c) => {
-      const p = await getBillingProfile(c.email);
+      const saved = await getBillingProfile(c.email);
+      // A card saved against the other Square (test vs live) can't be charged here.
+      const p = saved && (!config || !saved.environment || saved.environment === config.environment) ? saved : null;
       return { email: c.email, name: c.fullName, card: p?.cardId ? `${p.cardBrand} ···· ${p.cardLast4}` : "", autopay: Boolean(p?.autopayConsentAt) };
     }),
   );
-  const config = squareConfig();
   return NextResponse.json(
-    { configured: Boolean(config), environment: config?.environment ?? "", payments, unbilled, customers: cards },
+    { configured: Boolean(config), environment: config?.environment ?? "", payments: forCurrentSquare(payments), unbilled, customers: cards },
     { headers: { "cache-control": "private, no-store" } },
   );
 }
@@ -40,7 +43,7 @@ export async function POST(request: Request) {
 
   if (action === "pay_link") {
     const email = normalizeEmail(body.customerEmail);
-    const amountCents = Math.round(Number(String(body.amount ?? "").replace(/[$,\s]/g, "")) * 100);
+    const amountCents = parseMoneyCents(body.amount) ?? NaN;
     const description = String(body.description ?? "").replace(/\s+/g, " ").trim().slice(0, 200);
     if (!email) return NextResponse.json({ error: "Enter the customer's email." }, { status: 400 });
     if (!Number.isFinite(amountCents) || amountCents < 100 || amountCents > 5_000_000) return NextResponse.json({ error: "Amount must be $1 to $50,000." }, { status: 400 });
@@ -71,6 +74,10 @@ export async function POST(request: Request) {
     if (payment.kind !== "visit_charge") return NextResponse.json({ error: "Only visit charges can be retried." }, { status: 400 });
     return NextResponse.json({ result: await runVisitCharge(payment), payment: await getPayment(id) });
   }
+  if (action === "approve") {
+    if (payment.kind !== "visit_charge" || payment.status !== "review") return NextResponse.json({ error: "This charge isn't waiting for approval." }, { status: 409 });
+    return NextResponse.json({ result: await approveHeldCharge(id), payment: await getPayment(id) });
+  }
   if (action === "check") return NextResponse.json({ payment: await refreshPayLink(id) });
   if (action === "mark_paid" || action === "mark_failed") {
     const result = await resolveByHand(id, action === "mark_paid" ? "paid" : "failed");
@@ -83,7 +90,7 @@ export async function POST(request: Request) {
       if (fresh?.status === "paid") return NextResponse.json({ error: "This invoice was just paid, so it can't be cancelled." }, { status: 409 });
     }
     // Only moves from a state where no money has moved, so it can never overwrite a payment.
-    const canceled = await claimPayment(id, ["pending", "failed", "link_sent"], "canceled");
+    const canceled = await claimPayment(id, ["pending", "review", "failed", "link_sent"], "canceled");
     if (!canceled) return NextResponse.json({ error: "Paid, in-progress or unconfirmed charges can't be cancelled here. Check Square." }, { status: 409 });
     if (payment.kind === "pay_link" && payment.squareLinkId) await deletePaymentLink(payment.squareLinkId).catch(() => null);
     return NextResponse.json({ payment: await getPayment(id) });

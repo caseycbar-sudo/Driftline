@@ -127,3 +127,14 @@ test("IPv6 addresses are rate-limited per /64", () => {
   assert.notEqual(rateLimitKeyForIp("2001:db8:abcd:13::1"), a);
   assert.equal(rateLimitKeyForIp("::1"), "0:0:0:0::/64");
 });
+
+test("request source keys group an IPv6 /64 and are empty without an address", async () => {
+  const { requestSourceHash, CODE_FAILURES_PER_SOURCE_PER_HOUR } = await import("../app/auth-core.ts");
+  const from = (ip) => new Request("https://www.example.com/api/auth/code", { headers: ip ? { "cf-connecting-ip": ip } : {} });
+  assert.equal(await requestSourceHash(from("")), "");
+  const a = await requestSourceHash(from("2001:db8:abcd:12::1"));
+  assert.equal(a.length, 24);
+  assert.equal(await requestSourceHash(from("2001:db8:abcd:12::99")), a);
+  assert.notEqual(await requestSourceHash(from("203.0.113.9")), a);
+  assert.ok(CODE_FAILURES_PER_SOURCE_PER_HOUR >= 10 && CODE_FAILURES_PER_SOURCE_PER_HOUR <= 50);
+});

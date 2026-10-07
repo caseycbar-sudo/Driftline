@@ -5,7 +5,7 @@ import { getCookbook } from "../../../db/cookbook";
 import { getPricing } from "../../../db/pricing";
 import { getRequest } from "../../../db/requests";
 import { squareConfig } from "../../square";
-import { getBillingProfile } from "../../../db/payments";
+import { billingProfileFor } from "../../billing";
 import { unavailableBetween } from "../../../db/availability";
 import { DEFAULT_PEOPLE, firstBookableDate, isDessertCategory, latestDate, menuProblem, planFor, profileGaps } from "../../request-core";
 import ScheduleForm from "./ScheduleForm";
@@ -38,7 +38,7 @@ export default async function SchedulePage({ searchParams }: { searchParams: Pro
     }
   }
 
-  const billing = squareConfig() ? await getBillingProfile(user.email) : null;
+  const billing = squareConfig() ? await billingProfileFor(user.email) : null;
   const needsCard = Boolean(squareConfig()) && !editId && !(billing?.cardId && billing.autopayConsentAt);
 
   const earliest = firstBookableDate();

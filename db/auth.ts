@@ -1,29 +1,84 @@
-import { and, eq, gt, gte, lt, sql } from "drizzle-orm";
+import { and, eq, gt, lt, sql } from "drizzle-orm";
 import { getDb } from "./index";
 import { authChallenges, authSessions, authTokens, passkeys } from "./schema";
-import { CHALLENGE_TTL_MS, CODE_MAX_ATTEMPTS, LINK_TTL_MS, SESSION_TTL_MS, codeHash, randomCode, randomToken, sha256Hex } from "../app/auth-core";
+import {
+  CHALLENGE_TTL_MS,
+  CODE_FAILURES_PER_SOURCE_PER_HOUR,
+  CODE_MAX_ATTEMPTS,
+  LINK_TTL_MS,
+  LINKS_PER_EMAIL_PER_HOUR,
+  LINKS_PER_SOURCE_PER_HOUR,
+  SESSION_TTL_MS,
+  codeHash,
+  randomCode,
+  randomToken,
+  sha256Hex,
+} from "../app/auth-core";
+
+const HOUR_MS = 60 * 60 * 1000;
 
 /**
- * Create a one-time sign-in token and its 6-digit code. Returns both raw values for
- * the email; only their hashes are stored. Either one signs the person in, once.
+ * Create a one-time sign-in token and its 6-digit code, unless this email or this
+ * requesting address already asked for too many in the last hour (then null).
+ * The limit check and the insert are one statement, so a burst of parallel
+ * requests can't all slip under the limit. Returns both raw values for the
+ * email; only their hashes are stored. Either one signs the person in, once.
  */
 export async function createLoginToken(email: string, returnTo: string, sourceHash: string) {
   const token = randomToken();
   const code = randomCode();
   const now = new Date();
-  await getDb().insert(authTokens).values({
-    tokenHash: await sha256Hex(token),
-    email,
-    returnTo,
-    sourceHash,
-    createdAt: now.toISOString(),
-    expiresAt: new Date(now.getTime() + LINK_TTL_MS).toISOString(),
-    usedAt: "",
-    codeHash: await codeHash(email, code),
-    attempts: 0,
-  });
+  const since = new Date(now.getTime() - HOUR_MS).toISOString();
+  const result = await getDb()
+    .$client.prepare(
+      `INSERT INTO auth_tokens (token_hash, email, return_to, source_hash, created_at, expires_at, used_at, code_hash, attempts)
+       SELECT ?, ?, ?, ?, ?, ?, '', ?, 0
+       WHERE (SELECT count(*) FROM auth_tokens WHERE email = ? AND created_at >= ?) < ?
+         AND (? = '' OR (SELECT count(*) FROM auth_tokens WHERE source_hash = ? AND created_at >= ?) < ?)`,
+    )
+    .bind(
+      await sha256Hex(token),
+      email,
+      returnTo,
+      sourceHash,
+      now.toISOString(),
+      new Date(now.getTime() + LINK_TTL_MS).toISOString(),
+      await codeHash(email, code),
+      email,
+      since,
+      LINKS_PER_EMAIL_PER_HOUR,
+      sourceHash,
+      sourceHash,
+      since,
+      LINKS_PER_SOURCE_PER_HOUR,
+    )
+    .run();
+  if ((result.meta.changes ?? 0) === 0) return null;
   return { token, code };
 }
+
+/**
+ * Wrong sign-in codes from one address in the last hour. Stored as short-lived
+ * rows in auth_challenges (purpose "code-failure", email = the address key), which
+ * the existing cleanup already deletes once they expire.
+ */
+export async function codeFailuresFrom(sourceHash: string) {
+  if (!sourceHash) return 0;
+  const [row] = await getDb()
+    .select({ n: sql<number>`count(*)` })
+    .from(authChallenges)
+    .where(and(eq(authChallenges.purpose, "code-failure"), eq(authChallenges.email, sourceHash), gt(authChallenges.expiresAt, new Date().toISOString())));
+  return Number(row?.n ?? 0);
+}
+
+export async function recordCodeFailure(sourceHash: string) {
+  if (!sourceHash) return;
+  await getDb()
+    .insert(authChallenges)
+    .values({ idHash: randomToken(), challenge: "", purpose: "code-failure", email: sourceHash, returnTo: "", expiresAt: new Date(Date.now() + HOUR_MS).toISOString() });
+}
+
+export const tooManyCodeFailures = (count: number) => count >= CODE_FAILURES_PER_SOURCE_PER_HOUR;
 
 /**
  * Sign in with the 6-digit code from the email. Only the newest few open emails for
@@ -107,23 +162,6 @@ export async function touchPasskey(credentialId: string, counter: number) {
 
 export async function removePasskeys(email: string) {
   await getDb().delete(passkeys).where(eq(passkeys.email, email));
-}
-
-/** How many links were requested in the last hour for this email and from this address. */
-export async function recentLinkCounts(email: string, sourceHash: string) {
-  const since = new Date(Date.now() - 60 * 60 * 1000).toISOString();
-  const db = getDb();
-  const [byEmail] = await db
-    .select({ n: sql<number>`count(*)` })
-    .from(authTokens)
-    .where(and(eq(authTokens.email, email), gte(authTokens.createdAt, since)));
-  const [bySource] = sourceHash
-    ? await db
-        .select({ n: sql<number>`count(*)` })
-        .from(authTokens)
-        .where(and(eq(authTokens.sourceHash, sourceHash), gte(authTokens.createdAt, since)))
-    : [{ n: 0 }];
-  return { byEmail: Number(byEmail?.n ?? 0), bySource: Number(bySource?.n ?? 0) };
 }
 
 /**

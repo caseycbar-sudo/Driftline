@@ -22,6 +22,8 @@ export const FLOW_COOKIE = "dl_flow";
 /** Per hour: at most this many links per email address, and per requesting address. */
 export const LINKS_PER_EMAIL_PER_HOUR = 5;
 export const LINKS_PER_SOURCE_PER_HOUR = 20;
+/** Per hour: wrong 6-digit codes accepted from one requesting address before it has to wait. */
+export const CODE_FAILURES_PER_SOURCE_PER_HOUR = 20;
 
 // Deliberately plain: letters, digits and . _ % + - before the @; a normal domain after.
 // Rejects anything with spaces, quotes, commas or angle brackets that a mail system
@@ -119,6 +121,12 @@ export function rateLimitKeyForIp(ip: string): string {
   const right = tail ? tail.split(":") : [];
   const full = value.includes("::") ? [...left, ...Array(Math.max(0, 8 - left.length - right.length)).fill("0"), ...right] : left;
   return full.slice(0, 4).map((part) => part.replace(/^0+(?=.)/, "")).join(":") + "::/64";
+}
+
+/** A short, non-reversible key for the caller's address, for rate limits only. "" when unknown. */
+export async function requestSourceHash(request: Request): Promise<string> {
+  const ip = request.headers.get("cf-connecting-ip") || "";
+  return ip ? (await sha256Hex(`driftline-auth:${rateLimitKeyForIp(ip)}`)).slice(0, 24) : "";
 }
 
 /** Read one cookie from a Cookie header. */

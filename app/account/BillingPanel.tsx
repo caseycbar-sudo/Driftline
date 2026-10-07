@@ -31,6 +31,7 @@ const day = (iso: string) => (iso ? new Date(iso).toLocaleDateString("en-US", { 
 const STATUS: Record<string, string> = {
   paid: "Paid",
   pending: "Waiting for a card",
+  review: "Being checked by Driftline",
   processing: "Processing",
   unknown: "Processing",
   failed: "Card declined",
@@ -141,7 +142,7 @@ export default function BillingPanel() {
   }
 
   if (!billing) return null;
-  const open = billing.payments.filter((p) => ["link_sent", "failed", "pending", "processing", "unknown"].includes(p.status));
+  const open = billing.payments.filter((p) => ["link_sent", "failed", "pending", "review", "processing", "unknown"].includes(p.status));
 
   return (
     <section className="billing-panel" id="billing">

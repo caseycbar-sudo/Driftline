@@ -259,9 +259,13 @@ export const payments = sqliteTable("payments", {
   serviceCents: integer("service_cents").notNull().default(0),
   groceryCents: integer("grocery_cents").notNull().default(0),
   amountCents: integer("amount_cents").notNull(),
-  /** pending | processing | paid | failed | unknown (Square didn't confirm) | link_sent | canceled */
+  /** pending | review (held for the owner's OK) | processing | paid | failed | unknown (Square didn't confirm) | link_sent | canceled */
   status: text("status").notNull().default("pending"),
   idempotencyKey: text("idempotency_key").notNull(),
+  /** The saved card the current idempotency key was sent with; a resend must use the same one. */
+  cardId: text("card_id").notNull().default(""),
+  /** sandbox | production: which Square this row belongs to. "" = recorded before this was tracked. */
+  environment: text("environment").notNull().default(""),
   squarePaymentId: text("square_payment_id").notNull().default(""),
   squareOrderId: text("square_order_id").notNull().default(""),
   squareLinkId: text("square_link_id").notNull().default(""),
@@ -285,6 +289,8 @@ export const billingProfiles = sqliteTable("billing_profiles", {
   cardExpYear: integer("card_exp_year").notNull().default(0),
   /** Customer agreed to be charged after each completed visit. */
   autopayConsentAt: text("autopay_consent_at").notNull().default(""),
+  /** sandbox | production: Square customer and card ids only work in the environment that made them. */
+  environment: text("environment").notNull().default(""),
   updatedAt: text("updated_at").notNull(),
 });
 

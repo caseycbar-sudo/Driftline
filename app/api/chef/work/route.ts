@@ -101,7 +101,8 @@ export async function GET(request: Request) {
       const active = !addressHeld && event.status !== "completed" && event.serviceDate >= addDays(today, -1);
       const phone = active ? customer?.phone || event.contactPhone : "";
       // Chefs see what they need to cook and get in, never the customer's price or account email.
-      const { priceCents: _p, customerEmail: _e, receiptKey: _r, inquiryId: _i, accessNotes: _a, contactPhone: _c, ...shown } = event;
+      // The raw address only reaches the phone through visit.address below, which respects addressHeld.
+      const { priceCents: _p, customerEmail: _e, receiptKey: _r, inquiryId: _i, accessNotes: _a, contactPhone: _c, address: _addr, ...shown } = event;
       return {
         ...shown,
         dishDetails,

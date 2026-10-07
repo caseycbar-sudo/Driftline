@@ -4,7 +4,8 @@
  * - Weekly meal prep: when the chef completes a visit, the customer's saved card
  *   is charged the package price plus the grocery receipt, if they've agreed to
  *   autopay. Otherwise the charge waits (status "pending") and runs as soon as
- *   they save a card, or Casey sends a pay link instead.
+ *   they save a card, or Casey sends a pay link instead. A grocery total above
+ *   GROCERY_REVIEW_CENTS waits (status "review") for Casey to approve it.
  * - Private dinners and catering: Casey sends a Square pay link for the amount
  *   in his proposal; it's marked paid when Square tells us (webhook) or when he
  *   taps "Check payment".
@@ -19,12 +20,26 @@ import {
   getVisitCharge,
   listPaymentsForEvent,
   listPendingVisitCharges,
+  setBillingEnvironment,
   updatePayment,
   upsertVisitCharge,
+  type BillingProfile,
   type PaymentRow,
 } from "../db/payments";
 import { findPackage, dollars } from "./pricing-core";
-import { chargeCard, createPaymentLink, retrieveOrder, retrievePayment, squareConfig } from "./square";
+import { GROCERY_REVIEW_CENTS, LIVE_SQUARE_PAYMENT, nextVisitChargeKey } from "./billing-core";
+import {
+  chargeCard,
+  createPaymentLink,
+  deletePaymentLink,
+  findPaymentsByReference,
+  retrieveCard,
+  retrieveCustomer,
+  retrieveOrder,
+  retrievePayment,
+  squareConfig,
+  type SquarePayment,
+} from "./square";
 import { escapeHtml, ownerEmails, publicSiteUrl, sendEmail } from "./notify";
 import { prettyVisitDate } from "./visit-emails";
 
@@ -34,7 +49,35 @@ export type ChargeOutcome =
   | { outcome: "awaiting-card"; message: string }
   | { outcome: "not-autopay"; message: string }
   | { outcome: "already"; message: string }
+  | { outcome: "held"; message: string }
   | { outcome: "error"; message: string };
+
+/**
+ * The customer's billing profile, but only when its Square customer and card
+ * belong to the Square in use. Ids made in sandbox mean nothing in production
+ * (and the reverse), so a profile from the other environment counts as no card.
+ * Profiles saved before the environment was recorded are checked with Square
+ * once and then stamped.
+ */
+export async function billingProfileFor(email: string): Promise<BillingProfile | null> {
+  const profile = await getBillingProfile(email);
+  const config = squareConfig();
+  if (!profile || !config) return profile;
+  if (profile.environment === config.environment) return profile;
+  if (profile.environment) return null;
+  const known = profile.cardId
+    ? await retrieveCard(profile.cardId).then((r) => r.ok && r.data.card.enabled !== false)
+    : await retrieveCustomer(profile.squareCustomerId).then((r) => r.ok);
+  if (!known) return null;
+  await setBillingEnvironment(profile.email, config.environment);
+  return { ...profile, environment: config.environment };
+}
+
+/** Hide rows recorded against the other Square (test charges after go-live, or the reverse). */
+export function forCurrentSquare<T extends { environment: string }>(rows: T[]): T[] {
+  const environment = squareConfig()?.environment;
+  return environment ? rows.filter((r) => !r.environment || r.environment === environment) : rows;
+}
 
 /** Work out what a completed meal prep visit costs and record it; charge the card if we can. */
 export async function chargeCompletedVisit(eventId: number): Promise<ChargeOutcome> {
@@ -50,14 +93,30 @@ export async function chargeCompletedVisit(eventId: number): Promise<ChargeOutco
   const serviceCents = packageCents + kitCents;
   if (!serviceCents) return { outcome: "not-autopay", message: "No price set for this visit. Casey will bill it." };
 
+  const held = event.groceryCents > GROCERY_REVIEW_CENTS;
   const payment = await upsertVisitCharge({
     scheduleEventId: event.id,
     customerEmail: event.customerEmail,
     description: `${event.packageName || "Meal prep"} visit, ${prettyVisitDate(event.serviceDate)}${kitCents ? ` (includes ${dollars(kitCents)} pantry kit)` : ""}`,
     serviceCents,
     groceryCents: event.groceryCents,
+    environment: squareConfig()?.environment ?? "",
+    status: held ? "review" : "pending",
   });
+  if (payment.status === "review") {
+    if (held) await emailOwnerReview(payment);
+    return { outcome: "held", message: `Groceries over ${dollars(GROCERY_REVIEW_CENTS)}: waiting for Casey to approve the charge.` };
+  }
   return runVisitCharge(payment);
+}
+
+/** Owner approves a held charge (large grocery total) and it runs right away. */
+export async function approveHeldCharge(paymentId: number): Promise<ChargeOutcome> {
+  if (!(await claimPayment(paymentId, ["review"], "pending", { error: "" }))) {
+    return { outcome: "already", message: "This charge isn't waiting for approval any more." };
+  }
+  const payment = await getPayment(paymentId);
+  return payment ? runVisitCharge(payment) : { outcome: "error", message: "Payment not found." };
 }
 
 const HOUR = 60 * 60 * 1000;
@@ -75,6 +134,7 @@ export async function runVisitCharge(payment: PaymentRow): Promise<ChargeOutcome
   if (payment.kind !== "visit_charge") return { outcome: "error", message: "Not a visit charge." };
   if (payment.status === "paid") return { outcome: "already", message: "Already paid." };
   if (payment.status === "canceled") return { outcome: "already", message: "This charge was cancelled." };
+  if (payment.status === "review") return { outcome: "held", message: "This charge is waiting for Casey to approve it." };
 
   // Never charge a visit that isn't finished, or one that was billed another way.
   const event = await getEvent(payment.scheduleEventId);
@@ -85,27 +145,61 @@ export async function runVisitCharge(payment: PaymentRow): Promise<ChargeOutcome
     return { outcome: "already", message: "This visit was billed with a pay link instead." };
   }
 
-  const profile = await getBillingProfile(payment.customerEmail);
-  if (!profile?.cardId || !profile.autopayConsentAt) {
-    return { outcome: "awaiting-card", message: "The customer hasn't saved a card yet. It will be charged when they do." };
+  const config = squareConfig();
+  if (!config) return { outcome: "awaiting-card", message: "Card payments aren't switched on yet." };
+  if (payment.environment && payment.environment !== config.environment) {
+    return { outcome: "error", message: `This charge was recorded in ${payment.environment} mode and can't run in ${config.environment}. Cancel it and bill the visit again.` };
   }
-  if (!squareConfig()) return { outcome: "awaiting-card", message: "Card payments aren't switched on yet." };
+  const profile = await billingProfileFor(payment.customerEmail);
 
   const age = Date.now() - Date.parse(payment.updatedAt);
   const resendSameKey = payment.status === "unknown" || (payment.status === "processing" && age > 5 * 60 * 1000);
   if (resendSameKey && age > 24 * HOUR) {
     return { outcome: "error", message: "Over a day old: check this payment in your Square dashboard, then mark it paid or failed." };
   }
-  const attempt = Number(payment.idempotencyKey.split("-").pop()) || 1;
-  const key = payment.status === "failed" ? `visit-${payment.scheduleEventId}-${attempt + 1}` : payment.idempotencyKey;
+
+  let cardId: string;
+  let key: string;
+  if (resendSameKey) {
+    // Ask Square what happened to the attempt we know about before sending anything.
+    if (payment.squarePaymentId) {
+      const known = await retrievePayment(payment.squarePaymentId);
+      if (known.ok) {
+        const settled = await settleFromSquare(payment, known.data.payment, [payment.status]);
+        if (settled) return settled;
+      }
+    }
+    // A resend must match the original request exactly (same card), or Square
+    // rejects the reused key and a later retry could charge a second time.
+    cardId = payment.cardId || profile?.cardId || "";
+    if (!cardId) return { outcome: "error", message: "Square didn't confirm this charge and the card is gone. Check your Square dashboard, then mark it paid or failed." };
+    key = payment.idempotencyKey;
+  } else {
+    if (!profile?.cardId || !profile.autopayConsentAt) {
+      return { outcome: "awaiting-card", message: "The customer hasn't saved a card yet. It will be charged when they do." };
+    }
+    if (payment.status === "failed") {
+      // A new key can charge again, so first make sure no earlier attempt for this visit went through.
+      const earlier = await findPaymentsByReference(`visit-${payment.scheduleEventId}`, payment.createdAt);
+      if (!earlier.ok) return { outcome: "error", message: "Couldn't check Square for an earlier charge, so nothing was charged. Try again in a minute." };
+      const live = earlier.data.find((p) => LIVE_SQUARE_PAYMENT.has(p.status));
+      if (live) {
+        const settled = await settleFromSquare(payment, live, ["failed"]);
+        return settled ?? { outcome: "already", message: "Square already has a charge for this visit. Check the Billing tab." };
+      }
+    }
+    cardId = profile.cardId;
+    key = payment.status === "failed" ? nextVisitChargeKey(payment.scheduleEventId, payment.idempotencyKey) : payment.idempotencyKey;
+  }
+
   const from = resendSameKey ? [payment.status] : ["pending", "failed"];
-  if (!(await claimPayment(payment.id, from, "processing", { idempotencyKey: key }))) {
+  if (!(await claimPayment(payment.id, from, "processing", { idempotencyKey: key, cardId, environment: config.environment }))) {
     return { outcome: "already", message: "This charge is already being processed." };
   }
 
   const result = await chargeCard({
-    cardId: profile.cardId,
-    customerId: profile.squareCustomerId,
+    cardId,
+    customerId: profile?.squareCustomerId ?? "",
     amountCents: payment.amountCents,
     idempotencyKey: key,
     referenceId: `visit-${payment.scheduleEventId}`,
@@ -132,15 +226,40 @@ export async function runVisitCharge(payment: PaymentRow): Promise<ChargeOutcome
     return { outcome: "failed", message: result.message };
   }
 
-  // Outcome unknown: keep the same key for any retry.
+  // Outcome unknown: keep the same key and card for any retry.
   const message = result.ok ? `Square says the payment is ${result.data.payment.status.toLowerCase()}. Retry to check again.` : result.message;
   const unknown = await updatePayment(payment.id, {
     status: "unknown",
     error: message,
-    squarePaymentId: result.ok ? result.data.payment.id : "",
+    squarePaymentId: result.ok ? result.data.payment.id : payment.squarePaymentId,
   });
   if (unknown) await emailOwnerUnknown(unknown);
   return { outcome: "error", message };
+}
+
+/**
+ * Record what Square says about a payment we found for this visit. Returns null
+ * when Square's answer doesn't settle anything and the caller should carry on.
+ */
+async function settleFromSquare(payment: PaymentRow, found: SquarePayment, from: string[]): Promise<ChargeOutcome | null> {
+  if (found.status === "COMPLETED") {
+    if (!(await claimPayment(payment.id, from, "paid", { squarePaymentId: found.id, receiptUrl: found.receipt_url ?? "", paidAt: new Date().toISOString(), error: "" }))) {
+      return { outcome: "already", message: "This charge changed while checking Square. Refresh Billing." };
+    }
+    const paid = await getPayment(payment.id);
+    if (paid) await emailReceipt(paid);
+    return { outcome: "paid", amountCents: payment.amountCents, message: `Square shows ${dollars(payment.amountCents)} was already charged. Marked paid.` };
+  }
+  if (from.includes("failed") && LIVE_SQUARE_PAYMENT.has(found.status)) {
+    // An earlier attempt is still going through at Square: wait for it rather than charge again.
+    await claimPayment(payment.id, from, "unknown", { squarePaymentId: found.id, error: `Square shows an earlier charge that is ${found.status.toLowerCase()}. Retry later to check it.` });
+    return { outcome: "error", message: "Square shows an earlier charge for this visit that hasn't finished. Retry later to check it." };
+  }
+  if (found.status === "FAILED" || found.status === "CANCELED") {
+    await claimPayment(payment.id, from, "failed", { error: "Square shows this charge didn't go through. Retry to charge again." });
+    return { outcome: "failed", message: "Square shows this charge didn't go through. Retry to charge again." };
+  }
+  return null;
 }
 
 /** When a customer saves a card, run any visit charges that were waiting for one. */
@@ -153,16 +272,21 @@ export async function chargeWaitingVisits(email: string) {
 
 /** Owner creates a Square pay link (dinners, catering, or anything off-schedule) and emails it. */
 export async function sendPayLink(input: { customerEmail: string; customerName: string; description: string; amountCents: number; scheduleEventId: number; createdBy: string }) {
-  if (!squareConfig()) return { ok: false as const, error: "Card payments aren't switched on yet." };
+  const config = squareConfig();
+  if (!config) return { ok: false as const, error: "Card payments aren't switched on yet." };
+  let cardCharge: PaymentRow | null = null;
   if (input.scheduleEventId) {
     // Billing a visit by link replaces any card charge that hasn't gone through.
-    const existing = await getVisitCharge(input.scheduleEventId);
-    if (existing && ["paid", "processing", "unknown"].includes(existing.status)) {
+    cardCharge = await getVisitCharge(input.scheduleEventId);
+    if (cardCharge && ["paid", "processing", "unknown"].includes(cardCharge.status)) {
       return { ok: false as const, error: "This visit's card charge has already gone through or is being processed." };
     }
-    if (existing) await claimPayment(existing.id, ["pending", "failed"], "canceled", { error: "Billed with a pay link instead." });
+    const links = await listPaymentsForEvent(input.scheduleEventId);
+    if (links.some((p) => p.kind === "pay_link" && (p.status === "link_sent" || p.status === "paid"))) {
+      return { ok: false as const, error: "This visit already has an invoice out or paid. Cancel that one first if it needs to change." };
+    }
   }
-  const row = await createPayLinkRow(input);
+  const row = await createPayLinkRow({ ...input, environment: config.environment });
   const site = publicSiteUrl();
   const link = await createPaymentLink({
     name: input.description,
@@ -173,16 +297,23 @@ export async function sendPayLink(input: { customerEmail: string; customerName: 
     note: `Driftline #${row.id}`,
   });
   if (!link.ok) {
+    // The card charge is left alone, so the visit is still billed one way or another.
     const error = link.definite ? link.message : "Square didn't answer. Check your Square dashboard for a new payment link before sending another.";
     await updatePayment(row.id, { status: "failed", error });
     return { ok: false as const, error };
   }
-  const saved = await updatePayment(row.id, {
-    status: "link_sent",
-    squareLinkId: link.data.payment_link.id,
-    squareOrderId: link.data.payment_link.order_id,
-    linkUrl: link.data.payment_link.url,
-  });
+  await updatePayment(row.id, { squareLinkId: link.data.payment_link.id, squareOrderId: link.data.payment_link.order_id, linkUrl: link.data.payment_link.url });
+
+  // Only now switch off the card charge. If it started meanwhile, switch the link off instead.
+  if (cardCharge && cardCharge.status !== "canceled") {
+    const switched = await claimPayment(cardCharge.id, ["pending", "failed", "review"], "canceled", { error: "Billed with a pay link instead." });
+    if (!switched) {
+      await deletePaymentLink(link.data.payment_link.id).catch(() => null);
+      await updatePayment(row.id, { status: "canceled", error: "The card charge started first, so this link was switched off." });
+      return { ok: false as const, error: "The card charge started while the link was being made, so the link was switched off. Check Billing." };
+    }
+  }
+  const saved = await updatePayment(row.id, { status: "link_sent" });
   if (saved) await emailPayLink(saved, input.customerName);
   return { ok: true as const, payment: saved };
 }
@@ -195,6 +326,8 @@ export async function sendPayLink(input: { customerEmail: string; customerName: 
 export async function refreshPayLink(paymentId: number): Promise<PaymentRow | null> {
   const payment = await getPayment(paymentId);
   if (!payment || payment.kind !== "pay_link" || !["link_sent", "canceled"].includes(payment.status) || !payment.squareOrderId) return payment;
+  const environment = squareConfig()?.environment;
+  if (payment.environment && payment.environment !== environment) return payment;
   const order = await retrieveOrder(payment.squareOrderId);
   if (!order.ok) return payment;
   const tender = order.data.order.tenders?.find((t) => t.payment_id);
@@ -309,6 +442,18 @@ async function emailOwnerUnknown(p: PaymentRow) {
     text: plain("A charge needs a second look", lines, note, `${site}/portal`),
     html: box("A charge needs a second look", lines, note, { href: `${site}/portal`, label: "Open Billing" }),
   });
+}
+
+async function emailOwnerReview(p: PaymentRow) {
+  const site = publicSiteUrl();
+  const lines: [string, string][] = [...receiptLines(p), ["Customer", p.customerEmail]];
+  const note = `The grocery total is over ${money(GROCERY_REVIEW_CENTS)}, so the card wasn't charged yet. Check the receipt photo, then approve the charge or send a pay link with the right amount.`;
+  await sendEmail({
+    to: ownerEmails(),
+    subject: `Approve charge: ${p.customerEmail} (${money(p.amountCents)})`,
+    text: plain("A charge is waiting for your OK", lines, note, `${site}/portal`),
+    html: box("A charge is waiting for your OK", lines, note, { href: `${site}/portal`, label: "Open Billing" }),
+  }).catch(() => false);
 }
 
 async function emailOwnerPaid(p: PaymentRow, afterCancel = false) {

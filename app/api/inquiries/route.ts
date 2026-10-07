@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { requireStaffRole } from "../../staff-auth";
+import { isCrossSiteRequest } from "../../auth-core";
 import { isLikelySpam, validateInquiry } from "../../inquiry-validation";
 import { notifyNewInquiry } from "../../notify";
 import {
@@ -70,6 +71,7 @@ export async function GET() {
 
 /** Admin: update follow-up status and notes. */
 export async function PUT(request: Request) {
+  if (isCrossSiteRequest(request)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   if (!(await requireStaffRole("admin"))) return NextResponse.json({ error: "Admin access required" }, { status: 403 });
   const body = await readJson(request);
   const id = Number(body?.id);
