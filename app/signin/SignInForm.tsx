@@ -35,15 +35,17 @@ export default function SignInForm({
   useEffect(() => {
     // The big Face ID button only shows on phones that have used it here before;
     // otherwise saved passkeys are still offered above the keyboard in the email box.
+    // Read after the first paint, so the server-rendered form and the first browser render match.
     const supported = passkeysSupported();
-    setPasskey({ ok: supported && passkeyReadyHere(), name: biometricName() });
-    if (!supported) return;
+    const frame = window.requestAnimationFrame(() => setPasskey({ ok: supported && passkeyReadyHere(), name: biometricName() }));
+    if (!supported) return () => window.cancelAnimationFrame(frame);
     let cancelled = false;
     passkeyAutofill(returnTo).then((to) => {
       if (to && !cancelled) window.location.assign(to);
     });
     return () => {
       cancelled = true;
+      window.cancelAnimationFrame(frame);
     };
   }, [returnTo]);
 

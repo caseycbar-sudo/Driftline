@@ -4,7 +4,6 @@ export default function DishBackdrop({ images }: { images: string[] }) {
   return (
     <div className="dish-backdrop" aria-hidden="true">
       {images.map((src, i) => (
-        // eslint-disable-next-line @next/next/no-img-element
         <img key={src} src={src} alt="" loading={i < 8 ? "eager" : "lazy"} decoding="async" />
       ))}
     </div>

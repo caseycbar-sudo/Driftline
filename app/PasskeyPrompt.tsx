@@ -28,11 +28,11 @@ export default function PasskeyPrompt({ placement = "bottom" }: { placement?: "b
 
   useEffect(() => {
     if (!passkeysSupported() || dismissedRecently()) return;
-    setName(biometricName());
     fetch("/api/auth/passkey/status", { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : null))
       .then((s: { signedIn?: boolean; count?: number } | null) => {
         if (!s?.signedIn || s.count) return;
+        setName(biometricName());
         // Wait until the one-time agreement screen is out of the way.
         const gateOpen = () => Boolean(document.querySelector(".disclosure-gate"));
         if (!gateOpen()) return setShow(true);

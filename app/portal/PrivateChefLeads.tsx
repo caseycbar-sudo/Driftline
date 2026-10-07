@@ -63,20 +63,24 @@ export default function PrivateChefLeads({ onOpenCalendar }: { onOpenCalendar: (
   const [filter, setFilter] = useState<"all" | InquiryType>("all");
   const [saveState, setSaveState] = useState<"idle" | "saving" | "saved" | "error">("idle");
 
-  const load = useCallback(async () => {
-    setLoadState("loading");
-    try {
-      const response = await fetch("/api/inquiries");
-      if (!response.ok) throw new Error(String(response.status));
-      setLeads(await response.json());
-      setLoadState("ready");
-    } catch {
-      setLoadState("error");
-    }
-  }, []);
+  const load = useCallback(
+    () =>
+      fetch("/api/inquiries")
+        .then(async (response) => {
+          if (!response.ok) throw new Error(String(response.status));
+          setLeads(await response.json());
+          setLoadState("ready");
+        })
+        .catch(() => setLoadState("error")),
+    [],
+  );
   useEffect(() => {
     load();
   }, [load]);
+  function retry() {
+    setLoadState("loading");
+    load();
+  }
 
   const visible = useMemo(
     () => (filter === "all" ? leads : leads.filter((lead) => lead.inquiryType === filter)),
@@ -153,7 +157,7 @@ export default function PrivateChefLeads({ onOpenCalendar }: { onOpenCalendar: (
           <section className="p-card pc-empty" role="alert">
             <h2>Couldn’t load requests</h2>
             <p>Check your connection, then try again.</p>
-            <button className="outline-btn" onClick={load}>Try again</button>
+            <button className="outline-btn" onClick={retry}>Try again</button>
           </section>
         ) : leads.length === 0 ? (
           <section className="p-card pc-empty">
