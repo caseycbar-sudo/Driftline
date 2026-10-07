@@ -54,7 +54,15 @@ const worker = {
       }, allowedWidths);
     }
 
-    return handler.fetch(request, env, ctx);
+    const response = await handler.fetch(request, env, ctx);
+    // API answers are about the signed-in person unless a route says otherwise (public
+    // photos set their own cache-control), so no browser or shared cache may keep them.
+    if (url.pathname.startsWith("/api/") && !response.headers.has("cache-control")) {
+      const privateResponse = new Response(response.body, response);
+      privateResponse.headers.set("cache-control", "private, no-store");
+      return privateResponse;
+    }
+    return response;
   },
 
   /** Daily trigger (see triggers.crons in deploy config): day-before visit reminders. */

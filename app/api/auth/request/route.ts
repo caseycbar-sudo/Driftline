@@ -1,14 +1,9 @@
 import { NextResponse } from "next/server";
-import { isCrossSiteRequest, rateLimitKeyForIp, SIGN_IN_PATH, LINKS_PER_EMAIL_PER_HOUR, LINKS_PER_SOURCE_PER_HOUR, VERIFY_PATH, normalizeEmail, safeRelativeReturnPath, sha256Hex } from "../../../auth-core";
-import { createLoginToken, pruneExpired, recentLinkCounts } from "../../../../db/auth";
+import { isCrossSiteRequest, requestSourceHash, SIGN_IN_PATH, VERIFY_PATH, normalizeEmail, safeRelativeReturnPath } from "../../../auth-core";
+import { createLoginToken, pruneExpired } from "../../../../db/auth";
 import { sendSignInLink, siteOrigin } from "../../../notify";
 
 export const dynamic = "force-dynamic";
-
-async function sourceHash(request: Request) {
-  const ip = request.headers.get("cf-connecting-ip") || "";
-  return ip ? (await sha256Hex(`driftline-auth:${rateLimitKeyForIp(ip)}`)).slice(0, 24) : "";
-}
 
 /**
  * Email a one-time sign-in link. Always answers the same way whether or not the
@@ -41,13 +36,11 @@ export async function POST(request: Request) {
   const email = normalizeEmail(body.email);
   if (!email) return reply(400, "Please enter a valid email address.");
 
-  const source = await sourceHash(request);
-  const counts = await recentLinkCounts(email, source);
-  if (counts.byEmail >= LINKS_PER_EMAIL_PER_HOUR || counts.bySource >= LINKS_PER_SOURCE_PER_HOUR) {
+  const created = await createLoginToken(email, returnTo, await requestSourceHash(request));
+  if (!created) {
     return reply(429, "Too many sign-in links requested. Please check your inbox, or try again in an hour.");
   }
-
-  const { token, code } = await createLoginToken(email, returnTo, source);
+  const { token, code } = created;
   const link = `${siteOrigin(request.url)}${VERIFY_PATH}?token=${encodeURIComponent(token)}`;
   const sent = await sendSignInLink(email, link, code);
   if (!sent) {

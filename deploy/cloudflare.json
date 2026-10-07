@@ -11,8 +11,7 @@
   "vars": {
     "SITE_URL": "https://www.driftlineprovisions.com",
     "NOTIFY_EMAIL": "driftlineprovisions@gmail.com",
-    "FROM_EMAIL": "Driftline Provisions <hello@driftlineprovisions.com>",
-    "BOOTSTRAP_ADMIN_EMAIL": "driftlineprovisions@gmail.com"
+    "FROM_EMAIL": "Driftline Provisions <hello@driftlineprovisions.com>"
   },
   "customDomains": [
     "www.driftlineprovisions.com",

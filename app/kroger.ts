@@ -149,7 +149,9 @@ export async function getPicks(keys: string[]) {
   return Object.fromEntries(rows.filter((r) => wanted.has(r.itemKey)).map((r) => [r.itemKey, r]));
 }
 
-export async function savePick(itemKey: string, product: { upc: string; description: string; size: string; image: string }, email: string) {
+/** Save the product for an item. Only `replace` (the owner) can change a pick that already exists. */
+export async function savePick(itemKey: string, product: { upc: string; description: string; size: string; image: string }, email: string, replace: boolean) {
   const row = { itemKey, ...product, updatedBy: email.toLowerCase(), updatedAt: new Date().toISOString() };
-  await getDb().insert(groceryPicks).values(row).onConflictDoUpdate({ target: groceryPicks.itemKey, set: row });
+  const insert = getDb().insert(groceryPicks).values(row);
+  await (replace ? insert.onConflictDoUpdate({ target: groceryPicks.itemKey, set: row }) : insert.onConflictDoNothing());
 }
