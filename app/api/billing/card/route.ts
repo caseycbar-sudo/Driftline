@@ -2,9 +2,9 @@ import { NextResponse } from "next/server";
 import { getUser } from "../../../auth";
 import { isCrossSiteRequest } from "../../../auth-core";
 import { getCustomer } from "../../../../db/customers";
-import { clearSavedCard, getBillingProfile, listPaymentsForCustomer, saveBillingProfile } from "../../../../db/payments";
+import { clearSavedCard, listPaymentsForCustomer, saveBillingProfile } from "../../../../db/payments";
 import { createCard, createCustomer, disableCard, squareConfig } from "../../../square";
-import { chargeWaitingVisits } from "../../../billing";
+import { billingProfileFor, chargeWaitingVisits, forCurrentSquare } from "../../../billing";
 
 export const dynamic = "force-dynamic";
 const noStore = { "cache-control": "private, no-store" };
@@ -14,7 +14,7 @@ export async function GET() {
   const user = await getUser();
   if (!user) return NextResponse.json({ error: "Sign in required" }, { status: 401 });
   const config = squareConfig();
-  const [profile, history] = await Promise.all([getBillingProfile(user.email), listPaymentsForCustomer(user.email)]);
+  const [profile, history] = await Promise.all([billingProfileFor(user.email), listPaymentsForCustomer(user.email).then(forCurrentSquare)]);
   return NextResponse.json(
     {
       configured: Boolean(config),
@@ -49,7 +49,8 @@ export async function POST(request: Request) {
   if (isCrossSiteRequest(request)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   const user = await getUser();
   if (!user) return NextResponse.json({ error: "Please sign in again." }, { status: 401 });
-  if (!squareConfig()) return NextResponse.json({ error: "Card payments aren't switched on yet." }, { status: 503 });
+  const config = squareConfig();
+  if (!config) return NextResponse.json({ error: "Card payments aren't switched on yet." }, { status: 503 });
   const sourceId = String(body.sourceId ?? "");
   if (!/^[\w:+\-./=]{8,512}$/.test(sourceId)) return NextResponse.json({ error: "Please enter the card again." }, { status: 400 });
   if (body.consent !== true) return NextResponse.json({ error: "Please agree to be charged after each visit." }, { status: 400 });
@@ -57,7 +58,8 @@ export async function POST(request: Request) {
 
   const customer = await getCustomer(user.email);
   const fullName = (customer?.fullName || user.displayName || "").trim();
-  let profile = await getBillingProfile(user.email);
+  // A profile from the other Square (sandbox vs production) is replaced with a new one here.
+  let profile = await billingProfileFor(user.email);
   if (!profile) {
     const [givenName, ...rest] = fullName.includes("@") ? [""] : fullName.split(/\s+/);
     const created = await createCustomer({
@@ -77,6 +79,7 @@ export async function POST(request: Request) {
       cardExpMonth: 0,
       cardExpYear: 0,
       autopayConsentAt: "",
+      environment: config.environment,
     });
   }
 
@@ -98,6 +101,7 @@ export async function POST(request: Request) {
     cardExpMonth: card.data.card.exp_month ?? 0,
     cardExpYear: card.data.card.exp_year ?? 0,
     autopayConsentAt: new Date().toISOString(),
+    environment: config.environment,
   });
   if (oldCardId && oldCardId !== card.data.card.id) await disableCard(oldCardId).catch(() => null);
 
@@ -115,7 +119,7 @@ export async function DELETE(request: Request) {
   if (isCrossSiteRequest(request)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   const user = await getUser();
   if (!user) return NextResponse.json({ error: "Sign in required" }, { status: 401 });
-  const profile = await getBillingProfile(user.email);
+  const profile = await billingProfileFor(user.email);
   if (profile?.cardId) await disableCard(profile.cardId).catch(() => null);
   await clearSavedCard(user.email);
   return NextResponse.json({ ok: true });

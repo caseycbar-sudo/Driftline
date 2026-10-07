@@ -23,7 +23,8 @@ import { CONTACT_EMAIL } from "../site-config";
 import "./account.css";
 import PasskeyPrompt from "../PasskeyPrompt";
 import Overview from "./Overview";
-import { getBillingProfile, listPaymentsForCustomer } from "../../db/payments";
+import { listPaymentsForCustomer } from "../../db/payments";
+import { billingProfileFor, forCurrentSquare } from "../billing";
 
 export const dynamic = "force-dynamic";
 
@@ -36,8 +37,8 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
   const profileDone = profileGaps(profile).length === 0;
   const visits = await listCustomerVisits(user.email).catch(() => []);
   const hasVisit = visits.length > 0;
-  const billing = await getBillingProfile(user.email).catch(() => null);
-  const payments = await listPaymentsForCustomer(user.email).catch(() => []);
+  const billing = await billingProfileFor(user.email).catch(() => null);
+  const payments = await listPaymentsForCustomer(user.email).then(forCurrentSquare).catch(() => []);
   const upcomingAll = await listUpcomingForCustomer(user.email, oregonToday()).catch(() => []);
   const pantry = await listPantry(user.email).catch(() => []);
   const firstName = profile.fullName.split(" ")[0] || "";

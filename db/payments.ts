@@ -21,6 +21,10 @@ export async function saveBillingProfile(profile: Omit<BillingProfile, "updatedA
   return row;
 }
 
+export async function setBillingEnvironment(email: string, environment: string) {
+  await getDb().update(billingProfiles).set({ environment, updatedAt: now() }).where(eq(billingProfiles.email, email.toLowerCase()));
+}
+
 export async function clearSavedCard(email: string) {
   await getDb()
     .update(billingProfiles)
@@ -49,6 +53,9 @@ export async function upsertVisitCharge(input: {
   description: string;
   serviceCents: number;
   groceryCents: number;
+  environment: string;
+  /** "review" holds the charge until the owner approves it. */
+  status: "pending" | "review";
 }) {
   const existing = await getVisitCharge(input.scheduleEventId);
   if (existing) return existing;
@@ -60,7 +67,6 @@ export async function upsertVisitCharge(input: {
       customerEmail: input.customerEmail.toLowerCase(),
       kind: "visit_charge",
       amountCents: input.serviceCents + input.groceryCents,
-      status: "pending",
       idempotencyKey: `visit-${input.scheduleEventId}-1`,
       createdBy: "system",
       createdAt: t,
@@ -98,6 +104,7 @@ export async function createPayLinkRow(input: {
   amountCents: number;
   scheduleEventId: number;
   createdBy: string;
+  environment: string;
 }) {
   const t = now();
   const [row] = await getDb()
@@ -148,9 +155,11 @@ export async function listPaymentsForEvent(scheduleEventId: number) {
 }
 
 /**
- * Completed meal prep visits with a customer account but no visit charge yet:
+ * Completed meal prep visits with a customer account and nothing billing them:
  * the safety net for anything that slipped through (e.g. the request was cut
  * off right after the chef finished, or the owner marked it completed by hand).
+ * A pay link that Square never created doesn't count as billing. A cancelled
+ * row does: that was the owner's call.
  */
 export async function listUnbilledVisits(sinceDate: string) {
   const result = await getDb().$client
@@ -158,7 +167,10 @@ export async function listUnbilledVisits(sinceDate: string) {
       `SELECT s.id, s.service_date, s.household, s.customer_email, s.package_name, s.grocery_cents
        FROM schedule_events s
        WHERE s.status = 'completed' AND s.service_type = 'meal_prep' AND s.customer_email != '' AND s.service_date >= ?
-         AND NOT EXISTS (SELECT 1 FROM payments p WHERE p.schedule_event_id = s.id)
+         AND NOT EXISTS (
+           SELECT 1 FROM payments p
+           WHERE p.schedule_event_id = s.id AND NOT (p.kind = 'pay_link' AND p.status IN ('pending', 'failed'))
+         )
        ORDER BY s.service_date DESC LIMIT 50`,
     )
     .bind(sinceDate)

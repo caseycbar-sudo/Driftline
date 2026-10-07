@@ -3,17 +3,19 @@
  * payment links, orders, and webhook signature checks.
  *
  * Settings (Worker variables; the token and signature key are secrets):
- *   SQUARE_ENVIRONMENT            "sandbox" (test cards, no real money) or "production"
+ *   SQUARE_ENVIRONMENT            "sandbox" (test cards, no real money) or "production".
+ *                                 Required: anything else leaves card payments switched off.
  *   SQUARE_ACCESS_TOKEN           secret
  *   SQUARE_APPLICATION_ID         public, used by the card form in the browser
  *   SQUARE_LOCATION_ID            the Square location payments are recorded under
  *   SQUARE_WEBHOOK_SIGNATURE_KEY  secret, from the webhook subscription
- *   SQUARE_API_URL                local testing only: point at a stand-in server
+ *   SQUARE_API_URL                local testing only: point at a stand-in server (ignored in production)
  *
  * Card numbers never pass through Driftline: the browser form sends them straight
  * to Square and gives us a one-time token.
  */
 import { env } from "cloudflare:workers";
+import { isDefiniteSquareRefusal, parseSquareEnvironment } from "./billing-core";
 
 type SquareEnv = {
   SQUARE_ENVIRONMENT?: string;
@@ -28,14 +30,14 @@ const SQUARE_VERSION = "2025-01-23";
 
 export function squareConfig() {
   const e = env as unknown as SquareEnv;
-  const environment = e.SQUARE_ENVIRONMENT === "production" ? "production" : "sandbox";
+  const environment = parseSquareEnvironment(e.SQUARE_ENVIRONMENT);
   const token = (e.SQUARE_ACCESS_TOKEN || "").trim();
   const locationId = (e.SQUARE_LOCATION_ID || "").trim();
   const applicationId = (e.SQUARE_APPLICATION_ID || "").trim();
-  if (!token || !locationId || !applicationId) return null;
-  const base =
-    (e.SQUARE_API_URL || "").trim().replace(/\/$/, "") ||
-    (environment === "production" ? "https://connect.squareup.com" : "https://connect.squareupsandbox.com");
+  if (!environment || !token || !locationId || !applicationId) return null;
+  // A stand-in server is for local testing only: production always talks to Square itself.
+  const standIn = environment === "sandbox" ? (e.SQUARE_API_URL || "").trim().replace(/\/$/, "") : "";
+  const base = standIn || (environment === "production" ? "https://connect.squareup.com" : "https://connect.squareupsandbox.com");
   return {
     environment,
     token,
@@ -77,7 +79,7 @@ async function call<T>(method: "GET" | "POST" | "PUT" | "DELETE", path: string, 
   const json = (await response.json().catch(() => ({}))) as { errors?: { code?: string; detail?: string; category?: string }[] } & T;
   if (!response.ok || json.errors?.length) {
     const first = json.errors?.[0];
-    const definite = response.status >= 400 && response.status < 500 && response.status !== 429;
+    const definite = isDefiniteSquareRefusal(response.status, first?.code);
     return {
       ok: false,
       code: first?.code || `HTTP_${response.status}`,
@@ -137,11 +139,26 @@ export async function createCard(input: { sourceId: string; verificationToken?: 
   });
 }
 
+export async function retrieveCard(cardId: string) {
+  return call<{ card: SquareCard & { enabled?: boolean } }>("GET", `/v2/cards/${encodeURIComponent(cardId)}`);
+}
+
+export async function retrieveCustomer(customerId: string) {
+  return call<{ customer: { id: string } }>("GET", `/v2/customers/${encodeURIComponent(customerId)}`);
+}
+
 export async function disableCard(cardId: string) {
   return call<{ card: SquareCard }>("POST", `/v2/cards/${encodeURIComponent(cardId)}/disable`, {});
 }
 
-export type SquarePayment = { id: string; status: string; receipt_url?: string; order_id?: string; amount_money?: { amount: number; currency: string } };
+export type SquarePayment = {
+  id: string;
+  status: string;
+  receipt_url?: string;
+  order_id?: string;
+  reference_id?: string;
+  amount_money?: { amount: number; currency: string };
+};
 
 /** Charge a saved card. The idempotency key makes a retried request safe: Square charges at most once per key. */
 export async function chargeCard(input: {
@@ -157,7 +174,7 @@ export async function chargeCard(input: {
   return call<{ payment: SquarePayment }>("POST", "/v2/payments", {
     idempotency_key: input.idempotencyKey,
     source_id: input.cardId,
-    customer_id: input.customerId,
+    customer_id: input.customerId || undefined,
     location_id: config?.locationId,
     amount_money: { amount: input.amountCents, currency: "USD" },
     reference_id: input.referenceId.slice(0, 40),
@@ -199,6 +216,28 @@ export async function retrieveOrder(orderId: string) {
 
 export async function retrievePayment(paymentId: string) {
   return call<{ payment: SquarePayment }>("GET", `/v2/payments/${encodeURIComponent(paymentId)}`);
+}
+
+/**
+ * Every payment at this location with the given reference_id since `beginTime`.
+ * Square can't filter by reference_id, so this pages through the window (newest
+ * first) and stops after a bounded number of pages. Returns a non-ok result if
+ * Square can't be asked or the window is too big to search, so callers fail closed.
+ */
+export async function findPaymentsByReference(referenceId: string, beginTime: string): Promise<SquareResult<SquarePayment[]>> {
+  const config = squareConfig();
+  const found: SquarePayment[] = [];
+  let cursor = "";
+  for (let page = 0; page < 10; page++) {
+    const query = new URLSearchParams({ begin_time: beginTime, location_id: config?.locationId ?? "", sort_order: "DESC", limit: "100" });
+    if (cursor) query.set("cursor", cursor);
+    const result = await call<{ payments?: SquarePayment[]; cursor?: string }>("GET", `/v2/payments?${query}`);
+    if (!result.ok) return result;
+    found.push(...(result.data.payments ?? []).filter((p) => p.reference_id === referenceId));
+    cursor = result.data.cursor ?? "";
+    if (!cursor) return { ok: true, data: found };
+  }
+  return { ok: false, code: "TOO_MANY", category: "", message: "Too many Square payments to search. Check the Square dashboard before retrying.", status: 0, definite: false };
 }
 
 /**
