@@ -6,6 +6,11 @@
  *   autopay. Otherwise the charge waits (status "pending") and runs as soon as
  *   they save a card, or Casey sends a pay link instead. A grocery total above
  *   GROCERY_REVIEW_CENTS waits (status "review") for Casey to approve it.
+ * - Grocery hold: when the chef starts the shopping trip, the card is held for the
+ *   visit price plus GROCERY_HOLD_BUFFER_CENTS, so a declined card shows up before
+ *   anyone buys groceries. After the visit the exact total is charged from that hold
+ *   and the rest is released. If the total is bigger than the hold, or the hold is
+ *   too old, the hold is released and the card is charged the normal way.
  * - Private dinners and catering: Casey sends a Square pay link for the amount
  *   in his proposal; it's marked paid when Square tells us (webhook) or when he
  *   taps "Check payment".
@@ -14,10 +19,14 @@ import { getEvent } from "../db/schedule";
 import { getPricing } from "../db/pricing";
 import {
   claimPayment,
+  createHoldRow,
   createPayLinkRow,
+  findPaymentsBySquareId,
+  getActiveHold,
   getBillingProfile,
   getPayment,
   getVisitCharge,
+  listHoldsToRelease,
   listPaymentsForEvent,
   listPendingVisitCharges,
   setBillingEnvironment,
@@ -27,9 +36,11 @@ import {
   type PaymentRow,
 } from "../db/payments";
 import { findPackage, dollars } from "./pricing-core";
-import { GROCERY_REVIEW_CENTS, LIVE_SQUARE_PAYMENT, nextVisitChargeKey } from "./billing-core";
+import { GROCERY_HOLD_BUFFER_CENTS, GROCERY_REVIEW_CENTS, HOLD_MAX_AGE_MS, LIVE_SQUARE_PAYMENT, canChargeFromHold, groceryHoldCents, nextVisitChargeKey } from "./billing-core";
 import {
+  cancelPayment,
   chargeCard,
+  completePayment,
   createPaymentLink,
   deletePaymentLink,
   findPaymentsByReference,
@@ -38,6 +49,7 @@ import {
   retrieveOrder,
   retrievePayment,
   squareConfig,
+  updatePaymentAmount,
   type SquarePayment,
 } from "./square";
 import { escapeHtml, ownerEmails, publicSiteUrl, sendEmail } from "./notify";
@@ -86,11 +98,7 @@ export async function chargeCompletedVisit(eventId: number): Promise<ChargeOutco
   if (event.serviceType !== "meal_prep") return { outcome: "not-autopay", message: "Casey bills dinners and events with a pay link." };
   if (!event.customerEmail) return { outcome: "not-autopay", message: "No customer account on this visit. Casey will bill it." };
 
-  const pricing = await getPricing();
-  const packageCents = event.priceCents || findPackage(pricing, event.packageName)?.priceCents || 0;
-  // The chef brings spices, oil, salt and pepper; that flat kit charge rides with the visit.
-  const kitCents = packageCents ? Math.max(0, pricing.pantryKitCents || 0) : 0;
-  const serviceCents = packageCents + kitCents;
+  const { serviceCents, kitCents } = visitServiceCents(event, await getPricing());
   if (!serviceCents) return { outcome: "not-autopay", message: "No price set for this visit. Casey will bill it." };
 
   const held = event.groceryCents > GROCERY_REVIEW_CENTS;
@@ -108,6 +116,13 @@ export async function chargeCompletedVisit(eventId: number): Promise<ChargeOutco
     return { outcome: "held", message: `Groceries over ${dollars(GROCERY_REVIEW_CENTS)}: waiting for Casey to approve the charge.` };
   }
   return runVisitCharge(payment);
+}
+
+/** Package price plus the flat pantry kit (the chef brings spices, oil, salt and pepper). */
+function visitServiceCents(event: { priceCents: number; packageName: string }, pricing: Awaited<ReturnType<typeof getPricing>>) {
+  const packageCents = event.priceCents || findPackage(pricing, event.packageName)?.priceCents || 0;
+  const kitCents = packageCents ? Math.max(0, pricing.pantryKitCents || 0) : 0;
+  return { serviceCents: packageCents + kitCents, kitCents };
 }
 
 /** Owner approves a held charge (large grocery total) and it runs right away. */
@@ -164,8 +179,16 @@ export async function runVisitCharge(payment: PaymentRow): Promise<ChargeOutcome
     // Ask Square what happened to the attempt we know about before sending anything.
     if (payment.squarePaymentId) {
       const known = await retrievePayment(payment.squarePaymentId);
+      if (known.ok && known.data.payment.status === "APPROVED") {
+        // A card hold whose completion wasn't confirmed: finish that hold, never charge a second time.
+        const done = await completePayment(known.data.payment.id);
+        const settled = done.ok ? await settleFromSquare(payment, done.data.payment, [payment.status]) : null;
+        if (settled?.outcome === "paid") await markHoldCaptured(payment.squarePaymentId);
+        return settled ?? { outcome: "error", message: "The card hold for this visit hasn't been charged yet. Retry in a minute." };
+      }
       if (known.ok) {
         const settled = await settleFromSquare(payment, known.data.payment, [payment.status]);
+        if (settled?.outcome === "paid") await markHoldCaptured(payment.squarePaymentId);
         if (settled) return settled;
       }
     }
@@ -175,6 +198,11 @@ export async function runVisitCharge(payment: PaymentRow): Promise<ChargeOutcome
     if (!cardId) return { outcome: "error", message: "Square didn't confirm this charge and the card is gone. Check your Square dashboard, then mark it paid or failed." };
     key = payment.idempotencyKey;
   } else {
+    const hold = await getActiveHold(payment.scheduleEventId);
+    if (hold) {
+      const fromHold = await chargeFromHold(payment, hold);
+      if (fromHold) return fromHold;
+    }
     if (!profile?.cardId || !profile.autopayConsentAt) {
       return { outcome: "awaiting-card", message: "The customer hasn't saved a card yet. It will be charged when they do." };
     }
@@ -262,6 +290,151 @@ async function settleFromSquare(payment: PaymentRow, found: SquarePayment, from:
   return null;
 }
 
+/* ---------------------------------------------------------------- grocery hold */
+
+export type HoldOutcome = { outcome: "held" | "already" | "skipped" | "no-card" | "declined" | "unknown"; message: string };
+
+/**
+ * The chef is starting the shopping trip: hold the visit price plus a grocery buffer
+ * on the customer's card. Never charges anything; the charge happens after the visit.
+ */
+export async function placeGroceryHold(eventId: number): Promise<HoldOutcome> {
+  const skipped = (message: string): HoldOutcome => ({ outcome: "skipped", message });
+  const event = await getEvent(eventId);
+  if (!event || event.serviceType !== "meal_prep" || event.status === "completed" || event.status === "cancelled") return skipped("Not a meal prep visit.");
+  if (!event.customerEmail) return skipped("No customer account on this visit.");
+  const config = squareConfig();
+  if (!config) return skipped("Card payments aren't switched on.");
+  if (await getActiveHold(eventId)) return { outcome: "already", message: "The card is already held for this visit." };
+  const billed = await listPaymentsForEvent(eventId);
+  if (billed.some((p) => (p.kind === "pay_link" && ["link_sent", "paid"].includes(p.status)) || (p.kind === "visit_charge" && p.status === "paid"))) {
+    return skipped("This visit is already billed.");
+  }
+
+  const profile = await billingProfileFor(event.customerEmail);
+  if (!profile?.cardId || !profile.autopayConsentAt) {
+    return { outcome: "no-card", message: "This customer has no card saved. Check with Casey before you buy groceries." };
+  }
+  const { serviceCents } = visitServiceCents(event, await getPricing());
+  if (!serviceCents) return skipped("No price set for this visit.");
+
+  const amountCents = groceryHoldCents(serviceCents);
+  const row = await createHoldRow({
+    scheduleEventId: eventId,
+    customerEmail: event.customerEmail,
+    description: `Card hold for ${event.packageName || "meal prep"} visit, ${prettyVisitDate(event.serviceDate)} (visit plus up to ${dollars(GROCERY_HOLD_BUFFER_CENTS)} groceries)`,
+    amountCents,
+    cardId: profile.cardId,
+    environment: config.environment,
+  });
+  if (!row) return { outcome: "already", message: "The card is already being held for this visit." };
+
+  const result = await chargeCard({
+    cardId: profile.cardId,
+    customerId: profile.squareCustomerId,
+    amountCents,
+    idempotencyKey: row.idempotencyKey,
+    referenceId: `hold-${eventId}`,
+    note: row.description,
+    buyerEmail: event.customerEmail,
+    autocomplete: false,
+  });
+  if (result.ok && result.data.payment.status === "APPROVED") {
+    await updatePayment(row.id, { status: "authorized", squarePaymentId: result.data.payment.id, error: "" });
+    return { outcome: "held", message: `Card held for ${dollars(amountCents)}. Go ahead and shop.` };
+  }
+  if (!result.ok && result.definite) {
+    const failed = await updatePayment(row.id, { status: "failed", error: result.message });
+    if (failed) await emailHoldDeclined(failed, event.household);
+    return { outcome: "declined", message: `Don't buy groceries yet: the customer's card was declined (${result.message}) Casey and the customer have been emailed.` };
+  }
+  // Square didn't confirm. An unconfirmed hold costs the customer nothing and drops off on its own.
+  const message = result.ok ? `Square says the hold is ${result.data.payment.status.toLowerCase()}.` : result.message;
+  const unknown = await updatePayment(row.id, { status: "unknown", error: message, squarePaymentId: result.ok ? result.data.payment.id : "" });
+  if (unknown) await emailHoldUnconfirmed(unknown, event.household);
+  return { outcome: "unknown", message: "Couldn't confirm the card hold. Check with Casey before you buy groceries." };
+}
+
+/**
+ * Charge a finished visit from its hold. Returns null when the hold can't be used (too
+ * old, too small, or Square refused): the hold is then released and the caller charges
+ * the card the normal way.
+ */
+async function chargeFromHold(payment: PaymentRow, hold: PaymentRow): Promise<ChargeOutcome | null> {
+  if (!hold.squarePaymentId || !canChargeFromHold(hold, payment.amountCents)) {
+    await releaseHold(hold, payment.amountCents > hold.amountCents ? "Visit total was more than the hold." : "Hold was too old to use.");
+    return null;
+  }
+  if (!(await claimPayment(hold.id, ["authorized"], "charging"))) return { outcome: "already", message: "This charge is already being processed." };
+  if (!(await claimPayment(payment.id, ["pending", "failed"], "processing", { cardId: hold.cardId, squarePaymentId: hold.squarePaymentId, environment: hold.environment }))) {
+    await claimPayment(hold.id, ["charging"], "authorized");
+    return { outcome: "already", message: "This charge is already being processed." };
+  }
+  const putBack = async (reason: string) => {
+    await releaseHold({ ...hold, status: "charging" }, reason);
+    await claimPayment(payment.id, ["processing"], payment.status, { squarePaymentId: "" });
+    return null;
+  };
+
+  if (payment.amountCents < hold.amountCents) {
+    const lowered = await updatePaymentAmount(hold.squarePaymentId, payment.amountCents, `adjust-${payment.id}-${hold.id}`);
+    if (!lowered.ok) return putBack(`Couldn't lower the hold: ${lowered.message}`);
+  }
+  const done = await completePayment(hold.squarePaymentId);
+  if (done.ok && done.data.payment.status === "COMPLETED") {
+    const paid = await updatePayment(payment.id, {
+      status: "paid",
+      error: "",
+      squarePaymentId: done.data.payment.id,
+      receiptUrl: done.data.payment.receipt_url ?? "",
+      paidAt: new Date().toISOString(),
+    });
+    await updatePayment(hold.id, { status: "captured", error: "" });
+    if (paid) await emailReceipt(paid);
+    return { outcome: "paid", amountCents: payment.amountCents, message: `Charged ${dollars(payment.amountCents)} from the card hold.` };
+  }
+  if (!done.ok && done.definite) return putBack(`Square wouldn't charge the hold: ${done.message}`);
+
+  // Unknown: Retry re-reads this same payment and finishes it, so it can't charge twice.
+  const message = done.ok ? `Square says the payment is ${done.data.payment.status.toLowerCase()}. Retry to check again.` : done.message;
+  const unknown = await updatePayment(payment.id, { status: "unknown", error: message });
+  if (unknown) await emailOwnerUnknown(unknown);
+  return { outcome: "error", message };
+}
+
+/** Let go of a hold. No money moves; if Square doesn't answer, it drops the hold itself within 7 days. */
+async function releaseHold(hold: PaymentRow, reason: string) {
+  const from = hold.status === "charging" ? ["charging"] : ["authorized"];
+  if (!(await claimPayment(hold.id, from, "released", { error: reason }))) return;
+  if (hold.squarePaymentId) {
+    const cancelled = await cancelPayment(hold.squarePaymentId).catch(() => null);
+    if (!cancelled?.ok) await updatePayment(hold.id, { error: `${reason} Square didn't confirm the release; it drops on its own within 7 days.` });
+  }
+}
+
+async function markHoldCaptured(squarePaymentId: string) {
+  if (!squarePaymentId) return;
+  for (const h of await findPaymentsBySquareId(squarePaymentId)) {
+    if (h.kind === "visit_hold") await updatePayment(h.id, { status: "captured", error: "" });
+  }
+}
+
+/** Release the hold on a visit that won't be charged from it (cancelled, or billed by pay link). */
+export async function releaseHoldForVisit(eventId: number, reason: string) {
+  const hold = await getActiveHold(eventId);
+  if (hold) await releaseHold(hold, reason);
+}
+
+/** Daily: release holds on cancelled visits and holds about to expire anyway. */
+export async function releaseStaleHolds(now = Date.now()) {
+  const ids = await listHoldsToRelease(new Date(now - HOLD_MAX_AGE_MS).toISOString());
+  for (const id of ids) {
+    const hold = await getPayment(id);
+    if (hold) await releaseHold(hold, "Released: the visit was cancelled or the hold was about to expire.");
+  }
+  return ids.length;
+}
+
 /** When a customer saves a card, run any visit charges that were waiting for one. */
 export async function chargeWaitingVisits(email: string) {
   const waiting = await listPendingVisitCharges(email);
@@ -314,6 +487,7 @@ export async function sendPayLink(input: { customerEmail: string; customerName: 
     }
   }
   const saved = await updatePayment(row.id, { status: "link_sent" });
+  if (input.scheduleEventId) await releaseHoldForVisit(input.scheduleEventId, "Billed with a pay link instead.");
   if (saved) await emailPayLink(saved, input.customerName);
   return { ok: true as const, payment: saved };
 }
@@ -453,6 +627,39 @@ async function emailOwnerReview(p: PaymentRow) {
     subject: `Approve charge: ${p.customerEmail} (${money(p.amountCents)})`,
     text: plain("A charge is waiting for your OK", lines, note, `${site}/portal`),
     html: box("A charge is waiting for your OK", lines, note, { href: `${site}/portal`, label: "Open Billing" }),
+  }).catch(() => false);
+}
+
+async function emailHoldDeclined(p: PaymentRow, household: string) {
+  const site = publicSiteUrl();
+  const lines: [string, string][] = [["For", p.description], ["Hold", money(p.amountCents)]];
+  const note = `${p.error} Your chef is about to shop for your visit, and we check your card first. Please update your card so we can go ahead.`;
+  await sendEmail({
+    to: p.customerEmail,
+    subject: "Please update your card before your Driftline visit",
+    text: plain("We couldn't check your card", lines, note, `${site}/account#billing`),
+    html: box("We couldn't check your card", lines, note, { href: `${site}/account#billing`, label: "Update your card" }),
+  }).catch(() => false);
+  await sendEmail({
+    to: ownerEmails(),
+    subject: `Card hold declined: ${household} (${money(p.amountCents)})`,
+    text: plain("A card hold was declined before shopping", [...lines, ["Customer", p.customerEmail], ["Reason", p.error]], "The chef was told not to buy groceries yet. The customer was asked to update their card.", `${site}/portal`),
+    html: box("A card hold was declined before shopping", [...lines, ["Customer", p.customerEmail], ["Reason", p.error]], "The chef was told not to buy groceries yet. The customer was asked to update their card.", {
+      href: `${site}/portal`,
+      label: "Open Billing",
+    }),
+  }).catch(() => false);
+}
+
+async function emailHoldUnconfirmed(p: PaymentRow, household: string) {
+  const site = publicSiteUrl();
+  const lines: [string, string][] = [["For", p.description], ["Hold", money(p.amountCents)], ["Customer", p.customerEmail]];
+  const note = "Square didn't confirm the card hold, so the chef was told to check with you before buying groceries. Nothing was charged.";
+  await sendEmail({
+    to: ownerEmails(),
+    subject: `Card hold not confirmed: ${household}`,
+    text: plain("A card hold needs a look", lines, note, `${site}/portal`),
+    html: box("A card hold needs a look", lines, note, { href: `${site}/portal`, label: "Open Billing" }),
   }).catch(() => false);
 }
 

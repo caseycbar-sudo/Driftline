@@ -12,6 +12,7 @@ import { getCustomer } from "../../db/customers";
 import { listNeedingReminder, patchRequest } from "../../db/requests";
 import { notifyOwnerChefWaiting, notifyStillFindingChef, nudgeChefToAnswer, sendRequestReminder } from "../request-emails";
 import { oregonTomorrow, sendDayBeforeReminders } from "../visit-emails";
+import { releaseStaleHolds } from "../billing";
 
 export async function runDailyJobs(now = new Date()) {
   const date = oregonTomorrow(now);
@@ -32,6 +33,8 @@ export async function runDailyJobs(now = new Date()) {
   if (await sendRequestReminder(named)) for (const { request } of named) await patchRequest(request.id, { remindedAt: now.toISOString() });
   // Visits where no chef has said yes after a day: nudge the chef, tell the customer once, and list them for the owner.
   await chaseChefAnswers(now, date).catch((error) => console.error("[daily] chef follow-up failed", error));
+  // Card holds on cancelled visits, or about to expire, are let go so customers don't see them hanging.
+  await releaseStaleHolds(now.getTime()).catch((error) => console.error("[daily] releasing card holds failed", error));
   await db.update(siteSettings).set({ value: `sent ${sent}` }).where(eq(siteSettings.key, key));
   return { date, sent, skipped: false };
 }

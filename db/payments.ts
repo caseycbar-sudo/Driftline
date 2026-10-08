@@ -1,4 +1,4 @@
-import { and, desc, eq, inArray } from "drizzle-orm";
+import { and, desc, eq, inArray, ne } from "drizzle-orm";
 import { getDb } from "./index";
 import { billingProfiles, payments } from "./schema";
 
@@ -124,20 +124,25 @@ export async function createPayLinkRow(input: {
   return row;
 }
 
+export async function findPaymentsBySquareId(squarePaymentId: string) {
+  return getDb().select().from(payments).where(eq(payments.squarePaymentId, squarePaymentId));
+}
+
 export async function findPaymentByOrderId(orderId: string) {
   const rows = await getDb().select().from(payments).where(eq(payments.squareOrderId, orderId)).limit(1);
   return rows[0] ?? null;
 }
 
+// Grocery holds (kind visit_hold) are not charges, so the billing lists leave them out.
 export async function listPayments(limit = 200) {
-  return getDb().select().from(payments).orderBy(desc(payments.createdAt)).limit(limit);
+  return getDb().select().from(payments).where(ne(payments.kind, "visit_hold")).orderBy(desc(payments.createdAt)).limit(limit);
 }
 
 export async function listPaymentsForCustomer(email: string) {
   return getDb()
     .select()
     .from(payments)
-    .where(eq(payments.customerEmail, email.toLowerCase()))
+    .where(and(eq(payments.customerEmail, email.toLowerCase()), ne(payments.kind, "visit_hold")))
     .orderBy(desc(payments.createdAt))
     .limit(50);
 }
@@ -169,7 +174,7 @@ export async function listUnbilledVisits(sinceDate: string) {
        WHERE s.status = 'completed' AND s.service_type = 'meal_prep' AND s.customer_email != '' AND s.service_date >= ?
          AND NOT EXISTS (
            SELECT 1 FROM payments p
-           WHERE p.schedule_event_id = s.id AND NOT (p.kind = 'pay_link' AND p.status IN ('pending', 'failed'))
+           WHERE p.schedule_event_id = s.id AND p.kind != 'visit_hold' AND NOT (p.kind = 'pay_link' AND p.status IN ('pending', 'failed'))
          )
        ORDER BY s.service_date DESC LIMIT 50`,
     )
@@ -183,4 +188,63 @@ export async function listUnbilledVisits(sinceDate: string) {
     packageName: String(r.package_name),
     groceryCents: Number(r.grocery_cents ?? 0),
   }));
+}
+
+/* ---------- grocery holds (kind visit_hold) ----------
+ * status: processing -> authorized (card held) | failed (declined) | unknown (Square didn't confirm)
+ *         authorized -> charging (being turned into the visit charge) -> captured | released
+ */
+
+/** The hold currently on the customer's card for this visit, if any. */
+export async function getActiveHold(scheduleEventId: number) {
+  const rows = await getDb()
+    .select()
+    .from(payments)
+    .where(and(eq(payments.scheduleEventId, scheduleEventId), eq(payments.kind, "visit_hold"), eq(payments.status, "authorized")))
+    .orderBy(desc(payments.id))
+    .limit(1);
+  return rows[0] ?? null;
+}
+
+/**
+ * Start a hold row. The key includes the attempt number and is unique, so two taps at
+ * once can't both place a hold: the second insert fails and returns null.
+ */
+export async function createHoldRow(input: { scheduleEventId: number; customerEmail: string; description: string; amountCents: number; cardId: string; environment: string }) {
+  const tries = await getDb()
+    .select({ id: payments.id, status: payments.status })
+    .from(payments)
+    .where(and(eq(payments.scheduleEventId, input.scheduleEventId), eq(payments.kind, "visit_hold")));
+  if (tries.some((t) => t.status === "processing" || t.status === "authorized" || t.status === "charging")) return null;
+  const t = now();
+  const rows = await getDb()
+    .insert(payments)
+    .values({
+      ...input,
+      customerEmail: input.customerEmail.toLowerCase(),
+      kind: "visit_hold",
+      serviceCents: 0,
+      groceryCents: 0,
+      status: "processing",
+      idempotencyKey: `hold-${input.scheduleEventId}-${tries.length + 1}`,
+      createdBy: "system",
+      createdAt: t,
+      updatedAt: t,
+    })
+    .onConflictDoNothing()
+    .returning();
+  return rows[0] ?? null;
+}
+
+/** Holds to let go of: older than the cutoff, or on a visit that was cancelled. */
+export async function listHoldsToRelease(olderThan: string) {
+  const result = await getDb().$client
+    .prepare(
+      `SELECT p.id FROM payments p LEFT JOIN schedule_events s ON s.id = p.schedule_event_id
+       WHERE p.kind = 'visit_hold' AND p.status = 'authorized' AND (p.created_at < ? OR s.id IS NULL OR s.status = 'cancelled')
+       LIMIT 100`,
+    )
+    .bind(olderThan)
+    .all<{ id: number }>();
+  return result.results.map((r) => Number(r.id));
 }

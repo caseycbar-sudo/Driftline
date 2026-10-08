@@ -14,6 +14,7 @@ import { getCookbook } from "../../../../db/cookbook";
 import { findPackage } from "../../../pricing-core";
 import { isRealDate, mapsLink, telLink } from "../../../schedule-core";
 import { oregonToday } from "../../../oregon-time";
+import { placeGroceryHold, type HoldOutcome } from "../../../billing";
 
 export const dynamic = "force-dynamic";
 const allowed = new Set(["day", "break", "shopping", "job"]);
@@ -229,5 +230,14 @@ export async function POST(request: Request) {
       await setChefEventStatus(eventId, user.email, "shopping", ["scheduled", "confirmed"]);
     if (activityType === "job") await setChefEventStatus(eventId, user.email, "in-progress", ["scheduled", "confirmed", "shopping"]);
   }
-  return NextResponse.json(await toggleTimeEntry(user.email, activityType, label, eventId));
+  const toggled = await toggleTimeEntry(user.email, activityType, label, eventId);
+  // Starting a shopping trip checks the customer's card with a hold before anything is bought.
+  let hold: HoldOutcome | null = null;
+  if (activityType === "shopping" && toggled.active && eventId) {
+    hold = await placeGroceryHold(eventId).catch((error) => {
+      console.error("[billing] grocery hold failed", error);
+      return { outcome: "unknown" as const, message: "Couldn't check the customer's card. Check with Casey before you buy groceries." };
+    });
+  }
+  return NextResponse.json({ ...toggled, hold });
 }

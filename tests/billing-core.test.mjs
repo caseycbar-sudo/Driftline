@@ -57,3 +57,22 @@ test("the Square environment must be spelled out exactly", () => {
     assert.equal(parseSquareEnvironment(bad), null, String(bad));
   }
 });
+
+test("the grocery hold is the visit price plus $150", async () => {
+  const { groceryHoldCents, GROCERY_HOLD_BUFFER_CENTS } = await import("../app/billing-core.ts");
+  assert.equal(GROCERY_HOLD_BUFFER_CENTS, 15000);
+  assert.equal(groceryHoldCents(24400), 39400);
+});
+
+test("a visit is charged from its hold only when the hold is fresh and big enough", async () => {
+  const { canChargeFromHold, HOLD_MAX_AGE_MS } = await import("../app/billing-core.ts");
+  const now = Date.parse("2026-10-08T12:00:00Z");
+  const hold = (amountCents, hoursAgo) => ({ amountCents, createdAt: new Date(now - hoursAgo * 3_600_000).toISOString() });
+  assert.equal(canChargeFromHold(hold(39400, 20), 32862, now), true, "typical visit");
+  assert.equal(canChargeFromHold(hold(39400, 20), 39400, now), true, "exactly the hold");
+  assert.equal(canChargeFromHold(hold(39400, 20), 39401, now), false, "more than the hold");
+  assert.equal(canChargeFromHold(hold(39400, 20), 0, now), false, "nothing to charge");
+  assert.equal(canChargeFromHold(hold(39400, HOLD_MAX_AGE_MS / 3_600_000 + 1), 30000, now), false, "too old");
+  assert.equal(canChargeFromHold(hold(39400, -1), 30000, now), false, "clock in the future");
+  assert.equal(canChargeFromHold({ amountCents: 39400, createdAt: "garbage" }, 30000, now), false, "bad date");
+});
