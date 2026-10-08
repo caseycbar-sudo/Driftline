@@ -253,7 +253,7 @@ export const payments = sqliteTable("payments", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   scheduleEventId: integer("schedule_event_id").notNull().default(0),
   customerEmail: text("customer_email").notNull(),
-  /** visit_charge (card on file) | pay_link (Square checkout link) */
+  /** visit_charge (card on file) | pay_link (Square checkout link) | visit_hold (grocery card hold, not a charge) */
   kind: text("kind").notNull(),
   description: text("description").notNull(),
   serviceCents: integer("service_cents").notNull().default(0),

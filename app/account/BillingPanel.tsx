@@ -150,8 +150,9 @@ export default function BillingPanel() {
         <span>PAYMENTS</span>
         <h2>Card &amp; receipts</h2>
         <p>
-          For weekly meal prep, your card is charged after each visit: the package price plus the grocery receipt. You&apos;ll get an
-          email receipt every time.
+          For weekly meal prep, your card is charged after each visit: the package price plus the grocery receipt. When your chef
+          starts shopping, we place a temporary hold for the visit price plus up to $150 for groceries; you&apos;re only charged the
+          exact total, and the rest of the hold is released. You&apos;ll get an email receipt every time.
         </p>
       </div>
 
@@ -213,8 +214,8 @@ export default function BillingPanel() {
             <label className="billing-consent">
               <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
               <span>
-                Charge this card after each completed meal prep visit (package price plus groceries). I&apos;ll get a receipt each time and
-                can remove the card anytime.
+                Charge this card after each completed meal prep visit (package price plus groceries). A temporary hold is placed
+                when my chef starts shopping. I&apos;ll get a receipt each time and can remove the card anytime.
               </span>
             </label>
             <div className="billing-actions">

@@ -160,7 +160,11 @@ export type SquarePayment = {
   amount_money?: { amount: number; currency: string };
 };
 
-/** Charge a saved card. The idempotency key makes a retried request safe: Square charges at most once per key. */
+/**
+ * Charge a saved card. The idempotency key makes a retried request safe: Square charges at most once per key.
+ * With `autocomplete: false` it only places a hold (status APPROVED) that is completed or cancelled later;
+ * Square cancels an uncompleted card hold on its own after 7 days.
+ */
 export async function chargeCard(input: {
   cardId: string;
   customerId: string;
@@ -169,6 +173,7 @@ export async function chargeCard(input: {
   referenceId: string;
   note: string;
   buyerEmail: string;
+  autocomplete?: boolean;
 }) {
   const config = squareConfig();
   return call<{ payment: SquarePayment }>("POST", "/v2/payments", {
@@ -180,8 +185,26 @@ export async function chargeCard(input: {
     reference_id: input.referenceId.slice(0, 40),
     note: input.note.slice(0, 500),
     buyer_email_address: input.buyerEmail || undefined,
-    autocomplete: true,
+    autocomplete: input.autocomplete ?? true,
   });
+}
+
+/** Lower the amount of a held (APPROVED) payment before completing it. */
+export async function updatePaymentAmount(paymentId: string, amountCents: number, idempotencyKey: string) {
+  return call<{ payment: SquarePayment }>("PUT", `/v2/payments/${encodeURIComponent(paymentId)}`, {
+    idempotency_key: idempotencyKey,
+    payment: { amount_money: { amount: amountCents, currency: "USD" } },
+  });
+}
+
+/** Turn a hold into a real charge. Completing an already completed payment just returns it. */
+export async function completePayment(paymentId: string) {
+  return call<{ payment: SquarePayment }>("POST", `/v2/payments/${encodeURIComponent(paymentId)}/complete`, {});
+}
+
+/** Release a hold that hasn't been completed. No money moves. */
+export async function cancelPayment(paymentId: string) {
+  return call<{ payment: SquarePayment }>("POST", `/v2/payments/${encodeURIComponent(paymentId)}/cancel`, {});
 }
 
 export async function createPaymentLink(input: {
