@@ -8,6 +8,7 @@ import { saveVisitCompletion } from "../../../../db/visits";
 import { alertOwnerNotCharged, chargeCompletedVisit } from "../../../billing";
 import { MAX_GROCERY_CENTS, parseMoneyCents } from "../../../billing-core";
 import { oregonToday } from "../../../oregon-time";
+import { visitNoteWith, visitPhotoProblem } from "../../../visit-photo-core";
 
 export const dynamic = "force-dynamic";
 const MAX_FILE = 8 * 1024 * 1024,
@@ -40,11 +41,13 @@ export async function POST(request: Request) {
   if (checks.some((key) => form.get(key) !== "true")) return NextResponse.json({ error: "Complete every cleanup confirmation" }, { status: 400 });
 
   const files = (name: string) => form.getAll(name).filter((v): v is File => v instanceof File && v.size > 0);
-  const dishFiles = files("dishPhotos"),
-    kitchenFiles = files("kitchenPhotos"),
+  // The customer can ask for no photos in their home. Then none are taken or kept.
+  const noPhotos = form.get("noPhotos") === "true";
+  const dishFiles = noPhotos ? [] : files("dishPhotos"),
+    kitchenFiles = noPhotos ? [] : files("kitchenPhotos"),
     receiptFiles = files("receiptPhoto");
-  if (dishFiles.length < 1 || dishFiles.length > 8 || kitchenFiles.length !== 1)
-    return NextResponse.json({ error: "Add 1–8 dish photos and exactly one clean-kitchen photo" }, { status: 400 });
+  const photoProblem = visitPhotoProblem(noPhotos, dishFiles.length, kitchenFiles.length);
+  if (photoProblem) return NextResponse.json({ error: photoProblem }, { status: 400 });
 
   // Meal prep: the chef buys the groceries, so the receipt total is required (0 if the customer supplied them).
   let groceryCents = 0;
@@ -102,7 +105,7 @@ export async function POST(request: Request) {
     sinkClean: true,
     trashHandled: true,
     appliancesOff: true,
-    notes: String(form.get("notes") || "").trim().slice(0, 1000),
+    notes: visitNoteWith(String(form.get("notes") || ""), noPhotos),
     photos: stored,
   });
 
