@@ -24,7 +24,7 @@ export async function POST(request: Request) {
   // Any other sign-in links still sitting in that inbox stop working.
   await retireOpenLinks(used.email).catch(() => {});
 
-  const sessionId = await createSession(used.email);
+  const sessionId = await createSession(used.email, "link");
   const response = NextResponse.redirect(new URL(safeRelativeReturnPath(used.returnTo), origin), 303);
   response.headers.append("Set-Cookie", sessionCookie(sessionId, shouldUseSecureCookie(request.url)));
   response.headers.set("Cache-Control", "no-store");
