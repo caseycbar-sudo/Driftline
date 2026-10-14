@@ -197,3 +197,29 @@ test("the message APIs refuse visitors who are not signed in", async () => {
     await worker.dispose();
   }
 });
+
+test("the password APIs refuse visitors who are not signed in and cross-site posts", async () => {
+  const worker = await startBuiltWorker();
+  try {
+    const json = { "content-type": "application/json" };
+    const get = await worker.fetch("/api/account/password");
+    await get.arrayBuffer();
+    assert.equal(get.status, 401);
+    const post = await worker.fetch("/api/account/password", { method: "POST", headers: json, body: JSON.stringify({ action: "set", password: "blue heron lantern" }) });
+    await post.arrayBuffer();
+    assert.equal(post.status, 401);
+    // The local test worker occasionally restarts under a POST ("Please try sending the request again"); retry that, nothing else.
+    let cross;
+    for (let attempt = 0; attempt < 4; attempt++) {
+      cross = await worker.fetch("/api/auth/password", { method: "POST", headers: { ...json, origin: "https://evil.example", "sec-fetch-site": "cross-site" }, body: JSON.stringify({ email: "a@b.co", password: "x" }) });
+      await cross.arrayBuffer();
+      if (cross.status !== 503) break;
+    }
+    assert.equal(cross.status, 403);
+    const empty = await worker.fetch("/api/auth/password", { method: "POST", headers: json, body: JSON.stringify({}) });
+    await empty.arrayBuffer();
+    assert.equal(empty.status, 400);
+  } finally {
+    await worker.dispose();
+  }
+});

@@ -31,6 +31,9 @@ export default function SignInForm({
   const [codeError, setCodeError] = useState("");
   const [passkey, setPasskey] = useState<{ ok: boolean; name: string }>({ ok: false, name: "Face ID" });
   const [passkeyBusy, setPasskeyBusy] = useState(false);
+  const [usePassword, setUsePassword] = useState(false);
+  const [password, setPassword] = useState("");
+  const [signingIn, setSigningIn] = useState(false);
 
   useEffect(() => {
     // The big Face ID button only shows on phones that have used it here before;
@@ -83,6 +86,31 @@ export default function SignInForm({
       setCodeError("We couldn't reach the server. Check your connection and try again.");
     }
     setChecking(false);
+  }
+
+  async function submitPassword(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setSigningIn(true);
+    setError("");
+    setState("idle");
+    try {
+      const response = await fetch("/api/auth/password", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ email, password, returnTo }),
+      });
+      const body = (await response.json().catch(() => ({}))) as { to?: string; error?: string };
+      if (response.ok) {
+        window.location.assign(body.to || returnTo);
+        return;
+      }
+      setError(body.error || "That didn't work. Please try again.");
+      setState("error");
+    } catch {
+      setError("We couldn't reach the server. Check your connection and try again.");
+      setState("error");
+    }
+    setSigningIn(false);
   }
 
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -153,7 +181,7 @@ export default function SignInForm({
   const googleHref = `/api/auth/google/start?return_to=${encodeURIComponent(returnTo)}`;
 
   return (
-    <form method="post" action="/api/auth/request" onSubmit={submit}>
+    <form method="post" action="/api/auth/request" onSubmit={usePassword ? submitPassword : submit}>
       <input type="hidden" name="returnTo" value={returnTo} />
       {quick ? (
         <div className="dp-signin-quick">
@@ -186,15 +214,49 @@ export default function SignInForm({
         onChange={(e) => setEmail(e.target.value)}
         aria-invalid={state === "error" ? true : undefined}
       />
-      <button disabled={state === "sending"}>
-        {state === "sending" ? "Sending…" : "Email me a sign-in code"} <span aria-hidden="true">→</span>
-      </button>
+      {usePassword ? (
+        <>
+          <label htmlFor="signin-password">Password</label>
+          <input
+            id="signin-password"
+            type="password"
+            name="password"
+            required
+            autoComplete="current-password"
+            placeholder="Your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button disabled={signingIn}>
+            {signingIn ? "Signing in…" : "Sign in"} <span aria-hidden="true">→</span>
+          </button>
+        </>
+      ) : (
+        <button disabled={state === "sending"}>
+          {state === "sending" ? "Sending…" : "Email me a sign-in code"} <span aria-hidden="true">→</span>
+        </button>
+      )}
       {state === "error" ? (
         <p className="dp-signin-error" role="alert">
           {error}
         </p>
       ) : null}
-      <p className="dp-signin-small">No password needed. We&apos;ll email you a 6-digit code. Once you&apos;re in, turn on {passkey.name} for one-tap sign-in next time.</p>
+      <p className="dp-signin-small">
+        {usePassword
+          ? "Forgot it? Email yourself a code instead, then set a new password from the Password link once you're in."
+          : `We'll email you a 6-digit code. Once you're in, you can set a password or turn on ${passkey.name} for one-tap sign-in next time.`}
+      </p>
+      <button
+        type="button"
+        className="dp-link-button"
+        onClick={() => {
+          setUsePassword(!usePassword);
+          setState("idle");
+          setError("");
+        }}
+      >
+        {usePassword ? "Email me a sign-in code instead" : "Sign in with a password instead"}
+      </button>
     </form>
   );
 }

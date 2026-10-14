@@ -188,7 +188,7 @@ export async function retireOpenLinks(email: string) {
 }
 
 /** Start a session. Returns the raw session id for the cookie; only its hash is stored. */
-export async function createSession(email: string) {
+export async function createSession(email: string, method = "") {
   const id = randomToken();
   const now = new Date();
   await getDb().insert(authSessions).values({
@@ -197,6 +197,7 @@ export async function createSession(email: string) {
     createdAt: now.toISOString(),
     expiresAt: new Date(now.getTime() + SESSION_TTL_MS).toISOString(),
     lastSeenAt: now.toISOString(),
+    method,
   });
   return id;
 }

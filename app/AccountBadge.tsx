@@ -11,7 +11,7 @@ const LABELS = { admin: "Owner", chef: "Chef", customer: "Customer" } as const;
  * A small badge pinned to the corner of every page for anyone who is signed
  * in. It says which kind of account this is and which email, in a color that
  * changes with the role, so it is obvious when testing with several accounts.
- * It is informational only and links nowhere except Sign out.
+ * It links to Password (set or change your password) and Sign out.
  */
 export default function AccountBadge() {
   const [session, setSession] = useState<Session | null>(null);
@@ -30,6 +30,7 @@ export default function AccountBadge() {
     <div className={`account-badge account-badge-${kind}`} role="status">
       <strong>{LABELS[kind]}</strong>
       <span>{session.email}</span>
+      <a href="/account/password">Password</a>
       <a href="/signout?return_to=%2Fsignin">Sign out</a>
     </div>
   );

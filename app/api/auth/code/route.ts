@@ -25,5 +25,5 @@ export async function POST(request: Request) {
     await recordCodeFailure(source).catch(() => undefined);
     return NextResponse.json({ error: "That code didn't work. Check the newest email, or send a new code." }, { status: 400 });
   }
-  return signInJson(used.email, used.returnTo, request);
+  return signInJson(used.email, used.returnTo, request, "code");
 }

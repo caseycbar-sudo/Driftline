@@ -213,6 +213,18 @@ export const authSessions = sqliteTable("auth_sessions", {
   createdAt: text("created_at").notNull(),
   expiresAt: text("expires_at").notNull(),
   lastSeenAt: text("last_seen_at").notNull(),
+  /** How this session began: "code", "link", "password", or "" (passkey, Google, older sessions). */
+  method: text("method").notNull().default(""),
+});
+
+/** Optional password sign-in. One row per email that has set a password; only a salted hash is stored. */
+export const authPasswords = sqliteTable("auth_passwords", {
+  email: text("email").primaryKey(),
+  hash: text("hash").notNull(),
+  salt: text("salt").notNull(),
+  iterations: integer("iterations").notNull(),
+  createdAt: text("created_at").notNull(),
+  updatedAt: text("updated_at").notNull(),
 });
 
 /** Small owner-controlled settings (e.g. today's Sunday Market status). */
