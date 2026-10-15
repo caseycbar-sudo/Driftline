@@ -129,7 +129,7 @@ export default function ScheduleForm(props: {
 
         {props.needsCard ? (
           <p className="plan-warning">
-            Save a card under <Link href="/account#billing">Card &amp; receipts</Link> before sending a request. It is only charged after your visit is done, for the package price plus groceries.
+            Save a card under <Link href="/account#billing">Card &amp; receipts</Link> before sending a request. It is only charged after your visit is done, for the package price plus groceries. A temporary hold is placed when your chef starts shopping.
           </p>
         ) : null}
 

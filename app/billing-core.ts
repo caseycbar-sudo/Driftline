@@ -52,5 +52,25 @@ export function parseSquareEnvironment(raw: string | undefined): SquareEnvironme
   return value === "sandbox" || value === "production" ? value : null;
 }
 
+/**
+ * Grocery card hold: when the chef starts shopping, the customer's card is held for
+ * the visit price plus this much for groceries. The exact total is charged after the
+ * visit from that hold, and the rest is released.
+ */
+export const GROCERY_HOLD_BUFFER_CENTS = 15_000;
+/** Square drops an uncompleted card hold after 7 days; stop relying on one a day before that. */
+export const HOLD_MAX_AGE_MS = 6 * 24 * 60 * 60 * 1000;
+
+export const groceryHoldCents = (serviceCents: number) => serviceCents + GROCERY_HOLD_BUFFER_CENTS;
+
+/**
+ * Whether a visit total can be charged from an existing hold: the hold must still be
+ * fresh and at least as large as the total (Square can lower a held amount, not raise it).
+ */
+export function canChargeFromHold(hold: { amountCents: number; createdAt: string }, totalCents: number, now = Date.now()): boolean {
+  const age = now - Date.parse(hold.createdAt);
+  return totalCents > 0 && totalCents <= hold.amountCents && Number.isFinite(age) && age >= 0 && age < HOLD_MAX_AGE_MS;
+}
+
 /** Square payment states that mean money moved or may still move. */
 export const LIVE_SQUARE_PAYMENT = new Set(["COMPLETED", "APPROVED", "PENDING"]);

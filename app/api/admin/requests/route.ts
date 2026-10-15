@@ -9,6 +9,7 @@ import { findChefConflicts, isRealDate, type VisitInput } from "../../../schedul
 import { parseApproval, startTimesIn, type TimeWindow } from "../../../request-core";
 import { notifyCancelledByDriftline, notifyChefAssigned, notifyChefReleased, notifyDeclined, notifyNeedsNewTime } from "../../../request-emails";
 import { notifyVisitChange } from "../../../visit-emails";
+import { releaseHoldForVisit } from "../../../billing";
 
 export const dynamic = "force-dynamic";
 
@@ -102,6 +103,7 @@ export async function POST(request: Request) {
     if (r.status === "cancelled") return fail("That session is already canceled.", 409);
     const visit = r.scheduleEventId ? await getEvent(r.scheduleEventId) : null;
     const live = visit && visit.status !== "cancelled" ? await patchEvent(visit.id, { status: "cancelled" }) : null;
+    if (visit) await releaseHoldForVisit(visit.id, "Visit cancelled.").catch(() => undefined);
     await patchRequest(r.id, { status: "cancelled" });
     await notifyCancelledByDriftline(r, who, live);
     return NextResponse.json({ ok: true });
