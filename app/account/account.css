@@ -904,3 +904,25 @@
 .pantry-items{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
 .pantry-items li{background:#fff;border:1px solid #e1ddd3;padding:10px 12px;font-size:14px;color:#243a41}
 .pantry-items small{color:#7a868a}
+
+/* My recipes */
+.my-recipes .my-recipes-note{font-size:14px;color:#68767a;margin:0 0 12px}
+.my-recipes .my-recipes-empty{font-size:15px;color:#344b53;margin:8px 0}
+.my-recipes .my-recipes-error{background:#fbeceb;border-left:3px solid #a33;color:#7a2222;padding:9px 12px;font-size:14px}
+.my-recipes .my-recipes-sub{font-size:16px;margin:18px 0 8px;color:#18313d}
+.my-recipes-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.my-recipes-grid li{border:1px solid #e0e5df;border-radius:10px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
+.my-recipes-grid img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.my-recipes-grid li>div{padding:10px 12px;display:grid;gap:4px}
+.my-recipes-grid b{font-size:15px;color:#18313d}
+.my-recipes-grid small{color:#68767a}
+.my-recipes button{justify-self:start;border:1px solid #c8d0ca;background:#fff;border-radius:8px;padding:8px 12px;font:inherit;font-size:13px;cursor:pointer;color:#344b53;min-height:40px}
+.my-recipes button:disabled{opacity:.5}
+.my-recipes-own{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.my-recipes-own li{border:1px solid #e0e5df;border-radius:10px;background:#fff;padding:2px 14px}
+.my-recipes-own summary{cursor:pointer;display:flex;justify-content:space-between;gap:10px;padding:12px 0;align-items:baseline}
+.my-recipes-own summary b{font-size:15px;color:#18313d}
+.my-recipes-own summary small{color:#68767a;flex:none}
+.my-recipes-own h4{margin:10px 0 2px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#486863}
+.my-recipes-own .my-recipes-text{white-space:pre-wrap;margin:0 0 6px;font-size:14px;line-height:1.5;color:#344b53;overflow-wrap:anywhere}
+.my-recipes-own details>button{margin:8px 0 12px}

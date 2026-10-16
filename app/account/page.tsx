@@ -18,6 +18,8 @@ import DisclosureGate from "../disclosures/DisclosureGate";
 import VisitGallery from "./VisitGallery";
 import { listCustomerVisits } from "../../db/visits";
 import { listPantry } from "../../db/pantry";
+import { getMealPlan, type CustomRecipe } from "../../db/meals";
+import MyRecipes from "./MyRecipes";
 import BrandLogo from "../BrandLogo";
 import { CONTACT_EMAIL } from "../site-config";
 import "./account.css";
@@ -46,12 +48,19 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
   // Visits Casey booked directly (not from a request) still show up.
   const direct = (await listUpcomingForCustomer(user.email, oregonToday()).catch(() => [])).filter(v => !v.requestId);
   const firstTime = requests.length === 0 && direct.length === 0;
-  const backdrop = backdropImages(await getCookbook().catch(() => []));
+  const cookbook = await getCookbook().catch(() => []);
+  const backdrop = backdropImages(cookbook);
+  // Dishes they saved from the cookbook, and recipes they typed in themselves.
+  const mealPlan = await getMealPlan(user.email).catch(() => ({ selectedRecipeIds: [] as number[], customRecipes: [] as CustomRecipe[] }));
+  const savedRecipes = mealPlan.selectedRecipeIds.flatMap((id: number) => {
+    const recipe = cookbook.find(r => r.id === id);
+    return recipe ? [{ id: recipe.id, title: recipe.title, category: recipe.category, image: recipe.image, side: recipe.side }] : [];
+  });
   return <main className="account-page has-dishes">
     <DishBackdrop images={backdrop} />
     <DisclosureGate scope="customer" />
     <PasskeyPrompt />
-    <header className="account-nav"><Link className="account-brand" href="/"><BrandLogo/></Link><nav><Link href="/cookbook">Cookbook</Link><Link href="/meal-prep#pricing">Pricing</Link><a href={signOutPath("/")}>Sign out</a></nav></header>
+    <header className="account-nav"><Link className="account-brand" href="/"><BrandLogo/></Link><nav><Link href="/cookbook">Cookbook</Link><Link href="#recipes">My recipes</Link><Link href="/meal-prep#pricing">Pricing</Link><a href={signOutPath("/")}>Sign out</a></nav></header>
     <section className="welcome-panel"><div><p>YOUR DRIFTLINE ACCOUNT</p><h1>{firstName ? `Welcome, ${firstName}.` : "Welcome."}</h1><span>Let&apos;s make home meals feel easier this week.</span></div><div className="account-status"><i>✓</i><span><small>Account ready</small><strong>Your preferences travel with every visit</strong></span></div></section>
     <section className="account-content">
       <Overview upcoming={upcomingAll} requests={requests} address={[profile.streetAddress, profile.city].filter(Boolean).join(", ")} completedVisits={visits.length} hasAutopay={Boolean(billing?.autopayConsentAt)} card={billing?.cardId ? { brand: billing.cardBrand, last4: billing.cardLast4, expMonth: billing.cardExpMonth, expYear: billing.cardExpYear } : null} payments={payments.map(p => ({ amountCents: p.amountCents, status: p.status, createdAt: p.createdAt, paidAt: p.paidAt ?? "" }))} />
@@ -62,6 +71,7 @@ export default async function AccountPage({ searchParams }: { searchParams: Prom
       </nav> : <SessionCards sent={params.sent === "1"} />}</div>
       {!firstTime && direct.length ? <section className="session-cards"><span>BOOKED WITH DRIFTLINE</span>{direct.map(v => <article className="session-card" key={v.id}><header><b>{prettyVisitDate(v.serviceDate)}</b><small>{v.status === "confirmed" ? "Confirmed" : "Scheduled"}</small></header><p>{prettyTime(v.startTime)}{v.endTime ? `-${prettyTime(v.endTime)}` : ""} · {v.chefEmail ? `Your chef: ${v.chef.split(" ")[0]}` : "We'll confirm your chef soon"}</p></article>)}</section> : null}
       {pantry.length ? <section className="meal-plan pantry-panel"><div className="meal-plan-heading"><div><span>IN YOUR KITCHEN</span><h2>Left from your last visit</h2></div></div><p className="pantry-note">Your chef put these away and will skip them on your next shopping list, so you aren&apos;t buying them twice.</p><ul className="pantry-items">{pantry.map(item => <li key={item.itemKey}>{item.name}{item.note ? <small> · {item.note}</small> : null}</li>)}</ul></section> : null}
+      <MyRecipes saved={savedRecipes} own={mealPlan.customRecipes} />
       <div id="household"><ProfileForm initialProfile={profile} /></div>
       <BillingPanel />
       <div id="visits"><VisitGallery /></div>
