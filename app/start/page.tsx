@@ -1,6 +1,26 @@
-import { permanentRedirect } from "next/navigation";
+import type { Metadata } from "next";
+import { redirect } from "next/navigation";
+import { getUser } from "../auth";
+import { googleConfig } from "../auth-session";
+import { getPricing } from "../../db/pricing";
+import StartFlow from "./StartFlow";
+import "../home.css";
+import "./start.css";
 
-/** Old ChatGPT-era chooser page; its choices now live on the home page. */
-export default function StartPage() {
-  permanentRedirect("/");
+export const dynamic = "force-dynamic";
+export const metadata: Metadata = {
+  title: "Get started · Driftline Provisions",
+  description: "Tell us about your household and see your weekly meal prep plan in under a minute.",
+};
+
+export default async function StartPage() {
+  if (await getUser()) redirect("/account/plan");
+  const pricing = await getPricing();
+  return (
+    <StartFlow
+      packages={pricing.mealPrep}
+      pantryKit={pricing.pantryKitCents}
+      googleEnabled={Boolean(googleConfig())}
+    />
+  );
 }

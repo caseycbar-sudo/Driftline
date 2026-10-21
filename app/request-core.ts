@@ -99,6 +99,17 @@ export function planFor(items: number, people: number, pricing: Pricing): Plan |
   return pkg ? { package: pkg, portionsNeeded } : null;
 }
 
+export type StartPick = { people: number; dishes: number; portions: number; pkg: MealPrepPackage };
+
+/**
+ * What the QR-code start page shows a household of this size: the package they would book with the
+ * smallest menu. It uses planFor, so the start page never promises a price the plan builder won't show.
+ */
+export function startPick(packages: readonly MealPrepPackage[], people: number): StartPick | null {
+  const plan = planFor(MIN_ENTREES, people, { mealPrep: [...packages] } as Pricing);
+  return plan ? { people, dishes: MIN_ENTREES, portions: plan.portionsNeeded, pkg: plan.package } : null;
+}
+
 export const BUSINESS_PHONE = "(503) 741-9630";
 
 /* ------------------------------------------------------- availability */

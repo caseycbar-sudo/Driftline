@@ -1,0 +1,209 @@
+.dp-start {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--dp-deep, #16232f);
+  color: #fff;
+}
+.dp-start-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px var(--dp-gutter, 20px);
+}
+.dp-start-top .driftline-master-logo {
+  width: 120px;
+}
+.dp-start-call {
+  color: var(--dp-gold-light, #e6c88a);
+  font-weight: 700;
+  font-size: 15px;
+  text-decoration: none;
+  padding: 10px 0;
+}
+.dp-start-card {
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 12px var(--dp-gutter, 20px) 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.dp-start-card h1 {
+  font-size: clamp(34px, 9vw, 52px);
+  line-height: 1.08;
+  margin: 0;
+}
+.dp-start-card h1 em {
+  display: block;
+  color: var(--dp-gold-light, #e6c88a);
+}
+.dp-start-card .dp-start-q {
+  font-size: clamp(28px, 7.5vw, 40px);
+}
+.dp-start-card .dp-start-q em {
+  display: inline;
+}
+.dp-start-lede {
+  font-size: 18px;
+  line-height: 1.55;
+  margin: 0;
+  opacity: 0.88;
+}
+.dp-start-lede a,
+.dp-start-fine a {
+  color: var(--dp-gold-light, #e6c88a);
+}
+.dp-start-fine {
+  font-size: 15px;
+  opacity: 0.8;
+  margin: 0;
+}
+.dp-start-progress {
+  display: flex;
+  gap: 8px;
+}
+.dp-start-progress i {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.2);
+}
+.dp-start-progress i.on {
+  background: var(--dp-gold-light, #e6c88a);
+}
+.dp-start-big {
+  min-height: 60px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--dp-gold-light, #e6c88a);
+  color: #16232f;
+  font-size: 19px;
+  font-weight: 800;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.dp-start-back {
+  align-self: flex-start;
+  background: none;
+  border: 0;
+  color: #fff;
+  opacity: 0.8;
+  font-size: 16px;
+  padding: 12px 0;
+  cursor: pointer;
+}
+.dp-start-choices {
+  display: grid;
+  gap: 12px;
+}
+.dp-start-choices button,
+.dp-start-choices a {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+  padding: 20px;
+  min-height: 84px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.dp-start-choices strong {
+  font-size: 20px;
+}
+.dp-start-choices span {
+  font-size: 16px;
+  opacity: 0.8;
+}
+.dp-start-sizes {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+.dp-start-sizes button {
+  min-height: 72px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: 28px;
+  font-weight: 800;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.dp-start-sizes button.on {
+  background: var(--dp-gold-light, #e6c88a);
+  color: #16232f;
+}
+.dp-start-price {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 18px 20px;
+  border-left: 3px solid var(--dp-gold-light, #e6c88a);
+  background: rgba(255, 255, 255, 0.06);
+}
+.dp-start-price b {
+  font-size: 44px;
+  line-height: 1;
+}
+.dp-start-price span {
+  font-size: 16px;
+  opacity: 0.85;
+}
+.dp-start-list {
+  margin: 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 10px;
+  font-size: 17px;
+  line-height: 1.5;
+}
+.dp-start-form {
+  background: #fff;
+  color: #16232f;
+  border-radius: 8px;
+  padding: 20px;
+}
+.dp-start-form label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.dp-start-form input {
+  width: 100%;
+  min-height: 52px;
+  font-size: 18px;
+  padding: 0 12px;
+  margin-bottom: 14px;
+  box-sizing: border-box;
+}
+.dp-start-form button:not(.dp-link-button) {
+  width: 100%;
+  min-height: 56px;
+  font-size: 18px;
+}
+
+/* The shared page styles color headings dark; this page is on a dark background. */
+.dp.dp-start .dp-start-card h1,
+.dp.dp-start .dp-start-card h1.dp-start-q {
+  color: #fff;
+}
+.dp.dp-start .dp-start-card h1 em {
+  color: var(--dp-gold-light, #e6c88a);
+  font-style: italic;
+}
+.dp.dp-start .dp-eyebrow {
+  color: var(--dp-gold-light, #e6c88a);
+}
+.dp.dp-start .dp-start-form h2,
+.dp.dp-start .dp-start-form p {
+  color: #16232f;
+}
