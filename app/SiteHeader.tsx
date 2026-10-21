@@ -30,6 +30,18 @@ export default function SiteHeader({ current }: { current?: string }) {
   const close = () => setOpen(false);
   const home = homeFor(session);
 
+  // Take over from the early tap handler (app/early-menu.ts). If the menu was tapped open before
+  // this code loaded, carry that over so the two agree.
+  useEffect(() => {
+    const early = (window as unknown as { __dpMenu?: { hydrated: boolean } }).__dpMenu;
+    if (early) early.hydrated = true;
+    const wasOpened = Boolean(document.querySelector(".dp-nav")?.classList.contains("open"));
+    const frame = window.requestAnimationFrame(() => {
+      if (wasOpened) setOpen(true);
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
+
   useEffect(() => {
     fetch("/api/session", { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : null))

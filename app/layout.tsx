@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SITE_ORIGIN } from "./site-config";
 import AccountBadge from "./AccountBadge";
+import { EARLY_MENU_SCRIPT } from "./early-menu";
 import "./globals.css";
 import "./brand-refresh.css";
 
@@ -14,5 +15,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body>{children}<AccountBadge /></body></html>;
+  return <html lang="en"><body><script dangerouslySetInnerHTML={{ __html: EARLY_MENU_SCRIPT }} />{children}<AccountBadge /></body></html>;
 }

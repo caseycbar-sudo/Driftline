@@ -223,3 +223,16 @@ test("the password APIs refuse visitors who are not signed in and cross-site pos
     await worker.dispose();
   }
 });
+
+test("pages carry the early menu script, so the phone menu opens before the page's scripts finish loading", async () => {
+  const worker = await startBuiltWorker();
+  try {
+    for (const path of ["/", "/meal-prep"]) {
+      const html = await renderPage(worker, path);
+      assert.match(html, /window\.__dpMenu/, `${path} should include the early menu handler`);
+      assert.match(html, /dp-menu-toggle/, `${path} should have the menu button`);
+    }
+  } finally {
+    await worker.dispose();
+  }
+});
