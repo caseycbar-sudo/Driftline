@@ -691,6 +691,19 @@
 
 /* ---------- responsive ---------- */
 @media (max-width: 1180px) {
+  /* iPhone Safari can hide or ignore a dropdown that hangs below a header
+     with a blur filter, so the phone header is plain (it is already 97% solid). */
+  .dp-header {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .dp-menu-toggle {
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
   .dp-nav {
     display: none;
   }
