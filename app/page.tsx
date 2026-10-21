@@ -113,6 +113,9 @@ export default async function Home() {
             <a className="dp-btn dp-btn-line" href="/meal-prep">
               Explore weekly meal prep
             </a>
+            <a className="dp-btn dp-btn-line" href="/start">
+              New here? Start here
+            </a>
           </div>
           <MarketHeroLink />
         </div>

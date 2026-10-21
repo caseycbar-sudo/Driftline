@@ -153,7 +153,8 @@ test("search basics: titles, main address, sitemap, robots, not-found", async ()
     assert.match(await missing.text(), /drifted/);
 
     const start = await worker.fetch("/start", { redirect: "manual" });
-    assert.ok([301, 307, 308].includes(start.status));
+    assert.equal(start.status, 200);
+    assert.match(await start.text(), /Get started/);
 
     const apex = await worker.fetch("http://driftlineprovisions.com/privatechef?ref=card", { redirect: "manual" });
     assert.equal(apex.status, 301);
